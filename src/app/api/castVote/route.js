@@ -5,18 +5,20 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const pname = searchParams.get('pname')
+    const ppsn = searchParams.get('ppsn')
+    const candidateID = searchParams.get('candidateID')
+    
     console.log(pname);
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb://root:example@localhost:27017/';
+    const url = 'mongodb+srv://clusterevote202324.zopnvkp.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority';
     const client = new MongoClient(url);
     const dbName = 'App'; // database name
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
     const collection = db.collection('shopping_cart'); // collection name
-    var myobj = { pname: pname, username: "sample@test.com"};
+    var myobj = { ppsn: ppsn, candidateID: candidateID};
     const insertResult = await collection.insertOne(myobj);
     //==========================================================
     // at the end of the process we need to send something back.
