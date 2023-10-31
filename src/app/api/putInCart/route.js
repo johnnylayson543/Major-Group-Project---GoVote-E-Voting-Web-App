@@ -9,7 +9,7 @@ export async function GET(req, res) {
     console.log(pname);
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb://root:example@localhost:27017/';
+    const url = 'mongodb+srv://clusterevote202324.zopnvkp.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority';
     const client = new MongoClient(url);
     const dbName = 'App'; // database name
     await client.connect();
