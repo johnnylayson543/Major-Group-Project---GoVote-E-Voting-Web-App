@@ -10,7 +10,8 @@ export async function GET(req, res) {
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
-    const collection = db.collection('products'); // collection name
+    const collection = db.collection('voters'); // collection name
+    const voter = collection(ppsn: )
     const findResult = await collection.find({}).toArray();
     console.log('Found documents =>', findResult);
     //==========================================================
