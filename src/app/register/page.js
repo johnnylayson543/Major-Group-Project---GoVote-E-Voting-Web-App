@@ -51,31 +51,37 @@ export default function Page() {
   */
 	const handleSubmit = (event) => {
 		
-		console.log("handling submit");
+		console.log("handling submit voting registration");
 
 
     event.preventDefault();
   
 		const data = new FormData(event.currentTarget);
 
-
+    let name = data.get('name')
+    let address = data.get('address')
     let email = data.get('email')
 		let pass = data.get('pass')
     let dateofbirth = data.get('dateofbirth')
-    let name = data.get('name')
+    let ppsn = data.get('ppsn')
+    let phone = data.get('phone')
+  
 
+    console.log("Sent name:" + name)
+    console.log("Sent address:" + address)
     console.log("Sent email:" + email)
     console.log("Sent pass:" + pass)
-    console.log("Sent date of birth:" + pass)
-    console.log("Sent name:" + pass)
+    console.log("Sent date of birth:" + dateofbirth)
+    console.log("Sent ppsn" + ppsn)
+    console.log("Sent phone" + phone)
 
 
-    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&dateofbirth=${dateofbirth}&name=${name}`)
+    runDBCallAsync(`http://localhost:3000/api/register?name=${name}&address=${address}&email=${email}pass=${pass}dateofbirth=${dateofbirth}ppsn=${ppsn}phone=${phone}`)
 
 
 
 
-  }; // end handler
+  }; // end handler submit for voting registration
 
 
 

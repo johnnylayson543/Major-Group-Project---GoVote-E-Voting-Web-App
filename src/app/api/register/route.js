@@ -8,14 +8,16 @@ export async function GET(req, res) {
 
   const ppsn = searchParams.get('ppsn')
   const name = searchParams.get('name')
-  const name = searchParams.get('address')
+  const address = searchParams.get('address')
   const email = searchParams.get('email')
   const phone = searchParams.get('phone')
   const dateofbirth = searchParams.get('dateofbirth')
 
   console.log(ppsn);
   console.log(name);
-  console.log(email);
+  console.log(address)
+  console.log(email)
+  console.log(phone);
   console.log(dateofbirth);
   // database call goes here
   // at the end of the process we need to send something back.
