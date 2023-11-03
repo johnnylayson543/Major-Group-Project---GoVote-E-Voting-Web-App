@@ -23,6 +23,7 @@ export default function Page() {
 
 
   /*
+  After the submit handler calls the runDBCallAsync, this does the thing
   This function does the actual work
   calling the fetch to get things from the database.
   */ 
@@ -39,13 +40,13 @@ export default function Page() {
       
     } else {
 
-      console.log("not valid  ")
+      console.log("not valid!")
     }
   }
 
 
   /*
-
+  This is the submit handler for the e-voting register page after the button is fired
   When the button is clicked, this is the event that is fired.
   The first thing we need to do is prevent the default refresh of the page.
   */
@@ -86,7 +87,7 @@ export default function Page() {
 
 
 
-  
+  // Create a theme
   const theme = createTheme({
     palette: {
      
@@ -99,7 +100,7 @@ export default function Page() {
 
 
 
-  
+  // This is what's get displayed on the main page (the frontend)
   return (
     <ThemeProvider theme={theme}>
     <Container component="main"  maxWidth="xs">
