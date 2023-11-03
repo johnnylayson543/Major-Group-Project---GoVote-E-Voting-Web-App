@@ -116,14 +116,14 @@ export default function Page() {
           
         </Avatar>
         <Typography component="h1" variant="h5">
-          Create An Account
+          Create A GoVote Account
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
             margin="normal"
             required
             fullWidth
-            id="Name"
+            id="name"
             label="Name"
             name="name"
             autoComplete="name"
@@ -133,7 +133,7 @@ export default function Page() {
             margin="normal"
             required
             fullWidth
-            id="Address"
+            id="address"
             label="Address"
             name="address"
             autoComplete="address"
@@ -163,7 +163,7 @@ export default function Page() {
             margin="normal"
             required
             fullWidth
-            id="Date Of Birth"
+            id="dateofbirth"
             label="Date Of Birth"
             name="dateofbirth"
             autoComplete="date-of-birth"
@@ -173,7 +173,7 @@ export default function Page() {
             margin="normal"
             required
             fullWidth
-            id="PPSN"
+            id="ppsn"
             label="PPSN"
             name="ppsn"
             autoComplete="ppsn"
@@ -183,7 +183,7 @@ export default function Page() {
             margin="normal"
             required
             fullWidth
-            id="Phone"
+            id="phone"
             label="Phone"
             name="phone"
             autoComplete="phone"

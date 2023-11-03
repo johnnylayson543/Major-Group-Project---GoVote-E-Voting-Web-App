@@ -39,7 +39,7 @@ export default function Page() {
       
     } else {
 
-      console.log("not valid  ")
+      console.log("login is not valid!")
     }
   }
 
@@ -51,7 +51,7 @@ export default function Page() {
   */
 	const handleSubmit = (event) => {
 		
-		console.log("handling submit");
+		console.log("handling login submit");
 
 
     event.preventDefault();
@@ -60,18 +60,20 @@ export default function Page() {
 
 
     let email = data.get('email')
+    let dateofbirth = data.get('dateofbirth')
 		let pass = data.get('pass')
 
     console.log("Sent email:" + email)
+    console.log("Sent date of birth:" + dateofbirth)
     console.log("Sent pass:" + pass)
 
 
-    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&dateofbirth=${dateofbirth}&pass=${pass}`)
 
 
 
 
-  }; // end handler
+  }; // end login submit handler
 
 
 
@@ -103,10 +105,10 @@ export default function Page() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          
+  
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Login to GoVote
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -117,6 +119,16 @@ export default function Page() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="dateofbirth"
+            label="Date of Birth"
+            name="dateofbirth"
+            autoComplete="date-of-birth"
             autoFocus
           />
           <TextField
@@ -139,7 +151,7 @@ export default function Page() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Login
           </Button>
 
 
