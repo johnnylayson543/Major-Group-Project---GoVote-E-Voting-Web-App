@@ -116,7 +116,7 @@ export default function Page() {
           
         </Avatar>
         <Typography component="h1" variant="h5">
-          Register
+          Create An Account
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
@@ -133,10 +133,10 @@ export default function Page() {
             margin="normal"
             required
             fullWidth
-            id="Date Of Birth"
-            label="Date Of Birth"
-            name="dateofbirth"
-            autoComplete="date-of-birth"
+            id="Address"
+            label="Address"
+            name="address"
+            autoComplete="address"
             autoFocus
           />
           <TextField
@@ -159,6 +159,36 @@ export default function Page() {
             id="pass"
             autoComplete="current-password"
           />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="Date Of Birth"
+            label="Date Of Birth"
+            name="dateofbirth"
+            autoComplete="date-of-birth"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="PPSN"
+            label="PPSN"
+            name="ppsn"
+            autoComplete="ppsn"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="Phone"
+            label="Phone"
+            name="phone"
+            autoComplete="phone"
+            autoFocus
+          />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -169,7 +199,7 @@ export default function Page() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Create Account
           </Button>
 
         </Box>

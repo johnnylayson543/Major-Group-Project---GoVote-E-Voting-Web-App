@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.13",
     "mongodb": "^6.1.0",
-    "next": "latest",
+    "next": "^14.0.1",
     "react": "latest",
     "react-dom": "latest",
     "request": "^2.88.2",
