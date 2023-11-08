@@ -17,6 +17,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 
+global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
+
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact', 'Login', 'Register'];
 

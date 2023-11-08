@@ -16,7 +16,7 @@ export async function GET(req, res) {
     console.log("in the api page")
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb://root:example@localhost:27017/';
+    const url = global.mongoURL;
     const client = new MongoClient(url);
     const dbName = 'App'; // database name
     await client.connect();
@@ -39,5 +39,5 @@ export async function GET(req, res) {
   // database call goes here
   // at the end of the process we need to send something back.
   return Response.json({ "data":"valid" })
-  }
+  
   
