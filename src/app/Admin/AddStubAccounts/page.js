@@ -60,16 +60,14 @@ export default function Page() {
 		const data = new FormData(event.currentTarget);
 
 
-    let email = data.get('email')
-    let dateofbirth = data.get('dateofbirth')
-		let pass = data.get('pass')
+    let rangeMin = data.get('rangeMin')
+    let rangeMax = data.get('rangeMax')
 
-    console.log("Sent email:" + email)
-    console.log("Sent date of birth:" + dateofbirth)
-    console.log("Sent pass:" + pass)
+    console.log("Range Min:" + rangeMin)
+    console.log("Range Max:" + rangeMax)
 
 
-    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&dateofbirth=${dateofbirth}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/admin/addStubAccounts?rangeMin=${rangeMin}&rangeMax=${rangeMax}`)
 
 
 
@@ -117,35 +115,20 @@ export default function Page() {
             required
             fullWidth
             id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            label="Range Minimum"
+            name="rangeMin"
             autoFocus
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            id="dateofbirth"
-            label="Date of Birth"
-            name="dateofbirth"
-            autoComplete="date-of-birth"
+            id="rangeMax"
+            label="Range Maximum"
+            name="rangeMax"
             autoFocus
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="pass"
-            label="Pass"
-            type="pass"
-            id="pass"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          
           <Button
             type="submit"
             fullWidth
