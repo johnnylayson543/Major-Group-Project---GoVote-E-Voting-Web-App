@@ -7,7 +7,7 @@ export async function GET(req, res) {
     console.log("in the api page")
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb://root:example@localhost:27017/';
+    const url = global.mongoURL;
     const client = new MongoClient(url);
     const dbName = 'App'; // database name
     await client.connect();

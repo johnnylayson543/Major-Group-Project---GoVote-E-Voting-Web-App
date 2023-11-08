@@ -5,17 +5,13 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url);
-    const candidateID = searchParams.get('candidateID');
-    const pollID = searchParams.get('pollID');
-    
-
     const ppsnMin = searchParams.get('ppsnMin');
     const ppsnMax = searchParams.get('ppsnMax');
     
     console.log(pname);
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb+srv://clusterevote202324.zopnvkp.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority';
+    const url = global.mongoURL;
     const client = new MongoClient(url);
     const dbName = 'App'; // database name
     await client.connect();

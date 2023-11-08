@@ -24,7 +24,7 @@ export async function GET(req, res) {
 
 // =================================================
 const { MongoClient } = require('mongodb');
-const url = 'mongodb+srv://clusterevote202324.zopnvkp.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority';
+const url = global.mongoURL;
 const client = new MongoClient(url);
 const dbName = 'EVote'; // database name
 await client.connect();
