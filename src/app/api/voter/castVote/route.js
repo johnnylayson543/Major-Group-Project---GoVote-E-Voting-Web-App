@@ -4,9 +4,9 @@ export async function GET(req, res) {
     console.log("in the putInCart api page")
     // get the values
     // that were sent across to us.
-    const { searchParams } = new URL(req.url)
-    const ppsn = searchParams.get('ppsn')
-    const candidateID = searchParams.get('candidateID')
+    const { searchParams } = new URL(req.url);
+    const ppsn = searchParams.get('ppsn');
+    const candidateID = searchParams.get('candidateID');
     
     console.log(pname);
     // =================================================
@@ -22,5 +22,5 @@ export async function GET(req, res) {
     const insertResult = await collection.insertOne(myobj);
     //==========================================================
     // at the end of the process we need to send something back.
-    return Response.json({ "data":"" + "inserted" + ""})
+    return Response.json({ "data":"" + "inserted" + ""});
     }

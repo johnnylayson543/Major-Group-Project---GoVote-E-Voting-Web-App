@@ -30,7 +30,7 @@ const dbName = 'EVote'; // database name
 await client.connect();
 console.log('Connected successfully to server');
 const db = client.db(dbName);
-const collection = db.collection('voter'); // collection name
+const collection = db.collection('person'); // collection name
 var myobj = { ppsn: ppsn, name: name, address: address, email: email, dateofbirth: dateofbirth }; // create object for person collection
 const insertResult = await collection.replaceOne({ppsn: ppsn}, myobj); // find existing document with matching ppsn, and replace with new person document
 //==========================================================

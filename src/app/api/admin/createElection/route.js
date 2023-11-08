@@ -5,16 +5,7 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const candidateID = searchParams.get('candidateID')
-    const pollID = searchParams.get('pollID')
-    
-
-    const ppsn = searchParams.get('ppsn')
-    const name = searchParams.get('name')
-    const address = searchParams.get('address')
-    const email = searchParams.get('email')
-    const phone = searchParams.get('phone')
-    const dateofbirth = searchParams.get('dateofbirth')
+    const Ballot = searchParams.get('BallotID');
     
     console.log(pname);
     // =================================================
@@ -25,8 +16,8 @@ export async function GET(req, res) {
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
-    const collection = db.collection('shopping_cart'); // collection name
-    var myobj = { ppsn: ppsn, candidateID: candidateID};
+    const collection = db.collection('Elections'); // collection name
+    var myobj = { ballotID: Ballot };
     const insertResult = await collection.insertOne(myobj);
     //==========================================================
     // at the end of the process we need to send something back.

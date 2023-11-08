@@ -1,16 +1,16 @@
 export async function GET(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
-    console.log("in the putInCart api page")
+    console.log("in the putInCart api page");
     // get the values
     // that were sent across to us.
-    const { searchParams } = new URL(req.url)
-    const candidateID = searchParams.get('candidateID')
-    const pollID = searchParams.get('pollID')
+    const { searchParams } = new URL(req.url);
+    const candidateID = searchParams.get('candidateID');
+    const pollID = searchParams.get('pollID');
     
 
-    const ppsnMin = searchParams.get('ppsnMin')
-    const ppsnMax = searchParams.get('ppsnMax')
+    const ppsnMin = searchParams.get('ppsnMin');
+    const ppsnMax = searchParams.get('ppsnMax');
     
     console.log(pname);
     // =================================================
@@ -30,5 +30,6 @@ export async function GET(req, res) {
     const insertResult = await collection.insertMany(myobj); // add person documents to the MangoDB database
     //==========================================================
     // at the end of the process we need to send something back.
-    return Response.json({ "data":"" + "inserted" + ""})
+    return Response.json({ "ppsn": i + " inserted " + ". "});
     }
+}
