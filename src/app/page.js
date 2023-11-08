@@ -15,7 +15,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
+/*
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import ButtonBase from '@material-ui/core/ButtonBase';
+*/
 
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
@@ -54,6 +60,7 @@ function DrawerAppBar(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+      
       <AppBar component="nav" color="success">
         <Toolbar>
           <IconButton
@@ -97,7 +104,11 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
+
+    
+
       </nav>
+
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
         <Typography>
