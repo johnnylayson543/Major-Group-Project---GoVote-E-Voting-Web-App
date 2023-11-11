@@ -15,6 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 /*
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -26,7 +27,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact', 'Login', 'Register'];
+const navItems = ['Home', 'About', 'Contact',<a href="./login/">Login </a>, 'Register'];
 
 function DrawerAppBar(props) {
 
@@ -105,7 +106,8 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
 
-    
+
+
 
       </nav>
 
