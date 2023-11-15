@@ -129,10 +129,6 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
-
-
-
-
       </nav>
 
       <Box component="main" sx={{ p: 3 }}>
