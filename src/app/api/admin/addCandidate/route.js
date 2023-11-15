@@ -11,14 +11,9 @@ export async function GET(req, res) {
     
     console.log(pname);
     // =================================================
-    const { MongoClient } = require('mongodb');
-    const url = global.mongoURL;
-    const client = new MongoClient(url);
-    const dbName = 'App'; // database name
-    await client.connect();
-    console.log('Connected successfully to server');
-    const db = client.db(dbName);
-    const collection = db.collection('candidates'); // collection name
+    client = getClient();
+    database = client.db;
+    const collection = database.collection('candidates'); // collection name
     var myobj = { ppsn: ppsn, ballotID: ballotID };  // candidate object
     const insertResult = await collection.insertOne(myobj); // insert candidate to candidate collection
     //==========================================================

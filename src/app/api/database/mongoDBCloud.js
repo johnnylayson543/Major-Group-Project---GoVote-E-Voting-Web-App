@@ -8,13 +8,10 @@ const client = new MongoClient('mongodb+srv://cluster0.sy1ddlq.mongodb.net/?auth
   serverApi: ServerApiVersion.v1
 });
 
-async function run() {
+export async function getClient() {
   try {
     await client.connect();
-    const database = client.db("testDB");
-    const collection = database.collection("testCol");
-    const docCount = await collection.countDocuments({});
-    console.log(docCount);
+    return client;
     // perform actions using client
   } finally {
     // Ensures that the client will close when you finish/error
@@ -22,4 +19,4 @@ async function run() {
   }
 }
 
-run().catch(console.dir);
+//run().catch(console.dir);
