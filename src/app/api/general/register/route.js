@@ -23,14 +23,9 @@ export async function GET(req, res) {
   // at the end of the process we need to send something back.
 
 // =================================================
-const { MongoClient } = require('mongodb');
-const url = global.mongoURL;
-const client = new MongoClient(url);
-const dbName = 'EVote'; // database name
-await client.connect();
-console.log('Connected successfully to server');
-const db = client.db(dbName);
-const collection = db.collection('person'); // collection name
+client = getClient();
+    database = client.db;
+    const collection = database.collection('person'); // collection name
 var myobj = { ppsn: ppsn, name: name, address: address, email: email, dateofbirth: dateofbirth }; // create object for person collection
 const insertResult = await collection.replaceOne({ppsn: ppsn}, myobj); // find existing document with matching ppsn, and replace with new person document
 //==========================================================
