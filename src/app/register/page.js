@@ -23,7 +23,6 @@ export default function Page() {
 
 
   /*
-  After the submit handler calls the runDBCallAsync, this does the thing
   This function does the actual work
   calling the fetch to get things from the database.
   */ 
@@ -34,60 +33,51 @@ export default function Page() {
     const data = await res.json();
 
  
-    if(data.data== "valid"){
-      console.log("login is valid!")
+    if(data.data== "true"){
+      console.log("registered")
 
       
     } else {
 
-      console.log("not valid!")
+      console.log("not registered  ")
     }
   }
 
 
   /*
-  This is the submit handler for the e-voting register page after the button is fired
+
   When the button is clicked, this is the event that is fired.
   The first thing we need to do is prevent the default refresh of the page.
   */
 	const handleSubmit = (event) => {
 		
-		console.log("handling submit voting registration");
+		console.log("handling submit");
 
 
     event.preventDefault();
   
 		const data = new FormData(event.currentTarget);
 
-    let name = data.get('name')
-    let address = data.get('address')
+
     let email = data.get('email')
 		let pass = data.get('pass')
-    let dateofbirth = data.get('dateofbirth')
-    let ppsn = data.get('ppsn')
-    let phone = data.get('phone')
-  
+    let dob = data.get('dob')
 
-    console.log("Sent name:" + name)
-    console.log("Sent address:" + address)
+
     console.log("Sent email:" + email)
     console.log("Sent pass:" + pass)
-    console.log("Sent date of birth:" + dateofbirth)
-    console.log("Sent ppsn" + ppsn)
-    console.log("Sent phone" + phone)
+    console.log("Sent dob:" + dob)
 
 
-    runDBCallAsync(`http://localhost:3000/api/register?name=${name}&address=${address}&email=${email}pass=${pass}dateofbirth=${dateofbirth}ppsn=${ppsn}phone=${phone}`)
+    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&dob=${dob}`)
 
 
-
-
-  }; // end handler submit for voting registration
+  }; // end handler
 
 
 
 
-  // Create a theme
+  
   const theme = createTheme({
     palette: {
      
@@ -100,7 +90,7 @@ export default function Page() {
 
 
 
-  // This is what's get displayed on the main page (the frontend)
+  
   return (
     <ThemeProvider theme={theme}>
     <Container component="main"  maxWidth="xs">
@@ -117,29 +107,9 @@ export default function Page() {
           
         </Avatar>
         <Typography component="h1" variant="h5">
-          Create A GoVote Account
+          Register
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="address"
-            label="Address"
-            name="address"
-            autoComplete="address"
-            autoFocus
-          />
           <TextField
             margin="normal"
             required
@@ -160,39 +130,20 @@ export default function Page() {
             id="pass"
             autoComplete="current-password"
           />
+          
           <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="dateofbirth"
-            label="Date Of Birth"
-            name="dateofbirth"
-            autoComplete="date-of-birth"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="ppsn"
-            label="PPSN"
-            name="ppsn"
-            autoComplete="ppsn"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="phone"
-            label="Phone"
-            name="phone"
-            autoComplete="phone"
-            autoFocus
+          margin="normal"
+          required
+          fullWidth
+          name="dob"
+          label="dob"
+          type="text"
+          id="dob"
+          autoComplete=""
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
           />
           <Button
             type="submit"
@@ -200,9 +151,24 @@ export default function Page() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Create Account
+            Register
           </Button>
 
+
+
+
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
 
