@@ -27,7 +27,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact',<a href="./login/">Login </a>, 'Register'];
+const navItems = ['Home', 'About', 'Contact', 'Login' , 'Register'];
 
 function DrawerAppBar(props) {
 
@@ -56,6 +56,23 @@ function DrawerAppBar(props) {
     </Box>
   );
 
+  const getLinkDestination = (item) => {
+    switch (item) {
+      case 'Home':
+        return '/';
+      case 'About':
+        return '/about';
+      case 'Login':
+        return '/login';
+      case 'Register':
+        return '/register';
+      case 'Contact':
+        return '/contact';
+      default:
+        return '#'; // or some default fallback
+    }
+  };
+
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -78,13 +95,17 @@ function DrawerAppBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            GoVote
+            {/* Use Link from Next.js for client-side navigation */}
+                GoVote
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
+              // Use Link for client-side navigation
+            <Link href={getLinkDestination(item)} key={item}>
+              <Button sx={{ color: '#fff' }}>
                 {item}
               </Button>
+            </Link>
             ))}
           </Box>
         </Toolbar>
