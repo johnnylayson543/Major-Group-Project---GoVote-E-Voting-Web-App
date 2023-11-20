@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import NavBar from "../header/navBar";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -89,8 +90,6 @@ export default function Page() {
   
 
 
-
-  
   return (
     <ThemeProvider theme={theme}>
     <Container component="main"  maxWidth="xs">
@@ -106,6 +105,7 @@ export default function Page() {
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           
         </Avatar>
+        <NavBar />
         <Typography component="h1" variant="h5">
           Register
         </Typography>
@@ -136,7 +136,7 @@ export default function Page() {
           required
           fullWidth
           name="dob"
-          label="dob"
+          label="DOB"
           type="text"
           id="dob"
           autoComplete=""
@@ -164,7 +164,7 @@ export default function Page() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="./register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

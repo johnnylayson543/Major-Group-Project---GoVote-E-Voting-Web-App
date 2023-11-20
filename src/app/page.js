@@ -1,22 +1,9 @@
-'use client'
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
+import React from 'react';
+import NavBar from './/header/navBar'; // Adjust the path based on your project structure
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 
+<<<<<<< Updated upstream
 /*
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -142,14 +129,21 @@ function DrawerAppBar(props) {
       </Box>
     </Box>
   );
+=======
+function page() {
+    return (
+        <div>
+            <NavBar />
+            <Toolbar />
+            <Typography>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
+                fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
+                aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
+                cum quibusdam
+            </Typography>
+        </div>
+    );
+>>>>>>> Stashed changes
 }
 
-DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
-export default DrawerAppBar;
+export default page;
