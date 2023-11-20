@@ -1,9 +1,8 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const credentials = 'src\app\api\database\X509-cert-210263698362705703.pem'
+const credentials = 'src\\app\\api\\database\\X509-cert-210263698362705703.pem'
 
-const dbName = "KrisptKreme";
-
+const dbName = "EVote";
 
 const url = 'mongodb+srv://cluster0.sy1ddlq.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority';
 const security1 = {

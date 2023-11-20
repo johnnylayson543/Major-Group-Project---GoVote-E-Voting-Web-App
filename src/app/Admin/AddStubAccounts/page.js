@@ -60,14 +60,14 @@ export default function Page() {
 		const data = new FormData(event.currentTarget);
 
 
-    let rangeMin = data.get('rangeMin')
-    let rangeMax = data.get('rangeMax')
+    let ppsnMin = data.get('ppsnMin')
+    let ppsnMax = data.get('ppsnMax')
 
-    console.log("Range Min:" + rangeMin)
-    console.log("Range Max:" + rangeMax)
+    console.log("PPSN Min:" + ppsnMin)
+    console.log("PPSN Max:" + ppsnMax)
 
 
-    runDBCallAsync(`http://localhost:3000/api/admin/addStubAccounts?rangeMin=${rangeMin}&rangeMax=${rangeMax}`)
+    runDBCallAsync(`http://localhost:3000/api/admin/addStubAccounts?ppsnMin=${ppsnMin}&ppsnMax=${ppsnMax}`)
 
 
 
@@ -116,7 +116,7 @@ export default function Page() {
             fullWidth
             id="email"
             label="Range Minimum"
-            name="rangeMin"
+            name="ppsnMin"
             autoFocus
           />
           <TextField
@@ -125,7 +125,7 @@ export default function Page() {
             fullWidth
             id="rangeMax"
             label="Range Maximum"
-            name="rangeMax"
+            name="ppsnMax"
             autoFocus
           />
           
@@ -135,24 +135,9 @@ export default function Page() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Login
+            Add Stub Accounts
           </Button>
 
-
-
-
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="\register\" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
 
