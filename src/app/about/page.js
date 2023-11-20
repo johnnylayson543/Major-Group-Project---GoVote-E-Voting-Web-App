@@ -31,7 +31,7 @@ global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24extern
 function DrawerAppBar(props) {
 
     return (
-        <Box>
+        <Box component="main" sx={{ p: 3 }}>
             <NavBar/>
             <Toolbar/>
             <Typography>

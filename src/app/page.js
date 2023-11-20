@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from './/header/navBar'; // Adjust the path based on your project structure
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 
 /*
@@ -17,7 +18,8 @@ global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24extern
 
     function page() {
         return (
-            <div>
+
+            <Box component="main" sx={{ p: 3 }}>
                 <NavBar/>
                 <Toolbar/>
                 <Typography>
@@ -26,7 +28,7 @@ global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24extern
                     aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
                     cum quibusdam
                 </Typography>
-            </div>
+            </Box>
         );
 
     }
