@@ -12,14 +12,19 @@ export async function GET(req, res) {
     
     console.log(pname);
     // =================================================
-    client = getClient();
+    client = await getClient();
     database = client.db;
     const collection = database.collection('person'); // collection name
+    collection.createIndex({ppsn: 1 }, {unique: true} );
     
     let myobj = []; // declare object array for stub person documents 
 
     // a loop that adds stub person documents in ppsn range to person document array 
-    for(var i = 0; i < ppsnMax - ppsnMin; i++ ){ myobj[i] = { ppsn: ppsnMin + i};
+    for(var i = 0; i < ppsnMax - ppsnMin; i++ ){ 
+            if(collection.find({ppsn: ppsnMin + i}).toArray().length !== 0 ){
+                myobj[i] = { ppsn: ppsnMin + i };
+            }
+        };
     const insertResult = await collection.insertMany(myobj); // add person documents to the MangoDB database
     //==========================================================
     // at the end of the process we need to send something back.
