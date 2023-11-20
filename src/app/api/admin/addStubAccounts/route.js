@@ -1,4 +1,4 @@
-import { getClient } from "../../database/mongoDBCloud";
+import { getClient, client } from "../../database/mongoDBCloud";
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -11,23 +11,32 @@ export async function GET(req, res) {
     const ppsnMax = searchParams.get('ppsnMax');
     
     console.log(pname);
-    // =================================================
-    client = await getClient();
-    database = client.db;
-    const collection = database.collection('person'); // collection name
-    collection.createIndex({ppsn: 1 }, {unique: true} );
-    
-    let myobj = []; // declare object array for stub person documents 
 
-    // a loop that adds stub person documents in ppsn range to person document array 
-    for(var i = 0; i < ppsnMax - ppsnMin; i++ ){ 
-            if(collection.find({ppsn: ppsnMin + i}).toArray().length !== 0 ){
-                myobj[i] = { ppsn: ppsnMin + i };
-            }
-        };
-    const insertResult = await collection.insertMany(myobj); // add person documents to the MangoDB database
-    //==========================================================
-    // at the end of the process we need to send something back.
-    return Response.json({ "ppsn": i + " inserted " + ". "});
+    try {
+        // =================================================
+        await getClient();
+        database = client.db;
+        const collection = database.collection('person'); // collection name
+        collection.createIndex({ppsn: 1 }, {unique: true} );
+        
+        let myobj = []; // declare object array for stub person documents 
+
+        // a loop that adds stub person documents in ppsn range to person document array 
+        for(var i = 0; i < ppsnMax - ppsnMin; i++ ){ 
+                if(collection.find({ppsn: ppsnMin + i}).toArray().length !== 0 ){
+                    myobj[i] = { ppsn: ppsnMin + i };
+                }
+            };
+        const insertResult = await collection.insertMany(myobj); // add person documents to the MangoDB database
+        //==========================================================
+        // at the end of the process we need to send something back.
+    } catch(error){
+        console.error("Problem", error);
+        throw error;
+    } finally {
+        client.close();
     }
+
+
+    return Response.json({ "ppsn": myobj + " inserted " + ". "});
 }
