@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react';
+import NavBar from '../header/navBar'
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -137,6 +138,7 @@ function DrawerAppBar(props) {
             </nav>
 
             <Box component="main" sx={{ p: 3 }}>
+                <NavBar/>
                 <Toolbar />
                 <Typography>
                     This is the Contacts page. <br/>
