@@ -28,10 +28,11 @@ export async function GET(req, res) {
 
         console.log("pass 5");
         // a loop that adds stub person documents in ppsn range to person document array 
-        for(var i = 0; i < ppsnMax - ppsnMin; i++ ){ 
+        for(var i = 0; i <= ppsnMax - ppsnMin; i++ ){ 
                 const result1 = await collection.find({ppsn: ppsnMin + i});
                 if( result1 != null ){
-                    const obj = { ppsn: ppsnMin + i }
+                    const ppsn1 = parseInt(ppsnMin) + i;
+                    const obj = { ppsn: ppsn1 }
                     myobj[i] = obj ;
                     //response1 += "ppsn: " + (ppsnMin + i) + " inserted " + ". ";
                 }
