@@ -16,22 +16,21 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
 
-    function page() {
-        return (
+export default function page() {
+    return (
 
-            <Box component="main" sx={{ p: 3 }}>
-                <NavBar/>
-                <Toolbar/>
-                <Typography>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                    fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                    aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                    cum quibusdam
-                </Typography>
-            </Box>
-        );
+        <Box component="main" sx={{ p: 3 }}>
+            <NavBar/>
+            <Toolbar/>
+            <Typography>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
+                fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
+                aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
+                cum quibusdam
+            </Typography>
+        </Box>
+    );
 
-    }
+}
 
-export default page;
 
