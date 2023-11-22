@@ -1,5 +1,7 @@
 import { Collection, MongoClient } from "mongodb"
-import { getClient, client } from "../../database/mongoDBCloud";
+import { performDatabaseOperation, result } from "../../database/databasetemplate";
+import { getClient, client  } from "../../database/mongoDBCloud";
+
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -15,6 +17,41 @@ export async function GET(req, res) {
 
     //response1 = "";
 
+    /*
+    const dbname = "EVote";
+    const collection1 = "Person";
+    const obj1 = await getObj();
+    const kind1 = "INSERT_MANY";
+    const result0 = performDatabaseOperation(dbname, collection1, kind1, obj1);
+    */
+
+
+    async function getObj(){
+        const myobj = []; // declare object array for stub person documents 
+        console.log("pass 5");
+        // a loop that adds stub person documents in ppsn range to person document array 
+        for(var i = 0; i <= ppsnMax - ppsnMin; i++ ){ 
+                
+            
+                const obj2 = {ppsn: ppsnMin + i}
+                const kind2 = "FIND";
+                const result1 = performDatabaseOperation(dbname, collection1, kind2, obj2);
+                
+                if( result1 != null ){
+                    const ppsn1 = parseInt(ppsnMin) + i;
+                    const obj = { ppsn: ppsn1 }
+                    myobj[i] = obj ;
+                    console.log("pass 5.1");
+                    //response1 += "ppsn: " + (ppsnMin + i) + " inserted " + ". ";
+                }
+            };
+        console.log("pass 6");
+    
+        return myobj;
+    }
+    
+
+    
     try {
         // =================================================
         await getClient();
@@ -55,3 +92,5 @@ export async function GET(req, res) {
    //(response1 == undefined) ? response1 = "Nothing. " : "what? ";
    return Response.json({ "data":"ok" })
 }
+
+

@@ -4,12 +4,11 @@ import { getClient, client } from "../../database/mongoDBCloud";
 export async function GET(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
-    console.log("in the putInCart api page")
+    console.log("in the getTally api page")
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url);
-    const voterID = searchParams.get('voterID');
-    const candidateID = searchParams.get('candidateID');
+    const voterID = searchParams.get('ballotID');
     
 
     try {
@@ -23,20 +22,22 @@ export async function GET(req, res) {
         console.log("pass 5");
         // a loop that adds stub person documents in ppsn range to person document array 
        // Add the vote to Vote collection
-        const collection = database.collection('Vote'); // collection name
 
-        var voteID = await collection.countDocuments({});
-        var myobj = { voterID: voterID, candidateID: candidateID};
-        const insertResult = await collection.insertOne(myobj);
+       const collection = database.collection('Candidate'); // collection name
+       var myobj = { ballotID: ballotID };
+       const candidates = await collection.find(myobj).toArray();
 
-        // Add a log to the Log collection
-        
-        const collection1 = database.collection('Log');
+       let tally = [];
+       const collection1 = database.collection('Vote'); // collection name
+       for(let i = 0 ; i<candidates.length; i++){
+            const candidateID1 = candidates[i]["candidateID"];
+            const tally1 = await collection1.countDocuments({candidateID: candidateID1});
+            tally[i] = {candidateID1 , tally1 };
+       }
 
-         // Date.now() : Milliseconds since the Unix Epoch (January 1st 1970 00:00:00 UTC)
-        var myobj1 = { voteID: voterID, time: Date.now()  };
-        const insertResult1 = await collection.insertOne(myobj1);
-
+       let obj1 = tally;
+       const collection2 = database.collection('Tally');
+       const insertTallies = await collection.insertMany(obj1);
 
         await client.close();
         console.log("Operation Success! Account registered. 7");

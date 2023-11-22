@@ -22,30 +22,54 @@ import { useState, useEffect } from 'react'
 export default function Page() {
 
 
+/*
+  After the submit handler calls the runDBCallAsync, this does the thing
+  This function does the actual work
+  calling the fetch to get things from the database.
+  */ 
+  async function runDBCallAsync(url) {
+
+    const res = await fetch(url);
+    const data = await res.json();
+ 
+    if(data.data== "valid"){
+      console.log("login is valid!")
+
+
+      
+    } else {
+
+      console.log("login is not valid!")
+    }
+  }
+
+
 //
 // Function for putting items into the shopping cart.
 //
-function castTheVote(ballotID){
-  console.log("casting vote: " + ballotID)
-  fetch("http://localhost:3000/api/voter/castVote?ballotID="+ ballotID);
+function castTheVote(candidateID, voterID){
+  console.log("CandidateID: " + candidateID + ", voterID: " + voterID); 
+  var url = `http://localhost:3000/api/voter/castVote?candidateID=${candidateID}&voterID=${voterID}`;
+  runDBCallAsync(url);
 }
   
+function getBallotCandidates(ballotID){
+  var url = `http://localhost:3000/api/general/getBallot?ballotID=${ballotID}`;
+  runDBCallAsync(url);
+}
+
 
 
   const [data, setData] = useState(null)
-  const [weather, setWeatherData] = useState(0)
 
-
-
-  // This pre-made react method is for fetching the items on the database and turning into a json data
-  useEffect(() => {
-    fetch('http://localhost:3000/api/admin/addCandidate')
+    useEffect(() => {
+    fetch(`http://localhost:3000/api/general/getBallot?ballotID=${1}`)
     .then((res) => res.json())
     .then((data) => {
     setData(data)
     })
-
-  }, [])
+    .catch( (error) => { console.error('Error:', error) } );
+    }, []);
 
   // If there is no data
   if (!data) return <p>Loading</p>
@@ -63,19 +87,20 @@ function castTheVote(ballotID){
     <Container component="main" maxWidth="xs">
     <div style={{fontSize: '40px'}} >Cast Your Vote</div>
     <div>
-  {
-    data.map((candidate, i) => (
-    <div style={{padding: '20px'}} key={i} >
-    Unique ID: {candidate._id}
-    <br></br>
-    {candidate.ppsn}
-    -
-    {candidate.ballotID}
-    <br></br>
-    <Button onClick={() => castTheVote(candidate.ballotID)} variant="outlined">Cast Vote</Button>
-    </div>
-    ))
-  }
+        {
+        data.map((candidate1, index) => (
+          <div style={{padding: '20px'}} key={index} >
+            Unique ID: {candidate1._id}
+            <br></br>
+            PPSN: {candidate1.ppsn}
+            <br />
+            CandidateID: {candidate1.ballotID}
+            <br></br>
+            <Button onClick={() => castTheVote(candidate1.candidateID, candidate1.ballotID)} variant="outlined">Cast Vote</Button>
+          </div>
+      ))
+        }
+    
   </div>
     </Container>
     </ThemeProvider>
