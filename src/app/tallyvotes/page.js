@@ -46,10 +46,13 @@ import { useState, useEffect } from 'react'
 function go(d){
     const ctx = document.getElementById('myChart');
 
-
-    const xValues = d.tally.candidateID;
-    const yValues = d.tally.tally;
-    const barColors = ["red", "green","blue","orange","brown"];
+    console.log("HERE: " + typeof(d));
+  
+    console.log(d.candidateID + "\n" + d.tally);
+  
+    const xValues = d.map(i=>i.candidateID);
+    const yValues = d.map(i => i.tally);
+    //const barColors = ["red", "green","blue","orange","brown"];
 
 
     let voteChart = new Chart(ctx, {
@@ -101,6 +104,7 @@ export default function Page() {
       .then((res) => res.json())
       .then((data) => {
         setData(data)
+
         console.log("Returned chart data")
         console.log(data);
       })
@@ -115,11 +119,14 @@ export default function Page() {
   
   return (
     <ThemeProvider theme={theme}>
+        {data.map( i => i.candidateID)}
+        {data.map( i => i.tally)}
+        
     	  <Script
         src="https://cdn.jsdelivr.net/npm/chart.js"
         strategy="lazyOnload"
         onLoad={() =>
-          go(data)
+          go(data )
         }//onload
       />
 	
