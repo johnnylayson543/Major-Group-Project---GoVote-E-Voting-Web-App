@@ -44,13 +44,11 @@ import { useState, useEffect } from 'react'
 
 
 function go(d){
-
-
     const ctx = document.getElementById('myChart');
 
 
-    const xValues = d.map(i => i.candidateID);
-    const yValues = d.map(i => i.tally);
+    const xValues = d.tally.candidateID;
+    const yValues = d.tally.tally;
     const barColors = ["red", "green","blue","orange","brown"];
 
 
@@ -99,7 +97,7 @@ export default function Page() {
 
  
   useEffect(() => {
-    fetch(`http://localhost:3000/api/tallyVotes?ballotID=${1}`)
+    fetch(`http://localhost:3000/api/general/tallyVotes?ballotID=${1}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data)
@@ -111,19 +109,17 @@ export default function Page() {
 
   if (!data) return <p>No chart data found</p>
 
+  console.log(data)
 
+  
   
   return (
     <ThemeProvider theme={theme}>
-  
-	  
-	  <Script
+    	  <Script
         src="https://cdn.jsdelivr.net/npm/chart.js"
         strategy="lazyOnload"
-        onLoad={() =>go(data.tally)
-	
-	
-	
+        onLoad={() =>
+          go(data)
         }//onload
       />
 	

@@ -35,7 +35,7 @@ export async function GET(req, res) {
 
          // Date.now() : Milliseconds since the Unix Epoch (January 1st 1970 00:00:00 UTC)
         var myobj1 = { voteID: voterID, time: Date.now()  };
-        const insertResult1 = await collection.insertOne(myobj1);
+        const insertResult1 = await collection1.insertOne(myobj1);
 
 
         await client.close();

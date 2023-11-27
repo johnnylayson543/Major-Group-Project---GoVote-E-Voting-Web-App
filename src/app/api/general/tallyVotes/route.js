@@ -8,7 +8,7 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url);
-    const voterID = searchParams.get('ballotID');
+    const ballotID = searchParams.get('ballotID');
     
 
     try {
@@ -32,19 +32,21 @@ export async function GET(req, res) {
        for(let i = 0 ; i<candidates.length; i++){
             const candidateID1 = candidates[i]["candidateID"];
             const tally1 = await collection1.countDocuments({candidateID: candidateID1});
-            tally[i] = {candidateID1 , tally1 };
+            tally[i] = {candidateID: candidateID1 , tally: tally1 };
        }
 
        let obj1 = tally;
        const collection2 = database.collection('Tally');
-       const insertTallies = await collection.insertMany(obj1);
+       const insertTallies = await collection2.insertMany(obj1);
 
         await client.close();
         console.log("Operation Success! Account registered. 7");
         console.log("pass 6");
         //==========================================================
         // at the end of the process we need to send something back.
-        Response.json({"data": "okay", "tally":tally});
+        //Response.json({"data": "okay", "tally":tally});
+        console.log(tally);
+        return Response.json(tally);
     } catch(error){
         console.error("Problem", error);
         throw error;
