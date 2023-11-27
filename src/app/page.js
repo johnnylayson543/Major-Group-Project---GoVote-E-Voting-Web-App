@@ -5,9 +5,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-
-global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
-
 const Item = ({ children }) => (
     <Box sx={{ border: '4px solid #ddd', padding: 4 }}>
       {children}
