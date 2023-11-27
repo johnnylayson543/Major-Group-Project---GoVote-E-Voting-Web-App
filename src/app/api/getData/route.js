@@ -1,3 +1,9 @@
+/*
+This is for testing and debugging purposes only
+This is to make sure the tallyvotes page and chart is working properly.
+This uses hardcoded result and data passed via json
+*/
+
 export async function GET(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
