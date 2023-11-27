@@ -114,10 +114,10 @@ export default function Page() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="ppsn"
+            label="ppsn"
+            name="ppsn"
+            autoComplete="ppsn"
             autoFocus
           />
           <TextField
@@ -131,20 +131,7 @@ export default function Page() {
             autoComplete="current-password"
           />
           
-          <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="dob"
-          label="DOB"
-          type="text"
-          id="dob"
-          autoComplete=""
-          />
-          <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-          />
+          
           <Button
             type="submit"
             fullWidth
@@ -158,16 +145,7 @@ export default function Page() {
 
 
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="./register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+            
           </Grid>
         </Box>
       </Box>
