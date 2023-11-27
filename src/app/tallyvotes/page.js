@@ -20,19 +20,47 @@ import { green, purple } from '@mui/material/colors';
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
 
+  /*
+  After the submit handler calls the runDBCallAsync, this does the thing
+  This function does the actual work
+  calling the fetch to get things from the database.
+  */ 
+  async function runDBCallAsync(url) {
+
+    const res = await fetch(url);
+    const data = await res.json();
+ 
+    if(data.data== "valid"){
+      console.log("login is valid!")
+
+
+      
+    } else {
+
+      console.log("login is not valid!")
+    }
+  }
+
+
 
 function go(d){
 
-	
+
     const ctx = document.getElementById('myChart');
+
+
+    const xValues = d.map(i => i.candidateID);
+    const yValues = d.map(i => i.tally);
+    const barColors = ["red", "green","blue","orange","brown"];
+
 
     let voteChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: xValues,
       datasets: [{
         label: '# of Votes',
-        data: d,
+        data: yValues,
         borderWidth: 1
       }]
     },
@@ -62,13 +90,16 @@ export default function Page() {
     },
   });
   
-	
+	function getBallotCandidates(ballotID){
+    var url = `http://localhost:3000/api/general/getBallot?ballotID=${ballotID}`;
+    runDBCallAsync(url);
+  }
 
   const [data, setData] = useState(null)
 
  
   useEffect(() => {
-    fetch('http://localhost:3000/api/getData')
+    fetch(`http://localhost:3000/api/tallyVotes?ballotID=${1}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data)
@@ -89,7 +120,7 @@ export default function Page() {
 	  <Script
         src="https://cdn.jsdelivr.net/npm/chart.js"
         strategy="lazyOnload"
-        onLoad={() =>go(data)
+        onLoad={() =>go(data.tally)
 	
 	
 	
