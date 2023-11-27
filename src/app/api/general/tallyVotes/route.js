@@ -28,19 +28,23 @@ export async function GET(req, res) {
        const candidates = await collection.find(myobj).toArray();
 
        let tally = [];
-       const collection1 = database.collection('Tally'); // collection name
+       const collection1 = database.collection('Vote'); // collection name
        for(let i = 0 ; i<candidates.length; i++){
             const candidateID1 = candidates[i]["candidateID"];
-            const tally1 = await collection1.find({candidateID: candidateID1});
-            tally[i] = tally1;
+            const tally1 = await collection1.countDocuments({candidateID: candidateID1});
+            tally[i] = {candidateID1 , tally1 };
        }
 
-        return Response.json({"data": "okay","tally": tally});
+       let obj1 = tally;
+       const collection2 = database.collection('Tally');
+       const insertTallies = await collection.insertMany(obj1);
+
         await client.close();
         console.log("Operation Success! Account registered. 7");
         console.log("pass 6");
         //==========================================================
         // at the end of the process we need to send something back.
+        Response.json({data: "okay", "tally":tally});
     } catch(error){
         console.error("Problem", error);
         throw error;
