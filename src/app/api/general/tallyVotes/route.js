@@ -44,7 +44,7 @@ export async function GET(req, res) {
         console.log("pass 6");
         //==========================================================
         // at the end of the process we need to send something back.
-        Response.json({data: "okay", "tally":tally});
+        Response.json({"data": "okay", "tally":tally});
     } catch(error){
         console.error("Problem", error);
         throw error;
