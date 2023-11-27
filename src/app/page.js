@@ -18,6 +18,9 @@ export default function page() {
         <Box component="main" sx={{ p: 3 }}>
             <NavBar/>
             <Toolbar/>
+            <Typography variant="h5" component="h2">
+            Welcome to GoVote - Ireland's No. 1 E-Voting Website!
+            </Typography>
             <Grid container spacing={6}>
                 <Grid item xs={8}>
                 <Item>

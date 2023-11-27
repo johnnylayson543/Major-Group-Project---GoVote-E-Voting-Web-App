@@ -18,16 +18,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-/*
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import ButtonBase from '@material-ui/core/ButtonBase';
-*/
-
-global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
-
 function DrawerAppBar(props) {
 
     return (
@@ -35,6 +25,9 @@ function DrawerAppBar(props) {
             <Box component="main" sx={{ p: 3 }}>
                 <NavBar/>
                 <Toolbar />
+                <Typography variant="h5" component="h2">
+                Contact Us
+                </Typography>
                 <Typography>
                     This is the Contacts page. <br/>
                     Should the user have any issues with the website they can use this page to reach a helpline
