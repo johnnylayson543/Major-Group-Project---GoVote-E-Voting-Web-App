@@ -1,72 +1,108 @@
-'use client'
-import React from 'react';
-import {useEffect} from 'react';
-import NavBar from '../header/navBar'; // Adjust the path based on your project structure
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+'use client';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Script from 'next/script';
 import Chart from 'chart.js/auto'; // Add this line
 
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import {ThemeProvider } from '@mui/material/styles';
 
-/*
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import ButtonBase from '@material-ui/core/ButtonBase';
-*/
-
-global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
+import { createTheme } from '@mui/material/styles';
+import { green, purple } from '@mui/material/colors';
+import Script from 'next/script'
+import { useState, useEffect } from 'react'
 
 
-export default function page() {
+function go(d){
 
-        const loadTheChart = () => {
-            const ctx = document.getElementById('myChart');
-            const existingChart = Chart.getChart(ctx); // Get the existing Chart instance
-      
-            if (existingChart) {
-              // If an existing Chart instance is found, destroy it
-              existingChart.destroy();
-            }
-    
-          let voteChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['Leo Varadkar', 'Michael Martin', 'Richard Barrett', 'Mary Lou McDonald'],
-              datasets: [{
-                label: '# of Votes',
-                data: [10, 55, 2, 4],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        } // end loadTheChart function
-    
-    return (
+	
+    const ctx = document.getElementById('myChart');
 
-        <Box component="main" sx={{ p: 3 }}>
-            <NavBar/>
-            <Toolbar/>
+    let voteChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: d,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+    });
 
-            <Script src="https://cdn.jsdelivr.net/npm/chart.js" strategy='lazyOnload' onLoad={() => loadTheChart()}/>
 
-            <Typography>
-                Tally Votes Page
-            </Typography>
+}
 
-            <div>
-                <canvas id ="myChart"></canvas>
-            </div>
-        </Box>
-    );
 
+
+export default function Page() {
+
+
+  const theme = createTheme({
+    palette: {
+     
+      secondary: {
+        main: green[500],
+      },
+    },
+  });
+  
+	
+
+  const [data, setData] = useState(null)
+
+ 
+  useEffect(() => {
+    fetch('http://localhost:3000/api/getData')
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        console.log("Returned chart data")
+        console.log(data);
+      })
+  }, [])
+ 
+
+  if (!data) return <p>No chart data found</p>
+
+
+  
+  return (
+    <ThemeProvider theme={theme}>
+  
+	  
+	  <Script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+        strategy="lazyOnload"
+        onLoad={() =>go(data)
+	
+	
+	
+        }//onload
+      />
+	
+	  <div>
+        <canvas id="myChart"></canvas>
+    </div>
+	  
+
+	  
+    </ThemeProvider>
+
+  );
 }
