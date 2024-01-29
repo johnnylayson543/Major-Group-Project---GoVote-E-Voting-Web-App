@@ -14,8 +14,9 @@ const Item = ({ children }) => (
 
 export default function page() {
     return (
+// <body background>
 
-        <Box component="main" sx={{ p: 3 }}>
+        <Box component="main" sx={{ p: 3, backgroundColor: '#CCC' }}>
             <NavBar/>
             <Toolbar/>
             <Typography variant="h5" component="h2">

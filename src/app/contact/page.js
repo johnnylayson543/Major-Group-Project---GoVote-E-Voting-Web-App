@@ -1,7 +1,9 @@
 'use client'
+
+// Import necessary components and libraries from Material-UI
 import * as React from 'react';
 import NavBar from '../header/navBar'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';  //insert for prop type validation
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';

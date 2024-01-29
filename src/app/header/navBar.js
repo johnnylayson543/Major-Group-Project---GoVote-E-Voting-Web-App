@@ -1,4 +1,6 @@
 'use client';
+
+// Import necessary components and libraries from Material-UI
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
@@ -17,16 +19,20 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
+//Set width and items within the navBar
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact', 'Login', 'Register'];
 
-function navBar({ window }) {
+function NavBar({ window }) {
+    // State to manage mobile open/close state
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    // Function to handle drawer toggle (open/close)
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
 
+    // JSX for the drawer content
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
@@ -36,7 +42,7 @@ function navBar({ window }) {
             <List>
                 {navItems.map((item) => (
                     <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
+                        <ListItemButton sx={{ textAlign: 'center', color: '#FFFFF' }}>
                             <ListItemText primary={item} />
                         </ListItemButton>
                     </ListItem>
@@ -45,6 +51,7 @@ function navBar({ window }) {
         </Box>
     );
 
+    // Function to determine the destination link for each item in the navBar
     const getLinkDestination = (item) => {
         switch (item) {
             case 'Home':
@@ -62,13 +69,15 @@ function navBar({ window }) {
         }
     };
 
+    // Function to get the document body based on the window object
     const container = window !== undefined ? () => window().document.body : undefined;
 
+    //JSX for the entire navBar
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
 
-            <AppBar component="nav" color="success">
+            <AppBar component="nav" color="success" >
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -115,9 +124,9 @@ function navBar({ window }) {
         </Box>
     );
 }
-
-navBar.propTypes = {
+//PropTypes for the navBar
+NavBar.propTypes = {
     window: PropTypes.func,
 };
-
-export default navBar;
+//Export thr navBar
+export default NavBar;
