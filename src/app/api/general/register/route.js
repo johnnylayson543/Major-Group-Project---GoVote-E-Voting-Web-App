@@ -9,7 +9,7 @@ export async function GET(req, res) {
   const { searchParams } = new URL(req.url)
 
   const ppsn = searchParams.get('ppsn')
- // const name = searchParams.get('name')
+  // const name = searchParams.get('name')
   // const address = searchParams.get('address')
   // const email = searchParams.get('email')
   // const phone = searchParams.get('phone')
@@ -53,8 +53,6 @@ export async function GET(req, res) {
   // Execute the database operation
   const result1 = await performDatabaseOperation(dbname1, collection1, kind1, obj1);
   
-
-
 
   console.log(ppsn);
  // console.log(name);
