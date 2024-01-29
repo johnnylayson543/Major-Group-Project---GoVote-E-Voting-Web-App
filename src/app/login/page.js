@@ -29,8 +29,6 @@ export default function Page() {
   This function does the actual work
   calling the fetch to get things from the database.
   After the submit handler calls the runDBCallAsync, this does the thing
-  This function does the actual work
-  calling the fetch to get things from the database.
   */ 
   async function runDBCallAsync(url) {
 
@@ -38,20 +36,20 @@ export default function Page() {
     const res = await fetch(url);
     const data = await res.json();
 
- 
+    // If the data fetched and json returned by the route is "valid"
     if(data.data== "valid"){
-      console.log("login is valid!")
+      console.log("Login is valid!")
 
       
     } else {
 
-      console.log("not valid  ")
+      console.log("Login is not valid!")
     }
   }
 
 
   /*
-  This is the submit handler for the e-voting register page after the button is fired
+  This is the submit handler for the e-voting login page after the button is fired
   When the button is clicked, this is the event that is fired.
   The first thing we need to do is prevent the default refresh of the page.
   */
@@ -75,7 +73,7 @@ export default function Page() {
     console.log("Sent date of ppsn:" + ppsn)
     console.log("Sent pass:" + pass)
 
-
+    // Call this function to pass the data created by the FormData
     runDBCallAsync(`http://localhost:3000/api/general/login?email=${email}&dob=${dob}&ppsn=${ppsn}&pass=${pass}`)
 
 
@@ -84,9 +82,7 @@ export default function Page() {
   }; // end handler
 
 
-
-
-  
+  // Theme Provider
   const theme = createTheme({
     palette: {
      
@@ -99,7 +95,7 @@ export default function Page() {
 
 
 
-  
+  // The actual front-end page 
   return (
 
     <ThemeProvider theme={theme}>
@@ -118,8 +114,9 @@ export default function Page() {
         </Avatar>
         <NavBar />
         <Typography component="h1" variant="h5">
-          Login to GoVote
+          Login to Your GoVote Account
         </Typography>
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -157,7 +154,7 @@ export default function Page() {
             fullWidth
             name="pass"
             label="Pass"
-            type="pass"
+            type="password"
             id="pass"
             autoComplete="current-password"
           />
@@ -174,9 +171,6 @@ export default function Page() {
             Login
           </Button>
 
-
-
-
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -185,7 +179,7 @@ export default function Page() {
             </Grid>
             <Grid item>
               <Link href="./register" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Don't have an account on GoVote? Sign Up to start voting!"}
               </Link>
             </Grid>
           </Grid>

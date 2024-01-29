@@ -26,27 +26,28 @@ export default function Page() {
   /*
   This function does the actual work
   calling the fetch to get things from the database.
-  */ 
+  After the submit handler calls the runDBCallAsync, this does the thing
+  */
   async function runDBCallAsync(url) {
 
-
+    
     const res = await fetch(url);
     const data = await res.json();
 
  
     if(data.data== "true"){
-      console.log("registered")
+      console.log("Successfully Registered!")
 
       
     } else {
 
-      console.log("not registered  ")
+      console.log("Registration Failed!")
     }
   }
 
 
   /*
-
+   This is the submit handler for the e-voting register page after the button is fired
   When the button is clicked, this is the event that is fired.
   The first thing we need to do is prevent the default refresh of the page.
   */
@@ -60,25 +61,23 @@ export default function Page() {
 		const data = new FormData(event.currentTarget);
 
 
-    let email = data.get('email')
+    let ppsn = data.get('ppsn')
 		let pass = data.get('pass')
-    let dob = data.get('dob')
+   
 
 
-    console.log("Sent email:" + email)
+    console.log("Sent ppsn:" + ppsn)
     console.log("Sent pass:" + pass)
-    console.log("Sent dob:" + dob)
+    
 
-
-    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&dob=${dob}`)
+    // Call this function to pass the data created by the FormData
+    runDBCallAsync(`http://localhost:3000/api/general/register?ppsn=${ppsn}&pass=${pass}`)
 
 
   }; // end handler
 
 
-
-
-  
+  // Theme Provider
   const theme = createTheme({
     palette: {
      
@@ -89,7 +88,7 @@ export default function Page() {
   });
   
 
-
+// This returns the front-end page
   return (
     <ThemeProvider theme={theme}>
     <Container component="main"  maxWidth="xs">
@@ -107,15 +106,16 @@ export default function Page() {
         </Avatar>
         <NavBar />
         <Typography component="h1" variant="h5">
-          Register
+          Register to GoVote
         </Typography>
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
             id="ppsn"
-            label="ppsn"
+            label="PPSN"
             name="ppsn"
             autoComplete="ppsn"
             autoFocus
@@ -125,13 +125,11 @@ export default function Page() {
             required
             fullWidth
             name="pass"
-            label="Pass"
-            type="pass"
+            label="Password"
+            type="password"
             id="pass"
             autoComplete="current-password"
           />
-          
-          
           <Button
             type="submit"
             fullWidth
@@ -141,12 +139,6 @@ export default function Page() {
             Register
           </Button>
 
-
-
-
-          <Grid container>
-            
-          </Grid>
         </Box>
       </Box>
 
