@@ -1,52 +1,71 @@
+/*
+Student Name:       Adam O'Shea
+Student Number:     B00147637
+First used:         Rich Web Assignment
+When:               TU860 Y3 S1
+*/
+
+
 import { Collection, MongoClient } from "mongodb"
-import { getClient, client } from "./mongoDBCloud";
+import { getClient, clientCloud } from "./mongoDBCloud";
+import { getClientDocker, clientDocker } from "./mongoDBDocker";
 
 
-var result;
+const docker = true; // A toggle - true = Docker, false = Mongo DB Cloud 
+
 // AN IDEA FOR AN ALL PURPOSE DATABASE FUNCTION
 // AIM: To abstract the details from the Application.
-// ALSP: As a reference for database connection
-async function performDatabaseOperation(dbname1, collection1, kind1, obj1) {
+// ALSO: As a reference for database connection
+export const performDatabaseOperation = async (dbname1, collection1, kind1, obj1) => {
+    
+    // Debug messages
     console.log("Parameters: " + dbname1 + ", " + collection1 + "," + kind1 + ", " + obj1);
-
     console.log(typeof dbname1 + "  " + typeof collection1 + " " + typeof kind1 + " " + typeof obj1);
      
+    // declare variables
+    var result;
+    var client;
+
     try {
-        console.log("Parameters: " + dbname1 + ", " + collection1 + "," + kind1 + ", " + obj1);
-        console.log(typeof dbname1 + "  " + typeof collection1 + " " + typeof kind1 + " " + typeof obj1);
         // =================================================
         
-        if(client){
-            await client.close();  
-            await getClient();
+        // Depending if Docker or MongoDB Cloud
+        if(docker) {
+            console.log("DOCKER>>");                                // Debug message
+            await getClientDocker();                                // Use get client function for Dockers
+            client = clientDocker;                                  // Assign the client for Docker to the working variable client
         } else {
-            await getClient();
-        }
-                                                       // <<< PERFORMS REQUIREMENTS FOR CONNECTION
-                                                                        // <<< VARIABLE ALREADY DECLARED IN THE HEAD
-        //console.log("pass 1");
-        const database = client.db(dbname1);                         // <<< database name
-        const collection = database.collection(collection1);             // <<< collection name
-        //collection.createIndex({ppsn: 1 }, {unique: true} );          // <<< If it should be unique
+            console.log("CLOUD>>");                                 // Debug message
+            await getClient();                                      // Use the get client function for MongoDB Cloud
+            client = clientCloud;
+        }                                                           // <<< VARIABLE ALREADY DECLARED IN THE HEAD
+
+        console.log("pass 1");                                      // Debug message
+        const database = client.db(dbname1);                        // <<< database name
+        const collection = database.collection(collection1);        // <<< collection name
+        //collection.createIndex({ppsn: 1 }, {unique: true} );      // <<< If it should be unique
         
-                                                   // <<< CREATE OBJ
-        if (kind1 == "INSERT"){
-            result = await collection.insert(obj1); 
-            console.log("Inserted: " + result + ". ");
-        } else if (kind1 == "INSERT_MANY"){
-            result = await collection.insertMany(obj1);
-            console.log("Inserted all of : " + result + ". ");
-        } else if (kind1 == "FIND") {
-            result = await collection.find(obj1).toArray();
-            console.log("Found: " + result + ". ");
-        } else if (kind1 == "FINDALL"){
-            result = await collection.findAll(obj1).toArray();
-            console.log("Found: " + result + ". ");
+        // [ INSERT, INSERT_MANY, FIND, UPDATE_ONE ]
+        // Perform the database operation      
+        if (kind1 == "INSERT"){                                     // INSERT = Insert One entry
+            result = await collection.insertOne(obj1);              // Must wait for insert one operation
+            console.log("Inserted: " + result + ". ");              // Debug message
+        } else if (kind1 == "INSERT_MANY"){                         // INSERT MANY = Insert Many entries
+            result = await collection.insertMany(obj1);             // Must wait for insert many operation
+            console.log("Inserted all of : " + result + ". ");      // Debug message
+        } else if (kind1 == "FIND") {                               // FIND = Find all matching entries
+            result = await collection.find(obj1).toArray();         // Must wait for find operation
+            console.log("Found: " + result + ". ");                 // Debug message
+        } else if(kind1 == "UPDATE_ONE") {                          // UPDATE ONE = Updates the first matching entry
+            let filter = obj1.filter;                               // The match criteria
+            let update = obj1.update;                               // The update to be applied
+            result = await collection.updateOne(filter, update);    // Must wait for update one operation
+            console.log("Updated one: " + result + ". ");           // Debug message
         } else {
-            console.log("Nothing happened. ");
+            console.log("Nothing happened. ");                      // Debug message
         }
-                                                                         // <<< PERFORM OPERATION ON DATABASE e.g. insert, find, remove, insertAll
-        await client.close();                                           // <<< CLOSE CONNECTION
+                                                                        // <<< CLOSE CONNECTION
+        return result;
     } catch(error){
         console.error("Problem", error);                                // <<< ERROR MESSAGE 
         throw error;                                                    // <<< RETURNS TRACE
@@ -54,13 +73,11 @@ async function performDatabaseOperation(dbname1, collection1, kind1, obj1) {
         await client.close();                                           // <<< CLOSES CONNECTION
         console.log("pass 7");
     }
-}
-
-module.exports = { performDatabaseOperation, result };
+};
 
 
 
- /*
+ /* REFERENCE : Old Code
     try {
         // =================================================
         await getClient();

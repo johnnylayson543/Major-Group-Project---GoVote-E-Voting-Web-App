@@ -1,0 +1,80 @@
+/*
+Student Name:       Adam O'Shea
+Student Number:     B00147637
+
+Document:           EVote API Documentation
+*/
+
+ ---------------{ How the API works }--------------- 
+
+[ EVote ]
+      
+ Evote Application Entity Relations
+      
+    Conceptual Entities
+        Person {ppsn(ID), name, address, phone, email}
+        Candidate { ppsn (PersonID), (candidate)ID, ballotID }
+        Ballot { (ballot)ID, title, closing time }
+      
+        Voter { ppsn (PersonID), voterID }
+        Vote { (vote)ID, voterID, candidateID }
+        
+        Log { voteID, timestamp  }
+
+
+      System Entities
+        
+        Admin {ppsn, adminID}
+        User {ppsn, pass}
+
+
+Example:
+
+ // Database Operation Form
+
+  const dbname1 = "Evote";      // Database Name
+  const collection1 = "Person"; // Database Collection
+  const kind1 = "INSERT";       // Database Operation Type 
+      // > [ 
+      //     INSERT = Insert One, 
+      //     INSERT_MANY = Insert Many, 
+      //     FIND = Find many , 
+      //     UPDATE_ONE = Update first instance         requires filter and update, 
+                                                        such as obj.filter = { col:value }                           
+                                                        and obj.update { col:value } 
+      //   ]
+
+  const obj1 = { ppsn: ppsn,  pass: pass }; // Database Object
+
+  // Execute the database operation
+  const result1 = await performDatabaseOperation(dbname1, collection1, kind1, obj1);
+
+
+[ API Organisation ]
+
+Admin                       Database Operations
+    - addCandidate          FIND person, FIND ballot, INSERT candidate
+    - addStubAccounts       INSERT_MANY person { ppsn }
+    - createBallot          INSERT ballot { id, title, closing_time }
+    - createElection        INSERT election { ballotID }
+
+Voter
+    - castVote              FIND voter, FIND candidate, INSERT vote
+
+
+General
+    - getBallot             FIND ballot { id }
+    - getTally              FIND vote { candidateID }      
+    - getVoter              
+    - tallyVotes            Count the votes per candidate, return data. Use getTally.  
+   
+System
+    - login                 FIND account    { ppsn, pass }
+    - register              INSERT account  { ppsn, pass }
+
+    
+Database
+    - databaseTemplate
+    - mongoDBCloud
+    - mongoDBDocker
+    - cloud cerrificate
