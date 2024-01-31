@@ -147,6 +147,11 @@ export default function Page() {
                          >
                              Login
                          </Button>
+                         <Grid item>
+                             <Link href="./register" variant="body2" textAlign={"center"}>
+                                 {"New Here? Register An Account Now!"}
+                             </Link>
+                         </Grid>
                      </Box>
                  </Item>
                  </Grid>
