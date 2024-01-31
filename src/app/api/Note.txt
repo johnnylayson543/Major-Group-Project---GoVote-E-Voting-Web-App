@@ -51,14 +51,45 @@ Example:
 
 
 [ API Organisation ]
+  -- Reference the Use Case Specification in the Proposal Document
+  -- Implement Use Cases for the Actors
 
 Admin                       Database Operations
-    - addCandidate          FIND person, FIND ballot, INSERT candidate
+    Add Stubs
     - addStubAccounts       INSERT_MANY person { ppsn }
+
+    Create the ballot
+    
     - createBallot          INSERT ballot { id, title, closing_time }
+
+    Add Person to the Ballot, and update Candidate collection 
+    - addCandidate          FIND Person, FIND Ballot, INSERT Candidate
+
+    Create the Election
+        
+        Add ballot to the election collection
     - createElection        INSERT election { ballotID }
 
+    Delete the Election
+    - deleteElection        DELETE election { ballotID }
+
+
 Voter
+    Create account. 
+     - addAccount          INSERT account { ppsn, pass }
+
+    Login to the account. 
+    - loginAccount 
+    
+Select an election.
+
+View the ballot. 
+
+Cast their vote. 
+
+View their cast vote.
+
+Change their cast vote before the deadline.
     - castVote              FIND voter, FIND candidate, INSERT vote
 
 
