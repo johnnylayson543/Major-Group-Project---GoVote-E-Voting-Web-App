@@ -92,6 +92,9 @@ export default function Page() {
       secondary: {
         main: green[500],
       },
+      text: {
+        primary: '#ffffff', 
+      },
     }
   });
 
