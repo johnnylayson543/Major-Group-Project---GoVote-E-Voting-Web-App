@@ -92,9 +92,11 @@ export default function Page() {
       secondary: {
         main: green[500],
       },
+      /* to change text white
       text: {
         primary: '#ffffff', 
       },
+     */
     }
   });
 

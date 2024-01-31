@@ -1,26 +1,34 @@
 'use client'
 import * as React from 'react';
-import NavBar from '../header/navBar';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
+import NavBar from '../header/navBar'
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import {ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import {blue, green, purple} from '@mui/material/colors';
 
-function DrawerAppBar(props) {
+export default function Page() {
+
+    //Theme Provider
+    const theme = createTheme({
+        palette: {
+            background: {
+                default: "#c2c2a3"
+            },
+            secondary: {
+                main: green[500],
+            },
+            /* to change text white
+            text: {
+              primary: '#ffffff',
+            },
+           */
+        }
+    });
 
     return (
+        <ThemeProvider theme={theme}>
         <Box component="main" sx={{ p: 3 }}>
             <NavBar/>
             <Toolbar/>
@@ -32,7 +40,7 @@ function DrawerAppBar(props) {
                 This page will explain the motivation and functionality of the page.
             </Typography>
         </Box>
+        </ThemeProvider>
     );
 }
 
-export default DrawerAppBar

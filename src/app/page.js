@@ -1,9 +1,26 @@
+'use client'
+
 import React from 'react';
 import NavBar from './/header/navBar'; // Adjust the path based on your project structure
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import {ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import {blue, green, purple} from '@mui/material/colors';
+
+import runDBCallAsync from "./login/page"
+
+//login
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Container from '@mui/material/Container';
 
 const Item = ({ children }) => (
     <Box sx={{ border: '4px solid #ddd', padding: 4 }}>
@@ -11,12 +28,72 @@ const Item = ({ children }) => (
     </Box>
   );
 
+//Theme Provider
+const theme = createTheme({
+    palette: {
+        background: {
+            default: "#c2c2a3"
+        },
+        secondary: {
+            main: green[500],
+        },
+        /* to change text white
+        text: {
+          primary: '#ffffff',
+        },
+       */
+    }
+});
 
-export default function page() {
+export default function Page() {
+
+
+    async function runDBCallAsync(url) {
+
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+
+        if(data.data== "true"){
+            console.log("Successfully Registered!")
+
+
+        } else {
+
+            console.log("Registration Failed!")
+        }
+    }
+
+    const handleSubmit = (event) => {
+
+        console.log("handling submit");
+
+
+        event.preventDefault();
+
+        const data = new FormData(event.currentTarget);
+
+
+        let ppsn = data.get('ppsn')
+        let pass = data.get('pass')
+
+
+
+        console.log("Sent ppsn:" + ppsn)
+        console.log("Sent pass:" + pass)
+
+
+        // Call this function to pass the data created by the FormData
+        runDBCallAsync(`http://localhost:3000/api/general/register?ppsn=${ppsn}&pass=${pass}`)
+
+
+    }; // end handler
+
     return (
 // <body background>
-
-        <Box component="main" sx={{ p: 3, backgroundColor: '#CCC' }}>
+        <ThemeProvider theme={theme}>
+        <Box component="main" sx={{ p: 3 }}>
             <NavBar/>
             <Toolbar/>
             <Typography variant="h5" component="h2">
@@ -35,14 +112,51 @@ export default function page() {
                 Sed quam erat, dictum in consequat id, dapibus eu libero.
                 </Item>
                 </Grid>
+
                  <Grid item xs={4}>
-                 <Item>Another Login Page Could Go Here!</Item>
+                 <Item> <Typography component="h1" variant="h5">
+                     Login to GoVote
+                 </Typography>
+
+                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                         <TextField
+                             margin="normal"
+                             required
+                             fullWidth
+                             id="ppsn"
+                             label="PPSN"
+                             name="ppsn"
+                             autoComplete="ppsn"
+                             autoFocus
+                         />
+                         <TextField
+                             margin="normal"
+                             required
+                             fullWidth
+                             name="pass"
+                             label="Password"
+                             type="password"
+                             id="pass"
+                             autoComplete="current-password"
+                         />
+                         <Button
+                             type="submit"
+                             fullWidth
+                             variant="contained"
+                             sx={{ mt: 3, mb: 2 }}
+                         >
+                             Login
+                         </Button>
+                     </Box>
+                 </Item>
                  </Grid>
+
                  <Grid item xs={8}>
                  <Item>Some Photos go here</Item>
                  </Grid>
             </Grid>
         </Box>
+        </ThemeProvider>
     );
 
 }

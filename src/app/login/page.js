@@ -80,11 +80,18 @@ export default function Page() {
   // Theme Provider
   const theme = createTheme({
     palette: {
-
+      background: {
+        default: "#c2c2a3"
+      },
       secondary: {
         main: green[500],
       },
-    },
+      /* to change text white
+      text: {
+        primary: '#ffffff',
+      },
+     */
+    }
   });
 
 
