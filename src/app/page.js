@@ -9,41 +9,11 @@ import Grid from '@mui/material/Grid';
 import {ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import {blue, green, purple} from '@mui/material/colors';
-
 import runDBCallAsync from "./login/page"
-
 //login
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Container from '@mui/material/Container';
 
-const Item = ({ children }) => (
-    <Box sx={{ border: '4px solid #ddd', padding: 4 }}>
-      {children}
-    </Box>
-  );
-
-//Theme Provider
-const theme = createTheme({
-    palette: {
-        background: {
-            default: "#c2c2a3"
-        },
-        secondary: {
-            main: green[500],
-        },
-        /* to change text white
-        text: {
-          primary: '#ffffff',
-        },
-       */
-    }
-});
 
 export default function Page() {
 
@@ -90,13 +60,33 @@ export default function Page() {
 
     }; // end handler
 
+    // Setting the Item and children for the Grid and its properties
+    const Item = ({ children }) => (
+        <Box sx={{ border: '3px solid #ddd', padding: 3 }}>
+          {children}
+        </Box>
+    );
+
+    //Theme Provider
+    const theme = createTheme({
+        palette: {
+            background: {
+                default: "#c2c2a3"
+            },
+            secondary: {
+                main: green[500],
+            },
+        }
+    });
+
     return (
 // <body background>
         <ThemeProvider theme={theme}>
         <Box component="main" sx={{ p: 3 }}>
-            <NavBar/>
+            <NavBar>
+            </NavBar>
             <Toolbar/>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
             <Grid container spacing={6}>
@@ -112,9 +102,8 @@ export default function Page() {
                 Sed quam erat, dictum in consequat id, dapibus eu libero.
                 </Item>
                 </Grid>
-
                  <Grid item xs={4}>
-                 <Item> <Typography component="h1" variant="h5">
+                 <Item> <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
                      Login to GoVote
                  </Typography>
 

@@ -19,11 +19,6 @@ export default function Page() {
             secondary: {
                 main: green[500],
             },
-            /* to change text white
-            text: {
-              primary: '#ffffff',
-            },
-           */
         }
     });
 
@@ -32,7 +27,7 @@ export default function Page() {
         <Box component="main" sx={{ p: 3 }}>
             <NavBar/>
             <Toolbar/>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
             About GoVote
             </Typography>
             <Typography>
