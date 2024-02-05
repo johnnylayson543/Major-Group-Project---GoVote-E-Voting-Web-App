@@ -76,9 +76,6 @@ export default function Page() {
     // Call this function to pass the data created by the FormData
     runDBCallAsync(`http://localhost:3000/api/general/login?email=${email}&dob=${dob}&ppsn=${ppsn}&pass=${pass}`)
 
-
-
-
   }; // end handler
 
 
@@ -92,11 +89,6 @@ export default function Page() {
       secondary: {
         main: green[500],
       },
-      /* to change text white
-      text: {
-        primary: '#ffffff', 
-      },
-     */
     }
   });
 
@@ -122,7 +114,7 @@ export default function Page() {
 
             </Avatar>
             <NavBar />
-            <Typography component="h1" variant="h5" fontWeight={600} color={"white"}>
+            <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
               Register Your GoVote Account
             </Typography>
 
@@ -176,7 +168,13 @@ export default function Page() {
               >
                 Register
               </Button>
-
+              <Grid container>
+                <Grid item xs>
+                  <Link href="./login" variant="body2">
+                    Already Registered? Login to GoVote
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
 

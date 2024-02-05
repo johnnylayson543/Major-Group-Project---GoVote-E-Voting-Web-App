@@ -22,11 +22,6 @@ import {blue, green, purple} from '@mui/material/colors';
                 secondary: {
                     main: blue[500],
                 },
-                /* to change text white
-                text: {
-                  primary: '#ffffff',
-                },
-               */
             }
         });
 
@@ -35,7 +30,7 @@ import {blue, green, purple} from '@mui/material/colors';
                 <Box component="main" sx={{p: 3}}>
                     <NavBar/>
                     <Toolbar/>
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
                         Contact Us
                     </Typography>
                     <Typography>

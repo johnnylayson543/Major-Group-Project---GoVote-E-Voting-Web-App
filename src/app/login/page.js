@@ -10,18 +10,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {ThemeProvider } from '@mui/material/styles';
-
 import { createTheme } from '@mui/material/styles';
 import { green, purple } from '@mui/material/colors';
 
 
 export default function Page() {
-
-
 
   /*
   This function does the actual work
@@ -86,11 +82,6 @@ export default function Page() {
       secondary: {
         main: green[500],
       },
-      /* to change text white
-      text: {
-        primary: '#ffffff',
-      },
-     */
     }
   });
 
@@ -111,9 +102,10 @@ export default function Page() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
             </Avatar>
-            <NavBar />
+            <NavBar>
+            </NavBar>
 
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
               Login to GoVote
             </Typography>
 
@@ -146,7 +138,6 @@ export default function Page() {
               >
                 Login
               </Button>
-
               <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
