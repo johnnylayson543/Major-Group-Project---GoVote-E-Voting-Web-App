@@ -92,9 +92,6 @@ export default function Page() {
     }
   });
 
-
-
-
   // The actual front-end page
   return (
 

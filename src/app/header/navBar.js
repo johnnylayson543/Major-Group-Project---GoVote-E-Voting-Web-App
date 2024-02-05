@@ -90,7 +90,7 @@ export default function NavBar({ window }) {
                         <MenuIcon />
                     </IconButton>
                     <img src="/logo.png" alt="Logo of GoVote" style={{ marginRight: '10px', height: '40px' }} />
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }} fontWeight={600}>
                         GoVote
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

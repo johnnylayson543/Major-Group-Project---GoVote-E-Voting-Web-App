@@ -19,7 +19,11 @@ import TextField from '@mui/material/TextField';
 
 export default function Page() {
 
-
+    /*
+    This function does the actual work
+    calling the fetch to get things from the database.
+    After the submit handler calls the runDBCallAsync, this does the thing
+    */
     async function runDBCallAsync(url) {
 
 
@@ -37,6 +41,11 @@ export default function Page() {
         }
     }
 
+    /*
+    This is the submit handler for the e-voting login page after the button is fired
+    When the button is clicked, this is the event that is fired.
+    The first thing we need to do is prevent the default refresh of the page.
+  */
     const handleSubmit = (event) => {
 
         console.log("handling submit");
