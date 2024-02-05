@@ -2,6 +2,7 @@
 
 import React from 'react';
 import NavBar from './/header/navBar'; // Adjust the path based on your project structure
+import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -91,6 +92,7 @@ export default function Page() {
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
             <Grid container spacing={6}>
+                
                 <Grid item xs={8}>
                 <Item>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
@@ -103,10 +105,13 @@ export default function Page() {
                 Sed quam erat, dictum in consequat id, dapibus eu libero.
                 </Item>
                 </Grid>
+
                  <Grid item xs={4}>
-                 <Item> <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
+                 <Item>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar> 
+                    <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
                      Login to GoVote
-                 </Typography>
+                    </Typography>
 
                      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                          <TextField
