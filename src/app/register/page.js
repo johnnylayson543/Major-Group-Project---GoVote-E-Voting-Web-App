@@ -74,7 +74,7 @@ export default function Page() {
     console.log("Sent pass:" + pass)
 
     // Call this function to pass the data created by the FormData
-    runDBCallAsync(`http://localhost:3000/api/general/login?email=${email}&dob=${dob}&ppsn=${ppsn}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/general/register?email=${email}&dob=${dob}&ppsn=${ppsn}&pass=${pass}`)
 
   }; // end handler
 

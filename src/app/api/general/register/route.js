@@ -1,4 +1,4 @@
-import { performDatabaseOperation } from "../database/databasetemplate";
+import { performDatabaseOperation } from "../../database/databasetemplate";
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -36,39 +36,25 @@ export async function GET(req, res) {
 
   // Database Operation Form
 
-  const dbname1 = "Evote";      // Database Name
-  const collection1 = "Person"; // Database Collection
-  const kind1 = "INSERT";       // Database Operation Type 
-      // > [ 
-      //     INSERT = Insert One, 
-      //     INSERT_MANY = Insert Many, 
-      //     FIND = Find many , 
-      //     UPDATE_ONE = Update first instance 
-      //   ]
+  const dbname1 = "Evote";        // Database Name
+  const collection1 = "User";     // 
+  const collection2 = "Person";   //
+  const kind1 = "FIND";       // Database Operation Type 
+  const obj_user = {ppsn: ppsn, pass: pass};
+  const obj_person = {ppsn: ppsn};
 
-  // const obj1 = { ppsn: ppsn,  pass: pass }; // Database Object
-  const obj1 = { email: email, dateofbirth: dateofbirth, ppsn: ppsn,  pass: pass }; // Database Object
+  const result_person = await performDatabaseOperation(dbname1, collection2, kind1, obj_person);
 
-  // Execute the database operation
-  const result1 = await performDatabaseOperation(dbname1, collection1, kind1, obj1);
-  
-
-  console.log(email);
-  console.log(dob);
-  console.log(ppsn);
-  console.log(pass);
-  
-  // database call goes here
-  // at the end of the process we need to send something back.
-
-// =================================================
-    client = getClient();
-    database = client.db;
-    const collection = database.collection('person'); // collection name
-    var myobj = { ppsn: ppsn, name: name, address: address, email: email, dateofbirth: dateofbirth }; // create object for person collection
-    const insertResult = await collection.replaceOne({ppsn: ppsn}, myobj); // find existing document with matching ppsn, and replace with new person document
-//==========================================================
-
+  if(result_person.length === 1){
+    const result_account = await performDatabaseOperation(dbname1, collection1, kind1, obj_user);
+    
+    const filter = obj_person;
+    const update = {ppsn: ppsn, email: email, dateofbirth: dateofbirth};
+    const obj1 = {filter: filter, update: update};
+    
+    const kind2 = "UPDATE_ONE";
+    const result_update_person = await performDatabaseOperation(dbname1, collection2, kind2, obj1);
+  }
 
   return Response.json({ "data":"ok" })
   }
