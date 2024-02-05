@@ -91,7 +91,7 @@ export default function Page() {
             <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
-            <Grid container spacing={6}>
+            <Grid container spacing={1}>
                 
                 <Grid item xs={8}>
                 <Item>
@@ -106,7 +106,7 @@ export default function Page() {
                 </Item>
                 </Grid>
 
-                 <Grid item xs={4}>
+                 <Grid item xs={3}>
                  <Item>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar> 
                     <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
@@ -151,7 +151,7 @@ export default function Page() {
                  </Item>
                  </Grid>
 
-                 <Grid item xs={8}>
+                 <Grid item xs={6}>
                  <Item>Some Photos go here</Item>
                  </Grid>
             </Grid>
