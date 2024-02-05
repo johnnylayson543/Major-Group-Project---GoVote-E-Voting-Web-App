@@ -8,12 +8,10 @@ export async function GET(req, res) {
   // that were sent across to us.
   const { searchParams } = new URL(req.url)
 
+  
+  const email = searchParams.get('email')
+  const dateofbirth = searchParams.get('dob')
   const ppsn = searchParams.get('ppsn')
-  // const name = searchParams.get('name')
-  // const address = searchParams.get('address')
-  // const email = searchParams.get('email')
-  // const phone = searchParams.get('phone')
-  // const dateofbirth = searchParams.get('dateofbirth')
   const pass = searchParams.get('pass')
 
 
@@ -48,27 +46,27 @@ export async function GET(req, res) {
       //     UPDATE_ONE = Update first instance 
       //   ]
 
-  const obj1 = { ppsn: ppsn,  pass: pass }; // Database Object
+  // const obj1 = { ppsn: ppsn,  pass: pass }; // Database Object
+  const obj1 = { email: email, dateofbirth: dateofbirth, ppsn: ppsn,  pass: pass }; // Database Object
 
   // Execute the database operation
   const result1 = await performDatabaseOperation(dbname1, collection1, kind1, obj1);
   
 
+  console.log(email);
+  console.log(dob);
   console.log(ppsn);
- // console.log(name);
-  //console.log(address)
-  //console.log(email)
-  //console.log(phone);
-  //console.log(dateofbirth);
+  console.log(pass);
+  
   // database call goes here
   // at the end of the process we need to send something back.
 
 // =================================================
-client = getClient();
+    client = getClient();
     database = client.db;
     const collection = database.collection('person'); // collection name
-var myobj = { ppsn: ppsn, name: name, address: address, email: email, dateofbirth: dateofbirth }; // create object for person collection
-const insertResult = await collection.replaceOne({ppsn: ppsn}, myobj); // find existing document with matching ppsn, and replace with new person document
+    var myobj = { ppsn: ppsn, name: name, address: address, email: email, dateofbirth: dateofbirth }; // create object for person collection
+    const insertResult = await collection.replaceOne({ppsn: ppsn}, myobj); // find existing document with matching ppsn, and replace with new person document
 //==========================================================
 
 

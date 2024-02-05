@@ -5,11 +5,9 @@ export async function GET(req, res) {
   // get the values
   // that were sent across to us.
   const { searchParams } = new URL(req.url);
-  const email = searchParams.get('email');
   const ppsn = searchParams.get('ppsn');
   const pass = searchParams.get('pass');
 
-  console.log(email);
   console.log(ppsn);
   console.log(pass);
 
