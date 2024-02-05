@@ -19,11 +19,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-//Set width and items within the navBar
-const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact', 'Login', 'Register'];
+export default function NavBar({ window }) {
 
-function NavBar({ window }) {
+    //Set width and items within the navBar
+    const drawerWidth = 240;
+    const navItems = ['Home', 'About', 'Contact', 'Login', 'Register'];
+
     // State to manage mobile open/close state
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -88,11 +89,7 @@ function NavBar({ window }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
                         GoVote
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
@@ -128,5 +125,3 @@ function NavBar({ window }) {
 NavBar.propTypes = {
     window: PropTypes.func,
 };
-//Export thr navBar
-export default NavBar;
