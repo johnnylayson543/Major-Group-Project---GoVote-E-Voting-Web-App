@@ -58,7 +58,7 @@ export const performDatabaseOperation = async (dbname1, collection1, kind1, obj1
             console.log("Found: " + result + ". ");                 // Debug message
         } else if(kind1 == "UPDATE_ONE") {                          // UPDATE ONE = Updates the first matching entry
             let filter = obj1.filter;                               // The match criteria
-            let update = obj1.update;                               // The update to be applied
+            let update = {$set: obj1.update };                               // The update to be applied
             result = await collection.updateOne(filter, update);    // Must wait for update one operation
             console.log("Updated one: " + result + ". ");           // Debug message
         } else {

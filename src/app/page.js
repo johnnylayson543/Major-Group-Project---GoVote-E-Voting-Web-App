@@ -1,27 +1,107 @@
+'use client'
+
 import React from 'react';
 import NavBar from './/header/navBar'; // Adjust the path based on your project structure
+import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import {ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import {blue, green, purple} from '@mui/material/colors';
+import Link from '@mui/material/Link';
+import runDBCallAsync from "./login/page"
+//login
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
-const Item = ({ children }) => (
-    <Box sx={{ border: '4px solid #ddd', padding: 4 }}>
-      {children}
-    </Box>
-  );
+
+export default function Page() {
+
+    /*
+    This function does the actual work
+    calling the fetch to get things from the database.
+    After the submit handler calls the runDBCallAsync, this does the thing
+    */
+    async function runDBCallAsync(url) {
 
 
-export default function page() {
+        const res = await fetch(url);
+        const data = await res.json();
+
+
+        if(data.data== "true"){
+            console.log("Successfully Registered!")
+
+
+        } else {
+
+            console.log("Registration Failed!")
+        }
+    }
+
+    /*
+    This is the submit handler for the e-voting login page after the button is fired
+    When the button is clicked, this is the event that is fired.
+    The first thing we need to do is prevent the default refresh of the page.
+  */
+    const handleSubmit = (event) => {
+
+        console.log("handling submit");
+
+
+        event.preventDefault();
+
+        const data = new FormData(event.currentTarget);
+
+
+        let ppsn = data.get('ppsn')
+        let pass = data.get('pass')
+
+
+
+        console.log("Sent ppsn:" + ppsn)
+        console.log("Sent pass:" + pass)
+
+
+        // Call this function to pass the data created by the FormData
+        runDBCallAsync(`http://localhost:3000/api/general/register?ppsn=${ppsn}&pass=${pass}`)
+
+
+    }; // end handler
+
+    // Setting the Item and children for the Grid and its properties
+    const Item = ({ children }) => (
+        <Box sx={{ border: '3px solid #ddd', padding: 3 }}>
+          {children}
+        </Box>
+    );
+
+    //Theme Provider
+    const theme = createTheme({
+        palette: {
+            background: {
+                default: "#c2c2a3"
+            },
+            secondary: {
+                main: green[500],
+            },
+        }
+    });
+
     return (
-
+// <body background>
+        <ThemeProvider theme={theme}>
         <Box component="main" sx={{ p: 3 }}>
-            <NavBar/>
+            <NavBar>
+            </NavBar>
             <Toolbar/>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
-            <Grid container spacing={6}>
+            <Grid container spacing={1}>
+                
                 <Grid item xs={8}>
                 <Item>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
@@ -34,14 +114,58 @@ export default function page() {
                 Sed quam erat, dictum in consequat id, dapibus eu libero.
                 </Item>
                 </Grid>
-                 <Grid item xs={4}>
-                 <Item>Another Login Page Could Go Here!</Item>
+
+                 <Grid item xs={3}>
+                 <Item>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar> 
+                    <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
+                     Login to GoVote
+                    </Typography>
+
+                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                         <TextField
+                             margin="normal"
+                             required
+                             fullWidth
+                             id="ppsn"
+                             label="PPSN"
+                             name="ppsn"
+                             autoComplete="ppsn"
+                             autoFocus
+                         />
+                         <TextField
+                             margin="normal"
+                             required
+                             fullWidth
+                             name="pass"
+                             label="Password"
+                             type="password"
+                             id="pass"
+                             autoComplete="current-password"
+                         />
+                         <Button
+                             type="submit"
+                             fullWidth
+                             variant="contained"
+                             sx={{ mt: 3, mb: 2 }}
+                         >
+                             Login
+                         </Button>
+                         <Grid item>
+                             <Link href="./register" variant="body2" textAlign={"center"}>
+                                 {"New Here? Register An Account Now!"}
+                             </Link>
+                         </Grid>
+                     </Box>
+                 </Item>
                  </Grid>
-                 <Grid item xs={8}>
+
+                 <Grid item xs={6}>
                  <Item>Some Photos go here</Item>
                  </Grid>
             </Grid>
         </Box>
+        </ThemeProvider>
     );
 
 }

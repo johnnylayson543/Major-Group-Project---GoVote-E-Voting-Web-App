@@ -1,36 +1,8 @@
 import mongoose from "mongoose";
 import { type } from "requests";
-
-/* NOTE 
-
-    Classes for the actors action are in progress and need to be defined.
-
-    How to export so other files can reference.
-
-    Then this file will be used in other files for working with the system
-
-        // example of register
-        data = searchParams()           // for user and person combined
-        user = new User();
-        const result = user.register_user( data );
-
-
-        // example login
-        data = searchParams();
-        user = new User();
-        const result = User.login(data);
-
-        return response ( data : okay, result:  result )
-
-*/
-
-
 const uri = 'mongodb://localhost:27017/EVote';
-
-mongoose.connect(urim, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(urim { useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
-
-
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const userSchema = new Schema({
@@ -48,23 +20,23 @@ const personSchema = new Schema({
 
 const candidateSchema = new Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
-    id:{type: String, required: true, unique: true},
+    //id:{type: String, required: true, unique: true},
     ballotID: {type: String, required: true, unique: true}
 })
 
 const ballotSchema = new Schema({
-    id: {type: String, required: true, unique: true},
+    //id: {type: String, required: true, unique: true},
     title: {type: String, required: false},
     closing_time: {type: String, required: true}
 })
 
 const voterSchema = new Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
-    id: {type: String, required: true, unique: true}
+    //id: {type: String, required: true, unique: true}
 });
 
 const voteSchema = new Schema({
-    id: {type: String, required: true, unique: true},
+    //id: {type: String, required: true, unique: true},
     voterID: {type: String, required: true, unique: true, ref: 'Voter'},
     candidateID: {type: String, required: true, unique: true, ref: 'Candidate'}
 });
@@ -76,20 +48,16 @@ const logSchema = new Schema({
 
 const adminSchema = new Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
-    id: {type: String, required: true, unique: true}
+    //id: {type: String, required: true, unique: true}
+});
+
+const electionSchema = new Schema({
+    ballotID: {type: String, required: true, unique: true, ref: 'Ballot'}
 });
 
 // Models
 // - system
-const User = mongoose.model('User', userSchema);
-const Admin = mongoose.model('Admin', adminSchema);
-// - application
-const Person = mongoose.model('Person', personSchema);
-const Candidate = mongoose.model('Candidate', candidateSchema);
-const Ballot = mongoose.model('Ballot', ballotSchema);
-const Voter = mongoose.model('Voter', voterSchema);
-const Vote = mongoose.model('Vote', voteSchema);
-const Log = mongoose.model('Log', logSchema); 
+
 
 // - application
 
@@ -111,10 +79,6 @@ class UserClass extends PersonClass {
 userSchema.loadClass(UserClass)
 const User = mongoose.model('User', userSchema);
 
-/*
-
-
-*/
 class AdminClass extends UserClass {
 
 
@@ -209,10 +173,6 @@ class VoterClass extends User {
             const filter = {ppsn: x.ppsn};
             const person = await Person.findOne(x.ppsn);
             const user = await User.findOne(x.ppsn);
-
-            obj = {ppsn: x.ppsn, pass: x.pass};
-            const new_user = await User.save(obj)
-
         } catch (error) {
             
         }

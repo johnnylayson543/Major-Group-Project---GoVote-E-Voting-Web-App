@@ -109,3 +109,42 @@ Database
     - mongoDBCloud
     - mongoDBDocker
     - cloud cerrificate
+
+
+[Reference]
+
+6.2.1 Summary
+    
+    {
+        Actors      
+        • Actions
+    }
+    
+    Admin
+    • Initialise the system with stub accounts using PPSN for electorate and candidates to register their details.
+    • Create Elections. Delete Elections.
+    
+    Voter
+    • Create account. Login to the account. Select an election.
+    View the ballot. Cast their vote. View their cast vote.
+    Change their cast vote before the deadline.
+    
+    Teller
+    • Tally the cast votes.
+    
+    Public (Incl. the voter, staff members, and external people)
+    • View the cast votes from the bulletin board. View the results of an election. Perform an audit that includes integrity
+    checks and other methods.
+    
+    System
+    • Add or remove an election for the Admin.
+    • Add an account for the voter. Allow the voter to login to
+    their account. Present the ballot to the voter. Allow the
+    voter to cast their vote on the ballot sheet. Process the cast
+    vote for the voter and register it with the bulletin board and
+    the vote timestamp log.
+    • Show the voter their vote exposing no identifying information. Allow public to see anonymised vote.
+    • Initiate the Tally for the Teller.
+    • Allow the public, staff members or the voter to initiate an
+    audit on the election that includes integrity checks and other
+    method
