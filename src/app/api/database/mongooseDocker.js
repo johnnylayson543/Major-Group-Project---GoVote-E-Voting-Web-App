@@ -1,13 +1,62 @@
 import mongoose from "mongoose";
 import { type } from "requests";
+
+/* NOTE
+
+    schema, model essentially set
+
+    classes for actor actions need definition
+        Admin 
+            add_stub_accounts               stub (ppsn) + pass ?+ person details = registed account = user => User.add_account
+            add_ballot
+            add_person_to_ballot            person id + ballot id = candidate => Candidate.add_candidate
+            remove_person_to_ballot
+            add_election                    ballot id in election collection = election => Election.add_election
+            remove_election
+        
+        User
+            register_an_account             stub (ppsn) + ( user + person ) details => registered account 
+            login_to_an_account             user details => account login
+            
+            add_a_user_account
+            remove_a_user_account
+            modify_a_user_account
+
+        Voter
+            add_voter
+            remove_voter
+        
+            cast_a_vote
+
+
+        Candidate
+            add_candidate
+            remove_candidate
+
+        Ballot 
+            add_ballot
+            remove_ballot
+
+        Election
+            add_election
+            remove_election
+
+        Log 
+            add_log
+
+
+*/
+
 const uri = 'mongodb://localhost:27017/EVote';
-mongoose.connect(urim { useNewUrlParser: true, useUnifiedTopology: true});
+const options = { useNewUrlParser: true, useUnifiedTopology: true};
+mongoose.connect(uri, options);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const userSchema = new Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
-    pass: {type: String, required: true}
+    pass: {type: String, required: true},
+    token: {type: String, required: false}
 });
 
 const personSchema = new Schema({
@@ -43,7 +92,20 @@ const voteSchema = new Schema({
 
 const logSchema = new Schema({
     voteID: {type: String, required: true, unique: true, ref: 'Vote'},
-    timestamp: {type: String, required: true, unique: true}
+    timestamp_created: {type: Date, default: Date.now, required: true, unique: true},
+    timestamp_updated: {type: Date, default: Date.now}
+});
+logSchema.pre('save', function(next) {
+    this.timestamp_updated = Date.now();
+    next();
+});
+
+logSchema.pre('update', function() {
+    this.update({}, { $set: { timestamp_updated = Date.now() } });
+});
+
+logSchema.pre('findOneAndUpdate', function() {
+    this.set( { timestamp_updated: Date.now() } ) ;
 });
 
 const adminSchema = new Schema({
@@ -63,16 +125,92 @@ const electionSchema = new Schema({
 
 
 class PersonClass {
+
+    static async add_person_details(x){
+        try {
+            const user = await Person.save(x);
+        } catch (error) {
+            console.error('Error creating the person details: ', error);
+        }
+    }
+
+    static async update_person_details(x){
+        try {
+            const user = await Person.updateOne(x.ppsn,x);
+        } catch (error) {
+            console.error('Error creating the person details: ', error);
+        }
+    }
+
+    static async remove_person_details(x){
+        try {
+            const user = await Person.deleteOne(x.ppsn, x);
+        } catch (error) {
+            console.error('Error deleting the person details: ', error);
+        }
+    }
 }
 personSchema.loadClass(PersonClass)
 const Person = mongoose.model('Person', personSchema);
 
 class UserClass extends PersonClass {
+
+    static async register_an_account(x){
+        try {
+            const filter = {ppsn: x.ppsn};
+            const user = await User.findOne(x.ppsn);
+            userData = {ppsn: x.ppsn, pass: x.pass };
+            if(user) User.add_user_account(userData);
+            const user_confimed = await User.findOne(userData);
+            personData = {ppsn: x.ppsn, name: x.name, address: x.address, phone: x.phone, email: x.email, date_of_birth: x.date_of_birth};
+            if(user_confimed) await Person.add_person_details(personData);
+        } catch (error) {
+            
+        }
+    }
+
+    static async update_person_details(x){
+        try {
+            const filter = {ppsn: x.ppsn};
+            const person = await Person.findOne(x.ppsn);
+            personData = {ppsn: x.ppsn, name: x.name, address: x.address, phone: x.phone, email: x.email, date_of_birth: x.date_of_birth};
+            if(user) await Person.update_person_details(personData);
+        } catch (error) {
+            
+        }
+
+    }
+
+    static async log_into_account(x){
+        try {
+            const filter = {ppsn: x.ppsn, pass: x.pass};
+            const user = await User.findOne(filter);
+
+        } catch (error){
+
+        }
+
     static async add_user_account(x){
         try {
-            const user = await User.create(x);
+            const user = await User.save(x);
         } catch (error) {
             console.error('Error creating the user: ', error);
+        }
+    }
+
+    static async update_user_account(x){
+        try {
+            const user = await User.updateOne(x.ppsn, x);
+        } catch (error) {
+            console.error('Error creating the user: ', error);
+        }
+    }
+
+    static async remove_user_account(x){
+        try {
+            const user = await User.deleteOne(x);
+        } catch (error) {
+            console.error('Error removing the user: ', error);
         }
     }
 }
@@ -168,27 +306,23 @@ const Candidate = mongoose.model('Candidate', candidateSchema);
 
 
 class VoterClass extends User {
-    static async register_an_account(x){
+    // admin loads the stubs = user is completing the details (ppsn and pass minimum information) 
+
+    static async cast_a_vote(x){
         try {
-            const filter = {ppsn: x.ppsn};
-            const person = await Person.findOne(x.ppsn);
-            const user = await User.findOne(x.ppsn);
+            const voteData = {ppsn: ppsn, CandidateID: x.CandidateID}; 
+            const voter = Voter.findOne({ppsn: voteData.ppsn});
+            const candidate = Candidate.findOne({candidateID: voteData.CandidateID});
+            if(voter && candidate) await Vote.add_vote(voteData);
+
         } catch (error) {
             
         }
 
     }
-
-    static async log_into_account(x){
-
-    }
-
-    static async cast_a_vote(x){
-
-    }
 }
 voteSchema.loadClass(VoterClass)
-const VoterModel = mongoose.model('Voter', voterSchema);
+const Voter = mongoose.model('Voter', voterSchema);
 
 class BallotClass {
 
@@ -204,7 +338,7 @@ ballotSchema.loadClass(BallotClass)
 const Ballot = mongoose.model('Ballot', ballotSchema);
 
 class ElectionClass {
-    add_election(){
+    static async add_election(){
         try {
             const election = await Election.create(x);
         } catch (error) {
@@ -216,11 +350,24 @@ electionSchema.loadClass(ElectionClass);
 const Election = mongoose.model('Election', electionSchema);
 
 class VoteClass {
+    static async add_vote(x){
+        try {
+            const result = await Vote.save(x);
+            const logResult = await Log.add
+        } catch (error) {
+            
+        }
+    }
 }
 voteSchema.loadClass(VoteClass);
-const VoteModel = mongoose.model('Vote', voteSchema);
+const Vote = mongoose.model('Vote', voteSchema);
 
 class LogClass {
+    static async add_log(x){
+        const timestamp = now
+        const logData = {voteID: x._id, }
+        const result = await Log.save(x);
+    }
 }
 logSchema.loadClass(LogClass)
-const LogModel = mongoose.model('Log', logSchema); 
+const Log = mongoose.model('Log', logSchema); 

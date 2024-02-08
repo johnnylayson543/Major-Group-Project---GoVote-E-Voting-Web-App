@@ -1,0 +1,34 @@
+
+
+api ---- database ---- {     
+    
+    databaseTemplate        --- monogo database operation definitions e.g INSERT, FIND, INSERT_MANY, UPDATE_ONE
+    (could have more operations)    has a booloen that check true for using Docker and false for using the Cloud    
+                                    has a set if-else if for the operations with branch using the mongodb api for 
+                                        the operation e.g. INSERT to the collection.insert  
+
+    mongoDBCloud            --- mongo database client definition for the Cloud connection
+        (finished)                        defines url and other specifics like using .pem certificate
+
+    mongoDBDocker           --- mongo database client definition for the Docker connection
+        (finished)                        define url and other specifics
+
+    mongooseDocker          --- future abstraction definition using object relational model system
+        (
+            schema are complete
+            classes are in progress
+                must classes load to schema
+            model 
+                must load schema to the model
+        )                        
+                                
+                                define schema e.g PersonSchema { name : string, tel : number}
+                                if you want to uses classes
+                                    define the class e.g. PersonClass
+
+                                load the class to schema 
+                                
+                                load the schema to a model object e.g. 'Person', PersonSchema
+
+
+}
