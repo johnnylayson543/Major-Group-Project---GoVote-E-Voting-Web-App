@@ -12,10 +12,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
-
 
 export default function Page() {
 
@@ -73,22 +69,8 @@ export default function Page() {
   }; // end handler
 
 
-  // Theme Provider
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: "#c2c2a3"
-      },
-      secondary: {
-        main: green[500],
-      },
-    }
-  });
-
-
 // This returns the front-end page
   return (
-      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -105,7 +87,7 @@ export default function Page() {
             <NavBar>
             </NavBar>
 
-            <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
+            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
               Login to GoVote
             </Typography>
 
@@ -159,9 +141,6 @@ export default function Page() {
           </Box>
 
         </Container>
-
-      </ThemeProvider>
-
 
   );
 }
