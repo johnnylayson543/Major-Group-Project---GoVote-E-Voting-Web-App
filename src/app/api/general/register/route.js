@@ -48,6 +48,7 @@ export async function GET(req, res) {
       //     UPDATE_ONE = Update first instance 
       //   ]
 
+<<<<<<< Updated upstream
   const obj1 = { ppsn: ppsn,  pass: pass }; // Database Object
 
   // Execute the database operation
@@ -71,6 +72,37 @@ var myobj = { ppsn: ppsn, name: name, address: address, email: email, dateofbirt
 const insertResult = await collection.replaceOne({ppsn: ppsn}, myobj); // find existing document with matching ppsn, and replace with new person document
 //==========================================================
 
+=======
+  const result_person = await performDatabaseOperation(dbname1, collection2, kind1, obj_person);
+  const result_user = await performDatabaseOperation(dbname1, collection1, kind1, obj_user);
+
+
+  if(result_person.length === 1){
+
+    const filter = obj_person;
+
+    if(result_user.length === 0){
+      const kind3 = "INSERT";
+      const result_account = await performDatabaseOperation(dbname1, collection1, kind1, obj_person);
+      if(result_account === 1){    
+        const update = obj_user;
+        const obj1 = {filter: filter, update: update};
+        
+        const kind2 = "UPDATE_ONE";
+        const result_update_person = await performDatabaseOperation(dbname1, collection1, kind2, obj1);
+      } else if (result_account === 0){
+        const result_account1 = await performDatabaseOperation(dbname1, collection1, kind3, obj_user);
+      }
+    }
+
+    
+    const update = {ppsn: ppsn, email: email, dateofbirth: dateofbirth};
+    const obj1 = {filter: filter, update: update};
+    
+    const kind2 = "UPDATE_ONE";
+    const result_update_person = await performDatabaseOperation(dbname1, collection2, kind2, obj1);
+  }
+>>>>>>> Stashed changes
 
   return Response.json({ "data":"ok" })
   }

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { type } from "requests";
 const uri = 'mongodb://localhost:27017/EVote';
-mongoose.connect(urim { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(urim, { useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
