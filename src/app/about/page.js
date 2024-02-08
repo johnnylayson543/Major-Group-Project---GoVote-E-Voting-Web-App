@@ -4,30 +4,16 @@ import NavBar from '../header/navBar'
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import {blue, green, purple} from '@mui/material/colors';
 
 export default function Page() {
 
-    //Theme Provider
-    const theme = createTheme({
-        palette: {
-            background: {
-                default: "#c2c2a3"
-            },
-            secondary: {
-                main: green[500],
-            },
-        }
-    });
 
     return (
-        <ThemeProvider theme={theme}>
+        
         <Box component="main" sx={{ p: 3 }}>
-            <NavBar/>
-            <Toolbar/>
-            <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
+            <NavBar></NavBar>
+            <Toolbar></Toolbar>
+            <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
             About GoVote
             </Typography>
             <Typography>
@@ -35,7 +21,7 @@ export default function Page() {
                 This page will explain the motivation and functionality of the page.
             </Typography>
         </Box>
-        </ThemeProvider>
+        
     );
 }
 

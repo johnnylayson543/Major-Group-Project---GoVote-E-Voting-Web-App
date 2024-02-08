@@ -7,9 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import {ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import {blue, green, purple} from '@mui/material/colors';
 import Link from '@mui/material/Link';
 import runDBCallAsync from "./login/page"
 //login
@@ -73,31 +70,20 @@ export default function Page() {
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
-        <Box sx={{ border: '3px solid #ddd', padding: 3 }}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3 , backgroundColor: '#6F9CDE' , fontWeight: 500 }}>
           {children}
         </Box>
     );
 
-    //Theme Provider
-    const theme = createTheme({
-        palette: {
-            background: {
-                default: "#c2c2a3"
-            },
-            secondary: {
-                main: green[500],
-            },
-        }
-    });
 
     return (
 // <body background>
-        <ThemeProvider theme={theme}>
         <Box component="main" sx={{ p: 3 }}>
             <NavBar>
             </NavBar>
-            <Toolbar/>
-            <Typography variant="h5" component="h2" fontWeight={600} color={"black"}>
+            <Toolbar>
+            </Toolbar>
+            <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
             <Grid container spacing={1}>
@@ -118,7 +104,7 @@ export default function Page() {
                  <Grid item xs={3}>
                  <Item>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar> 
-                    <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
+                    <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
                      Login to GoVote
                     </Typography>
 
@@ -165,7 +151,6 @@ export default function Page() {
                  </Grid>
             </Grid>
         </Box>
-        </ThemeProvider>
     );
 
 }

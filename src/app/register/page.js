@@ -14,16 +14,10 @@ import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
-
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
 
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
 export default function Page() {
-
-
 
   /*
   This function does the actual work
@@ -79,23 +73,9 @@ export default function Page() {
   }; // end handler
 
 
-  // Theme Provider
-// Section to change background color for the webpage controlled by theme
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: "#c2c2a3"
-      },
-      secondary: {
-        main: green[500],
-      },
-    }
-  });
-
   // The actual front-end page
   return (
 
-      <ThemeProvider theme={theme}>
         <Container component="main"  maxWidth="xs">
           <CssBaseline />
           <Box
@@ -110,8 +90,9 @@ export default function Page() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
             </Avatar>
-            <NavBar />
-            <Typography component="h1" variant="h5" fontWeight={600} color={"black"}>
+            <NavBar>
+            </NavBar>
+            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
               Register Your GoVote Account
             </Typography>
 
@@ -176,8 +157,6 @@ export default function Page() {
           </Box>
 
         </Container>
-
-      </ThemeProvider>
 
   );
 }
