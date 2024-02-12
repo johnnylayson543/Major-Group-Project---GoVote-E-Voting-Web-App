@@ -52,6 +52,66 @@ import { type } from "requests";
 
 */
 
+/* actions / calls
+
+    mongoose.connect()
+    new mongoose.Schema()
+    mongoose.model()
+    model1.create()
+    mongoose.startSession()
+    session.startTransaction()
+    session.commitTransaction()
+    session.abortTransaction()
+    session.endSession()
+    try...catch
+    finally      
+
+
+
+    withTransactions( fn )      uses transactions
+    Transaction.run(run)  = {  return withTransaction(fn); }
+
+    Page logic
+
+    User
+        Register
+            ppsn, pass = user
+            name, address, phone, email = person 
+            
+                user1 = new User();
+                Transaction.run(user1.register_an_account(x));         
+
+
+        Login
+            login = ppsn + pass
+
+                user1 = new User();
+                Transaction.run(user1.log_into_account(x));
+                
+
+    Admin
+        Load ppsn
+            ppsn to user and person = valid logins to register
+                
+                admin1 = new Admin();
+                Transaction.run(admin.add_stub_accounts(x));
+
+        Add person to ballot sheet
+            ppsn + ballot id = candidate
+
+                admin1 = new Admin();
+                Transaction.run(admin.add_stub_accounts(x));
+
+
+    Voter
+        Cast vote
+            View the ballot for a running election
+            Vote for a candidate.
+                Log vote with time log server
+            
+*/
+
+
 const uri = 'mongodb://localhost:27017/EVote';
 const options = { useNewUrlParser: true, useUnifiedTopology: true};
 mongoose.connect(uri, options);
@@ -220,7 +280,7 @@ class UserClass extends PersonClass {
     }
 }
 userSchema.loadClass(UserClass)
-const User = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);
 
 class AdminClass extends UserClass {
 
@@ -288,7 +348,7 @@ class AdminClass extends UserClass {
 
 }
 adminSchema.loadClass(AdminClass);
-const AdminModel = mongoose.model('Admin', adminSchema);
+const Admin = mongoose.model('Admin', adminSchema);
 
 class CandidateClass extends User {
     static async add_candidate(x){
@@ -376,3 +436,31 @@ class LogClass {
 }
 logSchema.loadClass(LogClass)
 const Log = mongoose.model('Log', logSchema); 
+
+
+async function withTranaction(fn){
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+        const result = await fn(session);
+        await session.commitTransaction();
+        return result;
+    } catch (error) {
+        await session.abortTransaction();
+        throw error;
+    } finally {
+        session.endSession();
+    }
+}
+
+export class Transaction {
+
+    static async run(fn) {
+
+        return withTranaction(fn);
+        
+    }
+
+
+};

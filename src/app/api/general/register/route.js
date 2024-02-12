@@ -1,4 +1,5 @@
 import { performDatabaseOperation } from "../../database/databasetemplate";
+import { User, Transaction } from "../../database/mongooseDocker";
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -34,8 +35,14 @@ export async function GET(req, res) {
 
   // }
 
+
+  const user1 = new User();
+  Transaction.run(user1.register_an_account(x));
+
+
   // Database Operation Form
 
+  /*
   const dbname1 = "Evote";        // Database Name
   const collection1 = "User";     // 
   const collection2 = "Person";   //
@@ -55,6 +62,7 @@ export async function GET(req, res) {
     const kind2 = "UPDATE_ONE";
     const result_update_person = await performDatabaseOperation(dbname1, collection2, kind2, obj1);
   }
+  */
 
   return Response.json({ "data":"ok" })
   }
