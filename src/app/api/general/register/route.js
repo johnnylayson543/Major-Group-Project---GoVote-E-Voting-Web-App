@@ -1,5 +1,7 @@
-import { performDatabaseOperation } from "../../database/databasetemplate";
-import { User, Transaction } from "../../database/mongooseDocker";
+import mongoose from "mongoose";
+//import { performDatabaseOperation } from "../../database/databasetemplate";
+import { Transaction } from "../../database/mongooseDocker";
+import { User } from "../../database/models/User";
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -15,6 +17,9 @@ export async function GET(req, res) {
   const ppsn = searchParams.get('ppsn')
   const pass = searchParams.get('pass')
 
+  x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, dateofbirth:dateofbirth}};
+  result = Transaction.run(User.register_an_account(x));
+  console.log(result);
 
   // EVote {
       
@@ -34,10 +39,6 @@ export async function GET(req, res) {
        // User {ppsn, pass}
 
   // }
-
-
-  const user1 = new User();
-  Transaction.run(user1.register_an_account(x));
 
 
   // Database Operation Form
