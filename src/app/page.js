@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import NavBar from './/header/navBar'; // Adjust the path based on your project structure
+import NavBar from './header/navBar';
 import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -138,7 +138,7 @@ export default function Page() {
                              Login
                          </Button>
                          <Grid item>
-                             <Link href="./register" variant="body2" textAlign={"center"}>
+                             <Link href="./register" variant="body2" textAlign={"center"} underline="none" color="inherit">
                                  {"New Here? Register An Account Now!"}
                              </Link>
                          </Grid>
