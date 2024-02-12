@@ -23,9 +23,11 @@ import { type } from "requests";
             modify_a_user_account
 
         Voter
+            // Maintenance Methods
             add_voter
             remove_voter
         
+            // Action methods
             cast_a_vote
 
 
@@ -40,6 +42,9 @@ import { type } from "requests";
         Election
             add_election
             remove_election
+
+        Vote 
+            add_vote
 
         Log 
             add_log
@@ -364,9 +369,9 @@ const Vote = mongoose.model('Vote', voteSchema);
 
 class LogClass {
     static async add_log(x){
-        const timestamp = now
-        const logData = {voteID: x._id, }
-        const result = await Log.save(x);
+        const logData = {voteID: x._id}
+        const log = new Log(x); 
+        const result = await log.save(x);
     }
 }
 logSchema.loadClass(LogClass)
