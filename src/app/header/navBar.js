@@ -18,12 +18,21 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ListItemIcon from '@mui/material/ListItemIcon';
+
 
 export default function NavBar({ window }) {
 
     //Set width and items within the navBar
     const drawerWidth = 240;
-    const navItems = ['Home', 'About', 'Contact', 'Login', 'Register'];
+    const navItems = [
+
+    ];
 
     // State to manage mobile open/close state
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -33,28 +42,11 @@ export default function NavBar({ window }) {
         setMobileOpen((prevState) => !prevState);
     };
 
-    // JSX for the drawer content
-    const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
-            </Typography>
-            <Divider />
-            <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center', color: '#FFFFF' }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+
 
     // Function to determine the destination link for each item in the navBar
     const getLinkDestination = (item) => {
-        switch (item) {
+        switch (item.text) {
             case 'Home':
                 return '/';
             case 'About':
@@ -70,6 +62,26 @@ export default function NavBar({ window }) {
         }
     };
 
+    // JSX for the drawer content
+    const drawer = (
+        <Box>
+            <Typography variant="h6" sx={{ my: 2 }}>
+                MUI
+            </Typography>
+            <Divider />
+            <List>
+                {navItems.map((item) => (
+                    <ListItem key={item.text} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center', color: '#FFFFFF' }} component={Link} to={getLinkDestination(item)}>
+                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemText primary={item.text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
+
     // Function to get the document body based on the window object
     const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -78,7 +90,7 @@ export default function NavBar({ window }) {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
 
-            <AppBar component="nav" color="success" >
+            <AppBar component="nav" color="primary" >
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -87,16 +99,33 @@ export default function NavBar({ window }) {
                         onClick={handleDrawerToggle}
                         sx={{ mr: 2, display: { sm: 'none' } }}
                     >
-                        <MenuIcon />
+                        <ListItemIcon />
                     </IconButton>
                     <img src="/logo.png" alt="Logo of GoVote" style={{ marginRight: '10px', height: '40px' }} />
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }} fontWeight={600}>
                         GoVote
                     </Typography>
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/">
+                        <HomeIcon /> Home &ensp;
+                    </IconButton>
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./about">
+                        <InfoIcon /> About &ensp;
+                    </IconButton>
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./contact">
+                        <ContactSupportIcon/> Contact &ensp;
+                    </IconButton>
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./login">
+                        <LoginIcon/> Login &ensp;
+                    </IconButton>
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./register">
+                        <AppRegistrationIcon/> Register &ensp;
+                    </IconButton>
+
+
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Link href={getLinkDestination(item)} key={item}>
-                                <Button sx={{ color: '#fff' }}>{item}</Button>
+                            <Link href={getLinkDestination(item)} key={item.text}>
+                                <Button sx={{ color: '#fff' }}>{item.text}</Button>
                             </Link>
                         ))}
                     </Box>
@@ -122,7 +151,8 @@ export default function NavBar({ window }) {
         </Box>
     );
 }
-//PropTypes for the navBar
+
+// PropTypes for the NavBar
 NavBar.propTypes = {
-    window: PropTypes.func,
+    window: PropTypes.object,
 };
