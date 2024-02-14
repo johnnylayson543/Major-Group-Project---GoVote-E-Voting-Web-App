@@ -120,12 +120,12 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-async function withTransaction(fn){
+async function withTransaction(fn,x){
     const session = await mongoose.startSession();
     session.startTransaction();
 
     try {
-        const result = await fn(session);
+        const result = await fn(x);
         await session.commitTransaction();
         return result;
     } catch (error) {
@@ -138,9 +138,9 @@ async function withTransaction(fn){
 
 export class Transaction {
 
-    static async run(fn) {
+    static async run(fn, x) {
 
-        return withTransaction(fn);
+        return withTransaction(fn, x);
         
     }
 
