@@ -20,8 +20,8 @@ const Item = ({ children }) => (
 const columns = [
   { field: 'id', headerName: 'Poll', width: 70 },
   { field: 'voteCode', headerName: 'Vote Code', width: 130 },
-  { field: 'device', headerName: 'Device', width: 130 , renderCell: (params) => {
-    return <a href='${params.id}'>{params.id}</a>; } }
+  { field: 'device', headerName: 'Device', width: 130, renderCell: (params) => {
+    return <a href='/'>view</a>; } }
 ];
 
 // Data Table Rows (Note: the free version is limited to 100 rows, you have to pay to add more rows)
@@ -44,7 +44,7 @@ export default function Page() {
                 <Grid item xs={12}>
                     <Item>
                     <Typography variant="h5" component="h2" fontWeight={800} color={"black"} align='center'>
-                        My Votes Cast
+                        Bulletin Board
                     </Typography>
                     <br></br>
                         <DataGrid
