@@ -16,14 +16,14 @@ const Item = ({ children }) => (
     </Box>
 );
 
-// Data Table Columns
+// Data Table Columns 
 const columns = [
   { field: 'id', headerName: 'Poll', width: 70 },
   { field: 'voteCode', headerName: 'Vote Code', width: 130 },
   { field: 'device', headerName: 'Device', width: 130 },
 ];
 
-// Data Table Rows
+// Data Table Rows (Note: the free version is limited to 100 rows, you have to pay to add more rows)
 const rows = [
   { id: 1, voteCode: '#1234567', device: 'Android'},
   { id: 2, voteCode: '#1234567', device: 'Mac OSX'},
