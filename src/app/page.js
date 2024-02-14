@@ -12,6 +12,11 @@ import runDBCallAsync from "./login/page"
 //login
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 export default function Page() {
