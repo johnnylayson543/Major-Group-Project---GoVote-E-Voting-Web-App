@@ -18,7 +18,7 @@ import BallotIcon from '@mui/icons-material/Ballot';
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
-
+import {blue, green, purple, white, pink} from '@mui/material/colors'; 
 
 export default function Page() {
 
@@ -36,7 +36,7 @@ export default function Page() {
             </NavBar>
             <Toolbar>
             </Toolbar>
-            
+            <br></br>
             <Grid container spacing={10}>
                 <Grid item xs={4}>
                 <Item>
@@ -68,7 +68,7 @@ export default function Page() {
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='#'>
                                     <ListItemIcon>
-                                        <HowToVoteIcon></HowToVoteIcon>
+                                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                     </ListItemIcon>
                                     <ListItemText primary="Cast Vote"/>
                                 </ListItemButton>
@@ -77,7 +77,7 @@ export default function Page() {
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='#'>
                                     <ListItemIcon>
-                                        <BallotIcon></BallotIcon>
+                                        <BallotIcon sx={{ color: 'white' }}></BallotIcon>
                                     </ListItemIcon>
                                     <ListItemText primary="Tally Votes"/>
                                 </ListItemButton>
@@ -87,7 +87,7 @@ export default function Page() {
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='#'>
                                     <ListItemIcon>
-                                        <DashboardIcon></DashboardIcon>
+                                        <DashboardIcon sx={{ color: 'white' }}></DashboardIcon>
                                     </ListItemIcon>
                                     <ListItemText primary="Bulletin Board"/>
                                 </ListItemButton>
@@ -98,7 +98,7 @@ export default function Page() {
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='#'>
                                     <ListItemIcon>
-                                        <PersonIcon></PersonIcon>
+                                        <PersonIcon sx={{ color: 'white' }}></PersonIcon>
                                     </ListItemIcon>
                                     <ListItemText primary="My Votes Cast"/>
                                 </ListItemButton>

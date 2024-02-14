@@ -83,6 +83,7 @@ export default function Page() {
             </NavBar>
             <Toolbar>
             </Toolbar>
+            <br></br>
             <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
