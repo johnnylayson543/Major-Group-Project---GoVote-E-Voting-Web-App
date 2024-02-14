@@ -112,6 +112,9 @@ import { type } from "requests";
 
 const uri = 'mongodb://localhost:27017/EVote';
 const options = {};
+const otherOptions = (err, client) => {
+    // ... use the client ...
+  };
 mongoose.connect(uri, options);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

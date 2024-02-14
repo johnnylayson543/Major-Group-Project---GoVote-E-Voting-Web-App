@@ -17,8 +17,9 @@ export async function GET(req, res) {
   const ppsn = searchParams.get('ppsn')
   const pass = searchParams.get('pass')
 
-  x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, dateofbirth:dateofbirth}};
-  result = Transaction.run(User.register_an_account(x));
+  const x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, dateofbirth:dateofbirth}};
+  const user = new User();
+  const result = Transaction.run(user.register_an_account);
   console.log(result);
 
   // EVote {
