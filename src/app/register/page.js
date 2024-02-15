@@ -148,7 +148,7 @@ export default function Page() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="./login" variant="body2">
+                  <Link href="./login" variant="body2" underline="none" color="inherit">
                     Already Registered? Login to GoVote
                   </Link>
                 </Grid>

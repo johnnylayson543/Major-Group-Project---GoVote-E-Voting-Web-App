@@ -126,12 +126,12 @@ export default function Page() {
               />
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body2" underline="none" color="inherit">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="./register" variant="body2">
+                  <Link href="./register" variant="body2" underline="none" color="inherit">
                     {"Don't have an account on GoVote? Sign Up to start voting!"}
                   </Link>
                 </Grid>

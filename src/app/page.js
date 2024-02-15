@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import NavBar from './/header/navBar'; // Adjust the path based on your project structure
+import NavBar from './header/navBar';
 import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -12,6 +12,11 @@ import runDBCallAsync from "./login/page"
 //login
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 export default function Page() {
@@ -83,6 +88,7 @@ export default function Page() {
             </NavBar>
             <Toolbar>
             </Toolbar>
+            <br></br>
             <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
             Welcome to GoVote - Ireland's No. 1 E-Voting Website!
             </Typography>
@@ -138,7 +144,7 @@ export default function Page() {
                              Login
                          </Button>
                          <Grid item>
-                             <Link href="./register" variant="body2" textAlign={"center"}>
+                             <Link href="./register" variant="body2" textAlign={"center"} underline="none" color="inherit">
                                  {"New Here? Register An Account Now!"}
                              </Link>
                          </Grid>
