@@ -8,7 +8,7 @@ When:               TU860 Y3 S1
 
 import { MongoClient } from 'mongodb';                  // Mongo DB library
 
-const url = `mongodb://root:example@localhost:27017/`;  // URL of local running docker image instance of Mongo DB
+const url = `mongodb://root:example@localhost:27017`;  // URL of local running docker image instance of Mongo DB
 
 export const clientDocker = new MongoClient(url);       // declare variable using the URL with export modifier so other js can use it
 

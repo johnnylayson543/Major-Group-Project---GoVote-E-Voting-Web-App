@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { mongoose_client } from "../mongooseDocker";
 import { getModel } from "./helpers/helpers";
 import { User } from "./User";
 import { Ballot } from "./Ballot";
@@ -6,7 +7,7 @@ import { Candidate } from "./Candidate";
 import { Person } from "./Person";
 import { Election } from "./Election";
 
-const adminSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema ({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
     //id: {type: String, required: true, unique: true}
 });

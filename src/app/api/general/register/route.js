@@ -16,10 +16,19 @@ export async function GET(req, res) {
   const dateofbirth = searchParams.get('dob')
   const ppsn = searchParams.get('ppsn')
   const pass = searchParams.get('pass')
+  console.log(email + ", " + dateofbirth + ", " + ppsn + ", " + pass);
 
-  const x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, dateofbirth:dateofbirth}};
+  const x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, date_of_birth:dateofbirth}};
+  console.log(x);
+
   //const user = new User();
-  const result = await Transaction.run(User.register_an_account(x));
+                            
+  console.log("before");
+  //const result = await User.register_an_account(x);
+  console.log("after");
+  const xy = {fn: User.register_an_account, par: x};
+  const result = await Transaction.run(xy);
+  console.log("Passed operation stage.\n");
   console.log(result);
 
   // EVote {

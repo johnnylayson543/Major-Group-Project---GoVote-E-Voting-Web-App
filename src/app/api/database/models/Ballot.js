@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { mongoose_client } from "../mongooseDocker";
 import { getModel } from "./helpers/helpers";
 
 const ballotSchema = new mongoose.Schema({

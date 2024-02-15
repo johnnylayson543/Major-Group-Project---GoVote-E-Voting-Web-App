@@ -109,23 +109,36 @@ import { type } from "requests";
                 Log vote with time log server
             
 */
-
-const uri = 'mongodb://localhost:27017/EVote';
+          //'mongodb://root:example@localhost:27017/'
+//const uri = 'mongodb://root:example@mongo:27017/';
+//const uri = 'mongodb://root:example@localhost:27017/EVote';
+const uri = 'mongodb://root:example@localhost:27017/EVote?authSource=admin';
 const options = {};
 const otherOptions = (err, client) => {
     // ... use the client ...
   };
-mongoose.connect(uri, options);
+
+mongoose.connect(uri, options).catch(err => {
+    console.error('.MongoDB connection error:', err);
+  });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+/*db.on('open', function() {
+    // Connection successful
+    console.log('Connected to MongoDB!');
+  });*/
 
-
-async function withTransaction(fn,x){
+async function withTransaction(xy){
     const session = await mongoose.startSession();
     session.startTransaction();
 
     try {
-        const result = await fn(x);
+        if(typeof xy.fn != "function"){
+            throw new TypeError('The first argument must be a function');
+        }
+        console.log("Passed function check.");
+        const result = await xy.fn(xy.par, session);
+        console.log(result);
         await session.commitTransaction();
         return result;
     } catch (error) {
@@ -138,12 +151,16 @@ async function withTransaction(fn,x){
 
 export class Transaction {
 
-    static async run(fn, x) {
+    static async run(xy) {
 
-        return withTransaction(fn, x);
+        return await withTransaction(xy);
         
     }
 
 
 };
+
+export const mongoose_client = db;
+
+//export default mongoose_client;
 
