@@ -13,15 +13,23 @@ export async function GET(req, res) {
   console.log(ppsn);
   console.log(pass);
 
+  const x = { user: {ppsn: ppsn, pass: pass}};
+  const xy = {fn: User.log_into_account, par: x};
+  console.log{x}
+  console.log{xy}
+  console.log{"Operation begins."}
+  const login_result = await Transaction.run(xy);
+  console.log("Passed operation stage.\n");
+  console.log(result);
+  const result = {found: found, login_result: login_result};
 
+  return Response.json(result)
+}
+  
+/*
   const dbname1 = "Evote";      // Database Name
   const collection1 = "User";
   const kind1 = "FIND";       // Database Operation Type 
   const obj_user = {ppsn: ppsn, pass: pass};
   const result_user = await performDatabaseOperation(dbname1, collection1, kind1, obj_user);
-  const found = result_user.length = true;
-  const result = {found: found};
-  return Response.json(result)
-}
-  
-  
+  */

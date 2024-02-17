@@ -19,14 +19,10 @@ export async function GET(req, res) {
   console.log(email + ", " + dateofbirth + ", " + ppsn + ", " + pass);
 
   const x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, date_of_birth:dateofbirth}};
-  console.log(x);
-
-  //const user = new User();
-                            
-  console.log("before");
-  //const result = await User.register_an_account(x);
-  console.log("after");
   const xy = {fn: User.register_an_account, par: x};
+  console.log{x}
+  console.log{xy}
+  console.log{"Operation begins."}
   const result = await Transaction.run(xy);
   console.log("Passed operation stage.\n");
   console.log(result);

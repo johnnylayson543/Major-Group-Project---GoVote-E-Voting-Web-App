@@ -64,6 +64,8 @@ class UserClass {
             const filter = {ppsn: x.ppsn, pass: x.pass};
             const user = await User.findOne(filter);
 
+            return (user) ? {user_authenticated: true, token: user.token } : {user_authenticated: false}
+
         } catch (error){
 
         }
