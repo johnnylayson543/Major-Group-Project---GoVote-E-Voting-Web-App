@@ -80,7 +80,6 @@ function go(d){
 
 
 export default function Page() {
-
   
 	function getBallotCandidates(ballotID){
     var url = `http://localhost:3000/api/general/getBallot?ballotID=${ballotID}`;
