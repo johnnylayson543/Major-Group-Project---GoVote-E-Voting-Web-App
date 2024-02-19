@@ -1,5 +1,5 @@
 import { performDatabaseOperation } from "../../../database/databasetemplate";
-import { login_user_type } from "../../../Forms/login_user_type";
+import { login_user_type } from "../../../Forms/User/login_user_type";
 
 export async function GET(req, res) {
   // Make a note we are on

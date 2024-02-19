@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { mongoose_client } from "../mongooseDocker";
 import { getModel } from "./helpers/helpers";
 import { User } from "./User";
 import { Ballot } from "./Ballot";

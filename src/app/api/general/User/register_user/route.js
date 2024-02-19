@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 //import { performDatabaseOperation } from "../../database/databasetemplate";
 import { Transaction } from "../../../database/mongooseDocker";
 import { User } from "../../../database/models/User";
-import { register_user_type } from "../../../Forms/register_user_type";
+import { register_user_type } from "../../../Forms/User/register_user_type";
 
 export async function GET(req, res) {
   // Make a note we are on

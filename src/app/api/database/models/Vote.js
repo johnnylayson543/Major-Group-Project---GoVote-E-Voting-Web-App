@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { mongoose_client } from "../mongooseDocker";
 import { getModel } from "./helpers/helpers";
 import { Log } from "./Log";
 
@@ -16,7 +15,8 @@ class VoteClass {
             const adding_the_vote_result = await Vote.create(obj);
             const logging_the_vote_result = await Log.add_vote(adding_the_vote_result);
         } catch (error) {
-            
+            console.error('Error adding the person details: ', error);
+            console.error('Error occurred:', error.message);
         }
     }
 }

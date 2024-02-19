@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { mongoose_client } from "../mongooseDocker";
 import { getModel } from "./helpers/helpers";
 import { Candidate } from "./Candidate";
 
@@ -23,7 +22,8 @@ class VoterClass extends User {
             const candidate_found = Candidate.findOne(filter_candidate);
             if(voter_found && candidate_found) await Vote.add_vote(obj);
         } catch (error) {
-            
+            console.error('Error casting the vote: ', error);
+            console.error('Error occurred:', error.message);
         }
 
     }
