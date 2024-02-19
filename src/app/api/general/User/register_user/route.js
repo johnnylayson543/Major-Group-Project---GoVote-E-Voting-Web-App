@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 //import { performDatabaseOperation } from "../../database/databasetemplate";
 import { Transaction } from "../../database/mongooseDocker";
 import { User } from "../../database/models/User";
+import { register_user_type } from "../../Forms/register_user_type";
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -10,21 +11,17 @@ export async function GET(req, res) {
   // get the values
   // that were sent across to us.
   const { searchParams } = new URL(req.url)
-
-  
-  const email = searchParams.get('email')
-  const dateofbirth = searchParams.get('dob')
-  const ppsn = searchParams.get('ppsn')
-  const pass = searchParams.get('pass')
-  console.log(email + ", " + dateofbirth + ", " + ppsn + ", " + pass);
-
-  const x = { user: {ppsn: ppsn, pass: pass}, person_details: {email: email, date_of_birth:dateofbirth}};
+  obj = new register_user_type(searchParams);
+  const x = { user: obj_user, person_details: obj_person_details};
   const xy = {fn: User.register_an_account, par: x};
-  console.log{x}
-  console.log{xy}
-  console.log{"Operation begins."}
+  
+  console.log("form_obj: " + String.toString(x));
+  console.log("The function and its parameters to pass: " + String.toString(xy));
+  
+  console.log("Database transaction stage begins.");
   const result = await Transaction.run(xy);
-  console.log("Passed operation stage.\n");
+  console.log("Passed database transaction stage.\n");
+  
   console.log(result);
 
   // EVote {

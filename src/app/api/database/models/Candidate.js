@@ -11,16 +11,20 @@ const candidateSchema = new mongoose.Schema({
 class CandidateClass extends User {
     static async add_candidate(x){
         try {
-            const candidate = await Candidate.create(x);
+            const obj = {ppsn: x.ppsn, ballotID: x.ballotID};
+            const candidate = await Candidate.create(obj);
         } catch (error) {
             console.error('An error occurred while adding the candidate:', error);
+            console.error('Error occurred:', error.message);
         }
     } 
     static async remove_candidate(x){
         try {
-            const candidate = await Candidate.deleteOne(x);
+            const obj = {ppsn: x.ppsn, ballotID: x.ballotID};
+            const candidate = await Candidate.deleteOne(obj);
         } catch (error) {
             console.error('An error occurred while removing the candidate:', error);
+            console.error('Error occurred:', error.message);
         }
     }       
 }

@@ -14,11 +14,14 @@ class VoterClass extends User {
 
     static async cast_a_vote(x){
         try {
-            const voteData = {ppsn: ppsn, CandidateID: x.CandidateID}; 
-            const voter = Voter.findOne({ppsn: voteData.ppsn});
-            const candidate = Candidate.findOne({candidateID: voteData.CandidateID});
-            if(voter && candidate) await Vote.add_vote(voteData);
+            const filter_voter = {ppsn: voteData.ppsn};
+            const filter_candidate = {candidateID: voteData.CandidateID};
+            
+            const obj = {VoterID: x.ppsn, CandidateID: x.CandidateID}; 
 
+            const voter_found = Voter.findOne(filter_voter);
+            const candidate_found = Candidate.findOne(filter_candidate);
+            if(voter_found && candidate_found) await Vote.add_vote(obj);
         } catch (error) {
             
         }

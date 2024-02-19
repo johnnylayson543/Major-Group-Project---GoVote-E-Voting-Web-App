@@ -13,9 +13,11 @@ class BallotClass {
 
     static async add_ballot(x){
         try {
-            const ballot = await Ballot.create(x);
+            const obj = {title: x.title, closing_time: x.closing_time};
+            const ballot = await Ballot.create(obj);
         } catch (error) {
             console.error('Error creating the ballot: ', error);
+            console.error('Error occurred:', error.message);
         }
     }
 }

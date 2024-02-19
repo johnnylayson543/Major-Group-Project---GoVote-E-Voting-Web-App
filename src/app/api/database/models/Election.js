@@ -8,11 +8,13 @@ const electionSchema = new mongoose.Schema({
 
 
 class ElectionClass {
-    static async add_election(){
+    static async add_election(x){
         try {
-            const election = await Election.create(x);
+            const obj = {ballotID: x.ballotID};
+            const election = await Election.create(obj);
         } catch (error) {
-            
+            console.error('An error occurred adding the election. ');
+            console.error('Error occurred:', error.message);
         }
     }
 }

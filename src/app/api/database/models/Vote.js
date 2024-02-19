@@ -12,8 +12,9 @@ const voteSchema = new mongoose.Schema({
 class VoteClass {
     static async add_vote(x){
         try {
-            const result = await Vote.save(x);
-            const logResult = await Log.add_vote(x);
+            const obj = {voterID: x.voterID, candidateID: x.candidateID};
+            const adding_the_vote_result = await Vote.create(obj);
+            const logging_the_vote_result = await Log.add_vote(adding_the_vote_result);
         } catch (error) {
             
         }

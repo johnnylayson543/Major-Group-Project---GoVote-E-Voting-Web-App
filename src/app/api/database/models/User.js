@@ -31,9 +31,9 @@ class UserClass {
                 const person_details_added_result = await await Person.update_person_details(personData);
                 return {user_result: new_user_result, person_details_result: person_details_added_result};
             } else if (person1 && user1){
-                console.log("User already exists. ");
+                console.error("User already exists. ");
             } else if( !person1 ) {
-                console.log("User cannot be added. Person not identified in the database. ");
+                console.error("User cannot be added. Person not identified in the database. ");
             }
 
             
@@ -54,20 +54,22 @@ class UserClass {
             personData = {ppsn: x.ppsn, name: x.name, address: x.address, phone: x.phone, email: x.email, date_of_birth: x.date_of_birth};
             if(person) await Person.update_person_details(personData);
         } catch (error) {
-            
+            console.error('An error occurred updating the person details. ');
+            console.error('Error occurred:', error.message);      
         }
 
     }
 
     static async log_into_account(x){
         try {
-            const filter = {ppsn: x.ppsn, pass: x.pass};
-            const user = await User.findOne(filter);
+            const filter_user = {ppsn: x.ppsn, pass: x.pass};
+            const user_found = await User.findOne(filter_user);
 
-            return (user) ? {user_authenticated: true, token: user.token } : {user_authenticated: false}
+            return (user_found) ? {user_authenticated: true, token: user.token } : {user_authenticated: false}
 
         } catch (error){
-
+            console.error('An error occurred logging into the account. ');
+            console.error('Error occurred:', error.message);
         }
     }
 
@@ -75,7 +77,8 @@ class UserClass {
         try {
             const user = await User.create(x);
         } catch (error) {
-            console.error('Error creating the user: ', error);
+            console.error('Error adding the user account: ', error);
+            console.error('Error occurred:', error.message);
         }
     }
 
@@ -83,7 +86,8 @@ class UserClass {
         try {
             const user = await User.updateOne(x.ppsn, x);
         } catch (error) {
-            console.error('Error creating the user: ', error);
+            console.error('Error updating the user account: ', error);
+            console.error('Error occurred:', error.message);
         }
     }
 
@@ -92,6 +96,7 @@ class UserClass {
             const user = await User.deleteOne(x);
         } catch (error) {
             console.error('Error removing the user: ', error);
+            console.error('Error occurred:', error.message);
         }
     }
 }

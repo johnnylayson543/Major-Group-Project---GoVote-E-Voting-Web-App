@@ -22,9 +22,14 @@ logSchema.pre('findOneAndUpdate', function() {
 
 class LogClass {
     static async add_log(x){
-        const logData = {voteID: x._id}
-        const log = new Log(x); 
-        const result = await log.save(x);
+        try {
+            const obj = {voteID: x._id}
+            const result = await Log.create(x);    
+        } catch (error) {
+            console.error('An error occurred adding the log. ');
+            console.error('Error occurred:', error.message);
+        }
+        
     }
 }
 logSchema.loadClass(LogClass)

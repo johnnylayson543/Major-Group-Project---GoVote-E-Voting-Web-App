@@ -1,4 +1,5 @@
-import { performDatabaseOperation } from "../../database/databasetemplate";
+import { performDatabaseOperation } from "../../../database/databasetemplate";
+import { login_user_type } from "../../../Forms/login_user_type";
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -7,13 +8,9 @@ export async function GET(req, res) {
   // get the values
   // that were sent across to us.
   const { searchParams } = new URL(req.url);
-  const ppsn = searchParams.get('ppsn');
-  const pass = searchParams.get('pass');
+  const obj = new login_user_type(searchParams);
 
-  console.log(ppsn);
-  console.log(pass);
-
-  const x = { user: {ppsn: ppsn, pass: pass}};
+  const x = { user: obj.user};
   const xy = {fn: User.log_into_account, par: x};
   console.log{x}
   console.log{xy}
