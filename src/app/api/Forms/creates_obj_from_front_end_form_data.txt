@@ -1,0 +1,6 @@
+The object becomes the parameters of the function passed to the Transaction.run(xy).
+
+So 
+
+    x = object
+    xy = {}

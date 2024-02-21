@@ -13,27 +13,48 @@ class UserClass {
     static async register_an_account(x){
         console.log("Entered user function body.");
         try {
-            const required = [ "email", "date_of_birth" ];
-            const optionals = ["name", "address", "phone"];
             console.log("Entered try."); 
-            const user_filter = {ppsn: x.user.ppsn};
+            console.log(x);
+            const personData = {person: {ppsn: x.user.ppsn, ...x.person_datails}};
+            const userData = {user: {ppsn: x.user.ppsn, pass: x.user.pass }}
+
+            const filter = {ppsn: x.user.ppsn};
+            const person1 = await Person.findOne(filter);
+            const user1 = await User.findOne(filter);
+
+            const isChangedPerson = !(person1 === personData);
+            const isChangedUser = !(user1 === userData);
+
+
+
+            console.log("Did person details change: " + isChangedPerson + ", Did user change detail:" + isChangedUser)
 
             console.log("Entered await User find one."); 
-            const person1 = await Person.findOne(user_filter);
-            const user1 = await User.findOne(user_filter);
             console.log("Person result: " + person1);
             console.log("User result: " + user1);
 
             if(person1 && !user1){
-                const userData = {ppsn: x.user.ppsn, pass: x.user.pass };
-                const new_user_result = await User.add_user_account(userData);
+                const new_user_result = await User.add_user_account(userData.user);
+                
+                let result = {user_result: new_user_result}
+                if(isChangedPerson){
+                    const person_details_added_result = await User.update_person_details(personData);
 
-                const personData = {person: {ppsn: x.user.ppsn, ...x.person_datails}};
-
-                //const personData = {ppsn: x.user.ppsn, name: x.person_details.name, address: x.person_details.address, phone: x.person_details.phone, email: x.person_details.email, date_of_birth: x.person_details.date_of_birth};
-                const person_details_added_result = await Person.update_person_details(personData);
-                return {user_result: new_user_result, person_details_result: person_details_added_result};
+                    result = {person_details_result: person_details_added_result, user_result: new_user_result};
+                }
+                return result;
             } else if (person1 && user1){
+                if( isChangedPerson  ) {
+                    const person_details_added_result = await User.update_person_details(personData);
+                    console.log(person_details_added_result);
+                    return {person_details_result: person_details_added_result};
+                }
+
+                if( isChangedUser  ) {
+                    const user_details_added_result = await User.update_user_account(userData.user);
+                    console.log(user_details_added_result);
+                    return {user_details_added_result: user_details_added_result};
+                }
                 console.error("User already exists. ");
             } else if( !person1 ) {
                 console.error("User cannot be added. Person not identified in the database. ");

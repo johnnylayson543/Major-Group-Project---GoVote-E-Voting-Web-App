@@ -1,4 +1,4 @@
-import { performDatabaseOperation } from "../../../database/databasetemplate";
+import { performDatabaseOperation } from "../../../database/.old/databasetemplate";
 import { login_user_type } from "../../../Forms/User/login_user_type";
 
 export async function GET(req, res) {

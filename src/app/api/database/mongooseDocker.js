@@ -128,6 +128,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     console.log('Connected to MongoDB!');
   });*/
 
+// This is a rollback feature for databases that treats a series of actions on the database as one of work.
+// It must complete in total or not at all. Look up database transactions.
+// It is atomic.
 async function withTransaction(xy){
     const session = await mongoose.startSession();
     session.startTransaction();

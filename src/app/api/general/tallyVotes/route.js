@@ -1,5 +1,5 @@
 import { Collection, MongoClient } from "mongodb"
-import { getClient, client } from "../../database/mongoDBCloud";
+import { getClient, client } from "../../database/.old/mongoDBCloud";
 
 export async function GET(req, res) {
     // Make a note we are on

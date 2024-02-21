@@ -1,0 +1,21 @@
+Diagram:
+
+Admin  add_person_range 
+User register_an_account
+User logging_an_account
+Admin creates_ballot,  add_person_to_ballot (creates candidate), create_election_with_ballot 
+User register_with_election (creates voter), cast_a_vote (creates vote)
+
+
+Forms:
+
+Admins forms : 
+add_persons_range (ppsn_range: {min:  , max: } ) , 
+create_ballot (closing date, opening date .... ),
+add_person_to_ballot [create candidates] ( gets people, admin selects for ballot, and sends ppsn to the back end )
+create_election ( get ballots, admin select a ballot, and sends the ballotID to back end)
+
+User forms:
+register_an_account
+logging_an_account 
+register_with_election ( user will see list elections, user registers and becomes a voter, ppsn sent to the back end to the Voter table)

@@ -1,6 +1,6 @@
 import { Collection, MongoClient } from "mongodb"
-import { performDatabaseOperation, result } from "../../database/databasetemplate";
-import { getClient, client  } from "../../database/mongoDBCloud";
+import { performDatabaseOperation, result } from "../../database/.old/databasetemplate";
+import { getClient, client  } from "../../database/.old/mongoDBCloud";
 import { add_persons_range_admin_type } from "../../Forms/Admin/add_persons_range_admin_type";
 
 
