@@ -1,24 +1,13 @@
 'use client';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
+import NavBar from '../header/navBar';
 
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
-
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
+import { Toolbar } from '@mui/material';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -80,16 +69,6 @@ function go(d){
 
 
 export default function Page() {
-
-
-  const theme = createTheme({
-    palette: {
-     
-      secondary: {
-        main: green[500],
-      },
-    },
-  });
   
 	function getBallotCandidates(ballotID){
     var url = `http://localhost:3000/api/general/getBallot?ballotID=${ballotID}`;
@@ -118,7 +97,9 @@ export default function Page() {
   
   
   return (
-    <ThemeProvider theme={theme}>
+    <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
+    <NavBar></NavBar>
+    <Toolbar></Toolbar>
         {data.map( i => i.candidateID)}
         {data.map( i => i.tally)}
         
@@ -134,9 +115,8 @@ export default function Page() {
         <canvas id="myChart"></canvas>
     </div>
 	  
-
+    </Box>
 	  
-    </ThemeProvider>
 
   );
 }

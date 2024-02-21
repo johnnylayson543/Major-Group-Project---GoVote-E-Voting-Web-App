@@ -41,10 +41,10 @@ export default function Page() {
             <NavBar/>
             <Toolbar />
             <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
-                Contact Us
+                Contact Us <br/> <br/>
             </Typography>
             <Typography>
-                <h3>We Value Your Feedback!</h3>
+                <span style={{ fontSize: '20px', fontWeight: '700', display: 'block' }}>We Value Your Feedback!</span>
                 At GoVote, we're committed to providing a seamless and inclusive voting experience.
                 Your feedback, questions, and suggestions are important to us. <br/>
                 Feel free to come in and talk to us or drop us a query form and we will get back to you as soon as convenient

@@ -1,0 +1,23 @@
+Register Election - User is already registered for GoVote account but is given a choice to choose and register for an election (ballot). THIS IS NOT A REGISTER ACCOUNT
+Create Account - To create an account, admin must put the ppsn (add_person_range) to the person collection (could use a form for interaction). If the user registers but ppsn doesn't exist in person, it will fail. But if it does, it will create a new one.
+
+
+Tasks of the entire team:
+Finish stuff for the backend
+Create frontend forms
+Connect everything together
+Routes
+
+Forms:
+
+Admins forms : 
+add_persons_range [person range ](ppsn_range: {min:  , max: } ) , 
+create_ballot [create ballot] (closing date, opening date .... ),
+add_person_to_ballot [create candidates] ( gets people, admin selects for ballot, and sends ppsn to the back end )
+create_election [create election] ( get ballots, admin select a ballot, and sends the ballotID to back end)
+
+User forms:
+register_an_account [register]
+logging_an_account [login]
+register_with_election [register election] ( user will see list elections, user registers and becomes a voter, ppsn sent to the back end to the Voter table)
+cast_a_vote [cast your vote] ( gets the candidates for a election )
