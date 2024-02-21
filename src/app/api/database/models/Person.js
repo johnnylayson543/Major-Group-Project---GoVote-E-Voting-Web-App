@@ -25,8 +25,8 @@ class PersonClass {
     static async update_person_details(x){
         try {
             const filter_person = {ppsn: x.ppsn};
-            const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
-            const person_details_update_result = await Person.updateOne(filter_person,obj);
+            //const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
+            const person_details_update_result = await Person.updateOne(filter_person,x);
         } catch (error) {
             console.error('Error updating the person details: ', error);
             console.error('Error occurred:', error.message);

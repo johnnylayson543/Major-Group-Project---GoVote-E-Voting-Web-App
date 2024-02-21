@@ -1,3 +1,5 @@
+import { create_ballot_admin_type } from "../../Forms/Admin/create_ballot_admin_type";
+
 export async function GET(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
@@ -5,20 +7,17 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const minAge = searchParams.get('minAge')
-    const votingArea = searchParams.get('votingArea')
+    const obj = new create_ballot_admin_type(searchParams);
     
-    const startDateTime = searchParams.get('startDateTime')
-    const endDateTime = searchParams.get('endDateTime')
-
-    console.log(pname);
-    // =================================================
-    client = getClient();
-    database = client.db;
-    const collection = database.collection('ballot'); // collection name
-    var myobj = { minAge: minAge, votingArea: votingArea, startDateTime: startDateTime, endDateTime: endDateTime};
-    const insertResult = await collection.insertOne(myobj);
-    //==========================================================
-    // at the end of the process we need to send something back.
+    const x = obj;
+    const xy = {fn: Admin.create_ballot, par: x};
+    
+    console.log("form_obj: " + String.toString(x));
+    console.log("The function and its parameters to pass: " + String.toString(xy));
+    
+    console.log("Database transaction stage begins.");
+    const result = await Transaction.run(xy);
+    console.log("Passed database transaction stage.\n");
+    
     return Response.json({ "data":"" + "inserted" + ""})
     }

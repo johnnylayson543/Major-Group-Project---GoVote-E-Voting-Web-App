@@ -1,5 +1,5 @@
 
-class add_candidate_to_ballot_type {
+class add_candidate_to_ballot_admin_type {
     candidate = {}
 
     constructor(x){

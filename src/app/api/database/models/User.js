@@ -13,6 +13,8 @@ class UserClass {
     static async register_an_account(x){
         console.log("Entered user function body.");
         try {
+            const required = [ "email", "date_of_birth" ];
+            const optionals = ["name", "address", "phone"];
             console.log("Entered try."); 
             const user_filter = {ppsn: x.user.ppsn};
 
@@ -26,8 +28,10 @@ class UserClass {
                 const userData = {ppsn: x.user.ppsn, pass: x.user.pass };
                 const new_user_result = await User.add_user_account(userData);
 
-                const personData = {ppsn: x.user.ppsn, name: x.person_details.name, address: x.person_details.address, phone: x.person_details.phone, email: x.person_details.email, date_of_birth: x.person_details.date_of_birth};
-                const person_details_added_result = await await Person.update_person_details(personData);
+                const personData = {person: {ppsn: x.user.ppsn, ...x.person_datails}};
+
+                //const personData = {ppsn: x.user.ppsn, name: x.person_details.name, address: x.person_details.address, phone: x.person_details.phone, email: x.person_details.email, date_of_birth: x.person_details.date_of_birth};
+                const person_details_added_result = await Person.update_person_details(personData);
                 return {user_result: new_user_result, person_details_result: person_details_added_result};
             } else if (person1 && user1){
                 console.error("User already exists. ");
@@ -48,10 +52,10 @@ class UserClass {
 
     static async update_person_details(x){
         try {
-            const filter = {ppsn: x.ppsn};
-            const person = await Person.findOne(x.ppsn);
-            personData = {ppsn: x.ppsn, name: x.name, address: x.address, phone: x.phone, email: x.email, date_of_birth: x.date_of_birth};
-            if(person) await Person.update_person_details(personData);
+            const filter = {ppsn: x.person.ppsn};
+            const person = await Person.findOne(filter);
+            //personData = {ppsn: x.ppsn, name: x.name, address: x.address, phone: x.phone, email: x.email, date_of_birth: x.date_of_birth};
+            if(person) await Person.update_person_details(x.person);
         } catch (error) {
             console.error('An error occurred updating the person details. ');
             console.error('Error occurred:', error.message);      

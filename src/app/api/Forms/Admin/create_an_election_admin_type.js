@@ -1,5 +1,5 @@
 
-class create_an_election_type {
+class create_an_election_admin_type {
 
     election = {};
 

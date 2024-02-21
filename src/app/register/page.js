@@ -57,18 +57,18 @@ export default function Page() {
     const data = new FormData(event.currentTarget);
 
 
-    let email = data.get('email')
-    let dob = data.get('dob')
-    let ppsn = data.get('ppsn')
-    let pass = data.get('pass')
+    let person_email = data.get('email');
+    let person_date_of_birth = data.get('dob');
+    let user_ppsn = data.get('ppsn');
+    let user_pass = data.get('pass');
 
-    console.log("Sent email:" + email)
-    console.log("Sent dob:" + dob)
-    console.log("Sent date of ppsn:" + ppsn)
-    console.log("Sent pass:" + pass)
+    console.log("Sent email:" + person_email);
+    console.log("Sent dob:" + person_date_of_birth);
+    console.log("Sent date of ppsn:" + user_ppsn);
+    console.log("Sent pass:" + user_pass);
 
     // Call this function to pass the data created by the FormData
-    runDBCallAsync(`http://localhost:3000/api/general/register?email=${email}&dob=${dob}&ppsn=${ppsn}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/general/User/register_user?person_email=${person_email}&person_date_of_birth=${person_date_of_birth}&user_ppsn=${user_ppsn}&user_pass=${user_pass}`);
 
   }; // end handler
 
