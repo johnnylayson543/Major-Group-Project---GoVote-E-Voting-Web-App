@@ -18,6 +18,7 @@ import BallotIcon from '@mui/icons-material/Ballot';
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 import {blue, green, purple, white, pink} from '@mui/material/colors'; 
 
 export default function Page() {
@@ -104,6 +105,14 @@ export default function Page() {
                                 </ListItemButton>
                             </ListItem>
                             <Divider></Divider>
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='#'>
+                                    <ListItemIcon>
+                                        <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Register for Elections"/>
+                                </ListItemButton>
+                            </ListItem>
                         </List>
                     </Box>
                 </Item>
