@@ -27,7 +27,7 @@ class UserClass {
 
 
 
-            console.log("Did person details change: " + isChangedPerson + ", Did user change detail:" + isChangedUser)
+            console.log("Did person details change: " + isChangedPerson + ", Did user change details:" + isChangedUser)
 
             console.log("Entered await User find one."); 
             console.log("Person result: " + person1);
@@ -86,10 +86,10 @@ class UserClass {
 
     static async log_into_account(x){
         try {
-            const filter_user = {ppsn: x.ppsn, pass: x.pass};
+            const filter_user = {ppsn: x.user.ppsn, pass: x.user.pass};
             const user_found = await User.findOne(filter_user);
 
-            return (user_found) ? {user_authenticated: true, token: user.token } : {user_authenticated: false}
+            return (user_found) ? {user_authenticated: true, token: x.user.token } : {user_authenticated: false}
 
         } catch (error){
             console.error('An error occurred logging into the account. ');
