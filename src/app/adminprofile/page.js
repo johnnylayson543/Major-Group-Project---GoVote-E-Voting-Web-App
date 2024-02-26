@@ -19,8 +19,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import PollIcon from '@mui/icons-material/Poll';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import AddIcon from '@mui/icons-material/Add';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {blue, green, purple, white, pink} from '@mui/material/colors'; 
 
 export default function Page() {
@@ -45,7 +45,7 @@ export default function Page() {
                 <Item>
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main'}}><Face6Icon></Face6Icon></Avatar> 
                     <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
-                        Welcome to GoVote User!
+                        Welcome to GoVote Management System Admin!
                     </Typography>
                 </Item>
                 </Grid>
@@ -69,68 +69,50 @@ export default function Page() {
                         <List>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./castyourvote'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./personrange'>
                                     <ListItemIcon>
-                                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                        <AddIcon sx={{ color: 'white' }}></AddIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Cast Vote"/>
+                                    <ListItemText primary="Set Person Range"/>
                                 </ListItemButton>
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./tallyvotes'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./createballot'>
                                     <ListItemIcon>
-                                        <PollIcon sx={{ color: 'white' }}></PollIcon>
+                                        <BallotIcon sx={{ color: 'white' }}></BallotIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Tally Votes"/>
+                                    <ListItemText primary="Create Ballot"/>
                                 </ListItemButton>
                             </ListItem>
                             
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./bulletinboard'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./createcandidates'>
                                     <ListItemIcon>
-                                        <DashboardIcon sx={{ color: 'white' }}></DashboardIcon>
+                                        <PersonAddIcon sx={{ color: 'white' }}></PersonAddIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Bulletin Board"/>
+                                    <ListItemText primary="Create Candidates"/>
                                 </ListItemButton>
                             </ListItem>
                             <Divider></Divider>
 
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./myvotescast'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./createelection'>
                                     <ListItemIcon>
-                                        <PersonIcon sx={{ color: 'white' }}></PersonIcon>
+                                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="My Votes Cast"/>
+                                    <ListItemText primary="Create Election"/>
                                 </ListItemButton>
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./registerforelections'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./viewchecks'>
                                     <ListItemIcon>
                                         <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Register for Elections"/>
-                                </ListItemButton>
-                            </ListItem>
-                            <Divider></Divider>
-                            <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./viewvote'>
-                                    <ListItemIcon>
-                                        <BallotIcon sx={{ color: 'white' }}></BallotIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="View Vote"/>
-                                </ListItemButton>
-                            </ListItem>
-                            <Divider></Divider>
-                            <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./viewresults'>
-                                    <ListItemIcon>
-                                        <TableChartIcon sx={{ color: 'white' }}></TableChartIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="View Results"/>
+                                    <ListItemText primary="View Checks"/>
                                 </ListItemButton>
                             </ListItem>
                         </List>
@@ -142,5 +124,3 @@ export default function Page() {
     );
      
 }
-
-
