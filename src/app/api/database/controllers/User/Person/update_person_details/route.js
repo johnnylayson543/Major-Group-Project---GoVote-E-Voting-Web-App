@@ -1,5 +1,5 @@
 import { run_model_method } from "../../../helper/helper";
-import { login_user_type } from "../../../Forms/User/login_user_type";
+import { update_person_details_type } from "../../../Forms/User/update_person_details_type";
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -8,10 +8,10 @@ export async function GET(req, res) {
   // get the values
   // that were sent across to us.
   const { searchParams } = new URL(req.url);
-  const obj = new login_user_type(searchParams);
+  const obj = new update_person_details_type(searchParams);
 
   const x = { user: obj.user};
-  const xy = {fn: User.log_into_account, par: x};
+  const xy = {fn: User.update_person_details, par: x};
   const result = run_model_method(xy);
 
   return Response.json({data: "okay", "result": result});

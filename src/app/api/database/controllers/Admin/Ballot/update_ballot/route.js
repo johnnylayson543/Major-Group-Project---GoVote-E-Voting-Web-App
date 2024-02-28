@@ -1,6 +1,5 @@
+import { create_ballot_admin_type } from "../../Forms/Admin/Ballot/update_ballots_admin_type";
 import { run_model_method } from "../../../helper/helper";
-import { add_persons_range_admin_type } from "../../Forms/Admin/add_persons_range_admin_type";
-
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -8,13 +7,12 @@ export async function GET(req, res) {
     console.log("in the putInCart api page");
     // get the values
     // that were sent across to us.
-    const { searchParams } = new URL(req.url);
-    const obj = new add_persons_range_admin_type(searchParams);
+    const { searchParams } = new URL(req.url)
+    const obj = new update_ballot_admin_type(searchParams);
+    
     const x = obj;
-    const xy = {fn: Admin.add_person_range, par: x};
+    const xy = {fn: Admin.update_ballots, par: x};
     const result = run_model_method(xy);
 
-    return Response.json({ "data":"ok", result: result });
+    return Response.json({ "data":"okay", "result": result});
 }
-
-

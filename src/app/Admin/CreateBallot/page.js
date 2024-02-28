@@ -69,6 +69,7 @@ export default function Page() {
     console.log("Sent pass:" + pass)
 
 
+    
     runDBCallAsync(`http://localhost:3000/api/login?email=${email}&dateofbirth=${dateofbirth}&pass=${pass}`)
 
 

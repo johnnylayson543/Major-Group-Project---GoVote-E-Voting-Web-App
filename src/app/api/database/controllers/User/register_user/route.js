@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
-//import { performDatabaseOperation } from "../../database/databasetemplate";
-import { Transaction } from "../../../database/mongooseDocker";
-import { User } from "../../../database/models/User";
+import { run_model_method } from "../../../helper/helper";
 import { register_user_type } from "../../../Forms/User/register_user_type";
 
 export async function GET(req, res) {
@@ -21,8 +18,6 @@ export async function GET(req, res) {
       o
 
   */
-
-
   // Layers to the design
 
   //  route files are the form handlers 
@@ -36,15 +31,7 @@ export async function GET(req, res) {
   const obj = new register_user_type(searchParams);  //  This is where the data from the front end form is made into an object using a form type. It has obj.user , obj.person_details.
   const x = obj;
   const xy = {fn: User.register_an_account, par: x};  // This is where you send the Model.function_name, object. 
-  
-  console.log("form_obj: " + String.toString(x));
-  console.log("The function and its parameters to pass: " + String.toString(xy));
-  
-  console.log("Database transaction stage begins.");
-  const result = await Transaction.run(xy);
-  console.log("Passed database transaction stage.\n");
-  
-  console.log(result);
+  const result = run_model_method(xy);
 
   return Response.json({ "data":"ok" , "result": result})
   }
