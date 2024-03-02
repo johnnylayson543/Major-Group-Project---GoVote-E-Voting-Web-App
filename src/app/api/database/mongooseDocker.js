@@ -109,9 +109,7 @@ import { type } from "requests";
                 Log vote with time log server
             
 */
-          //'mongodb://root:example@localhost:27017/'
-//const uri = 'mongodb://root:example@mongo:27017/';
-//const uri = 'mongodb://root:example@localhost:27017/EVote';
+
 const uri = 'mongodb://root:example@localhost:27017/EVote?authSource=admin';
 const options = {};
 const otherOptions = (err, client) => {
