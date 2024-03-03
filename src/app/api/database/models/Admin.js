@@ -43,6 +43,38 @@ class AdminClass extends UserClass {
         try {
             const obj = {ballotID: x.ballotID};
             const ballot = await Ballot.add_ballot(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async remove_ballot(x){
+        try {
+            const obj = {ballotID: x.ballotID};
+            const ballot = await Ballot.remove_ballot(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_ballots(){
+        try {
+            const ballot = await Ballot.retrieve_ballots();
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async update_ballot(x){
+        try {
+            const ballot = await Ballot.update_ballot(x);
+            return ballot;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);
@@ -92,7 +124,10 @@ class AdminClass extends UserClass {
             const filter_ballot = {ballotID: x.ballotID};
             const ballot_found = await Ballot.findOne(filter_ballot);
             if(ballot_found){
-                const election = await Election.add_election({ballotID: ballot1._id});
+                const election = await Election.add_election({ballotID: ballot_found._id});
+                return election;
+            } else {
+                return "Not found.";
             }
         } catch (error) {
             console.error('An error occurred while adding the election:', error);
@@ -100,12 +135,15 @@ class AdminClass extends UserClass {
         }
     }
 
-    static async remove_election(x){
+    static async cancel_election(x){
         try {
             const filter_ballot = {ballotID: x.ballotID}
             const ballot_found = await Ballot.findOne(filter_ballot);
             if(ballot_found){
-                const result = await Election.deleteOne({ballotID: ballot._id});
+                const election = await Election.remove_election({ballotID: ballot_found._id});
+                return election;
+            } else {
+                return "Not found.";
             }
         } catch (error) {
             console.error('An error occurred while removing the election:', error);

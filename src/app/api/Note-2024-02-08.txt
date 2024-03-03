@@ -17,7 +17,7 @@ api ---- database ---- {
         (
             schema are complete
             classes are in progress
-                must classes load to schema
+                must load classes to schema
             model 
                 must load schema to the model
         )                        

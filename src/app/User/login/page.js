@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import NavBar from "../header/navBar";
+import NavBar from "../../header/navBar";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';

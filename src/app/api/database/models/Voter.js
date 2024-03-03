@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
 import { Candidate } from "./Candidate";
+import { Vote } from "./Vote";
 
 const voterSchema = new mongoose.Schema({
-    ppsn: {type: String, required: true, unique: true, ref: 'Person'},
+    ppsn: {type: String, required: true, unique: false, ref: 'Person'},
+    electionID: {type: String, required: true, unique: false, ref: 'Election'}
     //id: {type: String, required: true, unique: true}
 });
 
@@ -25,10 +27,21 @@ class VoterClass extends User {
             console.error('Error casting the vote: ', error);
             console.error('Error occurred:', error.message);
         }
+    }
 
+    static async register_voter_for_an_election(x){
+        try {
+            const obj = {ppsn: x.ppsn, electionID: x.electionID};
+
+            const voter = Voter.create(obj);
+            return voter;
+        } catch (error) {
+            console.error('Error registering voter for an election: ', error);
+            console.error('Error occurred:', error.message);
+        }
     }
 }
-voteSchema.loadClass(VoterClass)
+voterSchema.loadClass(VoterClass)
 
 const Voter = getModel('Voter', voterSchema);
 

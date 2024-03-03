@@ -11,7 +11,7 @@ export async function GET(req, res) {
     const obj = new tally_votes_teller_type(searchParams);
     
     const x = obj;
-    const xy = {fn: Vote.tallY_votes, par: x};
+    const xy = {fn: Teller.tallY_votes, par: x};
     const result = run_model_method(xy);
     
     return Response.json({ "data":"okay", "result": result});
