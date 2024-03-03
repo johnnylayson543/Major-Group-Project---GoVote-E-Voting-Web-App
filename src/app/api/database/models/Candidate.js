@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
+//import { User } from "./User";
 
 const candidateSchema = new mongoose.Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
@@ -7,7 +8,7 @@ const candidateSchema = new mongoose.Schema({
     ballotID: {type: String, required: true, unique: true}
 })
 
-class CandidateClass extends User {
+class CandidateClass {
     static async add_candidate(x){
         try {
             const obj = {ppsn: x.ppsn, ballotID: x.ballotID};
@@ -28,6 +29,6 @@ class CandidateClass extends User {
     }       
 }
 candidateSchema.loadClass(CandidateClass);
-const Candidate = getModel('Candidate', candidateSchema);
+export const Candidate = getModel('Candidate', candidateSchema);
 
-export default Candidate;
+//export default Candidate;

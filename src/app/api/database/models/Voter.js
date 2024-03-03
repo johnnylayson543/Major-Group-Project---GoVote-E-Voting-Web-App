@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
 import { Candidate } from "./Candidate";
 import { Vote } from "./Vote";
+//import { UserClass } from "./User";
 
 const voterSchema = new mongoose.Schema({
     ppsn: {type: String, required: true, unique: false, ref: 'Person'},
@@ -10,7 +11,7 @@ const voterSchema = new mongoose.Schema({
 });
 
 
-class VoterClass extends User {
+class VoterClass {
     // admin loads the stubs = user is completing the details (ppsn and pass minimum information) 
 
     static async cast_a_vote(x){
@@ -43,6 +44,6 @@ class VoterClass extends User {
 }
 voterSchema.loadClass(VoterClass)
 
-const Voter = getModel('Voter', voterSchema);
+export const Voter = getModel('Voter', voterSchema);
 
-export default Voter;
+//export default Voter;

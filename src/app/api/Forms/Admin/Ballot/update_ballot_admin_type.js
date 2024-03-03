@@ -1,5 +1,5 @@
 
-class update_ballot_admin_type {
+export class update_ballot_admin_type {
 
     ballot = {};
 

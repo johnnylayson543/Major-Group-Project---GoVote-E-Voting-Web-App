@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
+//import { UserClass } from "./User";
 
 const tellerSchema = new mongoose.Schema({
     personID: {type: String, required: true, unique: true, ref: 'Person'}
@@ -18,7 +19,7 @@ class TellerClass {
         
     }
 }
-logSchema.loadClass(LogClass)
-const Teller = getModel('Log', logSchema); 
+logSchema.loadClass(TellerClass)
+export const Teller = getModel('Teller', tellerSchema); 
 
-export default Teller;
+//export default Teller;

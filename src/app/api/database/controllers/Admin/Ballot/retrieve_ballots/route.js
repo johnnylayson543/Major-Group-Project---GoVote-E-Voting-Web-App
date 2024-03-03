@@ -1,5 +1,6 @@
-import { create_ballot_admin_type } from "../../Forms/Admin/retrieve_ballots_admin_type";
+import { retrieve_ballots_admin_type } from "../../../../../Forms/Admin/Ballot/retrieve_ballots_admin_type"
 import { run_model_method } from "../../../helper/helper";
+import { Admin } from "../../../../models/Admin";
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -8,11 +9,14 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const obj = new create_ballot_admin_type(searchParams);
+    const obj = new retrieve_ballots_admin_type(searchParams);
     
     const x = obj;
     const xy = {fn: Admin.retrieve_ballots, par: x};
-    const result = run_model_method(xy);
+    const result = await run_model_method(xy);
+    console.log("result: " + result);
 
-    return Response.json({ "data":"okay", "result": result});
+    res = Response.json({ data:"okay", result: result});
+
+    return res;
 }

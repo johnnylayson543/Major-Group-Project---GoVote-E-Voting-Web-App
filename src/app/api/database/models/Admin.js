@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
-import { User } from "./User";
+//import { User } from "./User";
 import { Ballot } from "./Ballot";
 import { Candidate } from "./Candidate";
 import { Person } from "./Person";
@@ -11,7 +11,7 @@ const adminSchema = new mongoose.Schema ({
     //id: {type: String, required: true, unique: true}
 });
 
-class AdminClass extends UserClass {
+class AdminClass {
 
     static async add_person_range(x){
         if(x.min && x.max){
@@ -61,10 +61,10 @@ class AdminClass extends UserClass {
         }
     }
 
-    static async retrieve_ballots(){
+    static async retrieve_ballots(x){
         try {
-            const ballot = await Ballot.retrieve_ballots();
-            return ballot;
+            const ballots = await Ballot.retrieve_ballots(x);
+            return ballots;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);
@@ -155,6 +155,6 @@ class AdminClass extends UserClass {
 
 adminSchema.loadClass(AdminClass);
 
-const Admin = getModel('Admin', adminSchema);
+export const Admin = getModel('Admin', adminSchema);
 
-export default Admin;
+// export default Admin;

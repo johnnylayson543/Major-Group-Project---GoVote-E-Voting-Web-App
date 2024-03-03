@@ -1,5 +1,5 @@
 
-class remove_ballot_admin_type {
+export class remove_ballot_admin_type {
 
     ballot = {};
 

@@ -1,5 +1,5 @@
 
-class create_ballot_admin_type {
+export class create_ballot_admin_type {
 
     ballot = {};
 

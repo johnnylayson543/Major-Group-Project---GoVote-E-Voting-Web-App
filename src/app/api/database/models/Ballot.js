@@ -32,10 +32,12 @@ class BallotClass {
         }
     }
 
-    static async retrieve_ballots(){
+    static async retrieve_ballots(x){
         try {
+            console.log("Entered retrieve ballots try");
             const obj = {};
             const ballots = await Ballot.find(obj);
+            console.log(ballots);
             return ballots;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
@@ -56,6 +58,6 @@ class BallotClass {
     }
 }
 ballotSchema.loadClass(BallotClass)
-const Ballot = getModel('Ballot', ballotSchema);
+export const Ballot = getModel('Ballot', ballotSchema);
 
-export default Ballot;
+//export default Ballot;

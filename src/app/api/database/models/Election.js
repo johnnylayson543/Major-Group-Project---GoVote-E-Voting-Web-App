@@ -28,6 +28,6 @@ class ElectionClass {
     }
 }
 electionSchema.loadClass(ElectionClass);
-const Election = getModel('Election', electionSchema);
+export const Election = getModel('Election', electionSchema);
 
-export default Election;
+//export default Election;
