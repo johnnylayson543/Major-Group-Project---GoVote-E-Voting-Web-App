@@ -60,14 +60,17 @@ export default function Page() {
 		const data = new FormData(event.currentTarget);
 
 
-    let ppsnMin = data.get('ppsnMin')
-    let ppsnMax = data.get('ppsnMax')
+    let email = data.get('email')
+    let dateofbirth = data.get('dateofbirth')
+		let pass = data.get('pass')
 
-    console.log("PPSN Min:" + ppsnMin)
-    console.log("PPSN Max:" + ppsnMax)
+    console.log("Sent email:" + email)
+    console.log("Sent date of birth:" + dateofbirth)
+    console.log("Sent pass:" + pass)
 
 
-    runDBCallAsync(`http://localhost:3000/api/admin/addStubAccounts?ppsnMin=${ppsnMin}&ppsnMax=${ppsnMax}`)
+    
+    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&dateofbirth=${dateofbirth}&pass=${pass}`)
 
 
 
@@ -115,29 +118,59 @@ export default function Page() {
             required
             fullWidth
             id="email"
-            label="Range Minimum"
-            name="ppsnMin"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
             autoFocus
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            id="rangeMax"
-            label="Range Maximum"
-            name="ppsnMax"
+            id="dateofbirth"
+            label="Date of Birth"
+            name="dateofbirth"
+            autoComplete="date-of-birth"
             autoFocus
           />
-          
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="pass"
+            label="Pass"
+            type="pass"
+            id="pass"
+            autoComplete="current-password"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Add Stub Accounts
+            Login
           </Button>
 
+
+
+
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="\register\" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
 
