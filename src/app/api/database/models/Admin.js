@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
-import { User } from "./User";
+//import { User } from "./User";
 import { Ballot } from "./Ballot";
 import { Candidate } from "./Candidate";
 import { Person } from "./Person";
@@ -11,7 +11,7 @@ const adminSchema = new mongoose.Schema ({
     //id: {type: String, required: true, unique: true}
 });
 
-class AdminClass extends UserClass {
+class AdminClass {
 
     static async add_person_range(x){
         if(x.min && x.max){
@@ -40,9 +40,46 @@ class AdminClass extends UserClass {
     }
 
     static async create_ballot(x){
-        try {
-            const obj = {ballotID: x.ballotID};
+        try 
+        {
+            console.log("Create Ballot obj");
+            console.log(x);
+            const obj = {title: x.ballot.title, closing_date: x.ballot.closing_date};
             const ballot = await Ballot.add_ballot(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async remove_ballot(x){
+        try {
+            const obj = {ballotID: x.ballot.ballotID};
+            const ballot = await Ballot.remove_ballot(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_ballots(x){
+        try {
+            const obj_filter = x.ballot_filter;
+            const ballots = await Ballot.retrieve_ballots(obj_filter);
+            return ballots;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async update_ballot(x){
+        try {
+            
+            const ballot = await Ballot.update_ballot(x);
+            return ballot;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);
@@ -92,7 +129,10 @@ class AdminClass extends UserClass {
             const filter_ballot = {ballotID: x.ballotID};
             const ballot_found = await Ballot.findOne(filter_ballot);
             if(ballot_found){
-                const election = await Election.add_election({ballotID: ballot1._id});
+                const election = await Election.add_election({ballotID: ballot_found._id});
+                return election;
+            } else {
+                return "Not found.";
             }
         } catch (error) {
             console.error('An error occurred while adding the election:', error);
@@ -100,15 +140,29 @@ class AdminClass extends UserClass {
         }
     }
 
-    static async remove_election(x){
+    static async cancel_election(x){
         try {
             const filter_ballot = {ballotID: x.ballotID}
             const ballot_found = await Ballot.findOne(filter_ballot);
             if(ballot_found){
-                const result = await Election.deleteOne({ballotID: ballot._id});
+                const election = await Election.remove_election({ballotID: ballot_found._id});
+                return election;
+            } else {
+                return "Not found.";
             }
         } catch (error) {
             console.error('An error occurred while removing the election:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_elections(x){
+        try {
+            const obj = {ballotID: x.ballotID};
+            const ballot = await Election.retrieve_elections(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);
         }
     }
@@ -117,6 +171,6 @@ class AdminClass extends UserClass {
 
 adminSchema.loadClass(AdminClass);
 
-const Admin = getModel('Admin', adminSchema);
+export const Admin = getModel('Admin', adminSchema);
 
-export default Admin;
+// export default Admin;

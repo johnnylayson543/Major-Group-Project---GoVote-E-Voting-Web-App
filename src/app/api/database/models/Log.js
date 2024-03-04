@@ -32,6 +32,6 @@ class LogClass {
     }
 }
 logSchema.loadClass(LogClass)
-const Log = getModel('Log', logSchema); 
+export const Log = getModel('Log', logSchema); 
 
-export default Log;
+//export default Log;

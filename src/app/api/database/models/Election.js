@@ -16,8 +16,29 @@ class ElectionClass {
             console.error('Error occurred:', error.message);
         }
     }
+
+    static async remove_election(x){
+        try {
+            const obj = {ballotID: x.ballotID};
+            const election = await Election.deleteOne(obj);
+        } catch (error) {
+            console.error('An error occurred removing the election. ');
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_election(x){
+        try {
+            const obj = x;
+            const elections = await Election.find(obj);
+            return elections;
+        } catch (error) {
+            console.error('An error occurred removing the election. ');
+            console.error('Error occurred:', error.message);
+        }
+    }
 }
 electionSchema.loadClass(ElectionClass);
-const Election = getModel('Election', electionSchema);
+export const Election = getModel('Election', electionSchema);
 
-export default Election;
+//export default Election;

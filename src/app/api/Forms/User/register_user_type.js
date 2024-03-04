@@ -1,3 +1,5 @@
+import { person_datails } from "./helpers/helpers";
+
 
 export class register_user_type {
     person_datails = {};
@@ -9,11 +11,22 @@ export class register_user_type {
         const date_of_birth = x.get('person_date_of_birth')
         const ppsn = x.get('user_ppsn')
         const pass = x.get('user_pass')
-        this.person_datails = {name: "", address: "", phone: "", email: email, date_of_birth: date_of_birth};
+        const name = x.get('person_name');
+        const address = x.get('person_address');
+        const phone = x.get('person_phone');
+
+        this.person_datails = person_datails.builder
+            .setName(name)
+            .setAddress(address)
+            .setPhone(phone)
+            .setEmail(email)
+            .setDateOfBirth(date_of_birth).build().descibe();
         this.user = {ppsn: ppsn, pass: pass};   
         console.log(email + ", " + date_of_birth + ", " + ppsn + ", " + pass);
     }
 }
+
+
 
 // Form types and classes with function are changable 
 // The rest is automatic 

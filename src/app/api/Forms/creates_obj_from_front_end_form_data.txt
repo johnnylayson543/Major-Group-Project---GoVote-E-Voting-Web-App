@@ -3,4 +3,4 @@ The object becomes the parameters of the function passed to the Transaction.run(
 So 
 
     x = object
-    xy = {}
+    xy = {fn : model.method_name, par: x}

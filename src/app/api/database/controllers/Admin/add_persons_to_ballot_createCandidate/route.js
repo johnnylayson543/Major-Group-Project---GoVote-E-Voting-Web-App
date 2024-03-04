@@ -1,4 +1,5 @@
 import { add_candidate_to_ballot_admin_type } from "../../Forms/Admin/add_candidate_to_ballot_admin_type";
+import { run_model_method } from "../../../helper/helper";
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -11,12 +12,7 @@ export async function GET(req, res) {
   
     const x = obj;
     const xy = {fn: Admin.add_person_to_the_ballot, par: x};
-    console.log("form_obj: " + String.toString(x));
-    console.log("The function and its parameters to pass: " + String.toString(xy));
-    
-    console.log("Database transaction stage begins.");
-    const result = await Transaction.run(xy);
-    console.log("Passed database transaction stage.\n");
+    const result = run_model_method(xy);
 
     return Response.json({ "data": "okay", "result": result});
     }

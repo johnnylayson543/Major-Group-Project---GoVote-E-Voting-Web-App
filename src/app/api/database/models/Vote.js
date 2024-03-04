@@ -40,6 +40,6 @@ class VoteClass {
     }
 }
 voteSchema.loadClass(VoteClass);
-const Vote = getModel('Vote', voteSchema);
+export const Vote = getModel('Vote', voteSchema);
 
-export default Vote;
+//export default Vote;
