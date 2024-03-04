@@ -1,4 +1,4 @@
-import { create_ballot_admin_type } from "../../Forms/Admin/Ballot/update_ballots_admin_type";
+import { retrieve_elections_admin_type } from "../../../../../Forms/Admin/Election/retrieve_elections_admin_typee"
 import { run_model_method } from "../../../helper/helper";
 import { Admin } from "../../../../models/Admin";
 
@@ -9,11 +9,14 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const obj = new update_ballot_admin_type(searchParams);
+    const obj = new retrieve_elections_admin_type(searchParams);
     
     const x = obj;
-    const xy = {fn: Admin.update_ballot, par: x};
-    const result = run_model_method(xy);
+    const xy = {fn: Admin.retrieve_elections, par: x};
+    const result = await run_model_method(xy);
+    console.log("result: " + result);
 
-    return Response.json({ "data":"okay", "result": result});
+    res = Response.json({ data:"okay", result: result});
+
+    return res;
 }

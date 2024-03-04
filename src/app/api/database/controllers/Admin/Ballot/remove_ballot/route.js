@@ -1,5 +1,7 @@
-import { create_ballot_admin_type } from "../../Forms/Admin/Ballot/remove_ballot_admin_type";
+import { remove_ballot_admin_type } from "../../../../../Forms/Admin/Ballot/remove_ballot_admin_type";
 import { run_model_method } from "../../../helper/helper";
+import { Admin } from "../../../../models/Admin"
+
 
 export async function GET(req, res) {
     // Make a note we are on

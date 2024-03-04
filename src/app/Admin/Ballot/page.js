@@ -8,7 +8,7 @@ import NavBar from '../../header/navBar';
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -37,14 +37,13 @@ import { useRouter } from 'next/router';
 export default function Page() {
   
   const [ballots, setBallots] = useState(null);
-  //const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballots`)
       .then((res) => res.json())
       .then((data) => {
         setBallots(data.result);
-        const router = useRouter();
 
         console.log("Ballot data")
         console.log(data.result);
@@ -55,17 +54,32 @@ export default function Page() {
 
   console.log(ballots);
 
+  let dataElement = ( ballots.map( ballot => 
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_date}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id)}>Remove</button></td></tr>
+     ));
+  let element = <box>
+        <h1>Ballots</h1>
+        <table><tbody>
+        { dataElement }
+            </tbody></table>
+            <button onClick={() => goCreateBallot()}>Create New Ballot</button>
+
+
+  </box>
+
+
+
   
   const goEditBallot = (ballotID) => {
-    router.push('./EditBallot/?ballotID={' + ballotID + '}');
+    router.push('/Admin/Ballot/EditBallot/?ballotID={' + ballotID + '}');
   };
 
   const goRemoveBallot = (ballotID) => {
-    router.push('./RemoveBallot/?ballotID={' + ballotID + '}');
+    router.push('/Admin/Ballot/RemoveBallot/?ballotID={' + ballotID + '}');
   };
 
   const goCreateBallot = () => {
-    router.push('./CreateBallot/');
+    router.push('/Admin/Ballot/CreateBallot');
   };
 
   
@@ -75,14 +89,7 @@ export default function Page() {
         
     <NavBar></NavBar>
     <Toolbar></Toolbar>
-        <h1>Ballots</h1>
-        <table><tbody>
-        {ballots.map( ballot => 
-            <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{i.n}</td><td><button onClick={goEditBallot(ballot._id)}>Edit</button><button onClick={goRemoveBallot(ballot._id)}>Remove</button></td></tr>
-             )
-            }
-            </tbody></table>
-            <button onClick={goCreateBallot()}>Create New Ballot</button>
+        { element }
     </Box>
 	  
 

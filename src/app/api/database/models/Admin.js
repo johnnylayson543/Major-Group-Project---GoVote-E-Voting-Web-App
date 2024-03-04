@@ -40,8 +40,11 @@ class AdminClass {
     }
 
     static async create_ballot(x){
-        try {
-            const obj = {ballotID: x.ballotID};
+        try 
+        {
+            console.log("Create Ballot obj");
+            console.log(x);
+            const obj = {title: x.ballot.title, closing_date: x.ballot.closing_date};
             const ballot = await Ballot.add_ballot(obj);
             return ballot;
         } catch (error) {
@@ -52,7 +55,7 @@ class AdminClass {
 
     static async remove_ballot(x){
         try {
-            const obj = {ballotID: x.ballotID};
+            const obj = {ballotID: x.ballot.ballotID};
             const ballot = await Ballot.remove_ballot(obj);
             return ballot;
         } catch (error) {
@@ -63,6 +66,7 @@ class AdminClass {
 
     static async retrieve_ballots(x){
         try {
+            const obj_filer = {ballotID: x.ballot.ballotID};
             const ballots = await Ballot.retrieve_ballots(x);
             return ballots;
         } catch (error) {
@@ -147,6 +151,17 @@ class AdminClass {
             }
         } catch (error) {
             console.error('An error occurred while removing the election:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_elections(x){
+        try {
+            const obj = {ballotID: x.ballotID};
+            const ballot = await Election.retrieve_elections(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);
         }
     }

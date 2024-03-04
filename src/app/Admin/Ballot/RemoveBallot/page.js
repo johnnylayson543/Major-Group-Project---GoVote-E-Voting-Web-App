@@ -20,7 +20,7 @@ import NavBar from '../../../header/navBar';
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -48,8 +48,21 @@ import { useRouter } from 'next/navigation';
 
 export default function Page() {
   
-  const [ballots, setBallots] = useState(null);
+  const [ballot, setBallot] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const { searchParams } = new URL(req.url);
+    const ballot_id = searchParams.get('ballotID');
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballots?ballotID=${ballot_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBallot(data.result);
+
+        console.log("Ballot data")
+        console.log(data.result);
+      })
+  }, []);
 
   const handleSubmit = (event) => {
 
@@ -61,18 +74,28 @@ export default function Page() {
     const data = new FormData(event.currentTarget);
 
 
-    let ballot_closing_date = data.get('ballot_closing_date');
-    let ballot_title = data.get('ballot_title');
+    let ballot_id = data.get('ballotID');
 
-    console.log("Sent ballot_closing_date:" + ballot_closing_date);
+    console.log("Sent ballot_closing_date:" + ballot_id);
 
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/create_ballot?ballot_closing_date=${ballot_closing_date}&ballot_title=${ballot_title}`);
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/remove_ballot?ballotID=${ballot_id}`);
 
   }; // end handler
 
 
+  let dataElement = ( ballot.map( ballot => 
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.n}</td></tr>
+     ));
+  let element = <box>
+        <h1>Ballot to remove</h1>
+        <table><tbody>
+        { dataElement }
+            </tbody></table>
+
+
+  </box>
 
   return (
     
@@ -82,27 +105,7 @@ export default function Page() {
     <Toolbar></Toolbar>
 
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ballot_closing_date"
-                  label="ballot_closing_date"
-                  name="ballot_closing_date"
-                  autoComplete="ballot_closing_date"
-                  autoFocus
-              />
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ballot_title"
-                  label="ballot_title"
-                  name="ballot_title"
-                  autoComplete="ballot_title"
-                  autoFocus
-              />
-
+              
               <Button
                   type="submit"
                   fullWidth

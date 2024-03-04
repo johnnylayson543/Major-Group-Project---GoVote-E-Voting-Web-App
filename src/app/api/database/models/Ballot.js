@@ -4,7 +4,7 @@ import { getModel } from "./helpers/helpers";
 const ballotSchema = new mongoose.Schema({
     //id: {type: String, required: true, unique: true},
     title: {type: String, required: false},
-    closing_time: {type: String, required: true}
+    closing_date: {type: Date, required: true}
 })
 
 
@@ -12,7 +12,7 @@ class BallotClass {
 
     static async add_ballot(x){
         try {
-            const obj = {title: x.title, closing_time: x.closing_time};
+            const obj = x;
             const ballot = await Ballot.create(obj);
             return ballot;
         } catch (error) {
@@ -35,7 +35,7 @@ class BallotClass {
     static async retrieve_ballots(x){
         try {
             console.log("Entered retrieve ballots try");
-            const obj = {};
+            const obj = x;
             const ballots = await Ballot.find(obj);
             console.log(ballots);
             return ballots;
@@ -48,8 +48,8 @@ class BallotClass {
     static async update_ballot(x){
         try {
             const obj_filter = {ballotID: x.ballotID};
-            const obj = x;
-            const ballot = await Ballot.updateOne(obj);
+            const obj = {title: x.title, closing_time: x.closing_time};
+            const ballot = await Ballot.updateOne(obj_filter, obj);
             return ballot;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
