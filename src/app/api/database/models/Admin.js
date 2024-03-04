@@ -66,8 +66,8 @@ class AdminClass {
 
     static async retrieve_ballots(x){
         try {
-            const obj_filer = {ballotID: x.ballot.ballotID};
-            const ballots = await Ballot.retrieve_ballots(x);
+            const obj_filter = x.ballot_filter;
+            const ballots = await Ballot.retrieve_ballots(obj_filter);
             return ballots;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
@@ -77,6 +77,7 @@ class AdminClass {
 
     static async update_ballot(x){
         try {
+            
             const ballot = await Ballot.update_ballot(x);
             return ballot;
         } catch (error) {

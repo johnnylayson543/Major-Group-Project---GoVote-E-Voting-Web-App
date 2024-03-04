@@ -48,7 +48,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Page() {
   
-  const [ballot, setBallot] = useState(null);
+  const [ballots, setBallots] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -57,7 +57,9 @@ export default function Page() {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballots?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-        setBallot(data.result);
+        const list1 = [data.result];
+        setBallots(list1);
+        
 
         console.log("Ballot data")
         console.log(data.result);
@@ -86,9 +88,9 @@ export default function Page() {
   }; // end handler
 
 
-  let dataElement = (  
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.n}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id)}>Remove</button></td></tr>
-     );
+  let dataElement = ( ballots.map( ballot => 
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_date}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id)}>Remove</button></td></tr>
+     ));
   let element = <box>
         <h1>Ballots</h1>
         <table><tbody>

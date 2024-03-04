@@ -35,8 +35,8 @@ class BallotClass {
     static async retrieve_ballots(x){
         try {
             console.log("Entered retrieve ballots try");
-            const obj = x;
-            const ballots = await Ballot.find(obj);
+            const obj_filter = x;
+            const ballots = await Ballot.find(obj_filter);
             console.log(ballots);
             return ballots;
         } catch (error) {
@@ -47,8 +47,8 @@ class BallotClass {
 
     static async update_ballot(x){
         try {
-            const obj_filter = {ballotID: x.ballotID};
-            const obj = {title: x.title, closing_time: x.closing_time};
+            const obj_filter = {ballotID: x.ballot.ballotID};
+            const obj = {title: x.ballot.title, closing_time: x.ballot.closing_time};
             const ballot = await Ballot.updateOne(obj_filter, obj);
             return ballot;
         } catch (error) {
