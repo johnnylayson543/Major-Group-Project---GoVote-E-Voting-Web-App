@@ -21,6 +21,7 @@ import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import PollIcon from '@mui/icons-material/Poll';
 import TableChartIcon from '@mui/icons-material/TableChart';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {blue, green, purple, white, pink} from '@mui/material/colors'; 
 
 export default function Page() {
@@ -131,6 +132,14 @@ export default function Page() {
                                         <TableChartIcon sx={{ color: 'white' }}></TableChartIcon>
                                     </ListItemIcon>
                                     <ListItemText primary="View Results"/>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./updatedetails'>
+                                    <ListItemIcon>
+                                        <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Update Details"/>
                                 </ListItemButton>
                             </ListItem>
                         </List>

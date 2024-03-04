@@ -21,6 +21,7 @@ import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import AddIcon from '@mui/icons-material/Add';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 import {blue, green, purple, white, pink} from '@mui/material/colors'; 
 
 export default function Page() {
@@ -113,6 +114,14 @@ export default function Page() {
                                         <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
                                     </ListItemIcon>
                                     <ListItemText primary="View Checks"/>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./elections'>
+                                    <ListItemIcon>
+                                        <ChecklistIcon sx={{ color: 'white' }}></ChecklistIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Elections"/>
                                 </ListItemButton>
                             </ListItem>
                         </List>
