@@ -75,6 +75,17 @@ class AdminClass {
         }
     }
 
+    static async retrieve_ballot(x){
+        try {
+            const obj_filter = x.ballot_filter;
+            const ballot = await Ballot.retrieve_ballot(obj_filter);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
     static async update_ballot(x){
         try {
             

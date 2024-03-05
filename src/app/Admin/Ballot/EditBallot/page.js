@@ -48,20 +48,23 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Page() {
   
-  const [ballots, setBallots] = useState(null);
+  const [ballot, setBallot] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballots?ballotID=${ballot_id}`)
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
         const list1 = [data.result];
-        setBallots(list1);
+        console.log("list:");
+        console.log(list1);
+        console.log(list1[0][0]);
+        setBallot(list1[0][0]);
         
 
-        console.log("Ballot data")
+        console.log("Ballot data");
         console.log(data.result);
       })
   }, []);
@@ -87,18 +90,19 @@ export default function Page() {
 
   }; // end handler
 
+  if (!ballot) return <p>No ballots found. </p>;
 
-  let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_date}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id)}>Remove</button></td></tr>
-     ));
-  let element = <box>
+  let dataElement =  
+    <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_date} <br /> Title: {ballot.title}</p>
+     ;
+  let element = <Box>
         <h1>Ballots</h1>
         <table><tbody>
         { dataElement }
             </tbody></table>
 
 
-  </box>
+  </Box>
 
 
   return (
@@ -108,7 +112,9 @@ export default function Page() {
     <NavBar></NavBar>
     <Toolbar></Toolbar>
 
+        
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        { element }
               <TextField
                   margin="normal"
                   required
@@ -136,7 +142,7 @@ export default function Page() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2}}
               >
-                Create Ballot
+                Confirm Ballot Update
               </Button>
               
             </Box>

@@ -55,7 +55,7 @@ export default function Page() {
   console.log(ballots);
 
   let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_date}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id)}>Remove</button></td></tr>
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_date}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button></td></tr>
      ));
   let element = <box>
         <h1>Ballots</h1>

@@ -35,10 +35,23 @@ class BallotClass {
     static async retrieve_ballots(x){
         try {
             console.log("Entered retrieve ballots try");
-            const obj_filter = x;
+            const obj_filter = {};
             const ballots = await Ballot.find(obj_filter);
             console.log(ballots);
             return ballots;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_ballot(x){
+        try {
+            console.log("Entered retrieve ballots try");
+            const obj_filter = {_id: x.ballotID};
+            const ballot = await Ballot.find(obj_filter);
+            console.log(ballot);
+            return ballot;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);
