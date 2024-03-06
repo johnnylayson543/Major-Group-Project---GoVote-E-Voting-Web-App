@@ -55,19 +55,26 @@ export default function Page() {
   console.log(ballots);
 
   let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_date}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button></td></tr>
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button><button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</button></td></tr>
      ));
-  let element = <box>
+  let element = <Box>
         <h1>Ballots</h1>
         <table><tbody>
         { dataElement }
             </tbody></table>
-            <button onClick={() => goCreateBallot()}>Create New Ballot</button>
+            <p><button onClick={() => goCreateBallot()}>Create New Ballot</button></p>
 
+            <p>
+            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <button onClick={() => goToElections()}>Back to Elections</button></p>
+  </Box>
 
-  </box>
-
-
+  const goBackToProfile = () => {
+    router.push('/Admin/');
+  };
+  const goToElections = () => {
+    router.push('/Admin/Election/');
+  };
 
   
   const goEditBallot = (ballotID) => {
@@ -80,6 +87,14 @@ export default function Page() {
 
   const goCreateBallot = () => {
     router.push('/Admin/Ballot/CreateBallot');
+  };
+
+  const goManageCandidates = (ballotID) => {
+    router.push('/Admin/Candidates/?ballotID={' + ballotID + '}');
+  };
+
+  const goAdminProfilePage = (userIDtoken) => {
+    router.push('/Admin/?ballotID={' + userIDtoken + '}');
   };
 
   

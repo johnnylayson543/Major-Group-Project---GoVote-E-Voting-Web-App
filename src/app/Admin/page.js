@@ -23,15 +23,31 @@ import AddIcon from '@mui/icons-material/Add';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import {blue, green, purple, white, pink} from '@mui/material/colors'; 
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
 
+    const router = useRouter();
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
         <Box sx={{ border: '4px solid #00008B', padding: 3 , backgroundColor: '#6F9CDE' , fontWeight: 500 }}>
           {children}
         </Box>
     );
+
+
+      const goToPersons = () => {
+        router.push('/Admin/Person/');
+      };
+      const goToElections = () => {
+        router.push('/Admin/Election/');
+      };
+      const goToHomePage = () => {
+        router.push('/');
+      };
+      const goToBallots = () => {
+        router.push('/Admin/Ballot/');
+      };
 
     // Front-End Page
     return (
@@ -64,64 +80,48 @@ export default function Page() {
                 </Item>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={3.5}>
                 <Item>
                     <Box sx={{ width: '100%', maxWidth: 360}}>
                         <List>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./personrange'>
+                                <ListItemButton onClick={() => goToPersons()} sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }}>
+                                    
                                     <ListItemIcon>
                                         <AddIcon sx={{ color: 'white' }}></AddIcon>
+                                        
                                     </ListItemIcon>
-                                    <ListItemText primary="Set Person Range"/>
+                                    <ListItemText primary="Persons"/>
                                 </ListItemButton>
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./createballot'>
+                                <ListItemButton onClick={() => goToBallots()} sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }}>
                                     <ListItemIcon>
                                         <BallotIcon sx={{ color: 'white' }}></BallotIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Create Ballot"/>
+                                    <ListItemText primary="Ballots"/>
                                 </ListItemButton>
                             </ListItem>
                             
+                            
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./createcandidates'>
-                                    <ListItemIcon>
-                                        <PersonAddIcon sx={{ color: 'white' }}></PersonAddIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Create Candidates"/>
-                                </ListItemButton>
-                            </ListItem>
-                            <Divider></Divider>
-
-                            <Divider></Divider>
-                            <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./createelection'>
+                                <ListItemButton onClick={() => goToElections()} sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }}>
                                     <ListItemIcon>
                                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Create Election"/>
+                                    <ListItemText primary="Elections"/>
                                 </ListItemButton>
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./viewchecks'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }}>
                                     <ListItemIcon>
                                         <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="View Checks"/>
-                                </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./elections'>
-                                    <ListItemIcon>
-                                        <ChecklistIcon sx={{ color: 'white' }}></ChecklistIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Elections"/>
+                                    <ListItemText primary="Checks"/>
                                 </ListItemButton>
                             </ListItem>
                         </List>

@@ -44,7 +44,7 @@ class AdminClass {
         {
             console.log("Create Ballot obj");
             console.log(x);
-            const obj = {title: x.ballot.title, closing_date: x.ballot.closing_date};
+            const obj = {title: x.ballot.title, closing_datetime: x.ballot.closing_datetime};
             const ballot = await Ballot.add_ballot(obj);
             return ballot;
         } catch (error) {
@@ -169,11 +169,33 @@ class AdminClass {
 
     static async retrieve_elections(x){
         try {
+            const obj = {};
+            const ballot = await Election.retrieve_elections(obj);
+            return ballot;
+        } catch (error) {
+            console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_election(x){
+        try {
             const obj = {ballotID: x.ballotID};
             const ballot = await Election.retrieve_elections(obj);
             return ballot;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_selected_person_for_candidate_selection(x){
+        try {
+            const obj = {ppsn: x.person.ppsn};
+            const person = await Person.retrieve_person(obj);
+            return person;
+        } catch (error) {
+            console.error('An error occurred retrieving person:', error);
             console.error('Error occurred:', error.message);
         }
     }

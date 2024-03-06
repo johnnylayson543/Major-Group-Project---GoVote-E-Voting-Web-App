@@ -12,8 +12,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
 
   /*
   This function does the actual work
@@ -68,6 +70,20 @@ export default function Page() {
 
   }; // end handler
 
+  const goBackToProfile = () => {
+    router.push('/Admin/');
+  };
+  const goToBallots = () => {
+    router.push('/Admin/Ballot/');
+  };
+  const goToElections = () => {
+    router.push('/Admin/Election/');
+  };
+
+  let element = <p>
+  <button onClick={() => goBackToProfile()}>Back to Profile</button>
+    <button onClick={() => goToBallots()}>Back to Ballots</button>
+    <button onClick={() => goToElections()}>Back to Elections</button></p>
 
 // This returns the front-end page
   return (
@@ -122,8 +138,10 @@ export default function Page() {
               </Button>
 
             </Box>
-          </Box>
 
+            
+          </Box>
+          { element }
         </Container>
 
   );

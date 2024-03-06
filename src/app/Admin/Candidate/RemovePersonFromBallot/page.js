@@ -59,9 +59,9 @@ export default function Page() {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-        setBallot(data.result[0][0]);
+        setBallot(data.result);
 
-        console.log("Ballot data")
+        console.log("Ballot data");
         console.log(data.result);
       })
       
@@ -70,7 +70,7 @@ export default function Page() {
       .then((data) => {
         setPerson(data.result[0][0]);
 
-        console.log("Ballot data")
+        console.log("Person data");
         console.log(data.result);
       })
   }, []);
@@ -84,8 +84,8 @@ export default function Page() {
     <tr key={person._id.toString()}><td>{person._id}</td><td>{person.name}</td><td>{person.address}</td><td>{person.email}</td><td>{person.phone}</td><td>{person.date_of_birth}</td></tr>
 
      ;
-  let element = <Box>
-        <h1>Add Person to the Ballot - Create a Candidate</h1>
+  let element = <box>
+        <h1>Remove Person from the Ballot - End a Candidacy</h1>
         <table><tbody>
         { dataElement1 }
             </tbody></table>
@@ -93,8 +93,8 @@ export default function Page() {
         { dataElement2 }
             </tbody></table>
 
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-  </Box>
+
+  </box>
 
   const handleSubmit = (event) => {
 
@@ -112,20 +112,15 @@ export default function Page() {
 
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/add_person_to_ballot_createCandidate?person_ppsn=${person.ppsn}&ballotIDe=${ballot._id}`);
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/remove_person_from_ballot_removeCandidate?person_ppsn=${person.ppsn}&ballotIDe=${ballot._id}`);
 
-    goBackToBallots(ballot._id);
+    goBack(ballot._id);
 
   }; // end handler
 
 
-  const goBackToBallots = (ballotID) => {
+  const goBack = (ballotID) => {
     router.push('/Admin/Candidate/?ballotID={' + ballotID + '}');
-  };
-
-  
-  const goToProfile = () => {
-    router.push('/Admin/');
   };
 
   return (
@@ -135,7 +130,6 @@ export default function Page() {
     <NavBar></NavBar>
     <Toolbar></Toolbar>
 
-        { element }
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               
               <Button
@@ -144,7 +138,7 @@ export default function Page() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2}}
               >
-                Confirm Candidate
+                Confirm Candidate Removal
               </Button>
               
             </Box>

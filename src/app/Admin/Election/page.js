@@ -37,46 +37,67 @@ import { useRouter } from 'next/navigation';
 export default function Page() {
   
   const [elections, setElections] = useState(null);
+  const [ballots, setBallots] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Election/retrieve_elections`)
       .then((res) => res.json())
       .then((data) => {
-        setBallots(data.result);
+        setElections(data.result);
 
-        console.log("Ballot data")
+        console.log("Election data")
         console.log(data.result);
       })
-  }, []);
- 
-  if (!ballots) return <p>No bElections found. </p>;
 
-  console.log(elections);
-
-  let dataElement = ( elections.map( election => 
-    <tr key={election._id.toString()}><td>{election._id}</td><td><button onClick={() => goCancelElection(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id)}>Remove</button></td></tr>
-     ));
-  let element = <box>
-        <h1>Elections</h1>
-        <table><tbody>
-        { dataElement }
-            </tbody></table>
-            <button onClick={() => goStartElection()}>Create New Ballot</button>
-
-
-  </box>
-
-
-
+      fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballots`)
+        .then((res) => res.json())
+        .then((data) => {
+          setBallots(data.result);
   
+          console.log("Ballots data")
+          console.log(data.result);
+        })
+    }, []);
+  
+    if (!elections || !ballots) return <p>No elections or ballots found. </p>;
 
-  const goCancelElection = (ballotID) => {
-    router.push('/Admin/Election/CancelElection/?ballotID={' + ballotID + '}');
+    console.log(elections);
+
+    let dataElement = ( elections.map( election => 
+      <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td><td>{ballot.title}</td><td><button onClick={() => goSeeBallot(ballot._id)}>See ballot</button></td><td><button onClick={() => goCancelElection(ballot._id)}>Cancel Election</button></td></tr>
+      ));
+    let element = <Box>
+          <h1>Running Elections</h1>
+          <table><tbody>
+          { dataElement }
+              </tbody></table>
+
+
+            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <button onClick={() => goToBallots()}>Back to Ballots</button>
+  </Box>
+
+  const goBackToProfile = () => {
+    router.push('/Admin/');
+  };
+  const goToBallots = () => {
+    router.push('/Admin/Ballot/');
   };
 
-  const goStartElection = () => {
-    router.push('/Admin/Election/CreateElection');
+  const goSeeBallot = (ballotID) => {
+    router.push('/Admin/Election/SeeBallot?={' + ballotID + '}');
+  };
+
+
+  const goCancelElection = (ballotID) => {
+    router.push('/Admin/Ballot/CancelElection/?ballotID={' + ballotID + '}');
+  };
+
+    
+    
+  const goAdminProfilePage = (userIDtoken) => {
+    router.push('/Admin/?userIDtoken={' + userIDtoken + '}');
   };
 
   

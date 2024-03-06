@@ -49,11 +49,14 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function Page() {
   
   const [ballot, setBallot] = useState(null);
+  const [election, setElection] = useState(null);
+  const [candidates_for_ballot, setBallotCandidates] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
+    const election_id = searchParams.get('electionID');
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -67,6 +70,30 @@ export default function Page() {
         console.log("Ballot data");
         console.log(data.result);
       })
+
+      fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_election?ballotID=${election_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const list1 = [data.result];
+        console.log("list:");
+        console.log(list1);
+        console.log(list1[0][0]);
+        setElection(list1[0][0]);
+        
+
+        console.log("Ballot data");
+        console.log(data.result);
+      })
+
+      fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBallotCandidates(data.result);
+
+        console.log("Ballot data")
+        console.log(data.result);
+      })
+
   }, []);
 
   const handleSubmit = (event) => {
@@ -76,14 +103,8 @@ export default function Page() {
 
     event.preventDefault();
 
-
-
-    let ballot_id = ballot._id;
-    console.log("Sent ballot_id:" + ballot_id);
-
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/remove_ballot?ballotID=${ballot_id}`);
     goBack();
 
   }; // end handler
@@ -93,19 +114,46 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  if (!ballot) return <p>No ballots found. </p>;
+  if (!ballot || !candidates_for_ballot || !election) return <p>No ballot or candidates_for_ballot or election found. </p>;
 
-  let dataElement =  
-    <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_datetime} <br /> Title: {ballot.title}</p>
+  let dataElement1 =  
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button><button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</button></td></tr>
+
+     ;
+     let dataElement2 =  ( ballot_candidates.map( ballot_candidate => 
+        <tr key={ballot._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.ppsn}</td></tr>
+         ));
+
+         let dataElement3 =  
+    <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+
      ;
   let element = <Box>
-        <h1>Ballots</h1>
+        <h1>Ballot</h1>
         <table><tbody>
-        { dataElement }
+        { dataElement1 }
             </tbody></table>
-
-
+            <table><tbody>
+        { dataElement2 }
+            </tbody></table>
+            
+            <table><tbody>
+        { dataElement3 }
+            </tbody></table>
+            <button onClick={() => goBackToElections()}>Back to Elections</button>
+            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <button onClick={() => goBackToBallots()}>Back to Ballots</button>
   </Box>
+
+const goBackToElections = () => {
+    router.push('/Admin/Election/');
+  };
+  const goToProfile = () => {
+    router.push('/Admin/');
+  };
+  const goToBallots = () => {
+    router.push('/Admin/Ballot/');
+  };
 
 
   return (
@@ -114,21 +162,7 @@ export default function Page() {
         
     <NavBar></NavBar>
     <Toolbar></Toolbar>
-
-        
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         { element }
-
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2}}
-              >
-                Confirm Ballot Removal
-              </Button>
-              
-            </Box>
     </Box>
 	  
 

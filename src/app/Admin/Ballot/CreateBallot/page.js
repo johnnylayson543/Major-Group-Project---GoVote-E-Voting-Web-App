@@ -61,17 +61,22 @@ export default function Page() {
     const data = new FormData(event.currentTarget);
 
 
-    let ballot_closing_date = data.get('ballot_closing_date');
+    let ballot_closing_datetime = data.get('ballot_closing_datetime');
     let ballot_title = data.get('ballot_title');
 
-    console.log("Sent ballot_closing_date:" + ballot_closing_date);
+    console.log("Sent ballot_closing_datetime:" + ballot_closing_datetime);
 
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/create_ballot?ballot_closing_date=${ballot_closing_date}&ballot_title=${ballot_title}`);
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/create_ballot?ballot_closing_datetime=${ballot_closing_datetime}&ballot_title=${ballot_title}`);
+    goBack();
 
   }; // end handler
 
+
+  const goBack = () => {
+    router.push('/Admin/Ballot/');
+  };
 
 
   return (
@@ -86,10 +91,10 @@ export default function Page() {
                   margin="normal"
                   required
                   fullWidth
-                  id="ballot_closing_date"
-                  label="ballot_closing_date"
-                  name="ballot_closing_date"
-                  autoComplete="ballot_closing_date"
+                  id="ballot_closing_datetime"
+                  label="ballot_closing_datetime"
+                  name="ballot_closing_datetime"
+                  autoComplete="ballot_closing_datetime"
                   autoFocus
               />
               <TextField

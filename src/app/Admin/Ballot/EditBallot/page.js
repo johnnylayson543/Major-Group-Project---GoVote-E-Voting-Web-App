@@ -79,21 +79,27 @@ export default function Page() {
     const data = new FormData(event.currentTarget);
 
 
-    let ballot_closing_date = data.get('ballot_closing_date');
+    let ballot_closing_datetime = data.get('ballot_closing_date');
     let ballot_title = data.get('ballot_title');
 
     console.log("Sent ballot_closing_date:" + ballot_closing_date);
 
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/update_ballot?ballot_closing_time=${ballot_closing_date}&ballot_title=${ballot_title}`);
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/update_ballot?ballot_closing_datetime=${ballot_closing_datetime}&ballot_title=${ballot_title}`);
+    goBack();
 
   }; // end handler
+
+
+  const goBack = () => {
+    router.push('/Admin/Ballot/');
+  };
 
   if (!ballot) return <p>No ballots found. </p>;
 
   let dataElement =  
-    <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_date} <br /> Title: {ballot.title}</p>
+    <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_datetime} <br /> Title: {ballot.title}</p>
      ;
   let element = <Box>
         <h1>Ballots</h1>

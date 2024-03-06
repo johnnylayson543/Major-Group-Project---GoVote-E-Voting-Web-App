@@ -15,7 +15,8 @@ class PersonClass {
     static async add_person_details(x){
         try {
             const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
-            const user = await Person.create(obj);
+            const person_result = await Person.create(obj);
+            return person_result;
         } catch (error) {
             console.error('Error adding the person details: ', error);
             console.error('Error occurred:', error.message);
@@ -38,8 +39,20 @@ class PersonClass {
         try {
             const filter_person = {ppsn: x.ppsn};
             const person_remove_result = await Person.deleteOne(filter_person);
+            return person_remove_result;
         } catch (error) {
             console.error('Error deleting the person details: ', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_person(x){
+        try {
+            const filter_person = {ppsn: x.ppsn};
+            const person_result = await Person.findOne(filter_person);
+            return person_result;
+        } catch (error) {
+            console.error('Error retrieving the person details: ', error);
             console.error('Error occurred:', error.message);
         }
     }

@@ -4,7 +4,7 @@ import { getModel } from "./helpers/helpers";
 const ballotSchema = new mongoose.Schema({
     //id: {type: String, required: true, unique: true},
     title: {type: String, required: false},
-    closing_date: {type: Date, required: true}
+    closing_datetime: {type: Date, required: true}
 })
 
 
@@ -23,8 +23,10 @@ class BallotClass {
 
     static async remove_ballot(x){
         try {
-            const obj = {ballotID: x.ballotID};
-            const ballot = await Ballot.deleteOne(obj);
+            const obj_filter = {_id: x.ballotID};
+            console.log("obj_filter: ");
+            console.log(obj_filter);
+            const ballot = await Ballot.deleteOne(obj_filter);
             return ballot;
         } catch (error) {
             console.error('Error removing the ballot: ', error);
@@ -61,7 +63,7 @@ class BallotClass {
     static async update_ballot(x){
         try {
             const obj_filter = {ballotID: x.ballot.ballotID};
-            const obj = {title: x.ballot.title, closing_time: x.ballot.closing_time};
+            const obj = x.ballot;
             const ballot = await Ballot.updateOne(obj_filter, obj);
             return ballot;
         } catch (error) {
