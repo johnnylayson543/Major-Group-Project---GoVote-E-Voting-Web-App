@@ -57,11 +57,8 @@ export default function Page() {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-        const list1 = [data.result];
-        console.log("list:");
-        console.log(list1);
-        console.log(list1[0][0]);
-        setBallot(list1[0][0]);
+        const list1 = data.result;
+        setBallot(list1);
         
 
         console.log("Ballot data");
@@ -96,19 +93,28 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  if (!ballot) return <p>No ballots found. </p>;
+  if (!ballot) return <Box><p>No ballots found. </p></Box>;
 
   let dataElement =  
     <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_datetime} <br /> Title: {ballot.title}</p>
      ;
   let element = <Box>
         <h1>Ballots</h1>
-        <table><tbody>
         { dataElement }
-            </tbody></table>
 
 
-  </Box>
+       
+    </Box>
+  const goToElections = () => {
+    router.push('/Admin/Election/');
+  };
+
+  const goBackToProfile = () => {
+    router.push('/Admin/');
+  };
+  const goBackToBallots = () => {
+    router.push('/Admin/Ballot/');
+  };
 
 
   return (
@@ -152,6 +158,10 @@ export default function Page() {
               </Button>
               
             </Box>
+            <Box><p>
+            <button onClick={() => goToElections()}>Back to Elections</button>
+            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <button onClick={() => goBackToBallots()}>Back to Ballots</button></p></Box>
     </Box>
 	  
 

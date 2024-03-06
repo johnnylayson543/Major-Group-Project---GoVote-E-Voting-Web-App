@@ -1,5 +1,6 @@
-import { create_an_election_admin_type } from "../../Forms/Admin/cancel_an_election_admin_type";
+import { cancel_an_election_admin_type } from "../../../../../Forms/Admin/Election/cancel_an_election_admin_type";
 import { run_model_method } from "../../../helper/helper";
+import { Admin } from "../../../../models/Admin";
 
 export async function GET(req, res) {
     // Make a note we are on

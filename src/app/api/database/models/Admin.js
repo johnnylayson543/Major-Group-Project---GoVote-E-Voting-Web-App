@@ -39,6 +39,19 @@ class AdminClass {
         }
     }
 
+    static async confirm_person_exists_on_the_system(x){
+        try {
+            const person_obj = {ppsn: x.person_filter.ppsn};
+            const person_found = await Person.retrieve_person(person_obj);
+            console.log("Person found: ");
+            console.log(person_found);
+            return person_found;
+        } catch (error) {
+            console.error('An error occurred while confirming the person exists on the system:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
     static async create_ballot(x){
         try 
         {
@@ -135,7 +148,7 @@ class AdminClass {
     }
 
 
-    static async add_election(x){
+    static async start_an_election(x){
         try {
             const filter_ballot = {ballotID: x.ballotID};
             const ballot_found = await Ballot.findOne(filter_ballot);
@@ -151,7 +164,7 @@ class AdminClass {
         }
     }
 
-    static async cancel_election(x){
+    static async cancel_an_election(x){
         try {
             const filter_ballot = {ballotID: x.ballotID}
             const ballot_found = await Ballot.findOne(filter_ballot);

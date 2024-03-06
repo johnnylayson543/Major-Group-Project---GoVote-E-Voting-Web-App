@@ -57,11 +57,8 @@ export default function Page() {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-        const list1 = [data.result];
-        console.log("list:");
-        console.log(list1);
-        console.log(list1[0][0]);
-        setBallot(list1[0][0]);
+        const list1 = data.result;
+        setBallot(list1);
         
 
         console.log("Ballot data");

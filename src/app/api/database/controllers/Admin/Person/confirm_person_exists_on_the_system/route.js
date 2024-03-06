@@ -1,6 +1,7 @@
 import { run_model_method } from "../../../helper/helper";
-import { add_persons_range_admin_type } from "../../Forms/Admin/add_persons_range_admin_type";
+import { confirm_person_exists_on_the_system_admin_type } from "../../../../../Forms/Admin/Person/confirm_person_exists_on_the_system_admin_type";
 import { Admin } from "../../../../models/Admin";
+
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -9,11 +10,13 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url);
-    const obj = new add_persons_range_admin_type(searchParams);
+    const obj = new confirm_person_exists_on_the_system_admin_type(searchParams);
     const x = obj;
-    const xy = {fn: Admin.add_person_range, par: x};
-    const result = run_model_method(xy);
+    const xy = {fn: Admin.confirm_person_exists_on_the_system, par: x};
+    const result = await run_model_method(xy);
 
+    console.log("Person definitely found: ");
+    console.log(result);
     return Response.json({ "data":"ok", result: result });
 }
 

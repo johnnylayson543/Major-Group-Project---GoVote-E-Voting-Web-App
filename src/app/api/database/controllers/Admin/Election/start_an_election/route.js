@@ -1,5 +1,6 @@
-import { create_an_election_admin_type } from "../../Forms/Admin/create_an_election_admin_type";
+import { start_an_election_admin_type } from "../../Forms/Admin/start_an_election_admin_type";
 import { run_model_method } from "../../../helper/helper";
+import { Admin } from "../../../../models/Admin";
 
 export async function GET(req, res) {
     // Make a note we are on
@@ -8,10 +9,10 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const obj = new create_an_election_admin_type(searchParams);
+    const obj = new start_an_election_admin_type(searchParams);
         
     const x = obj;
-    const xy = {fn: Admin.add_election, par: x};
+    const xy = {fn: Admin.start_an_election, par: x};
     const result = run_model_method(xy);
 
     //==========================================================

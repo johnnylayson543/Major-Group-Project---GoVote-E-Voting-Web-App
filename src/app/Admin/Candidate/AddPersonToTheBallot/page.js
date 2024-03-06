@@ -62,7 +62,7 @@ export default function Page() {
       .then((data) => {
         setBallot(data.result);
 
-        console.log("Ballot data")
+        console.log("Ballot data");
         console.log(data.result);
       })
       
@@ -97,7 +97,7 @@ export default function Page() {
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
   </Box>
 
-
+let element;
 if (!ballot || !person) element = <Box><p>No ballot or person found. </p>
 <button onClick={() => goBackToProfile()}>Back to Profile</button></Box>
 else element = element1;

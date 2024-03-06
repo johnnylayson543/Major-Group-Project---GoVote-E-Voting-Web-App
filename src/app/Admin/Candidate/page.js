@@ -19,18 +19,15 @@ import Button from '@mui/material/Button';
   */ 
   async function runDBCallAsync(url) {
 
-    const res = await fetch(url);
-    const data = await res.json();
- 
-    if(data.data== "valid"){
-      console.log("login is valid!")
 
+    await fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.result);
 
-      
-    } else {
-
-      console.log("login is not valid!")
-    }
+        console.log("Requested Data:");
+        console.log(data.result);
+      })
   }
 
 
@@ -38,13 +35,18 @@ import Button from '@mui/material/Button';
 
 export default function Page() {
   
+  const [data, setData] = useState(null);
   const [ballot, setBallot] = useState(null);
   const [ballot_candidates, setBallotCandidates] = useState(null);
+  const [person_suggested, setPersonSuggested] = useState(null);
   const router = useRouter();
+
+  let warning1;
 
   const handleSubmit = (event) => {
 
     console.log("handling submit");
+
 
 
     event.preventDefault();
@@ -55,19 +57,31 @@ export default function Page() {
     let person_ppsn = data.get('person_ppsn');
 
     console.log("Sent person ppsn:" + person_ppsn);
-
-    // Call this function to pass the data created by the FormData
-    // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    //runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/AddPersonToTheBallot?person_ppsn=${person_ppsn}&ballotID=${ballot._id}`);
-    goBackToBallotCandidates(ballot._id);
-    goBackToAddPersonToTheBallot(ballot._id, person_ppsn);
+    let url_person_confirm = `http://localhost:3000/api/database/controllers/Admin/Person/confirm_person_exists_on_the_system/?person_ppsn=${person_ppsn}`;
+    //runDBCallAsync(url_person_confirm);
+    
+    //useEffect(() => {
+    setPersonSuggested(data);
+    fetch(url_person_confirm)
+      .then((res) => res.json())
+      .then((data) => {
+        setPersonSuggested(data.result);
+        console.log("Person Suggested data")
+        console.log(data.result);
+        console.log(person_suggested);
+        
+      })
+    //}, []);
 
   }; // end handler
+
+
+   
 
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot/?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
         setBallot(data.result);
@@ -89,6 +103,8 @@ export default function Page() {
   if ((!ballot || !ballot_candidates)) return <p>No ballot or candidate found. </p>;
 
   console.log(ballot);
+
+  const getPersons = () => {};
 
   let dataElement1 =  
     <tr key={ballot._id}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
@@ -128,11 +144,13 @@ export default function Page() {
                 Add Person to the Ballot
               </Button>
 
-            <p>
+        </Box>
+
+        
+        <p>
             <button onClick={() => goBackToElections()}>Back to Elections</button>
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
             <button onClick={() => goToBallots()}>Back to Ballots</button></p>
-        </Box>
     </Box>
   const goBackToElections = () => {
     router.push('/Admin/Election/');
@@ -148,8 +166,8 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  const goBackToAddPersonToTheBallot = (ballotID, personPPSN) => {
-    router.push('/Admin/Candidate/AddPersonToTheBallot/?ballotID=' + ballotID + '}&person_pps={' + personPPSN + '}');
+  const goToAddPersonToTheBallot = (ballotID, personPPSN) => {
+    router.push('/Admin/Candidate/AddPersonToTheBallot/?ballotID={' + ballotID + '}&person_ppsn={' + personPPSN + '}');
   }
 
   
@@ -169,7 +187,14 @@ export default function Page() {
     router.push('/Admin/Candidates/?ballotID={' + ballotID + '}');
   };
 
-  
+  if(person_suggested && person_suggested != {} && person_suggested.ppsn){
+    console.log(person_suggested);
+    goToAddPersonToTheBallot(ballot._id, person_suggested.ppsn);
+  } else if (person_suggested == {}){
+      warning1 = <Box><p>No such person exists on this system. </p></Box>;
+  } else if(person_suggested && person_suggested != {}) {
+     warning1 = <Box><p>System error. </p></Box>
+  }
   
 
 
@@ -180,7 +205,7 @@ export default function Page() {
     <NavBar></NavBar>
     <Toolbar></Toolbar>
         { element }
-              
+        { warning1 }
             </Box>
 	  
 
