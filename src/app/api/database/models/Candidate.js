@@ -26,7 +26,20 @@ class CandidateClass {
             console.error('An error occurred while removing the candidate:', error);
             console.error('Error occurred:', error.message);
         }
-    }       
+    }     
+    
+    static async retrieve_candidates(x){
+        try {
+            const obj = {ballotID: x.ballotID};
+            const candidates = await Candidate.find(obj);
+            console.log("Candidates found: ");
+            console.log(candidates);
+            return candidates;
+        } catch (error) {
+            console.error('An error occurred while retrieving the candidates:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
 }
 candidateSchema.loadClass(CandidateClass);
 export const Candidate = getModel('Candidate', candidateSchema);

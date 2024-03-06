@@ -52,6 +52,7 @@ export default function Page() {
   const [ballot, setBallot] = useState(null);
   const [person, setPerson] = useState(null);
 
+
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
@@ -59,18 +60,18 @@ export default function Page() {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-        setBallot(data.result[0][0]);
+        setBallot(data.result);
 
         console.log("Ballot data")
         console.log(data.result);
       })
       
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_selected_person?ballotID=${person_ppsn}`)
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_person?person_ppsn=${person_ppsn}`)
       .then((res) => res.json())
       .then((data) => {
-        setPerson(data.result[0][0]);
+        setPerson(data.result);
 
-        console.log("Ballot data")
+        console.log("Person data")
         console.log(data.result);
       })
   }, []);
@@ -84,7 +85,7 @@ export default function Page() {
     <tr key={person._id.toString()}><td>{person._id}</td><td>{person.name}</td><td>{person.address}</td><td>{person.email}</td><td>{person.phone}</td><td>{person.date_of_birth}</td></tr>
 
      ;
-  let element = <Box>
+  let element1 = <Box>
         <h1>Add Person to the Ballot - Create a Candidate</h1>
         <table><tbody>
         { dataElement1 }
@@ -95,6 +96,11 @@ export default function Page() {
 
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
   </Box>
+
+
+if (!ballot || !person) element = <Box><p>No ballot or person found. </p>
+<button onClick={() => goBackToProfile()}>Back to Profile</button></Box>
+else element = element1;
 
   const handleSubmit = (event) => {
 
@@ -114,19 +120,21 @@ export default function Page() {
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
     runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/add_person_to_ballot_createCandidate?person_ppsn=${person.ppsn}&ballotIDe=${ballot._id}`);
 
-    goBackToBallots(ballot._id);
+    goBackToBallotCandidates(ballot._id);
 
   }; // end handler
 
 
-  const goBackToBallots = (ballotID) => {
+  const goBackToBallotCandidates = (ballotID) => {
     router.push('/Admin/Candidate/?ballotID={' + ballotID + '}');
   };
 
   
-  const goToProfile = () => {
+  const goBackToProfile = () => {
     router.push('/Admin/');
   };
+
+  
 
   return (
     

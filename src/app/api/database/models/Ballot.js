@@ -51,7 +51,7 @@ class BallotClass {
         try {
             console.log("Entered retrieve ballots try");
             const obj_filter = {_id: x.ballotID};
-            const ballot = await Ballot.find(obj_filter);
+            const ballot = await Ballot.findOne(obj_filter);
             console.log(ballot);
             return ballot;
         } catch (error) {

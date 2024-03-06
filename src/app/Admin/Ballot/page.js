@@ -90,7 +90,7 @@ export default function Page() {
   };
 
   const goManageCandidates = (ballotID) => {
-    router.push('/Admin/Candidates/?ballotID={' + ballotID + '}');
+    router.push('/Admin/Candidate/?ballotID={' + ballotID + '}');
   };
 
   const goAdminProfilePage = (userIDtoken) => {

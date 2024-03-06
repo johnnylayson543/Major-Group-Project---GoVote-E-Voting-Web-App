@@ -200,6 +200,18 @@ class AdminClass {
         }
     }
 
+    static async retrieve_candidates_for_the_ballot(x){
+        try {
+            const obj = {ballotID: x.ballot.ballotID};
+            const candidates = await Candidate.retrieve_candidates(obj);
+            return candidates;
+        } catch (error) {
+            
+            console.error('An error occurred retrieving person:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
 }
 
 adminSchema.loadClass(AdminClass);
