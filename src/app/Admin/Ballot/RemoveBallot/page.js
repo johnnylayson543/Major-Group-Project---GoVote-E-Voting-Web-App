@@ -102,7 +102,17 @@ export default function Page() {
             </tbody></table>
 
 
-  </Box>
+            </Box>
+  const goToElections = () => {
+    router.push('/Admin/Election/');
+  };
+
+  const goBackToProfile = () => {
+    router.push('/Admin/');
+  };
+  const goBackToBallots = () => {
+    router.push('/Admin/Ballot/');
+  };
 
 
   return (
@@ -126,6 +136,11 @@ export default function Page() {
               </Button>
               
             </Box>
+
+            <Box><p>
+            <button onClick={() => goToElections()}>Back to Elections</button>
+            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <button onClick={() => goBackToBallots()}>Back to Ballots</button></p></Box>
     </Box>
 	  
 

@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
 import { Person, PersonClass } from "./Person";
+//import { bcrypt } from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
     pass: {type: String, required: true},
+    roles: {type: [String], default: ['user']},
     token: {type: String, required: false}
 });
 
@@ -15,8 +17,34 @@ class UserClass {
         try {
             console.log("Entered try."); 
             console.log(x);
+            const password1 = x.user.pass;
+            const saltRounds = 10;
+
+            let hashed_password1 = bcrypt.hash(password1, saltRounds, (err, hash) => {
+                if(err){
+                    console.error('Error hashing password: ', err);
+                }
+                console.log(hash);
+            });
+
+            console.log("hashed password: ");
+            console.log(hashed_password1);
+
+
             const personData = {person: {ppsn: x.user.ppsn, ...x.person_datails}};
-            const userData = {user: {ppsn: x.user.ppsn, pass: x.user.pass }}
+            
+
+            const secretKey = "magic";
+            const payload = {personData};
+            const token = jwt.sign(payload, secretKey, { expiresIn: '1h'});
+            console.log('Generated token: ', token);
+
+            let role1;
+            if(x.user.ppsn == 0) role1 = ['admin', 'user'];
+            else role1 = ['user'];
+
+            const userData = {user: {ppsn: x.user.ppsn, pass: hashed_password1, token: token, role: role1 }};
+
 
             const filter = {ppsn: x.user.ppsn};
             const person1 = await Person.findOne(filter);
@@ -86,13 +114,37 @@ class UserClass {
 
     static async log_into_account(x){
         try {
-            const filter_user = {ppsn: x.user.ppsn, pass: x.user.pass};
+            
+            const password1 = x.user.pass;
+            let hashed_password1;
+            bcrypt.hash(password1, saltRounds, (err, hash) => {
+                if(err){
+                    console.error('Error hashing password: ', err);
+                }
+                hashed_password1 = hash;
+                console.log(hashed_password1);
+            });
+
+            const filter_user = {ppsn: x.user.ppsn, pass:hashed_password1};
             const user_found = await User.findOne(filter_user);
 
             return (user_found) ? {user_authenticated: true, token: x.user.token } : {user_authenticated: false}
 
         } catch (error){
             console.error('An error occurred logging into the account. ');
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async is_signed_into_account(x){
+        try {
+            
+            const filter_user = {token: x.user.token}
+            const user_found = await User.findOne(filter_user);
+            return user_found;
+
+        } catch (error) {
+            console.error('An error occurred checking sign in status. ');
             console.error('Error occurred:', error.message);
         }
     }

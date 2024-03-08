@@ -52,9 +52,9 @@ export default function NavBar({ window }) {
             case 'About':
                 return '/about';
             case 'Login':
-                return '/login';
+                return '/User/login';
             case 'Register':
-                return '/register';
+                return '/User/register';
             case 'Contact':
                 return '/contact';
             default:
@@ -108,16 +108,16 @@ export default function NavBar({ window }) {
                     <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/">
                         <HomeIcon /> Home &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./about">
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/about">
                         <InfoIcon /> About &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./contact">
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/contact">
                         <ContactSupportIcon/> Contact &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./login">
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">
                         <LoginIcon/> Login &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="./register">
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/RegisterUser">
                         <AppRegistrationIcon/> Register &ensp;
                     </IconButton>
 

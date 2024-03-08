@@ -38,7 +38,7 @@ class builder {
         this.phone = phone;
         return this;
     }
-    setAddress(email){
+    setEmail(email){
         this.email = email;
         return this;
     }

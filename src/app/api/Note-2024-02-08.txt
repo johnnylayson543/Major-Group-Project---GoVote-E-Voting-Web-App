@@ -23,10 +23,10 @@ api ---- database ---- {
         )                        
                                 
                                 define schema e.g PersonSchema { name : string, tel : number}
-                                if you want to uses classes
+                                if you want to use classes
                                     define the class e.g. PersonClass
 
-                                load the class to schema 
+                                load the class to the schema 
                                 
                                 load the schema to a model object e.g. 'Person', PersonSchema
 
