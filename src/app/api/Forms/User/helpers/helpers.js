@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+import { resolve } from "styled-jsx/css";
 
 export class person_datails {
 
@@ -50,4 +52,19 @@ class builder {
         return new person_datails(this);
     }
 
+}
+
+
+export class Security {
+
+    static async encrypt(password, saltRounds){
+        try {
+            const hash = await bcrypt.hash(password, saltRounds);
+            //while (hash instanceof Promise);
+            return hash;
+        } catch (error) {
+            throw new Error(`Error hashing password: ${error.message}`);    
+        }
+
+    }
 }

@@ -17,36 +17,14 @@ class UserClass {
         try {
             console.log("Entered try."); 
             console.log(x);
-            const password1 = x.user.pass;
-            const saltRounds = 10;
-
-            let hashed_password1 = bcrypt.hash(password1, saltRounds, (err, hash) => {
-                if(err){
-                    console.error('Error hashing password: ', err);
-                }
-                console.log(hash);
-            });
-
-            console.log("hashed password: ");
-            console.log(hashed_password1);
-
 
             const personData = {person: {ppsn: x.user.ppsn, ...x.person_datails}};
-            
-
-            const secretKey = "magic";
-            const payload = {personData};
-            const token = jwt.sign(payload, secretKey, { expiresIn: '1h'});
-            console.log('Generated token: ', token);
-
-            let role1;
-            if(x.user.ppsn == 0) role1 = ['admin', 'user'];
-            else role1 = ['user'];
-
-            const userData = {user: {ppsn: x.user.ppsn, pass: hashed_password1, token: token, role: role1 }};
+            const userData = {user: {ppsn: x.user.ppsn, pass: x.user.pass, token: x.user.token, role: x.user.role }};
 
 
             const filter = {ppsn: x.user.ppsn};
+            console.log("filter: ") ;
+            console.log(filter) ;
             const person1 = await Person.findOne(filter);
             const user1 = await User.findOne(filter);
 
@@ -62,6 +40,7 @@ class UserClass {
             console.log("User result: " + user1);
 
             if(person1 && !user1){
+                console.log("Person exists, no user account. ");
                 const new_user_result = await User.add_user_account(userData.user);
                 
                 let result = {user_result: new_user_result}
@@ -72,6 +51,7 @@ class UserClass {
                 }
                 return result;
             } else if (person1 && user1){
+                console.log("Person exists, user account exists. ");
                 if( isChangedPerson  ) {
                     const person_details_added_result = await User.update_person_details(personData);
                     console.log(person_details_added_result);

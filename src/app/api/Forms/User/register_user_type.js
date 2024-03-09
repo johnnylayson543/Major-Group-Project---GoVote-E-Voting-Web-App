@@ -1,7 +1,7 @@
 import { person_datails } from "./helpers/helpers";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { resolve } from "styled-jsx/css";
+import { Security } from "./helpers/helpers";
 
 export class register_user_type {
     person_datails = {};
@@ -26,13 +26,8 @@ export class register_user_type {
         
         const password = pass;
         const saltRounds = 10;
-        let hashed_password1 = await encrypt(password, saltRounds).then( (hashedPassword) => {
-            console.log('Hashed Password: ', hashedPassword);
-            return hashedPassword;
-        }).catch((error)=>{
-            console.error('Error hashing password: ', error);
-        })
-        
+        let hashed_password1; Security.encrypt(password, saltRounds).then((hash) => hashed_password1 = hash);
+        console.log('Generated hash: ', hashed_password1);
 
 
         const secretKey = "magic";
@@ -43,24 +38,14 @@ export class register_user_type {
         let role1;
         if(ppsn == 0) role1 = ['admin', 'user'];
         else role1 = ['user'];
-        this.user = {user: {ppsn: ppsn, pass: hashed_password1, token: token, role: role1 }};
+        this.user = {ppsn: ppsn, pass: hashed_password1, token: token, role: role1 };
 
         console.log(email + ", " + date_of_birth + ", " + ppsn + ", " + pass + ", " + hashed_password1 + ", " + role1);
     }
+
+    
 }
 
-
-function encrypt(password, saltRounds){
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(password, saltRounds, (err, hash) => {
-            if(err){
-                reject(err);
-            } else {
-                resolve(hash);
-            }
-        });
-    });
-}
 
 
 // Form types and classes with function are changable 
