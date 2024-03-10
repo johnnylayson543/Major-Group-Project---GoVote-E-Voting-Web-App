@@ -1,6 +1,7 @@
 import { run_model_method } from "../../helper/helper";
-import { login_user_type } from "../../../../Forms/User/login_user_type";
+import { is_signed_into_account_user_type } from "../../../../Forms/User/is_signed_into_account";
 import { User } from "../../../models/User";
+
 
 export async function GET(req, res) {
   // Make a note we are on
@@ -9,10 +10,10 @@ export async function GET(req, res) {
   // get the values
   // that were sent across to us.
   const { searchParams } = new URL(req.url);
-  const obj = new login_user_type(searchParams);
+  const obj = new is_signed_into_account_user_type(searchParams);
 
   const x = { user: obj.user};
-  const xy = {fn: User.log_into_account, par: x};
+  const xy = {fn: User.is_signed_into_account, par: x};
   const result = run_model_method(xy);
 
   return Response.json({data: "okay", "result": result});

@@ -26,8 +26,9 @@ export class register_user_type {
         
         const password = pass;
         const saltRounds = 10;
-        let hashed_password1; Security.encrypt(password, saltRounds).then((hash) => hashed_password1 = hash);
-        console.log('Generated hash: ', hashed_password1);
+        
+        
+        //console.log('Generated hash: ', hashed_password1);
 
 
         const secretKey = "magic";
@@ -38,10 +39,20 @@ export class register_user_type {
         let role1;
         if(ppsn == 0) role1 = ['admin', 'user'];
         else role1 = ['user'];
-        this.user = {ppsn: ppsn, pass: hashed_password1, token: token, role: role1 };
+        this.user = {ppsn: ppsn, pass: pass, token: token, role: role1 };
 
-        console.log(email + ", " + date_of_birth + ", " + ppsn + ", " + pass + ", " + hashed_password1 + ", " + role1);
+        console.log(email + ", " + date_of_birth + ", " + ppsn + ", " + pass + ", " + role1);
     }
+
+    async hash_the_password(){
+        const password = this.user.pass;
+        const saltRounds = 10;
+        const hashed_password1 = await Security.encrypt(password, saltRounds);
+        this.user.pass = hashed_password1;
+        console.log('Generated hash: ', hashed_password1);
+    }
+
+    
 
     
 }

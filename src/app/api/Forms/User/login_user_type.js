@@ -3,9 +3,11 @@ class login_user_type {
     user = {};
 
     constructor(x){
-        this.ppsn = x.get('ppsn');
-        this.pass = x.get('pass');
+        const ppsn = x.get('ppsn');
+        const pass = x.get('pass');
 
-        console.log("login { ppsn:" + this.ppsn + ", pass: " + this.pass ) + " } ";
+        this.user = {ppsn: ppsn, pass: pass};
+
+        console.log("login user { ppsn:" + this.user.ppsn + ", pass: " + this.user.pass ) + " } ";
     }
 }

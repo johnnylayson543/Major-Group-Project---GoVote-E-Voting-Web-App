@@ -30,6 +30,12 @@ export async function GET(req, res) {
 
   const { searchParams } = new URL(req.url)
   const obj = new register_user_type(searchParams);  //  This is where the data from the front end form is made into an object using a form type. It has obj.user , obj.person_details.
+  await obj.hash_the_password().then(() => {
+    console.log("Check: " + obj.user.hash_password); // Access the hashed password
+  })
+  .catch((error) => {
+    console.error(error);
+  });
   const x = obj;
   const xy = {fn: User.register_an_account, par: x};  // This is where you send the Model.function_name, object. 
   const result = run_model_method(xy);
