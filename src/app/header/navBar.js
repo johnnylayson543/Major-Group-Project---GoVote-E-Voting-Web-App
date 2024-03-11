@@ -50,13 +50,13 @@ export default function NavBar({ window }) {
             case 'Home':
                 return '/';
             case 'About':
-                return '/about';
+                return '/Default/About';
             case 'Login':
-                return '/User/login';
+                return '/User/LoginUser';
             case 'Register':
-                return '/User/register';
+                return '/User/RegisterUser';
             case 'Contact':
-                return '/contact';
+                return '/Default/Contact';
             default:
                 return '#';
         }
@@ -108,10 +108,10 @@ export default function NavBar({ window }) {
                     <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/">
                         <HomeIcon /> Home &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/about">
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/Default/About">
                         <InfoIcon /> About &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/contact">
+                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/Default/Contact">
                         <ContactSupportIcon/> Contact &ensp;
                     </IconButton>
                     <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">

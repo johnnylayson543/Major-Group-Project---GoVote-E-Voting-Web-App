@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import NavBar from '../header/navBar'; 
+import NavBar from '../../header/navBar'; 
 import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -70,7 +70,7 @@ export default function Page() {
                         <List>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./castyourvote'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../Voter/Vote/CastYourVote'>
                                     <ListItemIcon>
                                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                     </ListItemIcon>
@@ -89,7 +89,7 @@ export default function Page() {
                             
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./bulletinboard'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Vote/BulletinBoard'>
                                     <ListItemIcon>
                                         <DashboardIcon sx={{ color: 'white' }}></DashboardIcon>
                                     </ListItemIcon>
@@ -100,7 +100,7 @@ export default function Page() {
 
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./myvotescast'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../Voter/Vote/MyVotesCast'>
                                     <ListItemIcon>
                                         <PersonIcon sx={{ color: 'white' }}></PersonIcon>
                                     </ListItemIcon>
@@ -109,7 +109,7 @@ export default function Page() {
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./registerforelections'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Election/RegisterForAnElection'>
                                     <ListItemIcon>
                                         <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
                                     </ListItemIcon>
@@ -118,7 +118,7 @@ export default function Page() {
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./viewvote'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Vote/ViewVote'>
                                     <ListItemIcon>
                                         <BallotIcon sx={{ color: 'white' }}></BallotIcon>
                                     </ListItemIcon>
@@ -127,7 +127,7 @@ export default function Page() {
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./viewresults'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Vote/ViewResults'>
                                     <ListItemIcon>
                                         <TableChartIcon sx={{ color: 'white' }}></TableChartIcon>
                                     </ListItemIcon>
@@ -135,7 +135,7 @@ export default function Page() {
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./updatedetails'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/UpdateDetails'>
                                     <ListItemIcon>
                                         <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
                                     </ListItemIcon>
