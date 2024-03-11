@@ -1,6 +1,5 @@
 import { person_datails } from "./helpers/helpers";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import { Security } from "./helpers/helpers";
 
 export class register_user_type {

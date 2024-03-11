@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../header/navBar';
+import NavBar from '../../components/header/navBar';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'

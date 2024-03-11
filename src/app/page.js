@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import NavBar from './header/navBar';
+import NavBar from './components/header/navBar';
 import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';

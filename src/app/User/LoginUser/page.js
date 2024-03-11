@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import NavBar from "../../header/navBar";
+import NavBar from "../../components/header/navBar";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -27,7 +27,7 @@ export default function Page() {
     const data = await res.json();
 
 
-    if(data.data== "true"){
+    if(data.data== "Okay"){
       console.log("Successfully Registered!")
 
 
@@ -61,9 +61,8 @@ export default function Page() {
     console.log("Sent ppsn:" + ppsn)
     console.log("Sent pass:" + pass)
 
-
     // Call this function to pass the data created by the FormData
-    runDBCallAsync(`http://localhost:3000/api/general/register?ppsn=${ppsn}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/User/login_user/?ppsn=${ppsn}&pass=${pass}`)
 
 
   }; // end handler
