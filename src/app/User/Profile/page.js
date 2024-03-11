@@ -79,16 +79,6 @@ export default function Page() {
                             </ListItem>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='./tallyvotes'>
-                                    <ListItemIcon>
-                                        <PollIcon sx={{ color: 'white' }}></PollIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Tally Votes"/>
-                                </ListItemButton>
-                            </ListItem>
-                            
-                            <Divider></Divider>
-                            <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Vote/BulletinBoard'>
                                     <ListItemIcon>
                                         <DashboardIcon sx={{ color: 'white' }}></DashboardIcon>
