@@ -1,4 +1,4 @@
-import { retrieve_selected_person_for_candidate_selection_admin_type } from "../../../../../Forms/Admin/Ballot/retrieve_ballot_admin_type"
+import { retrieve_selected_person_for_candidate_selection_admin_type } from "../../../../../Forms/Admin/Candidate/retrieve_selected_person_for_candidate_selection_admin_type";
 import { run_model_method } from "../../../helper/helper";
 import { Admin } from "../../../../models/Admin";
 
@@ -9,7 +9,7 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const obj = new retrieve_ballot_admin_type(searchParams);
+    const obj = new retrieve_selected_person_for_candidate_selection_admin_type(searchParams);
     
     const x = obj;
     const xy = {fn: Admin.retrieve_selected_person_for_candidate_selection, par: x};

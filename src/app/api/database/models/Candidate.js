@@ -3,7 +3,7 @@ import { getModel } from "./helpers/helpers";
 //import { User } from "./User";
 
 const candidateSchema = new mongoose.Schema({
-    ppsn: {type: String, required: true, unique: true, ref: 'Person'},
+    person_ppsn: {type: String, required: true, unique: true, ref: 'Person'},
     //id:{type: String, required: true, unique: true},
     ballotID: {type: String, required: true, unique: true}
 })
@@ -11,8 +11,9 @@ const candidateSchema = new mongoose.Schema({
 class CandidateClass {
     static async add_candidate(x){
         try {
-            const obj = {ppsn: x.ppsn, ballotID: x.ballotID};
+            const obj = {person_ppsn: x.person_ppsn, ballotID: x.ballotID};
             const candidate = await Candidate.create(obj);
+            return candidate;
         } catch (error) {
             console.error('An error occurred while adding the candidate:', error);
             console.error('Error occurred:', error.message);
@@ -22,6 +23,7 @@ class CandidateClass {
         try {
             const obj = {ppsn: x.ppsn, ballotID: x.ballotID};
             const candidate = await Candidate.deleteOne(obj);
+            return candidate;
         } catch (error) {
             console.error('An error occurred while removing the candidate:', error);
             console.error('Error occurred:', error.message);

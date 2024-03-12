@@ -1,4 +1,4 @@
-import { add_candidate_to_ballot_admin_type } from "../../Forms/Admin/add_candidate_to_ballot_admin_type";
+import { add_person_to_the_ballot_admin_type } from "../../../../../Forms/Admin/Candidate/add_person_to_the_ballot_admin_type";
 import { run_model_method } from "../../../helper/helper";
 import { Admin } from "../../../../models/Admin";
 
@@ -9,11 +9,11 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const obj = new add_candidate_to_ballot_admin_type(searchParams);
+    const obj = new add_person_to_the_ballot_admin_type(searchParams);
   
     const x = obj;
     const xy = {fn: Admin.add_person_to_the_ballot, par: x};
-    const result = run_model_method(xy);
+    const result = await run_model_method(xy);
 
-    return Response.json({ "data": "okay", "result": result});
+    return Response.json({ data: "okay", result: result});
     }

@@ -12,9 +12,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
 
+  const router = useRouter();
   /*
   This function does the actual work
   calling the fetch to get things from the database.
@@ -22,9 +24,28 @@ export default function Page() {
   */
   async function runDBCallAsync(url) {
 
+    
+
+
 
     const res = await fetch(url);
     const data = await res.json();
+
+
+    const user = data.result;
+
+    console.log("Data and data result: ");
+    console.log(data);
+    console.log(data.result);
+
+    const user_roles = user.roles;
+    if(user_roles.filter(role => role == 'admin')){
+      goToAdminProfilePage();
+    } else if (user_roles.filter(role => role == 'user')){
+      goToUserProfilePage();
+    } else if (user_roles.filter(role => role == 'voter')){
+      goToVoterProfilePage();
+    } 
 
 
     if(data.data== "Okay"){
@@ -36,6 +57,17 @@ export default function Page() {
       console.log("Registration Failed!")
     }
   }
+
+  const goToAdminProfilePage = () => {
+      router.push('/Admin/');
+  };
+  const goToUserProfilePage = () => {
+    router.push('/User/');
+  };
+
+  const goToVoterProfilePage = () => {
+    router.push('/Voter/');
+  };
 
 
   /*

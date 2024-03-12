@@ -1,5 +1,5 @@
 
-class remove_candidate_from_ballot_admin_type {
+export class remove_candidate_from_ballot_admin_type {
     candidate = {}
 
     constructor(x){

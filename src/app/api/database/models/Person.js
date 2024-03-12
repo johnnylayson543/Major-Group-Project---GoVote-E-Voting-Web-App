@@ -12,6 +12,17 @@ const personSchema = new mongoose.Schema({
 
 class PersonClass {
 
+    static async add_person(x){
+        try {
+            const obj = {ppsn: x.ppsn};
+            const person_result = await Person.create(obj);
+            return person_result;
+        } catch (error) {
+            console.error('Error adding the person details: ', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
     static async add_person_details(x){
         try {
             const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
@@ -50,6 +61,8 @@ class PersonClass {
         try {
             const filter_person = {ppsn: x.ppsn};
             const person_result = await Person.findOne(filter_person);
+            console.log("person_result:");
+            console.log(person_result);
             return person_result;
         } catch (error) {
             console.error('Error retrieving the person details: ', error);

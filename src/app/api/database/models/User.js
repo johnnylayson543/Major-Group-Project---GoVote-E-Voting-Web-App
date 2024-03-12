@@ -107,14 +107,14 @@ class UserClass {
             console.log(user_found);
             if(userIsFound) {
                 cookies().set('user_token', user_found.token);
-                for(role in user_found.role){
+                for(const role of user_found.roles){
                     cookies().set('user_role_' + role , true);
                 }
                 cookies().set('user_authenticated', true);
                 console.log(cookies().toString());
             }
 
-            return (user_found) ? {user_authenticated: true, token: user_found.token } : {user_authenticated: false};
+            return user_found;
 
         } catch (error){
             console.error('An error occurred logging into the account. ');

@@ -111,16 +111,29 @@ export default function Page() {
 
      ;
      let dataElement2 =  ( ballot_candidates.map( ballot_candidate => 
-        <tr key={ballot._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.ppsn}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button><button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</button></td></tr>
+        <tr key={ballot._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button></td></tr>
          ));
   let element = <Box>
         <h1>Candidates on the ballot</h1>
         <h2>Ballot</h2>
-        <table><tbody>
+        <table>
+          <thead>
+            <th>ID</th>
+            <th>Closing Date and Time</th>
+            <th>Title</th>
+          </thead>
+          <tbody>
         { dataElement1 }
             </tbody></table>
             <h2>Ballot Candidates</h2>
-            <table><tbody>
+            <table>
+              <thead>
+              <th>Candidate ID</th>
+              <th>Ballot ID</th>
+              <th>Person PPSN</th>
+              <th>Actions</th>
+            </thead>
+              <tbody>
         { dataElement2 }
             </tbody></table>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

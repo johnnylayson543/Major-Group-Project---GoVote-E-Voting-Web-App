@@ -1,5 +1,5 @@
 
-class is_signed_into_account_user_type {
+export class is_signed_into_account_user_type {
     user = {};
 
     constructor(x){

@@ -13,7 +13,9 @@ export async function GET(req, res) {
 
   const x = { user: obj.user};
   const xy = {fn: User.log_into_account, par: x};
-  const result = run_model_method(xy);
+  const result = await run_model_method(xy);
   
-  return Response.json({data: "Okay", "result": result});
+  res = Response.json({data: "Okay", result: result});
+
+  return res;
 }

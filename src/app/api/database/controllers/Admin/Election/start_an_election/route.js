@@ -13,7 +13,7 @@ export async function GET(req, res) {
         
     const x = obj;
     const xy = {fn: Admin.start_an_election, par: x};
-    const result = run_model_method(xy);
+    const result = await run_model_method(xy);
 
     //==========================================================
     // at the end of the process we need to send something back.
