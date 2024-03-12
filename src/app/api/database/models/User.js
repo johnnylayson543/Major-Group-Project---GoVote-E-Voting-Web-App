@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
 import { Person, PersonClass } from "./Person";
+import { Security } from "../../Forms/User/helpers/helpers";
+import { cookies } from "next/headers";
 //import { bcrypt } from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
@@ -94,21 +96,25 @@ class UserClass {
 
     static async log_into_account(x){
         try {
-            
-            const password1 = x.user.pass;
-            let hashed_password1;
-            bcrypt.hash(password1, saltRounds, (err, hash) => {
-                if(err){
-                    console.error('Error hashing password: ', err);
-                }
-                hashed_password1 = hash;
-                console.log(hashed_password1);
-            });
-
-            const filter_user = {ppsn: x.user.ppsn, pass:hashed_password1};
+            const filter_user = {ppsn: x.user.ppsn};
             const user_found = await User.findOne(filter_user);
+            const password_check = await Security.check_that_it_is_the_same_password(x.user.pass, user_found.pass);
+            console.log("Password check: ");
+            console.log(password_check);
 
-            return (user_found) ? {user_authenticated: true, token: x.user.token } : {user_authenticated: false}
+            const userIsFound = user_found && user_found != {} && password_check ;
+            console.log("Found user: ");
+            console.log(user_found);
+            if(userIsFound) {
+                cookies().set('user_token', user_found.token);
+                for(const role of user_found.roles){
+                    cookies().set('user_role_' + role , true);
+                }
+                cookies().set('user_authenticated', true);
+                console.log(cookies().toString());
+            }
+
+            return user_found;
 
         } catch (error){
             console.error('An error occurred logging into the account. ');
@@ -121,6 +127,11 @@ class UserClass {
             
             const filter_user = {token: x.user.token}
             const user_found = await User.findOne(filter_user);
+            if(userIsFound) {
+                cookies().set('user_token', user_found.token);
+                cookies().set('user_role', user_found.role);
+                cookies().set('user_authenticated', true);
+            }
             return user_found;
 
         } catch (error) {

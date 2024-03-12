@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import NavBar from "../../header/navBar";
+import NavBar from "../../components/header/navBar";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,9 +12,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
 
+  const router = useRouter();
   /*
   This function does the actual work
   calling the fetch to get things from the database.
@@ -22,12 +24,31 @@ export default function Page() {
   */
   async function runDBCallAsync(url) {
 
+    
+
+
 
     const res = await fetch(url);
     const data = await res.json();
 
 
-    if(data.data== "true"){
+    const user = data.result;
+
+    console.log("Data and data result: ");
+    console.log(data);
+    console.log(data.result);
+
+    const user_roles = user.roles;
+    if(user_roles.filter(role => role == 'admin')){
+      goToAdminProfilePage();
+    } else if (user_roles.filter(role => role == 'user')){
+      goToUserProfilePage();
+    } else if (user_roles.filter(role => role == 'voter')){
+      goToVoterProfilePage();
+    } 
+
+
+    if(data.data== "Okay"){
       console.log("Successfully Registered!")
 
 
@@ -36,6 +57,17 @@ export default function Page() {
       console.log("Registration Failed!")
     }
   }
+
+  const goToAdminProfilePage = () => {
+      router.push('/Admin/');
+  };
+  const goToUserProfilePage = () => {
+    router.push('/User/');
+  };
+
+  const goToVoterProfilePage = () => {
+    router.push('/Voter/');
+  };
 
 
   /*
@@ -61,9 +93,8 @@ export default function Page() {
     console.log("Sent ppsn:" + ppsn)
     console.log("Sent pass:" + pass)
 
-
     // Call this function to pass the data created by the FormData
-    runDBCallAsync(`http://localhost:3000/api/general/register?ppsn=${ppsn}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/User/login_user/?ppsn=${ppsn}&pass=${pass}`)
 
 
   }; // end handler

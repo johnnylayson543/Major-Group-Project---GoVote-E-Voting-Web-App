@@ -1,5 +1,5 @@
 
-class tally_votes_teller_type{
+export class tally_votes_teller_type{
     ballot = {}
 
     constructor(x){

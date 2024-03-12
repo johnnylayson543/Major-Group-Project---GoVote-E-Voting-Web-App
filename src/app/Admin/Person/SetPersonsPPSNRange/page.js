@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import NavBar from "../../../header/navBar";
+import NavBar from "../../../components/header/navBar";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -65,7 +65,7 @@ export default function Page() {
 
 
     // Call this function to pass the data created by the FormData
-    runDBCallAsync(`http://localhost:3000/api/admin/add_persons_range?ppsnMin=${ppsnMin}&ppsnMax=${ppsnMax}`)
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Person/add_persons_range?ppsnMin=${ppsnMin}&ppsnMax=${ppsnMax}`)
 
 
   }; // end handler

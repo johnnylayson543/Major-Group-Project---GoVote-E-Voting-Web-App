@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../../header/navBar';
+import NavBar from '../../../components/header/navBar';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -35,6 +35,10 @@ import { useRouter } from 'next/navigation';
     if(data.data== "valid"){
       console.log("login is valid!")
 
+      console.log("Data and data.result:");
+      console.log(data);
+      console.log(data.result);
+
 
       
     } else {
@@ -51,12 +55,14 @@ export default function Page() {
 
   const [ballot, setBallot] = useState(null);
   const [person, setPerson] = useState(null);
+  
 
 
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
     const person_ppsn = searchParams.get('person_ppsn');
+    console.log("searchParams: " + ballot_id + ", " + person_ppsn);
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -71,36 +77,38 @@ export default function Page() {
       .then((data) => {
         setPerson(data.result);
 
-        console.log("Person data")
+        console.log("Person data");
         console.log(data.result);
       })
   }, []);
 
+  let element;
+  if(person && ballot){
+    let dataElement1 =  
+      <div key={ballot._id.toString()}>
+        <p>{ballot._id}</p><p>{ballot.closing_datetime}</p><p>{ballot.title}</p></div>
 
-  let dataElement1 =  
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
+      ;
+      let dataElement2 =  
+      <div key={person._id.toString()}><p>{person._id}</p><p>{person.name}</p><p>{person.address}</p><p>{person.email}</p><p>{person.phone}</p><p>{person.date_of_birth}</p></div>
 
-     ;
-     let dataElement2 =  
-    <tr key={person._id.toString()}><td>{person._id}</td><td>{person.name}</td><td>{person.address}</td><td>{person.email}</td><td>{person.phone}</td><td>{person.date_of_birth}</td></tr>
+      ;
+    element = <Box>
+          <h1>Add Person to the Ballot - Create a Candidate</h1>
+          <h2>Ballot</h2>
+          <section>
+          { dataElement1 }
+          </section>
+          <h2>Person</h2>
+          <section>
+          { dataElement2 }
+          </section>
 
-     ;
-  let element1 = <Box>
-        <h1>Add Person to the Ballot - Create a Candidate</h1>
-        <table><tbody>
-        { dataElement1 }
-            </tbody></table>
-            <table><tbody>
-        { dataElement2 }
-            </tbody></table>
-
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-  </Box>
-
-let element;
-if (!ballot || !person) element = <Box><p>No ballot or person found. </p>
-<button onClick={() => goBackToProfile()}>Back to Profile</button></Box>
-else element = element1;
+              
+    </Box>
+  } else { element = <Box><p>No ballot or person found. </p>
+    <button onClick={() => goBackToProfile()}>Back to Profile</button></Box>
+  }
 
   const handleSubmit = (event) => {
 
@@ -116,9 +124,12 @@ else element = element1;
 
     console.log("Sent person_ppsn:" + person_ppsn);
 
+    console.log(person);
+    console.log(ballot);
+
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/add_person_to_ballot_createCandidate?person_ppsn=${person.ppsn}&ballotIDe=${ballot._id}`);
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Candidate/add_person_to_the_ballot?person_ppsn=${person.ppsn}&ballotID=${ballot._id}`);
 
     goBackToBallotCandidates(ballot._id);
 
@@ -156,6 +167,7 @@ else element = element1;
               </Button>
               
             </Box>
+            <button onClick={() => goBackToProfile()}>Back to Profile</button>
     </Box>
 	  
 

@@ -67,4 +67,14 @@ export class Security {
         }
 
     }
+
+    static async check_that_it_is_the_same_password(password, hash){
+        try {
+            const isSamePassword = await bcrypt.compare(password, hash);
+            return isSamePassword;
+        } catch (error) {
+            throw new Error(`Error hashing password: ${error.message}`);  
+        }
+        
+    }
 }

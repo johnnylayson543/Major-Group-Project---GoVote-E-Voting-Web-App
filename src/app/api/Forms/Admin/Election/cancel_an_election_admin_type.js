@@ -1,5 +1,5 @@
 
-class remove_an_election_admin_type {
+export class remove_an_election_admin_type {
 
     election = {};
 

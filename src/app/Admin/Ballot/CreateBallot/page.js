@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../../header/navBar';
+import NavBar from '../../../components/header/navBar';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'

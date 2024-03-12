@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import NavBar from '../../../header/navBar';
+import NavBar from '../../../components/header/navBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';

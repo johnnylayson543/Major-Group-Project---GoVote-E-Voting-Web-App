@@ -38,7 +38,8 @@ export async function GET(req, res) {
   });
   const x = obj;
   const xy = {fn: User.register_an_account, par: x};  // This is where you send the Model.function_name, object. 
-  const result = run_model_method(xy);
+  const result = await run_model_method(xy);
 
-  return Response.json({ "data":"ok" , "result": result})
+  res = Response.json({ "data":"ok" , "result": result})
+  return res;
   }

@@ -14,29 +14,40 @@ const adminSchema = new mongoose.Schema ({
 class AdminClass {
 
     static async add_person_range(x){
-        if(x.min && x.max){
-            for(let i = x.min; i <= x.max; i++){
+        const persons = [];
+        console.log(x);
+        console.log("PPSN range?:");
+        console.log(x.persons.ppsn_range.min != null && x.persons.ppsn_range.max != null);
+        const isThereARange = x.persons.ppsn_range.min != null && x.persons.ppsn_range.max != null;
+        const ppsn_min = parseInt(x.persons.ppsn_range.min);
+        const ppsn_max = parseInt(x.persons.ppsn_range.max);
+
+        if(isThereARange){
+            for(let i = ppsn_min; i <= ppsn_max; i++){
                 try {
                 const person_obj = {ppsn: i};
                 const new_person_result = await Person.add_person(person_obj);
                 console.log('Person added: ', new_person_result);
+                persons.push(new_person_result);
                 } catch (error){
                     console.error('An error occurred while adding the person:', error);
                     console.error('Error occurred:', error.message);
                 }
             }
-        } else if (x.values){
+        } else if (x.persons.ppsn_values){
             for(this1 in x.values){
                 try {
                 const person_obj = {ppsn: i};
                 const new_person_result = await Person.add_person(person_obj);
                 console.log('Person added: ', new_person_result);
+                persons.push(new_person_result);
                 } catch (error){
                     console.error('An error occurred while adding the person:', error);
                     console.error('Error occurred:', error.message);
                 }
             }
         }
+        return persons;
     }
 
     static async confirm_person_exists_on_the_system(x){
@@ -113,16 +124,23 @@ class AdminClass {
     // create candidate
     static async add_person_to_the_ballot(x){
         try {
-            const filter_person = {ppsn: x.person.ppsn};
-            const filter_ballot = {ballotID: x.ballot.ballotID};
+            const filter_person = x.person_filter;
+            const filter_ballot = {_id: x.ballot_filter.ballotID};
 
             const person_found = await Person.findOne(filter_person);
             const ballot_found = await Ballot.findOne(filter_ballot);
+            const candidate_found = await Candidate.findOne(x.candidate);
 
-            if(person_found && ballot_found){
-                const obj = {ppsn: x.person.ppsn, ballotID: x.ballot._id};
+            console.log("Candidate: ");
+            console.log(person_found);
+            console.log(ballot_found);
+            console.log(x);
+
+            if(person_found && ballot_found && candidate_found != {}){
+                const obj = x.candidate;
                 const candidate = Candidate.add_candidate(obj);
-            }
+                return candidate;
+            } 
         } catch (error) {
             console.error('An error occurred while adding the person to the ballot:', error);
             console.error('Error occurred:', error.message);
@@ -140,6 +158,7 @@ class AdminClass {
             if(person_found && ballot_found){
                 const obj = {ppsn: x.person.ppsn, ballotID: x.ballot._id};
                 const candidate = Candidate.remove_candidate(obj);
+                return candidate;
             }
         } catch (error) {
             console.error('An error occurred while removed the person to the ballot:', error);

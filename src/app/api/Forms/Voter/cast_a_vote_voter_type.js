@@ -1,5 +1,5 @@
 
-class cast_vote_voter_type{
+export class cast_vote_voter_type{
     vote = {}
 
     constructor(x){
