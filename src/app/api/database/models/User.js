@@ -124,13 +124,16 @@ class UserClass {
 
     static async is_signed_into_account(x){
         try {
-            
-            const filter_user = {token: x.user.token}
-            const user_found = await User.findOne(filter_user);
+            const token = cookies().get("user_token");
+            const filter_user_from_cookie = {token: token};
+            const user_found = await User.findOne(filter_user_from_cookie);
             if(userIsFound) {
                 cookies().set('user_token', user_found.token);
-                cookies().set('user_role', user_found.role);
+                for(const role of user_found.roles){
+                    cookies().set('user_role_' + role , true);
+                }
                 cookies().set('user_authenticated', true);
+                console.log(cookies().toString());
             }
             return user_found;
 
