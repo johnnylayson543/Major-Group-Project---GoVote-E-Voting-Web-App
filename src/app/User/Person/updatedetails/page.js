@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 
-import NavBar from '/src/app/components/header/navBar';
+import Header from '../../components/header/header';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -91,8 +91,8 @@ export default function Page() {
               }}
           >
             <br></br>
-            <NavBar>
-            </NavBar>
+            <Header>
+            </Header>
             <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
               Update Details
             </Typography>

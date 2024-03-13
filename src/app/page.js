@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import NavBar from './components/header/navBar';
+import Header from './components/header/header';
 import Avatar from '@mui/material/Avatar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -84,8 +84,8 @@ export default function Page() {
     return (
 // <body background>
         <Box component="main" sx={{ p: 3 }}>
-            <NavBar>
-            </NavBar>
+            <Header>
+            </Header>
             <Toolbar>
             </Toolbar>
             <br></br>

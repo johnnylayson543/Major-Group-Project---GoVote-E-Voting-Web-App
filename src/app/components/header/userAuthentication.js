@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect } from "react";
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 
 export default function UserAuthentication({ window }){
@@ -15,10 +17,7 @@ export default function UserAuthentication({ window }){
             console.log("User data")
             console.log(data.result);
         })
-
-
-
-    })
+    },[]);
 
 }
 

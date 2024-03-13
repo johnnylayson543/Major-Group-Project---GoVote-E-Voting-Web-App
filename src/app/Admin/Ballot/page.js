@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../components/header/navBar';
+import Header from '../../components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -102,7 +102,7 @@ export default function Page() {
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
-    <NavBar></NavBar>
+    <Header></Header>
     <Toolbar></Toolbar>
         { element }
     </Box>
