@@ -33,13 +33,13 @@ export default function Page() {
         const data = await res.json();
 
         if(data.data== "valid"){
-            console.log("login is valid!")
+            console.log("recast vote is valid!")
 
 
 
         } else {
 
-            console.log("login is not valid!")
+            console.log("recast vote is not valid!")
         }
     }
 

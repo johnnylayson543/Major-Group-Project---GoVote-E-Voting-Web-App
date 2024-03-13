@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react';
-import NavBar from '../../../header/navBar';
+import NavBar from '/src/app/components/header/navBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';

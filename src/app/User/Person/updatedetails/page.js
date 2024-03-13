@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 
-import NavBar from '../../../header/navBar';
+import NavBar from '/src/app/components/header/navBar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
