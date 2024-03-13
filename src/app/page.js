@@ -96,16 +96,27 @@ export default function Page() {
                 
                 <Grid item xs={8}>
                 <Item>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                cum quibusdam.
-                <br></br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris et nulla ac eros aliquet suscipit ut quis libero. 
-                Sed quam erat, dictum in consequat id, dapibus eu libero.
+                    <b>How It Works</b>
+                    <br/><br/>
+                    <b>Registration:</b> Create an account quickly and securely to verify your eligibility to vote.
+                    <br/><br/>
+                    <b>Voting:</b> Log in to your account during the designated voting period to access your ballot and cast your vote with just a few clicks.
+                    <br/><br/>
+                    <b>Confirmation:</b> Receive instant confirmation that your vote has been successfully recorded, providing peace of mind that your voice has been heard.
+                    <br/>
+                    <b>Results:</b> Stay updated on election results in real-time, as they are tabulated and made available to the public.
+
                 </Item>
+
+                    <Grid item xs={12}>
+                        <Item>
+                            Some Photos here
+                        </Item>
+                    </Grid>
+
                 </Grid>
+
+
 
                  <Grid item xs={3}>
                  <Item>
@@ -150,10 +161,6 @@ export default function Page() {
                          </Grid>
                      </Box>
                  </Item>
-                 </Grid>
-
-                 <Grid item xs={6}>
-                 <Item>Some Photos go here</Item>
                  </Grid>
             </Grid>
         </Box>
