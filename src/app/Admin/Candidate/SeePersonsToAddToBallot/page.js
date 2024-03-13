@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../../components/header/navBar';
+import Header from '../../../components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -139,8 +139,7 @@ else element = element1;
   return (
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        
-    <NavBar></NavBar>
+     <Header></Header>
     <Toolbar></Toolbar>
 
         { element }

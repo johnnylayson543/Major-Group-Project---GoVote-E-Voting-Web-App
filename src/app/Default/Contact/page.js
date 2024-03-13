@@ -2,7 +2,7 @@
 
 // Import necessary components and libraries from Material-UI
 import * as React from 'react';
-import NavBar from '../../components/header/navBar'
+import Header from '../../components/header/header';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -38,7 +38,7 @@ export default function Page() {
 
     return (
         <Box component="main" sx={{p: 3}}>
-            <NavBar/>
+            <Header/>
             <Toolbar />
             <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
                 Contact Us <br/> <br/>
