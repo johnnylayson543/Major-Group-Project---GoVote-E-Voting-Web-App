@@ -33,13 +33,13 @@ import { useRouter } from 'next/navigation';
     const data = await res.json();
  
     if(data.data== "valid"){
-      console.log("login is valid!")
+      console.log("see persons to add to ballot is valid!")
 
 
       
     } else {
 
-      console.log("login is not valid!")
+      console.log("see persons to add to ballot is not valid!")
     }
   }
 
