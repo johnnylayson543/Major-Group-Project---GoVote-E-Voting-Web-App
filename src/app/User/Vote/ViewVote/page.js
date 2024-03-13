@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react';
-import NavBar from '../../../header/navBar';
+import Header from '../../components/header/header';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -22,7 +22,7 @@ export default function Page() {
   return (
 
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        <NavBar></NavBar>
+        <Header></Header>
         <Toolbar></Toolbar>
         <br></br>
         <Grid container spacing={12}>

@@ -1,6 +1,5 @@
 'use client';
 import * as React from 'react';
-import NavBar from "../../../components/header/navBar";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -71,7 +70,7 @@ export default function Page() {
   }; // end handler
 
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goToBallots = () => {
     router.push('/Admin/Ballot/');
@@ -88,8 +87,7 @@ export default function Page() {
 // This returns the front-end page
   return (
         <Container component="main" maxWidth="xs">
-           <NavBar>
-            </NavBar>
+           
             <br></br>
           <CssBaseline />
           <Box

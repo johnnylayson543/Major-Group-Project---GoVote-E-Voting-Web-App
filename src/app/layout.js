@@ -3,6 +3,7 @@
 */
 'use client'
 import { ThemeProvider } from '@mui/material/styles';
+import Header from './components/header/header';
 import theme from './components/theme';
 
 export default function RootLayout({ children }) {
@@ -11,7 +12,10 @@ export default function RootLayout({ children }) {
     <title>GoVote - E-Voting Website</title>
     <meta name="description" content="E-Voting Website for Ireland"/>
     <html lang="en">
-      <body>{children}</body>
+      
+      <body>
+        <header><Header></Header></header>
+        {children}</body>
     </html>
     </ThemeProvider>
   )

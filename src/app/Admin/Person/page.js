@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../components/header/navBar';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -21,13 +20,13 @@ import { useRouter } from 'next/navigation';
     const data = await res.json();
  
     if(data.data== "valid"){
-      console.log("login is valid!")
+      console.log("person is valid!")
 
 
       
     } else {
 
-      console.log("login is not valid!")
+      console.log("person is not valid!")
     }
   }
 
@@ -54,7 +53,7 @@ export default function Page() {
   </Box>
 
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goToElections = () => {
     router.push('/Admin/Election/');
@@ -75,7 +74,6 @@ export default function Page() {
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
-    <NavBar></NavBar>
     <Toolbar></Toolbar>
         { element }
     </Box>

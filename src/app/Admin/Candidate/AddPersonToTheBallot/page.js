@@ -15,12 +15,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../../components/header/navBar';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -142,7 +142,7 @@ export default function Page() {
 
   
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
 
   
@@ -151,7 +151,6 @@ export default function Page() {
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
-    <NavBar></NavBar>
     <Toolbar></Toolbar>
 
         { element }

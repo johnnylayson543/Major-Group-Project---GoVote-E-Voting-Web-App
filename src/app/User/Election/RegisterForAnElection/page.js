@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react';
-import NavBar from '../../../components/header/navBar';
+import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -98,7 +98,7 @@ export default function Page() {
                     alignItems: 'center',
                 }}
             >
-                <NavBar />
+                <Header></Header>
                 <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
                     Register For Election
                 </Typography>

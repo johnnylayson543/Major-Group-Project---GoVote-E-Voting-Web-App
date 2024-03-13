@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../components/header/navBar';
+import Header from '../../components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -173,7 +173,7 @@ export default function Page() {
     router.push('/Admin/Candidate/?ballotID={' + ballotID + '}');
   };
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goToBallots = () => {
     router.push('/Admin/Ballot/');
@@ -215,7 +215,6 @@ export default function Page() {
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
-    <NavBar></NavBar>
     <Toolbar></Toolbar>
         { element }
         { warning1 }

@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 
-import NavBar from '../../components/header/navBar';
+import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,8 +14,6 @@ import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
 export default function Page() {
 
@@ -90,8 +88,8 @@ export default function Page() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
             </Avatar>
-            <NavBar>
-            </NavBar>
+            <Header>
+            </Header>
             <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
               Register Your GoVote Account
             </Typography>

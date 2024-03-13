@@ -15,7 +15,6 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
-import NavBar from '../../../components/header/navBar';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -108,7 +107,7 @@ export default function Page() {
   };
 
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goBackToBallots = () => {
     router.push('/Admin/Ballot/');
@@ -119,7 +118,7 @@ export default function Page() {
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
-    <NavBar></NavBar>
+    <Header></Header>
     <Toolbar></Toolbar>
 
         
