@@ -33,13 +33,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
     const data = await res.json();
  
     if(data.data== "valid"){
-      console.log("login is valid!")
+      console.log("remove ballot is valid!")
 
 
       
     } else {
 
-      console.log("login is not valid!")
+      console.log("remove ballot is not valid!")
     }
   }
 
