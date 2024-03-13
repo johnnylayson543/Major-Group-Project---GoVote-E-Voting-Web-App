@@ -98,7 +98,7 @@ export default function Page() {
                     alignItems: 'center',
                 }}
             >
-                <Header />
+                <Header></Header>
                 <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
                     Register For Election
                 </Typography>

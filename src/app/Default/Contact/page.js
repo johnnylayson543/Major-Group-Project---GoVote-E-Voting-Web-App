@@ -38,8 +38,8 @@ export default function Page() {
 
     return (
         <Box component="main" sx={{p: 3}}>
-            <Header/>
-            <Toolbar />
+            <Header></Header>
+            <Toolbar></Toolbar>
             <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
                 Contact Us <br/> <br/>
             </Typography>
