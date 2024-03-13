@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -84,6 +85,7 @@ function getBallotCandidates(ballotID){
     <ThemeProvider theme={theme}>
       
     <Container component="main" maxWidth="xs">
+      <Header></Header>
     <div style={{fontSize: '40px'}} >Cast Your Vote</div>
     <div>
         {
