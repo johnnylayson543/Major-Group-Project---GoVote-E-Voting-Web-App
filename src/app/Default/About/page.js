@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react';
-import NavBar from '../../header/navBar'
+import NavBar from '/src/app/components/header/navBar'
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';

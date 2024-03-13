@@ -49,7 +49,7 @@ export default function Page() {
 //
 
     document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('yourFormId').addEventListener('submit', function (event) {
+        document.getElementById('#').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevents the default form submission behavior
 
             // Get the form data
@@ -64,8 +64,7 @@ export default function Page() {
 
 
 
-    function recastTheVote(candidateID, voterID){
-        console.log("CandidateID: " + candidateID + ", voterID: " + voterID);
+    function recastVote(candidateID, voterID) {
         var url = `http://localhost:3000/api/voter/recastVote?candidateID=${candidateID}&voterID=${voterID}`;
         runDBCallAsync(url);
     }
@@ -106,18 +105,17 @@ export default function Page() {
                 <div>
                     {
                         data.map((candidate1, index) => (
-                            <div style={{padding: '20px'}} key={index} >
+                            <div style={{ padding: '20px' }} key={index} >
                                 Unique ID: {candidate1._id}
                                 <br></br>
                                 PPSN: {candidate1.ppsn}
                                 <br />
                                 CandidateID: {candidate1.ballotID}
                                 <br></br>
-                                <Button onClick={() => recastTheVote(candidate1.candidateID)} variant="outlined">Cast Vote</Button>
+                                <Button onClick={() => updateVote(candidate1.candidateID, candidate1.ballotID)} variant="outlined">Update Vote</Button>
                             </div>
                         ))
                     }
-
                 </div>
             </Container>
         </ThemeProvider>

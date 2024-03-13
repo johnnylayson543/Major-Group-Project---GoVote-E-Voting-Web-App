@@ -21,7 +21,6 @@ import { useState, useEffect } from 'react'
 
 export default function Page() {
 
-
 /*
   After the submit handler calls the runDBCallAsync, this does the thing
   This function does the actual work
@@ -48,7 +47,7 @@ export default function Page() {
 // Function for putting items into the shopping cart.
 //
 function castTheVote(candidateID, voterID){
-  console.log("CandidateID: " + candidateID + ", voterID: " + voterID); 
+  console.log("CandidateID: " + candidateID + ", voterID: " + voterID);
   var url = `http://localhost:3000/api/voter/castVote?candidateID=${candidateID}&voterID=${voterID}`;
   runDBCallAsync(url);
 }
