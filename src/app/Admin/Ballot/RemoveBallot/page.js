@@ -15,7 +15,6 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
-import Header from '../../../components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'

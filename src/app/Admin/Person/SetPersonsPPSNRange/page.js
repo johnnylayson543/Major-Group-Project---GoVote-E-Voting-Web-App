@@ -1,6 +1,5 @@
 'use client';
 import * as React from 'react';
-import Header from '../../../components/header/header';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -88,8 +87,7 @@ export default function Page() {
 // This returns the front-end page
   return (
         <Container component="main" maxWidth="xs">
-           <Header>
-            </Header>
+           
             <br></br>
           <CssBaseline />
           <Box
