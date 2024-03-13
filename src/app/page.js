@@ -100,7 +100,7 @@ export default function Page() {
                     <b>Voting:</b> Log in to your account during the designated voting period to access your ballot and cast your vote with just a few clicks.
                     <br/><br/>
                     <b>Confirmation:</b> Receive instant confirmation that your vote has been successfully recorded, providing peace of mind that your voice has been heard.
-                    <br/>
+                    <br/><br/>
                     <b>Results:</b> Stay updated on election results in real-time, as they are tabulated and made available to the public.
 
                 </Item>
