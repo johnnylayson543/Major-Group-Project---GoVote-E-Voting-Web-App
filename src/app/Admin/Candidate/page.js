@@ -173,7 +173,7 @@ export default function Page() {
     router.push('/Admin/Candidate/?ballotID={' + ballotID + '}');
   };
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goToBallots = () => {
     router.push('/Admin/Ballot/');

@@ -108,7 +108,7 @@ export default function Page() {
   };
 
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goBackToBallots = () => {
     router.push('/Admin/Ballot/');

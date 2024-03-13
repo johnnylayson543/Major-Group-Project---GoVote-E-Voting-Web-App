@@ -71,7 +71,7 @@ export default function Page() {
   }; // end handler
 
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goToBallots = () => {
     router.push('/Admin/Ballot/');

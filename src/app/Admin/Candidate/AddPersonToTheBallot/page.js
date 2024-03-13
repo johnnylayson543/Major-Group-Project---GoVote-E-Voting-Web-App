@@ -142,7 +142,7 @@ export default function Page() {
 
   
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
 
   

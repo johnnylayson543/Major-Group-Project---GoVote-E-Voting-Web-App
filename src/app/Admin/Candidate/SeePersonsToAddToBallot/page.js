@@ -131,7 +131,7 @@ else element = element1;
 
   
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
 
   

@@ -70,7 +70,7 @@ export default function Page() {
   </Box>
 
   const goBackToProfile = () => {
-    router.push('/Admin/');
+    router.push('/Admin/Profile');
   };
   const goToElections = () => {
     router.push('/Admin/Election/');
