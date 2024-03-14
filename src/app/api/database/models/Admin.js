@@ -124,12 +124,13 @@ class AdminClass {
     // create candidate
     static async add_person_to_the_ballot(x){
         try {
-            const filter_person = x.person_filter;
+            const filter_person = {ppsn: x.person_filter.ppsn};
             const filter_ballot = {_id: x.ballot_filter.ballotID};
+            const filter_candidate = {person_ppsn: x.candidate.person_ppsn, ballotID: x.candidate.ballotID };
 
             const person_found = await Person.findOne(filter_person);
             const ballot_found = await Ballot.findOne(filter_ballot);
-            const candidate_found = await Candidate.findOne(x.candidate);
+            const candidate_found = await Candidate.findOne(filter_candidate);
 
             console.log("Candidate: ");
             console.log(person_found);
@@ -137,7 +138,7 @@ class AdminClass {
             console.log(x);
 
             if(person_found && ballot_found && candidate_found != {}){
-                const obj = x.candidate;
+                const obj = filter_candidate;
                 const candidate = Candidate.add_candidate(obj);
                 return candidate;
             } 
@@ -210,7 +211,7 @@ class AdminClass {
         }
     }
 
-    static async retrieve_election(x){
+    static async retrieve_the_election(x){
         try {
             const obj = {ballotID: x.ballotID};
             const ballot = await Election.retrieve_elections(obj);
@@ -238,10 +239,37 @@ class AdminClass {
             const candidates = await Candidate.retrieve_candidates(obj);
             return candidates;
         } catch (error) {
-            
             console.error('An error occurred retrieving person:', error);
             console.error('Error occurred:', error.message);
         }
+    }
+
+    
+    static async retrieve_runnable_ballots(x){
+        try {
+            const runnable_ballots_based_on_query = await Candidate.aggregate([
+                { $match: { _id: { $exists: true}} },
+                { $group: { _id: '$ballotID', count: { $sum: 1}} },
+                { $match: { count: { $gt: 1}} }
+            ]);
+            
+            console.log("Runnable Ballots:")
+            console.log(runnable_ballots_based_on_query);
+            const matchesExist = runnable_ballots_based_on_query.length > 0;
+            if(matchesExist){
+                const runnable_ballot_ids = runnable_ballots_based_on_query.map( result => result._id);
+                if(runnable_ballot_ids){
+                    const runnable_ballots = (await Ballot.find({ _id: { $in: runnable_ballot_ids }}));
+                    
+                    return runnable_ballots;
+                }
+            }
+            return [];
+        } catch (error) {
+            console.error('An error occurred retrieving runnable ballots:', error);
+            console.error('Error occurred:', error.message);
+        }
+
     }
 
 }

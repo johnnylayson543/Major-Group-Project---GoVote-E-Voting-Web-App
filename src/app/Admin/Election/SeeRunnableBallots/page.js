@@ -32,13 +32,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
     const data = await res.json();
  
     if(data.data== "valid"){
-      console.log("remove ballot is valid!")
+      console.log("see ballot is valid!")
 
 
       
     } else {
 
-      console.log("remove ballot is not valid!")
+      console.log("see ballot is not valid!")
     }
   }
 
@@ -47,23 +47,19 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Page() {
   
-  const [ballot, setBallot] = useState(null);
+  const [runnable_ballots, setRunnableBallots] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    const { searchParams } = new URL(window.location.href);
-    const ballot_id = searchParams.get('ballotID');
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_runnable_ballots`)
       .then((res) => res.json())
       .then((data) => {
-        const list1 = data.result;
-        setBallot(list1);
-        
-
+        setRunnableBallots(data.result);
         console.log("Ballot data");
         console.log(data.result);
       })
-  }, []);
+
+    }, []);
 
   const handleSubmit = (event) => {
 
@@ -72,14 +68,8 @@ export default function Page() {
 
     event.preventDefault();
 
-
-
-    let ballot_id = ballot._id;
-    console.log("Sent ballot_id:" + ballot_id);
-
     // Call this function to pass the data created by the FormData
     // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Ballot/remove_ballot?ballotID=${ballot_id}`);
     goBack();
 
   }; // end handler
@@ -89,56 +79,50 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  if (!ballot) return <p>No ballots found. </p>;
+  
 
-  let dataElement =  
-    <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_datetime} <br /> Title: {ballot.title}</p>
-     ;
+ 
+  if (!runnable_ballots) return <Box><p>No runnable ballots available. </p>
+    </Box>
+    ;
+
+  let dataElement1 =  ( runnable_ballots.map( ballot => 
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goRunTheBallotForTheElection(ballot._id)}>Run the Election with this Ballot</button></td></tr>
+  ));
   let element = <Box>
-        <h1>Ballots</h1>
+        <h1>Runnable Ballots</h1>
         <table><tbody>
-        { dataElement }
+        { dataElement1 }
             </tbody></table>
+  </Box>;
 
 
-            </Box>
-  const goToElections = () => {
+
+
+const goRunTheBallotForTheElection = (ballot_id) => {
+    router.push(`/Admin/Election/StartElection/?ballotID=${ballot_id}`);
+}
+const goBackToElections = () => {
     router.push('/Admin/Election/');
   };
-
-  const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+  const goBackToToProfile = () => {
+    router.push('/Admin/Profile/');
   };
   const goBackToBallots = () => {
     router.push('/Admin/Ballot/');
   };
-
+  
+  
 
   return (
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
     <Toolbar></Toolbar>
-
-        
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         { element }
-
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2}}
-              >
-                Confirm Ballot Removal
-              </Button>
-              
-            </Box>
-
-            <Box><p>
-            <button onClick={() => goToElections()}>Back to Elections</button>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-            <button onClick={() => goBackToBallots()}>Back to Ballots</button></p></Box>
+        <button onClick={() => goBackToElections()}>Back to Elections</button>
+<button onClick={() => goBackToProfile()}>Back to Profile</button>
+<button onClick={() => goBackToBallots()}>Back to Ballots</button>
     </Box>
 	  
 

@@ -63,19 +63,27 @@ export default function Page() {
 
     console.log(elections);
 
-    let dataElement = ( elections.map( election => 
+    let dataElement1 = ( elections.map( election => 
       <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td><td>{ballot.title}</td><td><button onClick={() => goSeeBallot(ballot._id)}>See ballot</button></td><td><button onClick={() => goCancelElection(ballot._id)}>Cancel Election</button></td></tr>
       ));
+
+    
     let element = <Box>
           <h1>Running Elections</h1>
           <table><tbody>
-          { dataElement }
+          { dataElement1 }
               </tbody></table>
+
+              <button onClick={()=> goToRunnableBallots()}>Find Ballots for an election</button>
 
 
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
             <button onClick={() => goToBallots()}>Back to Ballots</button>
   </Box>
+
+  const goToRunnableBallots = () => {
+    router.push('/Admin/Election/SeeRunnableBallots/');
+  };
 
   const goBackToProfile = () => {
     router.push('/Admin/');

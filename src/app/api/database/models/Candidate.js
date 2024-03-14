@@ -5,7 +5,7 @@ import { getModel } from "./helpers/helpers";
 const candidateSchema = new mongoose.Schema({
     person_ppsn: {type: String, required: true, unique: true, ref: 'Person'},
     //id:{type: String, required: true, unique: true},
-    ballotID: {type: String, required: true, unique: true}
+    ballotID: {type: String, required: true, unique: false}
 })
 
 class CandidateClass {

@@ -2,12 +2,24 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
+
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -20,13 +32,13 @@ import { useRouter } from 'next/navigation';
     const data = await res.json();
  
     if(data.data== "valid"){
-      console.log("start election is valid!")
+      console.log("see ballot is valid!")
 
 
       
     } else {
 
-      console.log("start election is not valid!")
+      console.log("see ballot is not valid!")
     }
   }
 
@@ -35,38 +47,87 @@ import { useRouter } from 'next/navigation';
 
 export default function Page() {
   
-  const [ballots, setBallots] = useState(null);
+  const [ballot, setBallot] = useState(null);
+  const [election, setElection] = useState(null);
+  const [candidates_for_the_ballot, setBallotCandidates] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballots`)
+    const { searchParams } = new URL(window.location.href);
+    const ballot_id = searchParams.get('ballotID');
+    const election_id = searchParams.get('electionID');
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-        setBallots(data.result);
+        
+        setBallot(data.result);
+        
 
-        console.log("Ballot data")
+        console.log("Ballot data");
         console.log(data.result);
       })
+
+
+      fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBallotCandidates(data.result);
+
+        console.log("Ballot Candidates data")
+        console.log(data.result);
+      })
+
   }, []);
- 
-  if (!ballots) return <p>No ballots found. </p>;
 
-  console.log(ballots);
+  const handleSubmit = (event) => {
 
-  let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><button onClick={() => goUseBallot(ballot._id)}>Use Ballot</button></tr>
-     ));
+    console.log("handling submit");
+
+
+    event.preventDefault();
+
+    // Call this function to pass the data created by the FormData
+    // src\app\api\database\controllers\Admin\Ballot\create_ballot
+    goBack();
+
+  }; // end handler
+
+
+  const goBack = () => {
+    router.push('/Admin/Ballot/');
+  };
+
+  const confirmElection = (ballot_id) => {
+
+    runDBCallAsync(`http://localhost:3000/api/database/controllers/Admin/Election/start_an_election?ballotID=${ballot_id}`);
+
+    router.push('/Admin/Election/');
+  };
+
+  if (!ballot || !candidates_for_the_ballot) return <p>No ballot or candidates_for_ballot or election found. </p>;
+
+  let dataElement1 =  
+    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button><button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</button></td></tr>
+
+     ;
+     let dataElement2 =  ( candidates_for_the_ballot.map( ballot_candidate => 
+        <tr key={ballot._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.ppsn}</td></tr>
+         ));
+
   let element = <Box>
-        <h1>Ballots to use to start an election</h1>
+        <h1>Ballot</h1>
         <table><tbody>
-        { dataElement }
+        { dataElement1 }
             </tbody></table>
-
-
+            <table><tbody>
+        { dataElement2 }
+            </tbody></table>
+            
+            <button onClick={()=> confirmElection(ballot._id) }>Confirm the Start of this election</button>
             <button onClick={() => goBackToElections()}>Back to Elections</button>
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
             <button onClick={() => goBackToBallots()}>Back to Ballots</button>
-  </Box>
+  </Box>;
 
 const goBackToElections = () => {
     router.push('/Admin/Election/');
@@ -78,7 +139,7 @@ const goBackToElections = () => {
     router.push('/Admin/Ballot/');
   };
 
-  
+
   return (
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>

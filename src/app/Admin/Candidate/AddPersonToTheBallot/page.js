@@ -90,7 +90,7 @@ export default function Page() {
 
       ;
       let dataElement2 =  
-      <div key={person._id.toString()}><p>{person._id}</p><p>{person.name}</p><p>{person.address}</p><p>{person.email}</p><p>{person.phone}</p><p>{person.date_of_birth}</p></div>
+      <div key={person._id.toString()}><p>{person._id}</p><p>{person.ppsn}</p><p>{person.name}</p><p>{person.address}</p><p>{person.email}</p><p>{person.phone}</p><p>{person.date_of_birth}</p></div>
 
       ;
     element = <Box>
