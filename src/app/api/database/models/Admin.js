@@ -170,10 +170,15 @@ class AdminClass {
 
     static async start_an_election(x){
         try {
-            const filter_ballot = {ballotID: x.ballotID};
+            const filter_ballot = {ballotID: x.election.ballotID};
             const ballot_found = await Ballot.findOne(filter_ballot);
+            console.log("filter_ballot:");
+            console.log(filter_ballot);
             if(ballot_found){
-                const election = await Election.add_election({ballotID: ballot_found._id});
+                const obj = filter_ballot;
+                const election = await Election.add_election(filter_ballot);
+                console.log("election:");
+                console.log(election);
                 return election;
             } else {
                 return "Not found.";

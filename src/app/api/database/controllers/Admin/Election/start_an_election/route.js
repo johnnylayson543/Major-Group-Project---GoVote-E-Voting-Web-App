@@ -1,4 +1,4 @@
-import { start_an_election_admin_type } from "../../Forms/Admin/start_an_election_admin_type";
+import { start_an_election_admin_type } from "../../../../../Forms/Admin/Election/start_an_election_admin_type";
 import { run_model_method } from "../../../helper/helper";
 import { Admin } from "../../../../models/Admin";
 

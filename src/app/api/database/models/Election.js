@@ -11,6 +11,7 @@ class ElectionClass {
         try {
             const obj = {ballotID: x.ballotID};
             const election = await Election.create(obj);
+            return election;
         } catch (error) {
             console.error('An error occurred adding the election. ');
             console.error('Error occurred:', error.message);
