@@ -21,32 +21,32 @@ import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-  /*
-  After the submit handler calls the runDBCallAsync, this does the thing
-  This function does the actual work
-  calling the fetch to get things from the database.
-  */ 
-  async function runDBCallAsync(url) {
+/*
+After the submit handler calls the runDBCallAsync, this does the thing
+This function does the actual work
+calling the fetch to get things from the database.
+*/
+async function runDBCallAsync(url) {
 
-    const res = await fetch(url);
-    const data = await res.json();
- 
-    if(data.data== "valid"){
-      console.log("see ballot is valid!")
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.data == "valid") {
+    console.log("see ballot is valid!")
 
 
-      
-    } else {
 
-      console.log("see ballot is not valid!")
-    }
+  } else {
+
+    console.log("see ballot is not valid!")
   }
+}
 
 
 
 
 export default function Page() {
-  
+
   const [runnable_ballots, setRunnableBallots] = useState(null);
   const router = useRouter();
 
@@ -59,7 +59,7 @@ export default function Page() {
         console.log(data.result);
       })
 
-    }, []);
+  }, []);
 
   const handleSubmit = (event) => {
 
@@ -79,52 +79,60 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  
 
- 
+
+
   if (!runnable_ballots) return <Box><p>No runnable ballots available. </p>
-    </Box>
+  </Box>
     ;
 
-  let dataElement1 =  ( runnable_ballots.map( ballot => 
+  let dataElement1 = (runnable_ballots.map(ballot =>
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goRunTheBallotForTheElection(ballot._id)}>Run the Election with this Ballot</button></td></tr>
   ));
   let element = <Box>
-        <h1>Runnable Ballots</h1>
-        <table><tbody>
-        { dataElement1 }
-            </tbody></table>
+    <h1>Runnable Ballots</h1>
+    <table>
+      <thead><tr>
+        <th>Ballot ID</th>
+        <th>Closing Date Time</th>
+        <th>Title</th>
+
+
+      </tr></thead>
+      <tbody>
+        {dataElement1}
+      </tbody></table>
   </Box>;
 
 
 
 
-const goRunTheBallotForTheElection = (ballot_id) => {
-    router.push(`/Admin/Election/StartElection/?ballotID=${ballot_id}`);
-}
-const goBackToElections = () => {
+  const goRunTheBallotForTheElection = (ballot_id) => {
+    router.push("/Admin/Election/StartElection/?ballotID={" + ballot_id + "}");
+  }
+  const goBackToElections = () => {
     router.push('/Admin/Election/');
   };
-  const goBackToToProfile = () => {
+  const goBackToProfile = () => {
     router.push('/Admin/Profile/');
   };
   const goBackToBallots = () => {
     router.push('/Admin/Ballot/');
   };
-  
-  
+
+
 
   return (
-    
+
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        
-    <Toolbar></Toolbar>
-        { element }
-        <button onClick={() => goBackToElections()}>Back to Elections</button>
-<button onClick={() => goBackToProfile()}>Back to Profile</button>
-<button onClick={() => goBackToBallots()}>Back to Ballots</button>
+
+      <Toolbar></Toolbar>
+      {element}
+      <button onClick={() => goBackToElections()}>Back to Elections</button>
+      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      <button onClick={() => goBackToBallots()}>Back to Ballots</button>
     </Box>
-	  
+
 
   );
 }

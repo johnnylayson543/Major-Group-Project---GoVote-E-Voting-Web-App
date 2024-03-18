@@ -95,8 +95,16 @@ export default function Page() {
     <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_datetime} <br /> Title: {ballot.title}</p>
      ;
   let element = <Box>
-        <h1>Ballots</h1>
-        <table><tbody>
+        <h1>Ballot</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Ballot ID</th>
+              <th>Closing Date Time</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
         { dataElement }
             </tbody></table>
 
@@ -107,7 +115,7 @@ export default function Page() {
   };
 
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
   const goBackToBallots = () => {
     router.push('/Admin/Ballot/');

@@ -63,7 +63,7 @@ export default function Page() {
     const ballot_id = searchParams.get('ballotID');
     const person_ppsn = searchParams.get('person_ppsn');
     console.log("searchParams: " + ballot_id + ", " + person_ppsn);
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
         setBallot(data.result);
@@ -142,7 +142,7 @@ export default function Page() {
 
   
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
 
   

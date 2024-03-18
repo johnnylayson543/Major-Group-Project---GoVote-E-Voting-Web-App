@@ -1,6 +1,6 @@
 
 
-export class retrieve_ballot_admin_type {
+export class retrieve_the_ballot_admin_type {
 
     ballot_filter = {};
 

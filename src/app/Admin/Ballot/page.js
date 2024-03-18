@@ -58,7 +58,16 @@ export default function Page() {
      ));
   let element = <Box>
         <h1>Ballots</h1>
-        <table><tbody>
+        <table>
+          <thead>
+            <tr>
+              <th>Ballot ID</th>
+              <th>Closing Date Time</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          
+          <tbody>
         { dataElement }
             </tbody></table>
             <p><button onClick={() => goCreateBallot()}>Create New Ballot</button></p>
@@ -69,7 +78,7 @@ export default function Page() {
   </Box>
 
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
   const goToElections = () => {
     router.push('/Admin/Election/');

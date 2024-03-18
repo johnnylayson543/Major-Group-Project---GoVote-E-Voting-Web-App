@@ -1,4 +1,4 @@
-import { cancel_an_election_admin_type } from "../../../../../Forms/Admin/Election/cancel_an_election_admin_type";
+import { cancel_the_election_admin_type } from "../../../../../Forms/Admin/Election/cancel_the_election_admin_type";
 import { run_model_method } from "../../../helper/helper";
 import { Admin } from "../../../../models/Admin";
 
@@ -9,10 +9,10 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.
     const { searchParams } = new URL(req.url)
-    const obj = new cancel_an_election_admin_type(searchParams);
+    const obj = new cancel_the_election_admin_type(searchParams);
         
     const x = obj;
-    const xy = {fn: Admin.cancel_an_election, par: x};
+    const xy = {fn: Admin.cancel_the_election, par: x};
     const result = await run_model_method(xy);
 
     //==========================================================

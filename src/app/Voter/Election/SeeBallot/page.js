@@ -49,7 +49,7 @@ export default function Page() {
 
   const [ballot, setBallot] = useState(null);
   const [election, setElection] = useState(null);
-  const [candidates_for_the_ballot, setBallotCandidates] = useState(null);
+  const [candidates_for_ballot, setBallotCandidates] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -59,14 +59,21 @@ export default function Page() {
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
-
         setBallot(data.result);
-
 
         console.log("Ballot data");
         console.log(data.result);
       })
 
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Election/retrieve_the_election?ballotID=${ballot_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setElection(data.result);
+
+
+        console.log("Election data");
+        console.log(data.result);
+      })
 
     fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
@@ -97,66 +104,62 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  const confirmElection = (ballot_id) => {
-
-    runDBCallAsync("http://localhost:3000/api/database/controllers/Admin/Election/start_an_election?ballotID={" + ballot_id + "}");
-
-    router.push('/Admin/Election/');
-  };
-
-  if (!ballot || !candidates_for_the_ballot) return <p>No ballot or candidates_for_ballot or election found. </p>;
+  if (!ballot || !candidates_for_ballot || !election) return <p>No ballot or candidates_for_ballot or election found. </p>;
 
   let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
 
     ;
-  let dataElement2 = (candidates_for_the_ballot.map(ballot_candidate =>
-    <tr key={ballot._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
+  let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
+    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.ppsn}</td></tr>
   ));
 
+  let dataElement3 =
+    <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+
+    ;
   let element = <Box>
-    <h1>Ballot</h1>
+    <h1>The Ballot used in the Election</h1>
+    <h2>Ballot</h2>
     <table>
       <thead><tr>
         <th>Ballot ID</th>
         <th>Closing Date Time</th>
         <th>Title</th>
-      </tr>
-
-      </thead>
+      </tr></thead>
       <tbody>
         {dataElement1}
       </tbody></table>
+    <h2>Ballot Candidates</h2>
     <table>
-
       <thead><tr>
         <th>Candidate ID</th>
         <th>Ballot ID</th>
         <th>PPSN</th>
-      </tr>
-
-
-      </thead>
+      </tr></thead>
       <tbody>
         {dataElement2}
       </tbody></table>
-    <p>
-      <button onClick={() => confirmElection(ballot._id)}>Confirm the Start of this election</button>
-    </p><p>
-      <button onClick={() => goBackToElections()}>Back to Elections</button>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
-      <button onClick={() => goBackToBallots()}>Back to Ballots</button>
+    <h2>Election Running with this ballot</h2>
+    <table>
+      <thead><tr>
+        <th>Election ID</th>
+        <th>Ballot ID</th>
+      </tr></thead>
+      <tbody>
+        {dataElement3}
+      </tbody></table>
+      <p>
+    <button onClick={() => goBackToElections()}>Back to Elections</button>
+    <button onClick={() => goBackToProfile()}>Back to Profile</button>
     </p>
-  </Box>;
+  </Box>
 
   const goBackToElections = () => {
-    router.push('/Admin/Election/');
+    router.push('/Voter/Election/');
   };
   const goBackToProfile = () => {
-    router.push('/Admin/Profile/');
-  };
-  const goToBallots = () => {
-    router.push('/Admin/Ballot/');
+    router.push('/Vote/Profile/');
   };
 
 

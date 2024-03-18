@@ -2,12 +2,12 @@
 
 export class retrieve_the_election_admin_type {
 
-    election_filter = {};
+    ballot = {};
 
     constructor(x){
-        const filter = {ballotID: x.get('ballotID')};
+        const filter = {ballotID: x.get('ballotID').replace(/[{}]/g, "")};
 
-        this.election_filter = filter;
+        this.ballot = filter;
     }
 
 }

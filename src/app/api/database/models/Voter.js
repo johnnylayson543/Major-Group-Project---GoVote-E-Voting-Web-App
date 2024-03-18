@@ -5,7 +5,7 @@ import { Vote } from "./Vote";
 //import { UserClass } from "./User";
 
 const voterSchema = new mongoose.Schema({
-    ppsn: {type: String, required: true, unique: false, ref: 'Person'},
+    person_ppsn: {type: String, required: true, unique: false, ref: 'Person'},
     electionID: {type: String, required: true, unique: false, ref: 'Election'}
     //id: {type: String, required: true, unique: true}
 });
@@ -30,12 +30,32 @@ class VoterClass {
         }
     }
 
-    static async register_voter_for_an_election(x){
+    static async signup_for_the_election(x){
         try {
-            const obj = {ppsn: x.ppsn, electionID: x.electionID};
+            const obj = {ppsn: x.voter.person_ppsn, electionID: x.electionID};
 
-            const voter = Voter.create(obj);
+            const voter = await Voter.create(obj);
+            console.log("voter_added: ");
+            console.log(voter);
             return voter;
+        } catch (error) {
+            console.error('Error registering voter for an election: ', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+    static async retrieve_voter_signedup_elections(x){
+        try {
+            const filter_election = {_id: x.voter._id};
+            const election_signups = await Voter.find(filter_election);
+            const election_signups_ids = election_signups.map( result => result.electionID );
+
+            if(election_signups_ids){
+                const elections_signedupfor = (await Election.find({ _id: { $in: election_signups_ids }}));
+                
+                return elections_signedupfor;
+            }
+            return [];
         } catch (error) {
             console.error('Error registering voter for an election: ', error);
             console.error('Error occurred:', error.message);

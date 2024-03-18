@@ -99,7 +99,7 @@ class AdminClass {
         }
     }
 
-    static async retrieve_ballot(x){
+    static async retrieve_the_ballot(x){
         try {
             const obj_filter = x.ballot_filter;
             const ballot = await Ballot.retrieve_ballot(obj_filter);
@@ -170,13 +170,13 @@ class AdminClass {
 
     static async start_an_election(x){
         try {
-            const filter_ballot = {ballotID: x.election.ballotID};
+            const filter_ballot = {_id: x.ballot.ballotID};
             const ballot_found = await Ballot.findOne(filter_ballot);
             console.log("filter_ballot:");
             console.log(filter_ballot);
             if(ballot_found){
-                const obj = filter_ballot;
-                const election = await Election.add_election(filter_ballot);
+                const obj = {ballotID: x.ballot.ballotID};
+                const election = await Election.add_election(obj);
                 console.log("election:");
                 console.log(election);
                 return election;
@@ -189,12 +189,12 @@ class AdminClass {
         }
     }
 
-    static async cancel_an_election(x){
+    static async cancel_the_election(x){
         try {
             const filter_ballot = {ballotID: x.ballotID}
             const ballot_found = await Ballot.findOne(filter_ballot);
             if(ballot_found){
-                const election = await Election.remove_election({ballotID: ballot_found._id});
+                const election = Election.remove_election({ballotID: ballot_found._id});
                 return election;
             } else {
                 return "Not found.";
@@ -218,9 +218,9 @@ class AdminClass {
 
     static async retrieve_the_election(x){
         try {
-            const obj = {ballotID: x.ballotID};
-            const ballot = await Election.retrieve_elections(obj);
-            return ballot;
+            const obj = {ballotID: x.ballot.ballotID};
+            const election = await Election.retrieve_the_election(obj);
+            return election;
         } catch (error) {
             console.error('An error occurred while creating the ballot:', error);
             console.error('Error occurred:', error.message);

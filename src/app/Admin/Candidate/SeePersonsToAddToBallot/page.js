@@ -130,7 +130,7 @@ else element = element1;
 
   
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
 
   
