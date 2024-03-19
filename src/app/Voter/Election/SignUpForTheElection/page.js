@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react';
-import Header from '../../../components/header/header';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,19 +14,19 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import UserAuthentication from '@/app/components/header/userAuthentication';
-import getUser from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
+import UserAuthentication from '@/app/components/header/userAuthentication';
+
 
 
 export default function Page() {
     const router = useRouter();
 
+    const user = useContext(UserContext);
     const [election, setElection] = useState(null);
     const [ballot, setBallot] = useState(null);
     const [candidates_for_the_ballot, setBallotCandidates] = useState(null);
-    const [user, setUser] = useState(null);
-    
+
 
 
 
@@ -97,13 +96,16 @@ export default function Page() {
                 console.log(data.result);
             })
 
-            setUser(getUser());
-            
+
     }, []);
 
-    if (!User || !election || !ballot || !candidates_for_the_ballot) return <p>No elections available. </p>;
+    if ( !election || !ballot || !candidates_for_the_ballot) return <p>No elections available. </p>;
+    else {
+        console.log("userInfo: ");
+        console.log(user);
+        UserAuthentication.user
+    }
 
-    
 
     let dataElement1 =
         <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
@@ -111,7 +113,7 @@ export default function Page() {
         ;
 
     let dataElement2 = (candidates_for_the_ballot.map(ballot_candidate =>
-        <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.ppsn}</td></tr>
+        <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
     ));
 
     let dataElement3 =
@@ -150,7 +152,7 @@ export default function Page() {
             <tbody>
                 {dataElement3}
             </tbody></table>
-        <button onClick={() => goConfirmSignupAsVoterForTheElection((user.ppsn, election._id)}>Confirm the voter sign up for the election</button>
+        <button onClick={() => goConfirmSignupAsVoterForTheElection(user.ppsn, election._id)}>Confirm the voter sign up for the election</button>
         <p>
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
             <button onClick={() => goBackToElections()}>Back to Elections</button>
@@ -158,16 +160,15 @@ export default function Page() {
     </Box>
 
     const goConfirmSignupAsVoterForTheElection = (person_id, election_id) => {
-        runDBCallAsync(`http://localhost:3000/api/database/controllers/Voter/signup_for_the_election?person_ppsn=${person_id}&electionID=${election_id}`).then( (data) => {
-            
-            const voter_id = data.result._id;
-            router.push('/Voter/Election/SignedUpForElections?voterID={' +  voter_id + '}' )
+        runDBCallAsync(`http://localhost:3000/api/database/controllers/Voter/signup_for_the_election?person_ppsn=${person_id}&electionID=${election_id}`)
+            .then((data) => {
 
-        }
-          
-        
-        );
-    }
+                const voter_id = data.result._id;
+                router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}')
+
+            }
+            )
+    };
 
     const goBackToElections = () => {
         router.push('/Voter/Election/');
@@ -270,19 +271,18 @@ export default function Page() {
 
 
     return (
-        
-            
 
-            <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-                <CssBaseline />
-                <Header></Header>
-                <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-                    Register For Election
 
-                </Typography>
 
-                {element}
-            </Box>
+        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
+            <CssBaseline />
+            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+                Register For Election
+
+            </Typography>
+
+            {element}
+        </Box>
 
     );
 }

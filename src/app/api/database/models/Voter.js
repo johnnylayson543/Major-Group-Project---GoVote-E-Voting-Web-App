@@ -32,7 +32,7 @@ class VoterClass {
 
     static async signup_for_the_election(x){
         try {
-            const obj = {ppsn: x.voter.person_ppsn, electionID: x.electionID};
+            const obj = {person_ppsn: x.voter.person_ppsn, electionID: x.voter.electionID};
 
             const voter = await Voter.create(obj);
             console.log("voter_added: ");

@@ -1,49 +1,36 @@
 'use client';
 
-import { useEffect } from "react";
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { createContext, useState, useContext, useEffect } from "react";
 
+const UserContext = createContext(null);
 
-export default function UserAuthentication({ user }) {
-
-    useEffect(() => {
-
-        fetch(`http://localhost:3000/api/database/controllers/User/is_signed_into_account`).then((res) => res.json())
-            .then((data) => {
-                user = data.result;
-                console.log("User data")
-                console.log(data.result);
-
-                console.log("user:");
-                console.log(user);
-
-            })
-    }, []);
-
-
-}
-
-export function getUser(){
+export default function UserAuthentication({ children }) {
 
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+        const getUserInfo = async () => {
+            const res = await fetch(`http://localhost:3000/api/database/controllers/User/is_signed_into_account`);
+            const data = await res.json();
+            const user = data.result;
+            setUser(user);
 
-        fetch(`http://localhost:3000/api/database/controllers/User/is_signed_into_account`).then((res) => res.json())
-            .then((data) => {
-                setUser(data.result);
-                console.log("User data")
-                console.log(data.result);
-                return user;
-            })
+            console.log("user:");
+            console.log(user);
+            return user;
+        }
+
+        getUserInfo();
+
     }, []);
 
+    userInfo = useContext(UserContext);
 
-    return null;    
+    return (
+        <UserContext.Provider value={{ userInfo }}>
+            {children}
+        </UserContext.Provider>
+    );
 }
 
 
-UserAuthentication.user = {
-    user: null,
-}
