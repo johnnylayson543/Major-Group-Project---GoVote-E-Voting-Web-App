@@ -23,10 +23,13 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import { blue, green, purple, white, pink } from '@mui/material/colors';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect, useContext } from 'react'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 
 export default function Page() {
 
     const router = useRouter();
+    const { user, voter, admin } = useContext(UserContext);
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
         <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#6F9CDE', fontWeight: 500 }}>
@@ -34,6 +37,23 @@ export default function Page() {
         </Box>
     );
 
+    let voterButton;
+    if (admin) {
+        console.log(voter._id);
+        voterButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToVoterProfile(voter._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Voter" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+    const goBackToVoterProfile = (voter_id) => {
+        router.push('/Voter/Profile?voterID={' + voter_id + '}');
+    };
 
     const goToPersons = () => {
         router.push('/Admin/Person/');
@@ -121,6 +141,9 @@ export default function Page() {
                                         <ListItemText primary="Checks" />
                                     </ListItemButton>
                                 </ListItem>
+                                <Divider></Divider>
+                                {voterButton}
+                                <Divider></Divider>
                             </List>
                         </Box>
                     </Item>

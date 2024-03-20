@@ -40,6 +40,8 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
+        const { searchParams } = new URL(window.location.href);
+        const voter_id = searchParams.get('voterID');
         fetch(`http://localhost:3000/api/database/controllers/Voter/Election/retrieve_elections_the_voter_signed_up_for?voterID=${voter_id}`)
             .then((res) => res.json())
             .then((data) => {
@@ -55,13 +57,16 @@ export default function Page() {
 
     console.log(voter_signed_elections);
 
-    let dataElement1 = (elections.map(election =>
-        <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td><td><button onClick={() => goSeeBallot(election.ballotID)}>See ballot</button></td></tr>
+    let dataElement1 = (voter_signed_elections.map(election =>
+        <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td>
+        <td><button onClick={() => goSeeBallot(election.ballotID)}>See ballot</button></td>
+        <td><button onClick={() => goCastTheVote(voter._id)}>Cast the Vote</button></td>
+        </tr>
     ));
 
 
     let element = <Box>
-        <h1>Running Elections</h1>
+        <h1>Voter Signed Up Elections</h1>
         <table>
             <thead><tr>
                 <th>Election ID</th>
@@ -82,8 +87,13 @@ export default function Page() {
         router.push('/Voter/Profile/');
     };
 
-    const goAdminProfilePage = (userIDtoken) => {
-        router.push('/Admin/?userIDtoken={' + userIDtoken + '}');
+
+    const goSeeBallot = (ballot_id) => {
+        router.push('/Voter/Election/SeeBallot?ballotID={' + ballot_id + '}');
+    };
+
+    const goCastTheVote = (election_id, voter_id) => {
+        router.push('/Voter/Vote/CastYourVote?electionID={' + election_id + '}&voterID={' + voter_id + '}');
     };
 
 

@@ -13,22 +13,42 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useRouter } from 'next/navigation';
-import UserAuthentication from '@/app/components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+
+
+
 
 
 
 export default function Page() {
     const router = useRouter();
 
-    const user = useContext(UserContext);
+    const { user, voter } = useContext(UserContext);
     const [election, setElection] = useState(null);
     const [ballot, setBallot] = useState(null);
     const [candidates_for_the_ballot, setBallotCandidates] = useState(null);
 
 
-
+    const goConfirmSignupAsVoterForTheElection = async (person_id, election_id) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/database/controllers/Voter/Election/signup_for_the_election?person_ppsn=${person_id}&electionID=${election_id}`);
+            const data = await response.json();
+    
+            if (response.ok) {
+                const voter_id = data.result._id;
+                router.push(`/Voter/Election/SignedUpForElections?voterID=${voter_id}`);
+            } else {
+                // Handle error case
+                console.error('Error signing up for the election:', data.error);
+            }
+        } catch (error) {
+            // Handle network or other errors
+            console.error('Error signing up for the election:', error);
+        }
+    
+    };
 
     const [pass, setPass] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
@@ -99,7 +119,7 @@ export default function Page() {
 
     }, []);
 
-    if ( !election || !ballot || !candidates_for_the_ballot) return <p>No elections available. </p>;
+    if (!election || !ballot || !candidates_for_the_ballot) return <p>No elections available. </p>;
     else {
         console.log("userInfo: ");
         console.log(user);
@@ -159,16 +179,6 @@ export default function Page() {
         </p>
     </Box>
 
-    const goConfirmSignupAsVoterForTheElection = (person_id, election_id) => {
-        runDBCallAsync(`http://localhost:3000/api/database/controllers/Voter/signup_for_the_election?person_ppsn=${person_id}&electionID=${election_id}`)
-            .then((data) => {
-
-                const voter_id = data.result._id;
-                router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}')
-
-            }
-            )
-    };
 
     const goBackToElections = () => {
         router.push('/Voter/Election/');

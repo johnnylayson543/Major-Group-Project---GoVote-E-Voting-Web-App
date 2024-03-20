@@ -1,5 +1,6 @@
-import { Collection, MongoClient } from "mongodb";
-import { getClient, client } from "../../../.old/mongoDBCloud";
+import { run_model_method } from "../../../helper/helper";
+import { signup_for_the_election_voter_type } from "../../../../../Forms/Voter/Vote/recast_vote_for_the_election_voter_type";
+import { Voter } from "../../../../models/Voter";
 
 export async function GET(req, res) {
 
@@ -11,7 +12,7 @@ export async function GET(req, res) {
     console.log("The function and its parameters to pass: " + String.toString(xy));
 
     console.log("Database transaction stage begins.");
-    const result = await Transaction.run(xy);
+    const result = await run_model_method(xy);
     console.log("Passed database transaction stage.\n");
 
     // Send a response back

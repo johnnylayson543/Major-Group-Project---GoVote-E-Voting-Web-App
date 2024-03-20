@@ -17,7 +17,8 @@ import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 import { Toolbar } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -47,6 +48,7 @@ async function runDBCallAsync(url) {
 
 export default function Page() {
 
+  const { user, voter } = useContext(UserContext);
   const [ballot, setBallot] = useState(null);
   const [election, setElection] = useState(null);
   const [candidates_for_ballot, setBallotCandidates] = useState(null);
@@ -56,6 +58,10 @@ export default function Page() {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
     const election_id = searchParams.get('electionID');
+
+
+
+
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -104,14 +110,21 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  if (!ballot || !candidates_for_ballot || !election) return <p>No ballot or candidates_for_ballot or election found. </p>;
+  if (!ballot || !candidates_for_ballot || !election || !voter) return <p>No ballot or candidates_for_ballot or election found. </p>;
+
+
+  let voterButton;
+    if(voter) {
+      console.log(voter._id);
+      voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+    }
 
   let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
 
     ;
   let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.ppsn}</td></tr>
+    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
   ));
 
   let dataElement3 =
@@ -152,8 +165,11 @@ export default function Page() {
       <p>
     <button onClick={() => goBackToElections()}>Back to Elections</button>
     <button onClick={() => goBackToProfile()}>Back to Profile</button>
+    {voterButton}
     </p>
   </Box>
+
+    
 
   const goBackToElections = () => {
     router.push('/Voter/Election/');
@@ -161,7 +177,9 @@ export default function Page() {
   const goBackToProfile = () => {
     router.push('/Vote/Profile/');
   };
-
+  const goBackToSignedUpElections = (voter_id) => {
+    router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
+  };
 
   return (
 

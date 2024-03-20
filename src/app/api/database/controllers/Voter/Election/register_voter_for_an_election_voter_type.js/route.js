@@ -1,4 +1,4 @@
-import { register_user_type } from "../../../Forms/User/register_user_type";
+import { register_user_type } from "../../../../Forms/User/register_user_type";
 
 export async function GET(req, res) {
 

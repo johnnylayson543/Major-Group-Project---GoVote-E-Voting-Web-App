@@ -23,8 +23,15 @@ import PollIcon from '@mui/icons-material/Poll';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { blue, green, purple, white, pink } from '@mui/material/colors';
+import { useState, useEffect, useContext } from 'react'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
+
 
 export default function Page() {
+
+    const router = useRouter();
+    const { user, voter, admin } = useContext(UserContext);
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
@@ -32,6 +39,112 @@ export default function Page() {
             {children}
         </Box>
     );
+
+    let voterButton;
+    if (voter) {
+        console.log(voter._id);
+        voterButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToSignedUpElections(voter._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="My Elections" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+
+    let adminButton;
+    if (admin) {
+        console.log(admin._id);
+        adminButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToAdminProfile(admin._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Admin" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+
+    let element1 = <Box> <ListItem disablePadding>
+        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
+            <ListItemIcon>
+                <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+            </ListItemIcon>
+            <ListItemText primary="Running Elections" />
+        </ListItemButton>
+    </ListItem>
+        <Divider></Divider>
+
+        <Divider></Divider>
+        <ListItem disablePadding>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Vote/CastYourVote'>
+                <ListItemIcon>
+                    <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                </ListItemIcon>
+                <ListItemText primary="Cast Vote" />
+            </ListItemButton>
+        </ListItem>
+        <Divider></Divider>
+        <ListItem disablePadding>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/BulletinBoard'>
+                <ListItemIcon>
+                    <DashboardIcon sx={{ color: 'white' }}></DashboardIcon>
+                </ListItemIcon>
+                <ListItemText primary="Bulletin Board" />
+            </ListItemButton>
+        </ListItem>
+        <Divider></Divider>
+
+        <Divider></Divider>
+        <ListItem disablePadding>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Vote/MyVotesCast'>
+                <ListItemIcon>
+                    <PersonIcon sx={{ color: 'white' }}></PersonIcon>
+                </ListItemIcon>
+                <ListItemText primary="My Votes Cast" />
+            </ListItemButton>
+        </ListItem>
+        <Divider></Divider>
+        <ListItem disablePadding>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Election/RegisterForAnElection'>
+                <ListItemIcon>
+                    <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
+                </ListItemIcon>
+                <ListItemText primary="Register for Elections" />
+            </ListItemButton>
+        </ListItem>
+        <Divider></Divider>
+        <ListItem disablePadding>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/ViewVote'>
+                <ListItemIcon>
+                    <BallotIcon sx={{ color: 'white' }}></BallotIcon>
+                </ListItemIcon>
+                <ListItemText primary="View Vote" />
+            </ListItemButton>
+        </ListItem>
+        <Divider></Divider>
+        <ListItem disablePadding>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/ViewResults'>
+                <ListItemIcon>
+                    <TableChartIcon sx={{ color: 'white' }}></TableChartIcon>
+                </ListItemIcon>
+                <ListItemText primary="View Results" />
+            </ListItemButton>
+        </ListItem>
+    </Box>
+
+    const goBackToSignedUpElections = (voter_id) => {
+        router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
+    };
+
+    const goBackToAdminProfile = (admin_id) => {
+        router.push('/Admin/Profile?adminID={' + admin_id + '}');
+    };
 
     // Front-End Page
     return (
@@ -64,7 +177,7 @@ export default function Page() {
                     </Item>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
@@ -78,73 +191,11 @@ export default function Page() {
                                     </ListItemButton>
                                 </ListItem>
                                 <Divider></Divider>
-
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Running Elections" />
-                                    </ListItemButton>
-                                </ListItem>
+                                {voterButton}
                                 <Divider></Divider>
-                                
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Vote/CastYourVote'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Cast Vote" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/BulletinBoard'>
-                                        <ListItemIcon>
-                                            <DashboardIcon sx={{ color: 'white' }}></DashboardIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Bulletin Board" />
-                                    </ListItemButton>
-                                </ListItem>
+                                {adminButton}
                                 <Divider></Divider>
 
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Vote/MyVotesCast'>
-                                        <ListItemIcon>
-                                            <PersonIcon sx={{ color: 'white' }}></PersonIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="My Votes Cast" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Election/RegisterForAnElection'>
-                                        <ListItemIcon>
-                                            <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Register for Elections" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/ViewVote'>
-                                        <ListItemIcon>
-                                            <BallotIcon sx={{ color: 'white' }}></BallotIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="View Vote" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/ViewResults'>
-                                        <ListItemIcon>
-                                            <TableChartIcon sx={{ color: 'white' }}></TableChartIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="View Results" />
-                                    </ListItemButton>
-                                </ListItem>
                             </List>
                         </Box>
                     </Item>

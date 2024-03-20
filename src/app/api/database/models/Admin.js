@@ -7,7 +7,7 @@ import { Person } from "./Person";
 import { Election } from "./Election";
 
 const adminSchema = new mongoose.Schema ({
-    ppsn: {type: String, required: true, unique: true, ref: 'Person'}
+    person_ppsn: {type: String, required: true, unique: true, ref: 'Person'}
     //id: {type: String, required: true, unique: true}
 });
 
@@ -272,6 +272,18 @@ class AdminClass {
             return [];
         } catch (error) {
             console.error('An error occurred retrieving runnable ballots:', error);
+            console.error('Error occurred:', error.message);
+        }
+
+    }
+
+    static async retrieve_the_admin(x) {
+        try {
+            const admin_filter = { person_ppsn: x.user.ppsn };
+            const admin = await Admin.findOne(admin_filter);
+            return admin;
+        } catch (error) {
+            console.error('Error retrieving the admin: ', error);
             console.error('Error occurred:', error.message);
         }
 
