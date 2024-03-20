@@ -1,5 +1,5 @@
 import { run_model_method } from "../../../helper/helper";
-import { signup_for_the_election_voter_type } from "../../../../../Forms/Voter/Vote/recast_vote_for_the_election_voter_type";
+import { cast_the_vote_for_the_election_voter_type } from "../../../../../Forms/Voter/cast_the_vote_for_the_election_voter_type";
 import { Voter } from "../../../../models/Voter";
 
 export async function GET(req, res) {
@@ -9,10 +9,10 @@ export async function GET(req, res) {
     // get the values
     // that were sent across to us.    
     const { searchParams } = new URL(req.url);
-    const obj = new cast_a_vote_voter_type(searchParams);
+    const obj = new cast_the_vote_for_the_election_voter_type(searchParams);
     
     const x = obj;
-    const xy = {fn: Voter.cast_a_vote, par: x};
+    const xy = {fn: Voter.cast_the_vote_for_the_election, par: x};
     const result = run_model_method(xy);
     
     return Response.json({ "data":"okay", "result": result});

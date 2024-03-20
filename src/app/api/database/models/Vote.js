@@ -12,13 +12,15 @@ const voteSchema = new mongoose.Schema({
 class VoteClass {
     static async add_vote(x){
         try {
-            const obj = {voterID: x.voterID, candidateID: x.candidateID};
-            const adding_the_vote_result = await Vote.create(obj);
-            const logging_the_vote_result = await Log.add_vote(adding_the_vote_result);
+            const obj = { voterID: x.voterID, candidateID: x.candidateID };
+            const vote = await Vote.create(obj);
 
-            return {adding_the_vote_result: adding_the_vote_result, logging_the_vote_result: logging_the_vote_result};
+            const obj1 = {voteID: vote._id};
+            const log = await Log.add_vote(obj1);
+
+            return {adding_the_vote_result: vote, logging_the_vote_result: log};
         } catch (error) {
-            console.error('Error adding the person details: ', error);
+            console.error('Error adding the vote or logging the vote: ', error);
             console.error('Error occurred:', error.message);
         }
     }

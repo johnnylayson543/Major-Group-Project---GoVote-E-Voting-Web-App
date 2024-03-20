@@ -23,13 +23,19 @@ import { UserAuthentication, UserContext } from '@/app/components/header/userAut
 
 export default function Page() {
 
+  const { user, voter, admin } = useContext(UserContext);
+  const [ballot, setBallot] = useState(null);
+  const [election, setElection] = useState(null);
+  const [candidates_for_ballot, setBallotCandidates] = useState(null);
+  const router = useRouter();
+
   //
   // Function for casting the vote and sending the voter to the MyVotesCastPage.
   //
   const goCastTheVote = async (candidate_id, voter_id) => {
     try {
       console.log("CandidateID: " + candidate_id + ", voterID: " + voter_id);
-      var url = `http://localhost:3000/api/Voter/Vote/cast_the_vote?candidateID=${candidate_id}&voterID=${voter_id}`;
+      var url = `http://localhost:3000/api/database/controllers/Voter/Vote/cast_the_vote_for_the_election?candidateID=${candidate_id}&voterID=${voter_id}`;
       const response = await fetch(url);
       const data = await response.json();
 
@@ -48,19 +54,11 @@ export default function Page() {
 
   };
 
-  const { user, voter, admin } = useContext(UserContext);
-  const [ballot, setBallot] = useState(null);
-  const [election, setElection] = useState(null);
-  const [candidates_for_ballot, setBallotCandidates] = useState(null);
-  const router = useRouter();
+
 
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
-    const election_id = searchParams.get('electionID');
-
-
-
 
     fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
@@ -93,22 +91,30 @@ export default function Page() {
   }, []);
 
 
-// If there is no data
-if (!ballot || !election || !candidates_for_ballot || !voter ) return <p>Loading</p>
+  // If there is no data
+  if (!ballot || !election || !candidates_for_ballot || !voter) return <p>Loading</p>
+  else {
+    console.log("user on page:");
+    console.log(user);
+    console.log("voter on page:");
+    console.log(voter);
+    console.log("admin on page:");
+    console.log(admin);
+  }
 
-let voterButton;
-    if(voter) {
-      console.log(voter._id);
-      voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
-    }
+  let voterButton;
+  if (voter) {
+    console.log(voter._id);
+    voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+  }
 
 
-let dataElement1 =
+  let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
 
     ;
   let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={()=>goCastTheVote(voter._id, ballot_candidate._id)}>Vote</button></td></tr>
+    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goCastTheVote(voter._id, ballot_candidate._id)}>Vote</button></td></tr>
   ));
 
   let dataElement3 =
@@ -146,35 +152,35 @@ let dataElement1 =
       <tbody>
         {dataElement3}
       </tbody></table>
-      <p>
-    <button onClick={() => goBackToElections()}>Back to Elections</button>
-    <button onClick={() => goBackToProfile()}>Back to Profile</button>
-    {voterButton}
+    <p>
+      <button onClick={() => goBackToElections()}>Back to Elections</button>
+      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      {voterButton}
     </p>
   </Box>
 
-const goBackToElections = () => {
-  router.push('/Voter/Election/');
-};
-const goBackToProfile = () => {
-  router.push('/Vote/Profile/');
-};
-const goBackToSignedUpElections = (voter_id) => {
-  router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
-};
+  const goBackToElections = () => {
+    router.push('/Voter/Election/');
+  };
+  const goBackToProfile = () => {
+    router.push('/Vote/Profile/');
+  };
+  const goBackToSignedUpElections = (voter_id) => {
+    router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
+  };
 
 
-const theme = createTheme({
-  palette: {
-    secondary: {
-      main: green[500],
+  const theme = createTheme({
+    palette: {
+      secondary: {
+        main: green[500],
+      },
     },
-  },
-});
-return (
-  <ThemeProvider theme={theme}>
+  });
+  return (
+    <ThemeProvider theme={theme}>
 
       {element}
-  </ThemeProvider>
-);
+    </ThemeProvider>
+  );
 }

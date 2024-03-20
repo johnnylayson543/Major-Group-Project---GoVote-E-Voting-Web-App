@@ -15,12 +15,12 @@ const voterSchema = new mongoose.Schema({
 class VoterClass {
     // admin loads the stubs = user is completing the details (ppsn and pass minimum information) 
 
-    static async cast_a_vote(x) {
+    static async cast_the_vote_for_the_election(x) {
         try {
-            const filter_voter = { ppsn: voteData.ppsn };
-            const filter_candidate = { candidateID: voteData.CandidateID };
+            const filter_voter = { _id: x.voter._id };
+            const filter_candidate = { _id: x.candidate._id };
 
-            const obj = { VoterID: x.ppsn, CandidateID: x.CandidateID };
+            const obj = { voterID: x.voter._id, candidateID: x.candidate._id };
 
             const voter_found = Voter.findOne(filter_voter);
             const candidate_found = Candidate.findOne(filter_candidate);
@@ -70,6 +70,18 @@ class VoterClass {
             return voter;
         } catch (error) {
             console.error('Error retrieving the voter: ', error);
+            console.error('Error occurred:', error.message);
+        }
+
+    }
+
+    static async retrieve_the_votes_and_associated_details_for_the_voter(x) {
+        try {
+            const vote_filter = {voterID: x.voter._id };
+            const votes = await Vote.find(vote_filter);
+            return votes;
+        } catch (error) {
+            console.error('Error retrieving the votes: ', error);
             console.error('Error occurred:', error.message);
         }
 

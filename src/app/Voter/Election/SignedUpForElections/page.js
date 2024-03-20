@@ -3,12 +3,10 @@ import * as React from 'react';
 
 import Header from '../../../components/header/header';
 import Box from '@mui/material/Box';
-import Chart from 'chart.js/auto'; // Add this line
-
-import Script from 'next/script'
-import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useContext } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation';
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -36,6 +34,7 @@ async function runDBCallAsync(url) {
 
 export default function Page() {
 
+    const { user, voter, admin } = useContext(UserContext);
     const [voter_signed_elections, setVoterSignedElections] = useState(null);
     const router = useRouter();
 
@@ -53,14 +52,22 @@ export default function Page() {
 
     }, []);
 
-    if (!voter_signed_elections) return <p>No elections signed by the voter found. </p>;
+    if (!voter_signed_elections || !voter) return <p>No elections signed by the voter found. </p>;
+    else {
+        console.log("user on page:");
+        console.log(user);
+        console.log("voter on page:");
+        console.log(voter);
+        console.log("admin on page:");
+        console.log(admin);
+      }
 
     console.log(voter_signed_elections);
 
     let dataElement1 = (voter_signed_elections.map(election =>
         <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td>
-        <td><button onClick={() => goSeeBallot(election.ballotID)}>See ballot</button></td>
-        <td><button onClick={() => goCastTheVote(voter._id)}>Cast the Vote</button></td>
+            <td><button onClick={() => goSeeBallot(election.ballotID)}>See ballot</button></td>
+            <td><button onClick={() => goCastTheVote(election.ballotID, voter._id)}>Cast the Vote</button></td>
         </tr>
     ));
 
@@ -92,8 +99,8 @@ export default function Page() {
         router.push('/Voter/Election/SeeBallot?ballotID={' + ballot_id + '}');
     };
 
-    const goCastTheVote = (election_id, voter_id) => {
-        router.push('/Voter/Vote/CastYourVote?electionID={' + election_id + '}&voterID={' + voter_id + '}');
+    const goCastTheVote = (ballot_id, voter_id) => {
+        router.push('/Voter/Vote/CastYourVote?ballotID={' + ballot_id + '}&voterID={' + voter_id + '}');
     };
 
 

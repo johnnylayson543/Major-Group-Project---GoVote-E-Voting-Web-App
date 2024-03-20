@@ -38,7 +38,7 @@ export default function Page() {
     );
 
     let voterButton;
-    if (admin) {
+    if (voter) {
         console.log(voter._id);
         voterButton =
             <ListItem disablePadding>
