@@ -22,7 +22,7 @@ logSchema.pre('findOneAndUpdate', function() {
 class LogClass {
     static async add_log(x){
         try {
-            const obj = {voteID: x._id}
+            const obj = {voteID: x.voteID}
             const log = await Log.create(obj);    
             return log;
         } catch (error) {

@@ -30,8 +30,6 @@ async function runDBCallAsync(url) {
 }
 
 
-
-
 export default function Page() {
 
     const { user, voter, admin } = useContext(UserContext);
@@ -39,18 +37,19 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
-        const { searchParams } = new URL(window.location.href);
-        const voter_id = searchParams.get('voterID');
-        fetch(`http://localhost:3000/api/database/controllers/Voter/Election/retrieve_elections_the_voter_signed_up_for?voterID=${voter_id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setVoterSignedElections(data.result);
+        if (user) {
+            const person_ppsn = user.ppsn;
+            fetch(`http://localhost:3000/api/database/controllers/Voter/Election/retrieve_elections_the_voter_signed_up_for?person_ppsn=${person_ppsn}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setVoterSignedElections(data.result);
 
-                console.log("Voter Signed Election data")
-                console.log(data.result);
-            })
+                    console.log("Voter Signed Election data")
+                    console.log(data.result);
+                })
+        }
 
-    }, []);
+    }, [user]);
 
     if (!voter_signed_elections || !voter) return <p>No elections signed by the voter found. </p>;
     else {
@@ -60,7 +59,7 @@ export default function Page() {
         console.log(voter);
         console.log("admin on page:");
         console.log(admin);
-      }
+    }
 
     console.log(voter_signed_elections);
 

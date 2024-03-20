@@ -43,7 +43,7 @@ export default function Page() {
     let voterButton;
     if (voter) {
         console.log(voter._id);
-        voterButton =
+        voterButton = <Box>
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToSignedUpElections(voter._id)} >
                     <ListItemIcon>
@@ -52,6 +52,15 @@ export default function Page() {
                     <ListItemText primary="My Elections" />
                 </ListItemButton>
             </ListItem >
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToMyVotesCast(voter._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="My Votes" />
+                </ListItemButton>
+            </ListItem >
+            </Box>
     }
 
 
@@ -145,6 +154,10 @@ export default function Page() {
     const goBackToAdminProfile = (admin_id) => {
         router.push('/Admin/Profile?adminID={' + admin_id + '}');
     };
+
+    const goBackToMyVotesCast = (voter_id) => {
+        router.push('/Voter/Vote/MyVotesCast?voterID={' + voter_id + '}');
+    }
 
     // Front-End Page
     return (

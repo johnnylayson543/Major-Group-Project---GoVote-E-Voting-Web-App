@@ -32,7 +32,7 @@ export default function Page() {
   //
   // Function for casting the vote and sending the voter to the MyVotesCastPage.
   //
-  const goCastTheVote = async (candidate_id, voter_id) => {
+  const goCastTheVote = async (voter_id, candidate_id) => {
     try {
       console.log("CandidateID: " + candidate_id + ", voterID: " + voter_id);
       var url = `http://localhost:3000/api/database/controllers/Voter/Vote/cast_the_vote_for_the_election?candidateID=${candidate_id}&voterID=${voter_id}`;

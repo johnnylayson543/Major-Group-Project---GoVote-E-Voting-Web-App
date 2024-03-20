@@ -1,5 +1,5 @@
 import { run_model_method } from "../../../helper/helper";
-import { retrieve_elections_the_voter_signed_up_for_voter_type } from "../../../../../Forms/Voter/retrieve_elections_the_voter_signed_up_for_voter_type";
+import { retrieve_elections_the_voter_signed_up_for_voter_type } from "../../../../../Forms/Voter/Election/retrieve_elections_the_voter_signed_up_for_voter_type";
 import { Voter } from "../../../../models/Voter";
 
 export async function GET(req, res) {

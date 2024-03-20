@@ -9,8 +9,9 @@ const userSchema = new mongoose.Schema({
     ppsn: {type: String, required: true, unique: true, ref: 'Person'},
     pass: {type: String, required: true},
     roles: {type: [String], default: ['user']},
-    token: {type: String, required: false}
+    token: {type: String, required: false, unique: true}
 });
+
 
 class UserClass {
 

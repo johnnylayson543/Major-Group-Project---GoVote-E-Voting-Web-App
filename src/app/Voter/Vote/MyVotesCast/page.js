@@ -38,14 +38,15 @@ const rows = [
 // Front-End Page
 export default function Page() {
   const { user, voter, admin } = useContext(UserContext);
-  const [ vote_cast_by_the_voter, setVotesCastByTheVoter] = useState(null);
+  const [ votes_cast_by_the_voter, setVotesCastByTheVoter] = useState(null);
   const router = useRouter();
 
 
   useEffect(() => {
-    const voter_id = voter._id;
+    const { searchParams } = new URL(window.location.href);
+    const voter_id = searchParams.get('voterID');
 
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_cast_votes_for_the_elections_the_cast_them_in?voterID=${voter_id}`)
+    fetch(`http://localhost:3000/api/database/controllers/Voter/Vote/retrieve_the_votes_for_the_voter?voterID=${voter_id}`)
       .then((res) => res.json())
       .then((data) => {
         setVotesCastByTheVoter(data.result);
@@ -56,50 +57,42 @@ export default function Page() {
 
   }, []);
 
+   // If there is no data
+   if (!votes_cast_by_the_voter || !voter) return <p>Loading</p>
+   else {
+     console.log("user on page:");
+     console.log(user);
+     console.log("voter on page:");
+     console.log(voter);
+     console.log("admin on page:");
+     console.log(admin);
+   }
 
-  let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
 
-    ;
-  let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goCastTheVote(voter._id, ballot_candidate._id)}>Vote</button></td></tr>
+   let voterButton;
+   if (voter) {
+     console.log(voter._id);
+     voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+   }
+
+  let dataElement1 = (votes_cast_by_the_voter.map( (vote) =>
+    <tr key={vote._id.toString()}><td>{vote._id}</td><td>{vote.voterID}</td><td>{vote.candidateID}</td><td><button onClick={() => goSeeCandidate(vote.vote.candidateID)}>Candidate details</button></td></tr>
   ));
 
-  let dataElement3 =
-    <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
-
-    ;
   let element = <Box>
-    <h1>The Ballot used in the Election</h1>
-    <h2>Ballot</h2>
+    <h1>The Votes cast on elections</h1>
+    <h2>Votes Cast</h2>
     <table>
       <thead><tr>
-        <th>Ballot ID</th>
-        <th>Closing Date Time</th>
-        <th>Title</th>
+        <th>Vote ID</th>
+        <th>Voter ID</th>
+        <th>Candidate ID</th>
+        <th>Actions</th>
       </tr></thead>
       <tbody>
         {dataElement1}
       </tbody></table>
-    <h2>Ballot Candidates</h2>
-    <table>
-      <thead><tr>
-        <th>Candidate ID</th>
-        <th>Ballot ID</th>
-        <th>PPSN</th>
-      </tr></thead>
-      <tbody>
-        {dataElement2}
-      </tbody></table>
-    <h2>Election Running with this ballot</h2>
-    <table>
-      <thead><tr>
-        <th>Election ID</th>
-        <th>Ballot ID</th>
-      </tr></thead>
-      <tbody>
-        {dataElement3}
-      </tbody></table>
+   
     <p>
       <button onClick={() => goBackToElections()}>Back to Elections</button>
       <button onClick={() => goBackToProfile()}>Back to Profile</button>
@@ -107,7 +100,42 @@ export default function Page() {
     </p>
   </Box>
 
+  const goSeeCandidate = (candidate_id) => {
+    router.push('/Voter/Vote/SeeCandidate?candidateID={' + candidate_id + '}' );
+  };
 
+  const goBackToElections = () => {
+    router.push('/Voter/Election/');
+  };
+  const goBackToProfile = () => {
+    router.push('/Voter/Profile/');
+  };
+  const goBackToSignedUpElections = (voter_id) => {
+    router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
+  };
+
+
+  const other_element = <Grid container spacing={12}>
+  <Grid item xs={12}>
+      <Item>
+      <Typography variant="h5" component="h2" fontWeight={800} color={"black"} align='center'>
+          My Votes Cast
+      </Typography>
+      <br></br>
+          <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{
+              pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+              },
+          }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+          />
+      </Item>
+  </Grid>
+</Grid>
 
   return (
 
@@ -115,27 +143,7 @@ export default function Page() {
         <Header></Header>
         <Toolbar></Toolbar>
         <br></br>
-        <Grid container spacing={12}>
-                <Grid item xs={12}>
-                    <Item>
-                    <Typography variant="h5" component="h2" fontWeight={800} color={"black"} align='center'>
-                        My Votes Cast
-                    </Typography>
-                    <br></br>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            initialState={{
-                            pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                            },
-                        }}
-                            pageSizeOptions={[5, 10]}
-                            checkboxSelection
-                        />
-                    </Item>
-                </Grid>
-        </Grid>
+        {element}
     </Box>
 
   );

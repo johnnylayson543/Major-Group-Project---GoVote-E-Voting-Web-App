@@ -11,6 +11,7 @@ const voterSchema = new mongoose.Schema({
     //id: {type: String, required: true, unique: true}
 });
 
+voterSchema.index({ person_ppsn: 1, electionID: 1 }, { unique: true });
 
 class VoterClass {
     // admin loads the stubs = user is completing the details (ppsn and pass minimum information) 
@@ -23,8 +24,35 @@ class VoterClass {
             const obj = { voterID: x.voter._id, candidateID: x.candidate._id };
 
             const voter_found = Voter.findOne(filter_voter);
-            const candidate_found = Candidate.findOne(filter_candidate);
-            if (voter_found && candidate_found) await Vote.add_vote(obj);
+            const candidate_found = await Candidate.findOne(filter_candidate);
+            console.log("candidate:");
+            console.log(candidate_found);
+
+            const filter_ballot = { ballotID: candidate_found.ballotID };
+            const candidates_found = await Candidate.find(filter_ballot);
+            console.log("candidates of the election:");
+            console.log(candidates_found);
+            const ballot_candidate_ids = await Candidate.find(filter_ballot).select('_id');
+            console.log("ballot_candidate_ids");
+            console.log(ballot_candidate_ids);
+
+            const votes_having_more_than_one_candidates_in_same_election_voted = await Vote.find({ voterID: x.voter._id, candidateID: { $in: ballot_candidate_ids.map(x => x._id) } });
+            console.log("votes_having_more_than_one_candidates_in_same_election_voted:");
+            console.log(votes_having_more_than_one_candidates_in_same_election_voted);
+
+            if (votes_having_more_than_one_candidates_in_same_election_voted) {
+                const ids_to_remove = votes_having_more_than_one_candidates_in_same_election_voted.map(x => x._id);
+                const deleted = await Vote.deleteMany({ _id: { $in: ids_to_remove } });
+                console.log("Deleted:");
+                console.log(deleted);
+            }
+
+            if (voter_found && candidate_found) {
+
+                const vote = await Vote.add_vote(obj);
+                return vote;
+            }
+            return null;
         } catch (error) {
             console.error('Error casting the vote: ', error);
             console.error('Error occurred:', error.message);
@@ -47,10 +75,12 @@ class VoterClass {
 
     static async retrieve_elections_the_voter_signed_up_for(x) {
         try {
-            const filter_election = { _id: x.voter._id };
-            const election_signups = await Voter.find(filter_election);
+            
+            const filter_elections_voted_in = { person_ppsn: x.voter.person_ppsn };
+            const election_signups = await Voter.find(filter_elections_voted_in);
             const election_signups_ids = election_signups.map(result => result.electionID);
-
+            console.log("electon_signup_ids:");
+            console.log(election_signups_ids);
             if (election_signups_ids) {
                 const elections_signedupfor = (await Election.find({ _id: { $in: election_signups_ids } }));
 
@@ -75,10 +105,14 @@ class VoterClass {
 
     }
 
-    static async retrieve_the_votes_and_associated_details_for_the_voter(x) {
+    static async retrieve_the_votes_for_the_voter(x) {
         try {
-            const vote_filter = {voterID: x.voter._id };
+            const vote_filter = { voterID: x.voter._id };
+            console.log("vote_filter");
+            console.log(vote_filter);
             const votes = await Vote.find(vote_filter);
+            console.log("votes cast");
+            console.log(votes)
             return votes;
         } catch (error) {
             console.error('Error retrieving the votes: ', error);

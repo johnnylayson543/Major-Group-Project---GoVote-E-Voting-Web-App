@@ -3,9 +3,9 @@ export class retrieve_elections_the_voter_signed_up_for_voter_type {
     voter = {}
 
     constructor(x){
-        const voter_id = x.get('voterID').replace(/[{}]/g, "");
+        const person_id = x.get('person_ppsn').replace(/[{}]/g, "");
         
-        this.voter = {_id: voter_id};
+        this.voter = {person_ppsn: person_id};
     }
 
 }
