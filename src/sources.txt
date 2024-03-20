@@ -5,7 +5,7 @@ Adam O'Shea B00147637
 
 Sources:
 
-    Information obtained from LLM: GPT-4, Claude 3. And by extension from general documentation found on the main websites for: Next.js, mongoose, mongodb, react.
+    Information obtained from LLM: GPT-4, Claude 3. And by extension from general documentation found on the main websites for: Next.js, Mongoose, Mongodb, React.
 
     Mongoose
         That it existed for Object Relational Mapping.
