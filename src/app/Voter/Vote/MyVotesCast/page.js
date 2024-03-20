@@ -76,7 +76,7 @@ export default function Page() {
    }
 
   let dataElement1 = (votes_cast_by_the_voter.map( (vote) =>
-    <tr key={vote._id.toString()}><td>{vote._id}</td><td>{vote.voterID}</td><td>{vote.candidateID}</td><td><button onClick={() => goSeeCandidate(vote.vote.candidateID)}>Candidate details</button></td></tr>
+    <tr key={vote._id.toString()}><td>{vote._id}</td><td>{vote.voterID}</td><td>{vote.candidateID}</td><td><button onClick={() => goSeeCandidate(vote.candidateID)}>Candidate details</button></td></tr>
   ));
 
   let element = <Box>

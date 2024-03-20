@@ -3,6 +3,7 @@ import { getModel } from "./helpers/helpers";
 import { Candidate } from "./Candidate";
 import { Vote } from "./Vote";
 import { Election } from "./Election";
+import { Ballot } from "./Ballot";
 //import { UserClass } from "./User";
 
 const voterSchema = new mongoose.Schema({
@@ -75,7 +76,7 @@ class VoterClass {
 
     static async retrieve_elections_the_voter_signed_up_for(x) {
         try {
-            
+
             const filter_elections_voted_in = { person_ppsn: x.voter.person_ppsn };
             const election_signups = await Voter.find(filter_elections_voted_in);
             const election_signups_ids = election_signups.map(result => result.electionID);
@@ -119,6 +120,34 @@ class VoterClass {
             console.error('Error occurred:', error.message);
         }
 
+    }
+
+    static async retrieve_the_candidate_and_associated_information(x){
+        try {
+            const candidate_filter = { _id: x.candidate._id };
+            console.log("candidate_filter");
+            console.log(candidate_filter);
+            const candidate = await Candidate.findOne(candidate_filter);
+            console.log("Candidate:");
+            console.log(candidate);
+            const ballot_filter = {_id: candidate.ballotID};
+            const ballot = await Ballot.findOne(ballot_filter);
+            console.log("Ballot:");
+            console.log(ballot);
+            const election_filter = {ballotID: candidate.ballotID};
+            const election = await Election.findOne(election_filter);
+            console.log("Election:");
+            console.log(election);
+            const candidate_associated_information = {candidate: candidate, ballot: ballot, election: election};
+
+            console.log("candidate_associated_information: ");
+            console.log(candidate_associated_information);
+
+            return candidate_associated_information;
+        } catch (error) {
+            console.error('Error retrieving the votes: ', error);
+            console.error('Error occurred:', error.message);
+        }
     }
 }
 voterSchema.loadClass(VoterClass)
