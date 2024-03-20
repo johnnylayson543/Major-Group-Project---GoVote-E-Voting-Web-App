@@ -9,51 +9,51 @@ import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-  /*
-  After the submit handler calls the runDBCallAsync, this does the thing
-  This function does the actual work
-  calling the fetch to get things from the database.
-  */ 
-  async function runDBCallAsync(url) {
+/*
+After the submit handler calls the runDBCallAsync, this does the thing
+This function does the actual work
+calling the fetch to get things from the database.
+*/
+async function runDBCallAsync(url) {
 
-    const res = await fetch(url);
-    const data = await res.json();
- 
-    if(data.data== "valid"){
-      console.log("person is valid!")
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.data == "valid") {
+    console.log("person is valid!")
 
 
-      
-    } else {
 
-      console.log("person is not valid!")
-    }
+  } else {
+
+    console.log("person is not valid!")
   }
+}
 
 
 
 
 export default function Page() {
-  
+
   const router = useRouter();
 
- 
+
   //if (!ballots) return <p>No ballots found. </p>;
 
 
   let element = <Box>
-        <h1>Person Settings</h1>
+    <h1>Person Settings</h1>
 
-            <p><button onClick={() => goSetPersonsPPSNRange()}>Set PPSN range</button></p>
+    <p><button onClick={() => goSetPersonsPPSNRange()}>Set PPSN range</button></p>
 
-            <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-            <button onClick={() => goToElections()}>Back to Elections</button>
-            <button onClick={() => goToBallots()}>Back to Ballots</button></p>
+    <p>
+      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      <button onClick={() => goToElections()}>Back to Elections</button>
+      <button onClick={() => goToBallots()}>Back to Ballots</button></p>
   </Box>
 
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
   const goToElections = () => {
     router.push('/Admin/Election/');
@@ -67,17 +67,17 @@ export default function Page() {
     router.push('/Admin/Person/SetPersonsPPSNRange/');
   };
 
-  
 
-  
+
+
   return (
-    
+
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        
-    <Toolbar></Toolbar>
-        { element }
+
+      <Toolbar></Toolbar>
+      {element}
     </Box>
-	  
+
 
   );
 }

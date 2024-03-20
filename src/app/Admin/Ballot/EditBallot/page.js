@@ -120,7 +120,6 @@ export default function Page() {
     
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         
-    
     <Toolbar></Toolbar>
 
         

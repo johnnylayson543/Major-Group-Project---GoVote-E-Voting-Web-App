@@ -28,7 +28,7 @@ export default function Page() {
     const data = await res.json();
 
 
-    if(data.data== "true"){
+    if (data.data == "true") {
       console.log("Successfully Passed the Range of Person Values!")
 
 
@@ -70,7 +70,7 @@ export default function Page() {
   }; // end handler
 
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
   const goToBallots = () => {
     router.push('/Admin/Ballot/');
@@ -80,67 +80,67 @@ export default function Page() {
   };
 
   let element = <p>
-  <button onClick={() => goBackToProfile()}>Back to Profile</button>
+    <button onClick={() => goBackToProfile()}>Back to Profile</button>
     <button onClick={() => goToBallots()}>Back to Ballots</button>
     <button onClick={() => goToElections()}>Back to Elections</button></p>
 
-// This returns the front-end page
+  // This returns the front-end page
   return (
-        <Container component="main" maxWidth="xs">
-           
-            <br></br>
-          <CssBaseline />
-          <Box
-              sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                border: '4px solid #00008B',
-                backgroundColor: '#6F9CDE',
-                fontWeight: 500,
-                padding: 3
-              }}
+    <Container component="main" maxWidth="xs">
+
+      <br></br>
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          border: '4px solid #00008B',
+          backgroundColor: '#6F9CDE',
+          fontWeight: 500,
+          padding: 3
+        }}
+      >
+        <br></br>
+        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+          Set Person Range
+        </Typography>
+
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="ppsnMin"
+            label="Minimum PPSN"
+            name="ppsnMin"
+            autoComplete="ppsnMin"
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="ppsnMax"
+            label="Maximum PPSN"
+            name="ppsnMax"
+            autoComplete="ppsnMax"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <br></br>
-            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-              Set Person Range
-            </Typography>
+            Submit Range
+          </Button>
 
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ppsnMin"
-                  label="Minimum PPSN"
-                  name="ppsnMin"
-                  autoComplete="ppsnMin"
-              />
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ppsnMax"
-                  label="Maximum PPSN"
-                  name="ppsnMax"
-                  autoComplete="ppsnMax"
-              />
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-              >
-                Submit Range
-              </Button>
+        </Box>
 
-            </Box>
 
-            
-          </Box>
-          { element }
-        </Container>
+      </Box>
+      {element}
+    </Container>
 
   );
 }

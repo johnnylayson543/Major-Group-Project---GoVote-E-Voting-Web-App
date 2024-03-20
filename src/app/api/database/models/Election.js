@@ -11,6 +11,10 @@ class ElectionClass {
         try {
             const obj = {ballotID: x.ballotID};
             const election = await Election.create(obj);
+
+            console.log("Election: ");
+            console.log(election);
+            return election;
         } catch (error) {
             console.error('An error occurred adding the election. ');
             console.error('Error occurred:', error.message);
@@ -39,7 +43,7 @@ class ElectionClass {
         }
     }
 
-    static async retrieve_election(x){
+    static async retrieve_the_election(x){
         try {
             const obj = x;
             const election = await Election.findOne(obj);

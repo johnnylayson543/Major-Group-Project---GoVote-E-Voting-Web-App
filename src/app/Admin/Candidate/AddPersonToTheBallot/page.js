@@ -63,7 +63,7 @@ export default function Page() {
     const ballot_id = searchParams.get('ballotID');
     const person_ppsn = searchParams.get('person_ppsn');
     console.log("searchParams: " + ballot_id + ", " + person_ppsn);
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_ballot?ballotID=${ballot_id}`)
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
         setBallot(data.result);
@@ -90,7 +90,7 @@ export default function Page() {
 
       ;
       let dataElement2 =  
-      <div key={person._id.toString()}><p>{person._id}</p><p>{person.name}</p><p>{person.address}</p><p>{person.email}</p><p>{person.phone}</p><p>{person.date_of_birth}</p></div>
+      <div key={person._id.toString()}><p>{person._id}</p><p>{person.ppsn}</p><p>{person.name}</p><p>{person.address}</p><p>{person.email}</p><p>{person.phone}</p><p>{person.date_of_birth}</p></div>
 
       ;
     element = <Box>
@@ -142,7 +142,7 @@ export default function Page() {
 
   
   const goBackToProfile = () => {
-    router.push('/Admin/Profile');
+    router.push('/Admin/Profile/');
   };
 
   
