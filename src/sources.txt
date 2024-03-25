@@ -17,6 +17,7 @@ Sources:
     Next.js
         How to wrap components in context providers
         How to get variables from the context
+        How to upload files and process their metadata for use with database and application
 
     React
         useContext
