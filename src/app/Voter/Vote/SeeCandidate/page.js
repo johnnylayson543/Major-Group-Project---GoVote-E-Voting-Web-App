@@ -49,9 +49,9 @@ async function runDBCallAsync(url) {
 
 export default function Page() {
 
-    
+
   const { user, voter, admin } = useContext(UserContext);
-  const [ votes_cast_by_the_voter, setVotesCastByTheVoter] = useState(null);
+  const [votes_cast_by_the_voter, setVotesCastByTheVoter] = useState(null);
   const [candidate_information, setCandidateInformation] = useState(null);
   const router = useRouter();
 
@@ -70,18 +70,18 @@ export default function Page() {
 
   }, []);
 
- 
 
 
-  if (!candidate_information ) return <p>No ballot or candidates_for_ballot or election found. </p>;
+
+  if (!candidate_information) return <p>No ballot or candidates_for_ballot or election found. </p>;
 
   let dataElement1 =
     <tr key={candidate_information.ballot._id.toString()}><td>{candidate_information.ballot._id}</td><td>{candidate_information.ballot.closing_datetime}</td><td>{candidate_information.ballot.title}</td></tr>
 
     ;
-  let dataElement2 = 
-    <tr key={candidate_information.candidate._id.toString()}><td>{candidate_information.candidate._id}</td><td>{candidate_information.ballotID}</td><td>{candidate_information.ppsn}</td></tr>
-  ;
+  let dataElement2 =
+    <tr key={candidate_information.candidate._id.toString()}><td>{candidate_information.candidate._id}</td><td>{candidate_information.candidate.ballotID}</td><td>{candidate_information.candidate.person_ppsn}</td></tr>
+    ;
 
   let dataElement3 =
     <tr key={candidate_information.election._id}><td>{candidate_information.election._id}</td><td>{candidate_information.election.ballotID}</td></tr>
@@ -89,16 +89,7 @@ export default function Page() {
     ;
   let element = <Box>
     <h1>Candidate associated information</h1>
-    <h2>Ballot</h2>
-    <table>
-      <thead><tr>
-        <th>Ballot ID</th>
-        <th>Closing Date Time</th>
-        <th>Title</th>
-      </tr></thead>
-      <tbody>
-        {dataElement1}
-      </tbody></table>
+
     <h2>Candidate</h2>
     <table>
       <thead><tr>
@@ -109,7 +100,17 @@ export default function Page() {
       <tbody>
         {dataElement2}
       </tbody></table>
-    <h2>Election Running with this ballot and candidate</h2>
+    <h3>Associated Ballot</h3>
+    <table>
+      <thead><tr>
+        <th>Ballot ID</th>
+        <th>Closing Date Time</th>
+        <th>Title</th>
+      </tr></thead>
+      <tbody>
+        {dataElement1}
+      </tbody></table>
+    <h3>Election Running with this ballot and candidate</h3>
     <table>
       <thead><tr>
         <th>Election ID</th>
@@ -121,7 +122,7 @@ export default function Page() {
     <button onClick={() => goBackToElections()}>Back to Elections</button>
     <button onClick={() => goBackToProfile()}>Back to Profile</button>
     <button onClick={() => goBackToMyVotesCast(voter._id)}>Back to My Votes Cast</button>
-    
+
   </Box>
 
   const goBackToElections = () => {

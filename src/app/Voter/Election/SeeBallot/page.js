@@ -107,7 +107,7 @@ export default function Page() {
 
 
   const goBack = () => {
-    router.push('/Admin/Ballot/');
+    router.push('/Voter/Profile/');
   };
 
   if (!ballot || !candidates_for_ballot || !election || !voter) return <p>No ballot or candidates_for_ballot or election found. </p>;
@@ -175,7 +175,7 @@ export default function Page() {
     router.push('/Voter/Election/');
   };
   const goBackToProfile = () => {
-    router.push('/Vote/Profile/');
+    router.push('/Voter/Profile/');
   };
   const goBackToSignedUpElections = (voter_id) => {
     router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');

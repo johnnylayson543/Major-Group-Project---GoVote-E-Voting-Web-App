@@ -3,6 +3,9 @@ import { getModel } from "./helpers/helpers";
 import { Person, PersonClass } from "./Person";
 import { Security } from "../../Forms/User/helpers/helpers";
 import { cookies } from "next/headers";
+import { Candidate } from "./Candidate";
+import { File } from "system/File";
+import { Media } from "system/Media";
 //import { bcrypt } from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
@@ -174,6 +177,47 @@ class UserClass {
             console.error('Error occurred:', error.message);
         }
     }
+
+
+    static async retrieve_the_persons_details(x){
+        try {
+            const obj = {ppsn: x.user.ppsn};
+            const person = await Person.retrieve_person(obj);
+            return person;
+        } catch (error) {
+            console.error('Error retrieving the person details: ', error);
+            console.error('Error occurred:', error.message);
+            
+        }
+
+    }
+
+    static async retrieve_the_candidate_with_this_ppsn(x){
+        try {
+            const obj = {person_ppsn: x.user.ppsn};
+            const candidate = await Candidate.retrieve_the_candidate_by_ppsn(obj)
+            return candidate;
+        } catch (error) {
+            console.error('Error retrieving the candidate: ', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+
+    static async add_new_media(x){
+        try {
+            const obj_file = {storageID: x.storage._id, filename: x.file.filename, hash: x.file.hash};
+            const file = await File.add_file(obj_file);
+
+            const obj_media = {userID: x.user._id, fileID: file._id, placement: x.media.placement};
+            const media = await Media.create(obj_media);
+            return {file: file, media: media};
+        } catch (error) {
+            console.error('Error retrieving the candidate: ', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
 }
 userSchema.loadClass(UserClass)
 export const User = getModel('User', userSchema);
