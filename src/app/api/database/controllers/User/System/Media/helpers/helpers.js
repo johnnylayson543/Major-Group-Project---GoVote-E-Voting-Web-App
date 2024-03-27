@@ -27,8 +27,6 @@ apiRoute.post(async (req, res) => {
         return res.status(400).json({ error: 'No file upload' });
     }
     const hash = await hashFile(path.join('uploads', req.file.filename));
-    res.status(200).json({ message: `File upload: ${req.file.filename}` });
-
     req.status(200).json({
         message: 'File uploaded successfully',
         filename: req.file.filename,
