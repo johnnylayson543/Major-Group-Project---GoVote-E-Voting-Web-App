@@ -150,16 +150,21 @@ class AdminClass {
 
     static async remove_person_from_the_ballot(x){
         try {
-            const filter_person = {ppsn: x.person.ppsn};
-            const filter_ballot = {ballotID: x.ballot._id};
 
-            const person_found = await Person.findOne(filter_person);
-            const ballot_found = await Ballot.findOne(filter_ballot);
+            const filter_candidate = {person_ppsn: x.candidate.person_ppsn, ballotID: x.candidate.ballotID};
+            const candidate_found = await Candidate.findOne(filter_candidate);
+            console.log("candidate_found: ");
+            console.log(candidate_found);
 
-            if(person_found && ballot_found){
-                const obj = {ppsn: x.person.ppsn, ballotID: x.ballot._id};
-                const candidate = Candidate.remove_candidate(obj);
+            if(candidate_found){
+                const obj = filter_candidate;
+                const candidate = await Candidate.remove_candidate(obj);
+                console.log("candidate_removal: ")
+                console.log(candidate);
+
                 return candidate;
+            } else {
+                return null;
             }
         } catch (error) {
             console.error('An error occurred while removed the person to the ballot:', error);
@@ -227,10 +232,23 @@ class AdminClass {
         }
     }
 
+    static async retrieve_the_candidate(x){
+        try {
+            const obj = {_id: x.candidate._id};
+            const candidate = await Candidate.retrieve_the_candidate(obj);
+
+            return candidate;
+        } catch (error) {
+            console.error('An error occurred retrieving person:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
     static async retrieve_selected_person_for_candidate_selection(x){
         try {
             const obj = {ppsn: x.person.ppsn};
             const person = await Person.retrieve_person(obj);
+
             return person;
         } catch (error) {
             console.error('An error occurred retrieving person:', error);

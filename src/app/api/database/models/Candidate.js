@@ -22,11 +22,25 @@ class CandidateClass {
     }
     static async remove_candidate(x) {
         try {
-            const obj = { ppsn: x.ppsn, ballotID: x.ballotID };
+            const obj = { person_ppsn: x.person_ppsn, ballotID: x.ballotID };
             const candidate = await Candidate.deleteOne(obj);
             return candidate;
         } catch (error) {
             console.error('An error occurred while removing the candidate:', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
+
+
+    static async retrieve_the_candidate(x) {
+        try {
+            const obj = { _id: x._id };
+            const candidates = await Candidate.findOne(obj);
+            console.log("Candidate found: ");
+            console.log(candidates);
+            return candidates;
+        } catch (error) {
+            console.error('An error occurred while retrieving the candidate:', error);
             console.error('Error occurred:', error.message);
         }
     }

@@ -111,7 +111,7 @@ export default function Page() {
 
     ;
   let dataElement2 = (ballot_candidates.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button></td></tr>
+    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goRemoveCandidateFromTheBallot(ballot_candidate._id.toString())}>Remove</button></td></tr>
   ));
   let element = <Box>
     <h1>Candidates on the ballot</h1>
@@ -191,6 +191,12 @@ export default function Page() {
   const goRemoveBallot = (ballotID) => {
     router.push('/Admin/Ballot/RemoveBallot/?ballotID={' + ballotID + '}');
   };
+
+
+  const goRemoveCandidateFromTheBallot = (candidateID) => {
+    router.push('/Admin/Candidate/RemovePersonFromTheBallot?candidateID={' + candidateID + '}');
+  };
+
 
   const goCreateBallot = () => {
     router.push('/Admin/Ballot/CreateBallot');
