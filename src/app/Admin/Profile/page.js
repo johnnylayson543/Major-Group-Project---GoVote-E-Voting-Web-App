@@ -67,6 +67,9 @@ export default function Page() {
     const goToBallots = () => {
         router.push('/Admin/Ballot/');
     };
+    const goToUserArea = () => {
+        router.push('/User/Profile/')
+    }  
 
     // Front-End Page
     return (
@@ -144,6 +147,15 @@ export default function Page() {
                                 <Divider></Divider>
                                 {voterButton}
                                 <Divider></Divider>
+                                <Divider></Divider>
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => goToUserArea()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                        <ListItemIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                        </ListItemIcon>
+                                        <ListItemText primary="User" />
+                                    </ListItemButton>
+                                </ListItem>
                             </List>
                         </Box>
                     </Item>
