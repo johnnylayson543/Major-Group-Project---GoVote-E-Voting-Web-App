@@ -8,7 +8,7 @@ const storageSchema = new mongoose.Schema ({
     //id: {type: String, required: true, unique: true}
 });
 
-class MediaClass {
+class StorageClass {
 
     static async add_storage(x){
         try {
@@ -25,7 +25,7 @@ class MediaClass {
 
 }
 
-storageSchema.loadClass(storageClass);
+storageSchema.loadClass(StorageClass);
 
 export const Storage = getModel('Storage', storageSchema);
 

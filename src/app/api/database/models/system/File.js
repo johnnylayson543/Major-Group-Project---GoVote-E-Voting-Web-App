@@ -10,15 +10,14 @@ const fileSchema = new mongoose.Schema ({
     //id: {type: String, required: true, unique: true}
 });
 
-class MediaClass {
+class FileClass {
 
     static async add_file(x){
         try {
             const filter_storage = x.storage._id;
-            const storage = await Storage.findOne(filter_storage);
+            let storage = await Storage.findOne(filter_storage);
             const storages = await Storage.find({});
 
-            
             if(storage == {}){
                 const storage0 = 0; 
                 const obj_storage = {name: "store_" + storage0, path: ["@App/Media/store_" + storage0 + "/"]};

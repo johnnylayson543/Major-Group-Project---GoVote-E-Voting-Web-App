@@ -4,8 +4,8 @@ import { Person, PersonClass } from "./Person";
 import { Security } from "../../Forms/User/helpers/helpers";
 import { cookies } from "next/headers";
 import { Candidate } from "./Candidate";
-import { File } from "system/File";
-import { Media } from "system/Media";
+import { File } from "./system/File";
+import { Media } from "./system/Media";
 //import { bcrypt } from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
