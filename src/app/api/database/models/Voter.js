@@ -64,10 +64,20 @@ class VoterClass {
         try {
             const obj = { person_ppsn: x.voter.person_ppsn, electionID: x.voter.electionID };
 
-            const voter = await Voter.create(obj);
-            console.log("voter_added: ");
-            console.log(voter);
-            return voter;
+            const obj_filter = obj;
+            const voter_on_this_election_already = await Voter.findOne(obj);
+
+            if(!voter_on_this_election_already){
+                const voter = await Voter.create(obj);
+                console.log("voter_added: ");
+                console.log(voter);
+                return voter;
+            } else {
+                console.log("voter already for the election: ");
+                console.log(voter_on_this_election_already);
+                return voter_on_this_election_already;
+            }
+
         } catch (error) {
             console.error('Error registering voter for an election: ', error);
             console.error('Error occurred:', error.message);

@@ -1,4 +1,4 @@
-import { remove_candidate_from_ballot_admin_type } from "../../Forms/Admin/remove_candidate_from_ballot_admin_type";
+import { remove_candidate_from_ballot_admin_type } from "../../../../../Forms/Admin/Candidate/remove_candidate_from_ballot_admin_type";
 import { run_model_method } from "../../../helper/helper";
 import { Admin } from "../../../../models/Admin";
 
@@ -12,7 +12,7 @@ export async function GET(req, res) {
     const obj = new remove_candidate_from_ballot_admin_type(searchParams);
   
     const x = obj;
-    const xy = {fn: Admin.remove_candidate_from_ballot, par: x};
+    const xy = {fn: Admin.remove_person_from_the_ballot, par: x};
     const result = await run_model_method(xy);
 
     return Response.json({ "data": "okay", "result": result});
