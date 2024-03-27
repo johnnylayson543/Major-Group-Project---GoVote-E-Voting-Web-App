@@ -87,6 +87,16 @@ export default function Page() {
                                     <ListItemText primary="Voter"/>
                                 </ListItemButton>
                             </ListItem>
+
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../User/Media/'>
+                                    <ListItemIcon>
+                                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="My Media"/>
+                                </ListItemButton>
+                            </ListItem>
+
                             <Divider>Person</Divider>
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/UpdateDetails'>
