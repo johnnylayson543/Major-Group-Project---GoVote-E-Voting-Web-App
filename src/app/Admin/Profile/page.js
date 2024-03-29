@@ -75,7 +75,7 @@ export default function Page() {
             </Toolbar>
             <br></br>
             <Grid container spacing={10}>
-                <Grid item xs={4}>
+                <Grid item xs={3.5}>
                     <Item>
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon></Face6Icon></Avatar>
                         <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
@@ -84,20 +84,18 @@ export default function Page() {
                     </Item>
                 </Grid>
 
-                <Grid item xs={7}>
+                <Grid item xs={5.5}>
                     <Item>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                        fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                        aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                        cum quibusdam.
+                        <b>Dashboard</b>
                         <br></br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris et nulla ac eros aliquet suscipit ut quis libero.
-                        Sed quam erat, dictum in consequat id, dapibus eu libero.
+                        Here you can manage various settings and activities related to the voting process.
+                        As an administrator, you have the authority to make changes to individual profiles,
+                        create, update, and delete ballots, as well as modify election parameters.
+                        Please use the provided options to navigate and administer the voting system effectively.
                     </Item>
                 </Grid>
 
-                <Grid item xs={3.5}>
+                <Grid item xs={3}>
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>

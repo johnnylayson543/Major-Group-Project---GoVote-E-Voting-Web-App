@@ -1,7 +1,11 @@
 'use client';
 import * as React from 'react';
 
+<<<<<<< Updated upstream
 import Header from '../../components/header/header';
+=======
+import Header from '../../../components/header/header';
+>>>>>>> Stashed changes
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';

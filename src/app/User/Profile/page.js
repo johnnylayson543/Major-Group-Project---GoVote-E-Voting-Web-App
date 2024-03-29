@@ -44,23 +44,18 @@ export default function Page() {
             <Grid container spacing={10}>
                 <Grid item xs={4}>
                 <Item>
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main'}}><Face6Icon></Face6Icon></Avatar> 
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main'}}><Face6Icon></Face6Icon></Avatar>
                     <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
                         Welcome to GoVote User!
                     </Typography>
                 </Item>
                 </Grid>
 
-                <Grid item xs={7}>
+                <Grid item xs={4}>
                 <Item>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                cum quibusdam.
+                <b>Dashboard</b>
                 <br></br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris et nulla ac eros aliquet suscipit ut quis libero. 
-                Sed quam erat, dictum in consequat id, dapibus eu libero.
+                Choose between viewing the Admin profile, the User profile or the User account details.
                 </Item>
                 </Grid>
 
@@ -77,7 +72,7 @@ export default function Page() {
                                     <ListItemText primary="Admin"/>
                                 </ListItemButton>
                             </ListItem>
-                           
+
                             <Divider></Divider>
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../Voter/Profile/'>
@@ -89,7 +84,7 @@ export default function Page() {
                             </ListItem>
                             <Divider>Person</Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/UpdateDetails'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/updatedetails'>
                                     <ListItemIcon>
                                         <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
                                     </ListItemIcon>
