@@ -36,9 +36,11 @@ class PersonClass {
 
     static async update_person_details(x){
         try {
-            const filter_person = {ppsn: x.ppsn};
+            const filter1 = {ppsn: x.person.ppsn};
             //const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
-            const person_details_update_result = await Person.updateOne(filter_person,x);
+            const update1 = { $set: { name: x.person.name, address: x.person.address, email: x.person.email, phone: x.person.phone }}
+            
+            const person_details_update_result = await Person.updateOne(filter1,update1);
             return person_details_update_result;
         } catch (error) {
             console.error('Error updating the person details: ', error);

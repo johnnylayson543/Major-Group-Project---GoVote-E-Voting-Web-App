@@ -1,7 +1,6 @@
 'use client';
 
 // Import necessary components and libraries from Material-UI
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -24,15 +23,37 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import { useState, useEffect, useContext } from 'react'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
 
 
 export default function NavBar({ window }) {
+
+    const router = useRouter();
+    const { user, voter, admin } = useContext(UserContext);
 
     //Set width and items within the navBar
     const drawerWidth = 240;
     const navItems = [
 
     ];
+
+    const login_option = <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">
+                        <LoginIcon/> Login &ensp;
+                    </IconButton>;
+
+    const register_option = <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/RegisterUser">
+                        <AppRegistrationIcon/> Register &ensp;
+                    </IconButton>;
+
+    const user_profile = <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/Profile">
+                        <AppRegistrationIcon/> Profile &ensp;
+                    </IconButton>;
+
+    const optional_element = !user? register_option  : user_profile
+                            
+
 
     // State to manage mobile open/close state
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -114,12 +135,8 @@ export default function NavBar({ window }) {
                     <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/Default/Contact">
                         <ContactSupportIcon/> Contact &ensp;
                     </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">
-                        <LoginIcon/> Login &ensp;
-                    </IconButton>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/RegisterUser">
-                        <AppRegistrationIcon/> Register &ensp;
-                    </IconButton>
+                    {optional_element }
+                    {login_option}
 
 
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

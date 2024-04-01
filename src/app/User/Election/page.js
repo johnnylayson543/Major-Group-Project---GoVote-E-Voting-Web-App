@@ -6,9 +6,7 @@ import Header from '../../components/header/header';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
-
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
@@ -38,41 +36,37 @@ async function runDBCallAsync(url) {
 
 export default function Page() {
 
-    const { user, voter } = useContext(UserContext);
-    const [media_for_this_user, setMediaForThisUser] = useState(null);
+    const [finished_elections, setFinishedElections] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
-        
-        if(user){
-            fetch(`http://localhost:3000/api/database/controllers/User/Media/retrieve_my_media?user_id=${user._id}`)
-                .then((res) => res.json())
-                .then((data) => {
-                    setMediaForThisUser(data.result);
+        fetch(`http://localhost:3000/api/database/controllers/User/Election/retrieve_the_finished_elections`)
+            .then((res) => res.json())
+            .then((data) => {
+                setFinishedElections(data.result);
 
-                    console.log("Media for this user data")
-                    console.log(data.result);
-                })
-        }
+                console.log("Election data")
+                console.log(data.result);
+            })
+
     }, []);
 
-    if (!media_for_this_user || !user ) return <p>No media available. </p>;
+    if (!finished_elections) return <p>No elections available. </p>;
 
-    console.log(media_for_this_user);
+    console.log(finished_elections);
 
-    let dataElement1 = (media_for_this_user.map(media =>
-        <tr key={media._id.toString()}><td>{media._id}</td><td>{media.ballotID}</td><td><button onClick={() => goSeeBallot(media.ballotID)}>See ballot</button></td><td><button onClick={() => goSignUpForTheElection(election.ballotID)}>Sign Up</button></td></tr>
+    let dataElement1 = (finished_elections.map(election =>
+        <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td><td><button onClick={() => goSeeTheTally(election._id)}>See the tally</button></td></tr>
     ));
 
 
     let element = <Box>
-        <h1>My Media</h1>
+        <h1>Finished Elections</h1>
         <table>
             <thead><tr>
-                <th>User ID</th>
-                <th>File ID</th>
-                <th>placement</th>
-                <th>access</th>
+                <th>Election ID</th>
+                <th>Ballot ID</th>
+                <th>Actions</th>
             </tr></thead>
             <tbody>
                 {dataElement1}
@@ -85,7 +79,7 @@ export default function Page() {
 
 
     const goBackToProfile = () => {
-        router.push('/User/Profile/');
+        router.push('/Voter/Profile/');
     };
 
     const goSeeBallot = (ballotID) => {
