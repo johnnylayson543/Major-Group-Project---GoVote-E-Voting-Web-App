@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
-import { Person, PersonClass } from "./Person";
+import { Person } from "./Person";
 import { Security } from "../../Forms/User/helpers/helpers";
 import { cookies } from "next/headers";
 import { Candidate } from "./Candidate";
 import { File } from "./system/File";
 import { Media } from "./system/Media";
 import { Admin } from "./Admin";
-import { Election } from "./Election";
-import { Ballot } from "./Ballot";
 //import { bcrypt } from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
@@ -149,8 +147,8 @@ class UserClass {
     static async is_signed_into_account(x) {
         try {
             const token = cookies().get("user_token").value;
-            console.log("token from cookies:");
-            console.log(token);
+            //console.log("token from cookies:");
+            //console.log(token);
             const filter_user_from_cookie = { token: token };
             const user_found = await User.findOne(filter_user_from_cookie);
 
@@ -161,7 +159,7 @@ class UserClass {
                     cookies().set('user_role_' + role, true);
                 }
                 cookies().set('user_authenticated', true);
-                console.log(cookies().toString());
+                //console.log(cookies().toString());
             }
             return user_found;
 
@@ -238,38 +236,7 @@ class UserClass {
         }
     }
 
-    static async retrieve_the_finished_elections(x){
-        try {
-            const query = { closing_datetime: { $lt: new Date() } };
-            const elections = await Election.find({});
-            const ballotIDs = elections.map( x => x.ballotID );
-            console.log("ballotIDs: ");
-            console.log(ballotIDs);
-            const ballots = await Ballot.find( 
-                {
-                    $and: 
-                    [ 
-                        { closing_datetime: { $lt: new Date() } }, 
-                        {_id: {$in: ballotIDs }} 
-                        
-                    ]
-                } 
-            );
-            const past_ballots = ballots.map(x => x._id);
-            console.log("Past ballotIDs");
-            console.log(past_ballots);
-
-            const finished_elections = await Election.find( {ballotID: {$in: past_ballots }} ); 
-
-
-            console.log("finished_elections: ")
-            console.log(finished_elections)
-            return finished_elections
-        } catch (error) {
-            console.error('Error retrieving the retrieve: ', error);
-            console.error('Error occurred:', error.message);
-        }
-    }
+    
 
 }
 userSchema.loadClass(UserClass)

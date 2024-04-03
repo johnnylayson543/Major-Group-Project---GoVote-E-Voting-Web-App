@@ -70,8 +70,8 @@ class VoterClass {
 
             if(!voter_on_this_election_already){
                 const voter = await Voter.create(obj);
-                console.log("voter_added: ");
-                console.log(voter);
+                //console.log("voter_added: ");
+                //console.log(voter);
                 const user_filter = {pssn:x.voter.person_ppsn};
                 const user = await User.findOne(user_filter);
                 const user_roles1 = user.roles;
@@ -97,8 +97,8 @@ class VoterClass {
             const filter_elections_voted_in = { person_ppsn: x.voter.person_ppsn };
             const election_signups = await Voter.find(filter_elections_voted_in);
             const election_signups_ids = election_signups.map(result => result.electionID);
-            console.log("electon_signup_ids:");
-            console.log(election_signups_ids);
+            //console.log("electon_signup_ids:");
+            //console.log(election_signups_ids);
             if (election_signups_ids) {
                 const elections_signedupfor = (await Election.find({ _id: { $in: election_signups_ids } }));
 

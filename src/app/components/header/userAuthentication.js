@@ -7,6 +7,7 @@ export function UserAuthentication({ children }) {
 
     const [user, setUser] = useState(null);
     const [voter, setVoter] = useState(null);
+    const [teller, setTeller] = useState(null);
     const [admin, setAdmin] = useState(null);
     const [person, setPerson] = useState(null);
     const [votes, setVotes] = useState(null);
@@ -60,6 +61,14 @@ export function UserAuthentication({ children }) {
                     admin = data2.result;
                 }
 
+                const isTeller = (user.roles).includes('teller');
+                let teller;
+                if (isTeller) {
+                    const res2 = await fetch(`http://localhost:3000/api/database/controllers/Teller/retrieve_the_teller?person_ppsn=${person_ppsn}`);
+                    const data2 = await res2.json();
+                    teller = data2.result;
+                }
+
                 if (isMounted) {
                     if (isUser && user) {
                         setUser(user);
@@ -76,6 +85,12 @@ export function UserAuthentication({ children }) {
                             setAdmin(admin);
                             console.log("admin:");
                             console.log(admin);
+                        }
+
+                        if (isTeller && teller) {
+                            setTeller(teller);
+                            console.log("teller:");
+                            console.log(teller);
                         }
 
                         if (isCandidate && candidate) {
@@ -108,6 +123,7 @@ export function UserAuthentication({ children }) {
     const contextValue = {
         user,
         voter,
+        teller,
         admin,
         person,
         votes,
