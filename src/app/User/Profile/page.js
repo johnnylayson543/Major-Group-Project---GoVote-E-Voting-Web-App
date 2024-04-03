@@ -14,17 +14,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
-import BallotIcon from '@mui/icons-material/Ballot';
-import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import PollIcon from '@mui/icons-material/Poll';
-import TableChartIcon from '@mui/icons-material/TableChart';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {blue, green, purple, white, pink} from '@mui/material/colors'; 
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 
 export default function Page() {
+
+    const router = useRouter();
+    const { user, voter, admin, teller } = useContext(UserContext);
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
@@ -32,6 +31,62 @@ export default function Page() {
           {children}
         </Box>
     );
+
+    if(!user) return <Box><p>Loading</p></Box>;
+    let voterButton;
+    if (voter) {
+        console.log(voter._id);
+        voterButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(voter._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Voter" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+    let adminButton;
+    if (admin) {
+        console.log(admin._id);
+        adminButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(admin._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Voter" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+    let tellerButton;
+    if (teller) {
+        console.log(teller._id);
+        tellerButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToTellerProfile(teller._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Teller" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+    const goToVoterProfile = (voter_id) => {
+        router.push('/Voter/Profile?voterID={' + voter_id + '}');
+    };
+
+    const goToAdminProfile = (admin_id) => {
+        router.push('/Admin/Profile?voterID={' + admin_id + '}');
+    };
+
+    const goToTellerProfile = (teller_id) => {
+        router.push('/Teller/Profile?voterID={' + teller_id + '}');
+    };
+
 
     // Front-End Page
     return (
@@ -69,22 +124,18 @@ export default function Page() {
                     <Box sx={{ width: '100%', maxWidth: 360}}>
                         <List>
                             <Divider>Executive</Divider>
-                            <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../Admin/Profile/'>
-                                    <ListItemIcon>
-                                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Admin"/>
-                                </ListItemButton>
-                            </ListItem>
-                           
+                            {adminButton}
                             <Divider></Divider>
+                            {tellerButton}
+                            <Divider></Divider>
+                            {voterButton}
+
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../Voter/Profile/'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../User/Election/'>
                                     <ListItemIcon>
                                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Voter"/>
+                                    <ListItemText primary="Election"/>
                                 </ListItemButton>
                             </ListItem>
 
@@ -99,7 +150,7 @@ export default function Page() {
 
                             <Divider>Person</Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/UpdateDetails'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/UpdateMyDetails'>
                                     <ListItemIcon>
                                         <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
                                     </ListItemIcon>

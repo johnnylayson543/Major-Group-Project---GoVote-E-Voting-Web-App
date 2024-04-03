@@ -13,9 +13,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect, useContext } from 'react'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 
 export default function Page() {
 
+  //const { user, voter } = useContext(UserContext);
+  const [user, setUser] = useState(null);
   const router = useRouter();
   /*
   This function does the actual work
@@ -24,37 +28,18 @@ export default function Page() {
   */
   async function runDBCallAsync(url) {
 
-    
-
-
-
     const res = await fetch(url);
     const data = await res.json();
 
-
-    const user = data.result;
+    setUser(data.result);
 
     console.log("Data and data result: ");
     console.log(data);
     console.log(data.result);
-
-    const user_roles = user.roles;
-    if(user_roles.filter(role => role == 'admin')){
-      goToAdminProfilePage();
-    } else if (user_roles.filter(role => role == 'user')){
-      goToUserProfilePage();
-    } else if (user_roles.filter(role => role == 'voter')){
-      goToVoterProfilePage();
-    } 
-
-
     if(data.data== "Okay"){
-      console.log("Successfully Registered!")
-
-
+      console.log("Successfully Registered!");
     } else {
-
-      console.log("Registration Failed!")
+      console.log("Registration Failed!");
     }
   }
 
@@ -78,18 +63,10 @@ export default function Page() {
   const handleSubmit = (event) => {
 
     console.log("handling submit");
-
-
     event.preventDefault();
-
     const data = new FormData(event.currentTarget);
-
-
     let ppsn = data.get('ppsn')
     let pass = data.get('pass')
-
-
-
     console.log("Sent ppsn:" + ppsn)
     console.log("Sent pass:" + pass)
 
@@ -99,6 +76,13 @@ export default function Page() {
 
   }; // end handler
 
+
+  if(user){
+    const user_roles = user.roles;
+    if (user_roles.filter(role => role == 'user')){
+      goToUserProfilePage();
+    } 
+  }
 
 // This returns the front-end page
   return (

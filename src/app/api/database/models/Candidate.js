@@ -60,12 +60,12 @@ class CandidateClass {
 
     static async retrieve_the_candidate_by_ppsn(x) {
         try {
-            console.log("Candidate x: ");
-            console.log(x);
+            //console.log("Candidate x: ");
+            //console.log(x);
             const filter_candidate = { person_ppsn: x.person_ppsn };
             const candidate = await Candidate.find(filter_candidate);
-            console.log("Candidate found: ");
-            console.log(candidate);
+            //console.log("Candidate found: ");
+            //console.log(candidate);
             return candidate;
         } catch (error) {
             console.error('An error occurred while retrieving the candidate:', error);

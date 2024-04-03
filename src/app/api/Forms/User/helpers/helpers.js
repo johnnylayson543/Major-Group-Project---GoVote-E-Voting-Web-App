@@ -17,17 +17,24 @@ export class person_datails {
         this.date_of_birth = builder.date_of_birth;
     }
 
-    static builder(){
-        return new builder();
-    }
-
     describe() {
         const { name, address, phone, email, date_of_birth} = this;
-        return { name, address, phone, email, date_of_birth};
+        return {name: name, address: address, phone: phone, email: email, date_of_birth: date_of_birth};
     }
 }
 
-class builder {
+export class person_datails_builder {
+
+    name;
+    address;
+    email;
+    phone;
+    date_of_birth;
+
+    constructor(){
+
+    }
+
     setName(name){
         this.name = name;
         return this;
@@ -48,7 +55,7 @@ class builder {
         this.date_of_birth = date_of_birth;
         return this;
     }
-    build(){
+    build() {
         return new person_datails(this);
     }
 

@@ -35,9 +35,9 @@ export class register_user_type {
         const token = jwt.sign(payload, secretKey, { expiresIn: '1h'});
         console.log('Generated token: ', token);
 
-        let role1;
-        if(ppsn == 0) role1 = ['admin', 'user'];
-        else role1 = ['user'];
+        let role1 = ['user'];
+        //if(ppsn == 0) role1 = ['admin', 'user'];
+        //else role1 = ['user'];
         this.user = {ppsn: ppsn, pass: pass, token: token, role: role1 };
 
         console.log(email + ", " + date_of_birth + ", " + ppsn + ", " + pass + ", " + role1);

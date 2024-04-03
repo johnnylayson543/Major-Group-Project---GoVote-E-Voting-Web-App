@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
-import Header from '../../components/header/header';
+import Header from '../../../../components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'

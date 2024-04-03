@@ -1,5 +1,7 @@
 'use client'
 
+import PollIcon from '@mui/icons-material/Poll';
+import {blue, green, purple, white, pink} from '@mui/material/colors'; 
 import React from 'react';
 import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
@@ -13,9 +15,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import Face6Icon from '@mui/icons-material/Face6';
-import PollIcon from '@mui/icons-material/Poll';
-import {blue, green, purple, white, pink} from '@mui/material/colors'; 
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 
 export default function Page() {
 
@@ -63,11 +68,27 @@ export default function Page() {
                         <List>
                             <Divider></Divider>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='/Teller/TallyVotes'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='/Teller/Election'>
                                     <ListItemIcon>
                                         <PollIcon sx={{ color: 'white' }}></PollIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Tally Votes"/>
+                                    <ListItemText primary="Finished Elections"/>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='/Teller/Vote/Election'>
+                                    <ListItemIcon>
+                                        <PollIcon sx={{ color: 'white' }}></PollIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Tallied Elections"/>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../User/Profile'>
+                                    <ListItemIcon>
+                                        <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
+                                    </ListItemIcon>
+                                    <ListItemText primary="User"/>
                                 </ListItemButton>
                             </ListItem>
 

@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
 import { Log } from "./Log";
 import { Candidate } from "./Candidate";
+import { Election } from "./Election";
+import { Tally } from "./Tally";
 
 const voteSchema = new mongoose.Schema({
     //id: {type: String, required: true, unique: true},
@@ -27,21 +29,7 @@ class VoteClass {
         }
     }
 
-    static async tally_votes(x) {
-        try {
-            const obj = { ballotID: x.ballotID };
-            const candidates = await Candidate.find(obj);
-            let tally = [];
-            for (i in candidates) {
-                tally.includes(i) ? tally.find(tally.candidate == i).count++ : tally.push({ count: 1, candidate: i })
-            }
-            return tally;
-        } catch (error) {
-
-        }
-
-
-    }
+    
 }
 voteSchema.loadClass(VoteClass);
 export const Vote = getModel('Vote', voteSchema);

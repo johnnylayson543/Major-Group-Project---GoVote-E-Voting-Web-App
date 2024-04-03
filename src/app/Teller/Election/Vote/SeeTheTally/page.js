@@ -17,7 +17,8 @@ import Container from '@mui/material/Container';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 import { Toolbar } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -47,23 +48,20 @@ async function runDBCallAsync(url) {
 
 export default function Page() {
 
+  const { user, voter } = useContext(UserContext);
   const [ballot, setBallot] = useState(null);
   const [election, setElection] = useState(null);
   const [candidates_for_ballot, setBallotCandidates] = useState(null);
+  const [tally_for_the_election, setTallyForElection] = useState(null);
+  
   const router = useRouter();
 
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
     const election_id = searchParams.get('electionID');
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBallot(data.result);
 
-        console.log("Ballot data");
-        console.log(data.result);
-      })
+
 
     fetch(`http://localhost:3000/api/database/controllers/Admin/Election/retrieve_the_election?ballotID=${ballot_id}`)
       .then((res) => res.json())
@@ -75,10 +73,32 @@ export default function Page() {
         console.log(data.result);
       })
 
+
+
+    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBallot(data.result);
+
+        console.log("Ballot data");
+        console.log(data.result);
+      })
+
+    
+
     fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
       .then((data) => {
         setBallotCandidates(data.result);
+
+        console.log("Ballot Candidates data")
+        console.log(data.result);
+      })
+                        // src\app\api\database\controllers\Teller\Election\Vote\retrieve_the_tally_for_the_election
+      fetch(`http://localhost:3000/api/database/controllers/Teller/Election/Vote/retrieve_the_tally_for_the_election?electionID=${election_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTallyForElection(data.result);
 
         console.log("Ballot Candidates data")
         console.log(data.result);
@@ -101,10 +121,17 @@ export default function Page() {
 
 
   const goBack = () => {
-    router.push('/Admin/Ballot/');
+    router.push('/Voter/Profile/');
   };
 
-  if (!ballot || !candidates_for_ballot || !election) return <p>No ballot or candidates_for_ballot or election found. </p>;
+  if (!ballot || !candidates_for_ballot || !election || !voter || !tally_for_the_election) return <p>No ballot or candidates_for_ballot or election found. </p>;
+
+
+  let voterButton;
+    if(voter) {
+      console.log(voter._id);
+      voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+    }
 
   let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
@@ -118,8 +145,33 @@ export default function Page() {
     <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
 
     ;
+
+    let dataElement4 =
+    <tr key={tally_for_the_election._id}><td>{tally_for_the_election._id}</td><td>{tally_for_the_election.electionID}</td>
+    <td>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</td></tr>
+
+    ;
   let element = <Box>
-    <h1>The Ballot used in the Election</h1>
+    <h1>Tally for this election</h1>
+      <table>
+      <thead><tr>
+        <th>Election ID</th>
+        <th>Ballot ID</th>
+      </tr></thead>
+      <tbody>
+        {dataElement4}
+      </tbody></table>
+      <p>
+    <button onClick={() => goBackToTalliedElections()}>Back to Tallied Elections</button>
+    <button onClick={() => goBackToFinishedElections()}>Back to the finished elections</button>
+    <button onClick={() => goBackToProfile()}>Back to the teller profile</button>
+    
+    </p>
+
+    <hr />
+    <details>
+      <summary>Click for the details of the Ballot, Election, and Candidates</summary>
+    <h1>The Ballot and other details</h1>
     <h2>Ballot</h2>
     <table>
       <thead><tr>
@@ -143,27 +195,27 @@ export default function Page() {
     <h2>Election Running with this ballot</h2>
     <table>
       <thead><tr>
+        <th>Tally ID</th>
         <th>Election ID</th>
-        <th>Ballot ID</th>
+        <th>The Tally</th>
       </tr></thead>
       <tbody>
         {dataElement3}
       </tbody></table>
-    <button onClick={() => goBackToElections()}>Back to Elections</button>
-    <button onClick={() => goBackToProfile()}>Back to Profile</button>
-    <button onClick={() => goBackToBallots()}>Back to Ballots</button>
+      </details>
   </Box>
 
-  const goBackToElections = () => {
-    router.push('/Admin/Election/');
+    
+
+  const goBackToTalliedElections = () => {
+    router.push('/Teller/Election/Vote');
   };
   const goBackToProfile = () => {
-    router.push('/Admin/Profile/');
+    router.push('/Teller/Profile/');
   };
-  const goBackToBallots = () => {
-    router.push('/Admin/Ballot/');
+  const goBackToFinishedElections = (voter_id) => {
+    router.push('/Teller/Election/');
   };
-
 
   return (
 
