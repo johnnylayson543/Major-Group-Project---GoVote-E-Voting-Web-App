@@ -89,7 +89,7 @@ export default function Page() {
                     <ListItemText primary="My Votes" />
                 </ListItemButton>
             </ListItem >
-            </Box>
+        </Box>
     }
 
 
@@ -207,7 +207,7 @@ export default function Page() {
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
                                 <Divider>Executive</Divider>
-                                
+
                                 {adminButton}
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile/'>
@@ -226,11 +226,11 @@ export default function Page() {
                                         <ListItemText primary="Elections" />
                                     </ListItemButton>
                                 </ListItem>
-                                
+
 
                                 <Divider>Voter</Divider>
                                 {voterButtons}
-                                
+
                             </List>
                         </Box>
                     </Item>

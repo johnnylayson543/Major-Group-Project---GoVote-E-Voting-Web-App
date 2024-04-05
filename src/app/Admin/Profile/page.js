@@ -69,7 +69,7 @@ export default function Page() {
     };
     const goToUserArea = () => {
         router.push('/User/Profile/')
-    }  
+    }
 
     // Front-End Page
     return (
@@ -153,7 +153,7 @@ export default function Page() {
                                 {voterButton}
                                 <Divider></Divider>
                                 <Divider></Divider>
-                                
+
                             </List>
                         </Box>
                     </Item>

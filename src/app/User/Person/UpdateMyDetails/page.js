@@ -43,17 +43,17 @@ export default function Page() {
     }
   }
 
-  if(!person) return (<Box><p>Loading</p></Box>);
+  if (!person) return (<Box><p>Loading</p></Box>);
 
   let dataElement = (
     <Stack key={person._id.toString()}>
       <p><strong>id:</strong> {person._id}</p>
-    <p><strong>PPSN:</strong> {person.ppsn}</p>
-    <p><strong>Name:</strong> {person.name}</p>
-    <p><strong>Address:</strong> {person.address}</p>
-    <p><strong>Email:</strong> {person.email}</p>
-    <p><strong>Phone:</strong> {person.phone}</p>
-    <p><strong>Date of Birth:</strong> {person.date_of_birth}</p></Stack>
+      <p><strong>PPSN:</strong> {person.ppsn}</p>
+      <p><strong>Name:</strong> {person.name}</p>
+      <p><strong>Address:</strong> {person.address}</p>
+      <p><strong>Email:</strong> {person.email}</p>
+      <p><strong>Phone:</strong> {person.phone}</p>
+      <p><strong>Date of Birth:</strong> {person.date_of_birth}</p></Stack>
   );
   let element = <Box>
     <h1>My Details</h1>
@@ -101,16 +101,16 @@ export default function Page() {
   return (
 
     <Container component="main" maxWidth="md" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        
-        <Header>
-        </Header>
-        
-        
-    <Toolbar></Toolbar>
 
-        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-          Update Details
-        </Typography>
+      <Header>
+      </Header>
+
+
+      <Toolbar></Toolbar>
+
+      <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+        Update Details
+      </Typography>
       <CssBaseline />
       <Box>{element}</Box>
       <Box
@@ -122,10 +122,10 @@ export default function Page() {
 
         }}
       >
-        
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <h1>Fill in the form to update your details. </h1>
-        <Divider />
+          <Divider />
           <TextField
             margin="normal"
             fullWidth

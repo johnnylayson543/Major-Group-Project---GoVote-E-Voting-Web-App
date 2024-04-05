@@ -70,12 +70,12 @@ export default function Page() {
                 console.log("Tally data")
                 console.log(data.result);
             })
-          
+
     };
-    if(tally_for_election)  {
+    if (tally_for_election) {
         console.log("Tally for the election: ");
         console.log(tally_for_election);
-        router.push('/Teller/Election/Vote' );
+        router.push('/Teller/Election/Vote');
     }
 
     return (

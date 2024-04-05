@@ -1,5 +1,5 @@
 import { run_model_method } from "../../../../helper/helper";
-import { add_new_media_user_type } from "../../../../../../Forms/User/System/Media/add_new_media_user_type";
+import { add_new_media_user_type } from "../../../../../../Forms/User/System/Media/add_media_to_my_storage_user_type";
 import { User } from "../../../../../models/User";
 
 export async function GET(req, res) {
