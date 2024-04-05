@@ -49,6 +49,7 @@ export default function Page() {
     <Stack key={person._id.toString()}>
       <p><strong>id:</strong> {person._id}</p>
     <p><strong>PPSN:</strong> {person.ppsn}</p>
+    <p><strong>Name:</strong> {person.name}</p>
     <p><strong>Address:</strong> {person.address}</p>
     <p><strong>Email:</strong> {person.email}</p>
     <p><strong>Phone:</strong> {person.phone}</p>
@@ -131,6 +132,7 @@ export default function Page() {
             id="name"
             label="Name"
             name="name"
+            defaultValue={person.name}
             autoComplete="name"
             autoFocus
           />
@@ -140,6 +142,7 @@ export default function Page() {
             id="address"
             label="Address"
             name="address"
+            defaultValue={person.address}
             autoComplete="address"
             autoFocus
           />
@@ -149,6 +152,7 @@ export default function Page() {
             id="phone"
             label="Phone"
             name="phone"
+            defaultValue={person.phone}
             autoComplete="phone"
             autoFocus
           />
@@ -158,6 +162,7 @@ export default function Page() {
             id="email"
             label="Email Address"
             name="email"
+            defaultValue={person.email}
             autoComplete="email"
             autoFocus
           />

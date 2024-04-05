@@ -40,6 +40,35 @@ export default function Page() {
         </Box>
     );
 
+    let adminButton;
+    if (admin) {
+        console.log(admin._id);
+        adminButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Voter" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+    let tellerButton;
+    if (teller) {
+        console.log(teller._id);
+        tellerButton =
+            <ListItem disablePadding>
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToTellerProfile(teller._id)} >
+                    <ListItemIcon>
+                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                    </ListItemIcon>
+                    <ListItemText primary="Teller" />
+                </ListItemButton>
+            </ListItem >
+    }
+
+
     let voterButton;
     if (voter) {
         console.log(voter._id);
@@ -63,20 +92,6 @@ export default function Page() {
             </Box>
     }
 
-
-    let adminButton;
-    if (admin) {
-        console.log(admin._id);
-        adminButton =
-            <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToAdminProfile(admin._id)} >
-                    <ListItemIcon>
-                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                    </ListItemIcon>
-                    <ListItemText primary="Admin" />
-                </ListItemButton>
-            </ListItem >
-    }
 
 
     let element1 = <Box> <ListItem disablePadding>
@@ -198,6 +213,14 @@ export default function Page() {
                                             <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                         </ListItemIcon>
                                         <ListItemText primary="Elections" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile/'>
+                                        <ListItemIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                        </ListItemIcon>
+                                        <ListItemText primary="User" />
                                     </ListItemButton>
                                 </ListItem>
                                 <Divider></Divider>

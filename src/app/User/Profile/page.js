@@ -38,11 +38,11 @@ export default function Page() {
         console.log(voter._id);
         voterButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(voter._id)} >
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(voter._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
-                    <ListItemText primary="Voter" />
+                    <ListItemText primary="Admin" />
                 </ListItemButton>
             </ListItem >
     }
@@ -52,7 +52,7 @@ export default function Page() {
         console.log(admin._id);
         adminButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(admin._id)} >
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -131,11 +131,11 @@ export default function Page() {
                             {voterButton}
 
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../../User/Election/'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../Voter/Election/'>
                                     <ListItemIcon>
                                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                                     </ListItemIcon>
-                                    <ListItemText primary="Election"/>
+                                    <ListItemText primary="Become a Voter"/>
                                 </ListItemButton>
                             </ListItem>
 

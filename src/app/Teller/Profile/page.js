@@ -76,7 +76,7 @@ export default function Page() {
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
-                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='/Teller/Vote/Election'>
+                                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='/Teller/Election/Vote'>
                                     <ListItemIcon>
                                         <PollIcon sx={{ color: 'white' }}></PollIcon>
                                     </ListItemIcon>
