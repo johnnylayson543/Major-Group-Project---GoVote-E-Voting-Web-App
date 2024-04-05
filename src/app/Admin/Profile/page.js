@@ -102,7 +102,16 @@ export default function Page() {
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
-                                <Divider></Divider>
+                                <Divider>Executive</Divider>
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => goToUserArea()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                        <ListItemIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                        </ListItemIcon>
+                                        <ListItemText primary="User" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <Divider>Admin Controls</Divider>
                                 <ListItem disablePadding>
                                     <ListItemButton onClick={() => goToPersons()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
 
@@ -122,8 +131,6 @@ export default function Page() {
                                         <ListItemText primary="Ballots" />
                                     </ListItemButton>
                                 </ListItem>
-
-
                                 <Divider></Divider>
                                 <ListItem disablePadding>
                                     <ListItemButton onClick={() => goToElections()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
@@ -133,7 +140,7 @@ export default function Page() {
                                         <ListItemText primary="Elections" />
                                     </ListItemButton>
                                 </ListItem>
-                                <Divider></Divider>
+                                <Divider>Auditor Controls</Divider>
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
@@ -146,14 +153,7 @@ export default function Page() {
                                 {voterButton}
                                 <Divider></Divider>
                                 <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton onClick={() => goToUserArea()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="User" />
-                                    </ListItemButton>
-                                </ListItem>
+                                
                             </List>
                         </Box>
                     </Item>

@@ -125,11 +125,9 @@ export default function Page() {
                         <List>
                             <Divider>Executive</Divider>
                             {adminButton}
-                            <Divider></Divider>
                             {tellerButton}
-                            <Divider></Divider>
                             {voterButton}
-
+                            <Divider>User Controls</Divider>
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='../Voter/Election/'>
                                     <ListItemIcon>
@@ -147,8 +145,6 @@ export default function Page() {
                                     <ListItemText primary="My Media"/>
                                 </ListItemButton>
                             </ListItem>
-
-                            <Divider>Person</Divider>
                             <ListItem disablePadding>
                                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white' , mb: 0.2 }} href='Person/UpdateMyDetails'>
                                     <ListItemIcon>

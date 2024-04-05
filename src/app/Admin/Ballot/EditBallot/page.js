@@ -134,6 +134,7 @@ export default function Page() {
                   name="ballot_closing_date"
                   autoComplete="ballot_closing_date"
                   autoFocus
+                  defaultValue={ballot.closing_datetime}
               />
               <TextField
                   margin="normal"
@@ -144,6 +145,7 @@ export default function Page() {
                   name="ballot_title"
                   autoComplete="ballot_title"
                   autoFocus
+                  defaultValue={ballot.title}
               />
 
               <Button

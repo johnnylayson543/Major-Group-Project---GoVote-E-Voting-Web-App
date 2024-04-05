@@ -31,7 +31,7 @@ import { useRouter } from 'next/navigation';
 export default function Page() {
 
     const router = useRouter();
-    const { user, voter, admin } = useContext(UserContext);
+    const { user, voter, admin, teller } = useContext(UserContext);
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
@@ -45,11 +45,11 @@ export default function Page() {
         console.log(admin._id);
         adminButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToAdminProfile(admin._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
-                    <ListItemText primary="Voter" />
+                    <ListItemText primary="Admin" />
                 </ListItemButton>
             </ListItem >
     }
@@ -69,10 +69,10 @@ export default function Page() {
     }
 
 
-    let voterButton;
+    let voterButtons;
     if (voter) {
         console.log(voter._id);
-        voterButton = <Box>
+        voterButtons = <Box>
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToSignedUpElections(voter._id)} >
                     <ListItemIcon>
@@ -206,15 +206,9 @@ export default function Page() {
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
-                                <Divider></Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Elections" />
-                                    </ListItemButton>
-                                </ListItem>
+                                <Divider>Executive</Divider>
+                                
+                                {adminButton}
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile/'>
                                         <ListItemIcon>
@@ -223,12 +217,20 @@ export default function Page() {
                                         <ListItemText primary="User" />
                                     </ListItemButton>
                                 </ListItem>
-                                <Divider></Divider>
-                                {voterButton}
-                                <Divider></Divider>
-                                {adminButton}
-                                <Divider></Divider>
+                                <Divider>User</Divider>
+                                <ListItem disablePadding>
+                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
+                                        <ListItemIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Elections" />
+                                    </ListItemButton>
+                                </ListItem>
+                                
 
+                                <Divider>Voter</Divider>
+                                {voterButtons}
+                                
                             </List>
                         </Box>
                     </Item>
