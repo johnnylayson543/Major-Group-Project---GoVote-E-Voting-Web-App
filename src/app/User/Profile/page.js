@@ -108,14 +108,9 @@ export default function Page() {
 
                 <Grid item xs={7}>
                 <Item>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                cum quibusdam.
+                <b>Dashboard</b>
                 <br></br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris et nulla ac eros aliquet suscipit ut quis libero. 
-                Sed quam erat, dictum in consequat id, dapibus eu libero.
+                Choose between viewing the Admin profile, the User profile or the User account details.
                 </Item>
                 </Grid>
 
