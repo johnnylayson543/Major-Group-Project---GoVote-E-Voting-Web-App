@@ -15,6 +15,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 export default async (req, res) => {
+    console.log("req: ");
+    console.log(req);
   if (req.method.toLowerCase() === 'post') {
     upload.single('file')(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
@@ -43,8 +45,8 @@ export default async (req, res) => {
         console.log(file);
 
         const fileData = {
-          filename: file.originalname,
-          type: file.mimetype,
+          filename: file.name,
+          type: file.type,
           size: file.size,
           path: file.path,
           hash: fileHash
