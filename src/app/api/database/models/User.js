@@ -4,9 +4,8 @@ import { Person } from "./Person";
 import { Security } from "../../Forms/User/helpers/helpers";
 import { cookies } from "next/headers";
 import { Candidate } from "./Candidate";
-import { File } from "./system/File";
-import { Media } from "./system/Media";
 import { Admin } from "./Admin";
+import { System } from "./system/System";
 //import { bcrypt } from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
@@ -106,15 +105,15 @@ class UserClass {
                 const obj = personData
                 const updated_person = await Person.update_person_details(obj);
                 return updated_person;
-            } 
+            }
             return null;
         }
         catch (error) {
-                console.error('An error occurred updating the person details. ');
-                console.error('Error occurred:', error.message);
+            console.error('An error occurred updating the person details. ');
+            console.error('Error occurred:', error.message);
         }
 
-        }
+    }
 
     static async log_into_account(x) {
         try {
@@ -236,7 +235,16 @@ class UserClass {
         }
     }
 
-    
+    static async add_media_to_my_storage(x) {
+        try {
+            const obj = { user: x.user, file: x.file, storage: x.storage, media: x.media };
+            const media = await System.add_new_media_for_the_user(obj);
+            return media
+        } catch (error) {
+            console.error('Error adding the media to my storage: ', error);
+            console.error('Error occurred:', error.message);
+        }
+    }
 
 }
 userSchema.loadClass(UserClass)

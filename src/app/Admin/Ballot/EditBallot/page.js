@@ -21,32 +21,32 @@ import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-  /*
-  After the submit handler calls the runDBCallAsync, this does the thing
-  This function does the actual work
-  calling the fetch to get things from the database.
-  */ 
-  async function runDBCallAsync(url) {
+/*
+After the submit handler calls the runDBCallAsync, this does the thing
+This function does the actual work
+calling the fetch to get things from the database.
+*/
+async function runDBCallAsync(url) {
 
-    const res = await fetch(url);
-    const data = await res.json();
- 
-    if(data.data== "valid"){
-      console.log("edit ballot is valid!")
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.data == "valid") {
+    console.log("edit ballot is valid!")
 
 
-      
-    } else {
 
-      console.log("edit ballot is not valid!")
-    }
+  } else {
+
+    console.log("edit ballot is not valid!")
   }
+}
 
 
 
 
 export default function Page() {
-  
+
   const [ballot, setBallot] = useState(null);
   const router = useRouter();
 
@@ -58,7 +58,7 @@ export default function Page() {
       .then((data) => {
         const list1 = data.result;
         setBallot(list1);
-        
+
 
         console.log("Ballot data");
         console.log(data.result);
@@ -94,16 +94,16 @@ export default function Page() {
 
   if (!ballot) return <Box><p>No ballots found. </p></Box>;
 
-  let dataElement =  
+  let dataElement =
     <p> BallotID: {ballot._id} <br /> Closing date: {ballot.closing_datetime} <br /> Title: {ballot.title}</p>
-     ;
+    ;
   let element = <Box>
-        <h1>Ballots</h1>
-        { dataElement }
+    <h1>Ballots</h1>
+    {dataElement}
 
 
-       
-    </Box>
+
+  </Box>
   const goToElections = () => {
     router.push('/Admin/Election/');
   };
@@ -117,51 +117,53 @@ export default function Page() {
 
 
   return (
-    
+
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        
-    <Toolbar></Toolbar>
 
-        
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        { element }
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ballot_closing_date"
-                  label="ballot_closing_date"
-                  name="ballot_closing_date"
-                  autoComplete="ballot_closing_date"
-                  autoFocus
-              />
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ballot_title"
-                  label="ballot_title"
-                  name="ballot_title"
-                  autoComplete="ballot_title"
-                  autoFocus
-              />
+      <Toolbar></Toolbar>
 
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2}}
-              >
-                Confirm Ballot Update
-              </Button>
-              
-            </Box>
-            <Box><p>
-            <button onClick={() => goToElections()}>Back to Elections</button>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-            <button onClick={() => goBackToBallots()}>Back to Ballots</button></p></Box>
+
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        {element}
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="ballot_closing_date"
+          label="ballot_closing_date"
+          name="ballot_closing_date"
+          autoComplete="ballot_closing_date"
+          autoFocus
+          defaultValue={ballot.closing_datetime}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="ballot_title"
+          label="ballot_title"
+          name="ballot_title"
+          autoComplete="ballot_title"
+          autoFocus
+          defaultValue={ballot.title}
+        />
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Confirm Ballot Update
+        </Button>
+
+      </Box>
+      <Box><p>
+        <button onClick={() => goToElections()}>Back to Elections</button>
+        <button onClick={() => goBackToProfile()}>Back to Profile</button>
+        <button onClick={() => goBackToBallots()}>Back to Ballots</button></p></Box>
     </Box>
-	  
+
 
   );
 }

@@ -21,32 +21,32 @@ import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-  /*
-  After the submit handler calls the runDBCallAsync, this does the thing
-  This function does the actual work
-  calling the fetch to get things from the database.
-  */ 
-  async function runDBCallAsync(url) {
+/*
+After the submit handler calls the runDBCallAsync, this does the thing
+This function does the actual work
+calling the fetch to get things from the database.
+*/
+async function runDBCallAsync(url) {
 
-    const res = await fetch(url);
-    const data = await res.json();
- 
-    if(data.data== "valid"){
-      console.log("create ballot is valid!")
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.data == "valid") {
+    console.log("create ballot is valid!")
 
 
-      
-    } else {
 
-      console.log("create ballot is not valid!")
-    }
+  } else {
+
+    console.log("create ballot is not valid!")
   }
+}
 
 
 
 
 export default function Page() {
-  
+
   const [ballots, setBallots] = useState(null);
   const router = useRouter();
 
@@ -79,45 +79,45 @@ export default function Page() {
 
 
   return (
-    
+
     <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        
-    <Toolbar></Toolbar>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ballot_closing_datetime"
-                  label="ballot_closing_datetime"
-                  name="ballot_closing_datetime"
-                  autoComplete="ballot_closing_datetime"
-                  autoFocus
-              />
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ballot_title"
-                  label="ballot_title"
-                  name="ballot_title"
-                  autoComplete="ballot_title"
-                  autoFocus
-              />
+      <Toolbar></Toolbar>
 
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2}}
-              >
-                Create Ballot
-              </Button>
-              
-            </Box>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="ballot_closing_datetime"
+          label="ballot_closing_datetime"
+          name="ballot_closing_datetime"
+          autoComplete="ballot_closing_datetime"
+          autoFocus
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="ballot_title"
+          label="ballot_title"
+          name="ballot_title"
+          autoComplete="ballot_title"
+          autoFocus
+        />
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Create Ballot
+        </Button>
+
+      </Box>
     </Box>
-	  
+
 
   );
 }

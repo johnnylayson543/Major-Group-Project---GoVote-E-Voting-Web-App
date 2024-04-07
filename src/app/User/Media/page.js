@@ -9,7 +9,7 @@ import Script from 'next/script'
 
 import { useState, useEffect, useContext } from 'react'
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
-import { Toolbar } from '@mui/material';
+import { Container, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 /*
@@ -43,8 +43,8 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
-        
-        if(user){
+
+        if (user) {
             fetch(`http://localhost:3000/api/database/controllers/User/Media/retrieve_my_media?user_id=${user._id}`)
                 .then((res) => res.json())
                 .then((data) => {
@@ -56,15 +56,29 @@ export default function Page() {
         }
     }, []);
 
-    if (!media_for_this_user || !user ) return <p>No media available. </p>;
+
+    const goAddNewMedia = (user_id) => {
+        router.push(`/User/Media/AddNewMedia?userID=${user_id}`);
+    };
+
+
+    const add_new_media_button = (user)? <button onClick={() => goAddNewMedia(user._id)}>Add new media</button> : null;
+
+
+    if (!media_for_this_user || !user) return <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
+        <Header></Header>
+        <Toolbar></Toolbar>
+        <Box><p>No media available. </p></Box>
+       {add_new_media_button}
+    </Box>;
 
     console.log(media_for_this_user);
 
-    let dataElement1 = (media_for_this_user.map(media =>
-        <tr key={media._id.toString()}><td>{media._id}</td><td>{media.ballotID}</td><td><button onClick={() => goSeeBallot(media.ballotID)}>See ballot</button></td><td><button onClick={() => goSignUpForTheElection(election.ballotID)}>Sign Up</button></td></tr>
-    ));
+    let dataElement1 = (user) ? (media_for_this_user.map(media =>
+        <tr key={media._id.toString()}><td>{media._id}</td><td>{media.storageID}</td><td>{media.fileID}</td><td>{media.access}</td><td>{media.placement}</td></tr>
+    )) : null;
 
-
+    
     let element = <Box>
         <h1>My Media</h1>
         <table>
@@ -79,9 +93,16 @@ export default function Page() {
             </tbody></table>
 
         <p>
+            { add_new_media_button }
+        </p>
+
+        <p>
             <button onClick={() => goBackToProfile()}>Back to Profile</button>
         </p>
-    </Box>
+    </Box>;
+
+
+
 
 
     const goBackToProfile = () => {

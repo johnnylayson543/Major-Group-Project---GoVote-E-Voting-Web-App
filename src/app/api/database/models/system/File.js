@@ -15,18 +15,15 @@ class FileClass {
     static async add_file(x){
         try {
             const filter_storage = x.storage._id;
-            let storage = await Storage.findOne(filter_storage);
-            const storages = await Storage.find({});
-
-            if(storage == {}){
-                const storage0 = 0; 
-                const obj_storage = {name: "store_" + storage0, path: ["@App/Media/store_" + storage0 + "/"]};
-                storage = await Storage.add_storage()
+            const storage = await Storage.findOne(filter_storage);
+            
+            if(storage){
+                const obj = {storageID: storage._id, filename: x.file.filename, hash: x.file.hash };
+                const file = await File.create(obj);
+                return file;
+            } else {
+                return null;
             }
-            const storage_id = (storage == {} ) ? obj_storage._id : storage._id;
-            const obj = {name: storage_id, filename: x.file.filename, hash: x.file.hash };
-            const file = await File.create(obj);
-            return file;
         } catch (error) {
             console.error('An error occurred while registering the file:', error);
             console.error('Error occurred:', error.message);
