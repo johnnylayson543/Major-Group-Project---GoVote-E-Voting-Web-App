@@ -1,49 +1,64 @@
-import formidable from "formidable";
-import fs from 'fs';
+import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
+import crypto from 'crypto';
 
-export const config = {
-    api: {
-        bodyPaprser: false,
-    },
-}
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 export default async (req, res) => {
-    const form = new formidable.IncomingForm();
-    form.uploadDir = "./uploads";
-    form.keepExtensions = true;
-    form.hash = 'sha1';
+  if (req.method.toLowerCase() === 'post') {
+    upload.single('file')(req, res, async function (err) {
+      if (err instanceof multer.MulterError) {
+        // Handle Multer errors
+        console.error(err);
+        res.status(400).json({ error: err.message });
+        return;
+      } else if (err) {
+        // Handle other errors
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+        return;
+      }
 
-    form.parse(req, (err, fields, files) => {
-        if (err) {
-            res.status(500).json({ error: "There was an error parsing the files" });
-        }
+      const file = req.file;
+      const userID = req.body.userID;
+      const newFilePath = path.join(process.cwd(), 'user-media', userID, file.name);
 
-        const file = files.file;
+      try {
+        await fs.promises.rename(file.path, newFilePath);
 
-        const userID = fields.userID;
-        const newFilePath = path.join(process.cwd(), 'user-media', userID, file.name);
+        const fileHash = await calculateFileHash(newFilePath);
 
-        fs.rename(file.filepath, newFilePath, (err) => {
-            if (err) {
-                res.status(500).json({ error: "Could not move the file. " });
-                return;
-            }
-            
-            console.log("file.toJSON(): ");
-            console.log(file.toJSON());
 
-            const fileData = {
-                filename: files.file.name,
-                type: files.file.type,
-                size: files.file.size,
-                path: files.file.filepath,
-                hash: files.file.hash
-            };
-            // filename, hash, path
+        console.log("file data: ");
+        console.log(file);
 
-            res.status(200).json({data: "ok", result: fileData, form: form});
-        });
+        const fileData = {
+          filename: file.originalname,
+          type: file.mimetype,
+          size: file.size,
+          path: file.path,
+          hash: fileHash
+        };
+
+        res.status(200).json({ data: "ok", result: fileData });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Could not move the file." });
+      }
     });
-
+  } else {
+    // Handle any other HTTP method
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 };

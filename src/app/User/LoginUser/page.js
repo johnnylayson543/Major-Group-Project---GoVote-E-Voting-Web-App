@@ -36,7 +36,7 @@ export default function Page() {
     console.log("Data and data result: ");
     console.log(data);
     console.log(data.result);
-    if(data.data== "Okay"){
+    if (data.data == "Okay") {
       console.log("Successfully Registered!");
     } else {
       console.log("Registration Failed!");
@@ -44,7 +44,7 @@ export default function Page() {
   }
 
   const goToAdminProfilePage = () => {
-      router.push('/Admin/Profile/');
+    router.push('/Admin/Profile/');
   };
   const goToUserProfilePage = () => {
     router.push('/User/Profile/');
@@ -60,7 +60,7 @@ export default function Page() {
   When the button is clicked, this is the event that is fired.
   The first thing we need to do is prevent the default refresh of the page.
   */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
 
     console.log("handling submit");
     event.preventDefault();
@@ -71,91 +71,91 @@ export default function Page() {
     console.log("Sent pass:" + pass)
 
     // Call this function to pass the data created by the FormData
-    runDBCallAsync(`http://localhost:3000/api/database/controllers/User/login_user/?ppsn=${ppsn}&pass=${pass}`)
+    await runDBCallAsync(`http://localhost:3000/api/database/controllers/User/login_user/?ppsn=${ppsn}&pass=${pass}`)
 
 
   }; // end handler
 
 
-  if(user){
+  if (user) {
     const user_roles = user.roles;
-    if (user_roles.filter(role => role == 'user')){
+    if (user_roles.filter(role => role == 'user')) {
       goToUserProfilePage();
-    } 
+    }
   }
 
-// This returns the front-end page
+  // This returns the front-end page
   return (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-              sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+
+        </Avatar>
+        <Header>
+        </Header>
+
+        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+          Login to GoVote
+        </Typography>
+
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="ppsn"
+            label="PPSN"
+            name="ppsn"
+            autoComplete="ppsn"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="pass"
+            label="Password"
+            type="password"
+            id="pass"
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            Login
+          </Button>
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2" underline="none" color="inherit">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="./register" variant="body2" underline="none" color="inherit">
+                {"Don't have an account on GoVote? Sign Up to start voting!"}
+              </Link>
+            </Grid>
+          </Grid>
 
-            </Avatar>
-            <Header>
-            </Header>
+        </Box>
+      </Box>
 
-            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-              Login to GoVote
-            </Typography>
-
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ppsn"
-                  label="PPSN"
-                  name="ppsn"
-                  autoComplete="ppsn"
-                  autoFocus
-              />
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="pass"
-                  label="Password"
-                  type="password"
-                  id="pass"
-                  autoComplete="current-password"
-              />
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-              >
-                Login
-              </Button>
-              <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-              />
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2" underline="none" color="inherit">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="./register" variant="body2" underline="none" color="inherit">
-                    {"Don't have an account on GoVote? Sign Up to start voting!"}
-                  </Link>
-                </Grid>
-              </Grid>
-
-            </Box>
-          </Box>
-
-        </Container>
+    </Container>
 
   );
 }
