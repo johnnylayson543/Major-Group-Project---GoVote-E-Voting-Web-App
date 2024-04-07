@@ -20,7 +20,12 @@ export function UserAuthentication({ children }) {
             const res = await fetch(`http://localhost:3000/api/database/controllers/User/is_signed_into_account`);
             const data = await res.json();
             const user = data.result;
+            //console.log("user 0");
+            //console.log(user);
+        
             if(user){
+                //console.log("user 1");
+                //console.log(user);
                 const person_ppsn = user.ppsn;
 
                 const isVoter = (user.roles).includes('voter');

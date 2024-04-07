@@ -51,7 +51,7 @@ export default function Page() {
 
     }, [user]);
 
-    if (!voter_signed_elections || !voter) return <p>No elections signed by the voter found. </p>;
+    if (!voter_signed_elections || !voter) return <Box><p>No elections signed by the voter found. </p></Box>;
     else {
         console.log("user on page:");
         console.log(user);

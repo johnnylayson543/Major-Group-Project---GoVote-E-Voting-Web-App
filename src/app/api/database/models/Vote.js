@@ -11,7 +11,7 @@ const voteSchema = new mongoose.Schema({
     candidateID: { type: String, required: true, unique: false, ref: 'Candidate' }
 });
 
-voteSchema.index({ voteID: 1, candidateID: 1 }, { unique: true });
+//voteSchema.index({ voteID: 1, candidateID: 1 }, { unique: true });
 
 class VoteClass {
     static async add_vote(x) {

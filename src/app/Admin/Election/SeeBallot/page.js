@@ -104,7 +104,7 @@ export default function Page() {
     router.push('/Admin/Ballot/');
   };
 
-  if (!ballot || !candidates_for_ballot || !election) return <p>No ballot or candidates_for_ballot or election found. </p>;
+  if (!ballot || !candidates_for_ballot || !election) return <Box><p>No ballot or candidates_for_ballot or election found. </p></Box>;
 
   let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>

@@ -27,7 +27,6 @@ export default function Header({ window }) {
     return (
         <header>
             <NavBar></NavBar>
-  
         </header>
     );
 }

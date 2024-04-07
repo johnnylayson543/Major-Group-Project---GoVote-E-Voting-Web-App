@@ -85,7 +85,7 @@ export default function Page() {
 
     }, []);
 
-    if (!election || !ballot || !candidates_for_the_ballot) return <p>No elections available. </p>;
+    if (!election || !ballot || !candidates_for_the_ballot || !user) return <p>No elections available. </p>;
     else {
         console.log("userInfo: ");
         console.log(user);
