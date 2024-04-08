@@ -2,78 +2,38 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
-
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
-
-import Script from 'next/script'
-import { Toolbar } from '@mui/material';
-
 import { useState, useEffect, useContext } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
-
-/*
-After the submit handler calls the runDBCallAsync, this does the thing
-This function does the actual work
-calling the fetch to get things from the database.
-*/
-async function runDBCallAsync(url) {
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (data.data == "valid") {
-    console.log("see ballot is valid!")
+import { useRouter } from 'next/navigation';
+import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
 
+export default function SeeCandidateVoterPage() {
 
-  } else {
-
-    console.log("see ballot is not valid!")
-  }
-}
-
-
-
-
-export default function Page() {
-
-
-  const { user, voter, admin } = useContext(UserContext);
-  const [votes_cast_by_the_voter, setVotesCastByTheVoter] = useState(null);
-  const [candidate_information, setCandidateInformation] = useState(null);
+  const { voter } = useContext(UserContext);
+  const [candidateInformation, setCandidateInformation] = useState(null);
   const router = useRouter();
+  const candidate_id = router.query.candidateID; // Use Next.js router to get query params
 
   useEffect(() => {
-    const { searchParams } = new URL(window.location.href);
-    const candidate_id = searchParams.get('candidateID');
-    fetch(`http://localhost:3000/api/database/controllers/Voter/Candidate/retrieve_candidate?candidateID=${candidate_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCandidateInformation(data.result);
+    if (candidate_id) {
+      fetch(`http://localhost:3000/api/database/controllers/Voter/Candidate/retrieve_candidate?candidateID=${encodeURIComponent(candidate_id)}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setCandidateInformation(data.result);
+        })
+        .catch((error) => {
+          console.error('Failed to fetch candidate information:', error);
+        });
+    }
+  }, [candidate_id]);
 
-        console.log("Ballot Candidate data")
-        console.log(data.result);
-      })
-
-
-  }, []);
-
-
-
-
-  if (!candidate_information) return <p>No ballot or candidates_for_ballot or election found. </p>;
+  if (!candidateInformation) return <Typography>No ballot or candidates_for_ballot or election found.</Typography>;
 
   let dataElement1 =
     <tr key={candidate_information.ballot._id.toString()}><td>{candidate_information.ballot._id}</td><td>{candidate_information.ballot.closing_datetime}</td><td>{candidate_information.ballot.title}</td></tr>
@@ -132,20 +92,14 @@ export default function Page() {
     router.push('/Voter/Profile/');
   };
 
-
   const goBackToMyVotesCast = (voter_id) => {
-    router.push('/Voter/Vote/MyVotesCast?voterID=' + voter_id + '}');
+    router.push(`/Voter/Vote/MyVotesCast?voterID=${encodeURIComponent(voter_id)}`);
   };
 
 
   return (
-
-    <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-      <Toolbar></Toolbar>
-      {element}
-    </Box>
-
-
+    <Layout>
+        {element}
+    </Layout>
   );
 }

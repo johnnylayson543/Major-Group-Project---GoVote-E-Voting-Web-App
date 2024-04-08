@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react';
-import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -19,13 +17,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import PollIcon from '@mui/icons-material/Poll';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { blue, green, purple, white, pink } from '@mui/material/colors';
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 
 export default function Page() {
@@ -163,9 +159,8 @@ export default function Page() {
     </Box>
 
     const goBackToSignedUpElections = (voter_id) => {
-        router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
+        router.push(`/Voter/Election/SignedUpForElections?voterID=${voter_id}`);
     };
-
     const goBackToAdminProfile = (admin_id) => {
         router.push('/Admin/Profile?adminID={' + admin_id + '}');
     };
@@ -176,12 +171,7 @@ export default function Page() {
 
     // Front-End Page
     return (
-        <Box component="main" sx={{ p: 3 }}>
-            <Header>
-            </Header>
-            <Toolbar>
-            </Toolbar>
-            <br></br>
+        <Layout>
             <Grid container spacing={10}>
                 <Grid item xs={3.5}>
                     <Item>
@@ -236,7 +226,7 @@ export default function Page() {
                     </Item>
                 </Grid>
             </Grid>
-        </Box>
+        </Layout>
     );
 
 }

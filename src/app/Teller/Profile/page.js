@@ -1,7 +1,6 @@
 'use client'
 
 import PollIcon from '@mui/icons-material/Poll';
-import { blue, green, purple, white, pink } from '@mui/material/colors';
 import React from 'react';
 import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
@@ -15,14 +14,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import Face6Icon from '@mui/icons-material/Face6';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useRouter } from 'next/navigation';
-import { useContext } from 'react'
-import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
-export default function Page() {
+export default function Profile_TellerPage() {
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
@@ -33,12 +29,7 @@ export default function Page() {
 
     // Front-End Page
     return (
-        <Box component="main" sx={{ p: 3 }}>
-            <Header>
-            </Header>
-            <Toolbar>
-            </Toolbar>
-            <br></br>
+        <Layout>
             <Grid container spacing={10}>
                 <Grid item xs={4}>
                     <Item>
@@ -97,7 +88,7 @@ export default function Page() {
                     </Item>
                 </Grid>
             </Grid>
-        </Box>
+        </Layout>
     );
 
 }

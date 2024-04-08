@@ -148,6 +148,7 @@ class UserClass {
     static async is_signed_into_account(x) {
         try {
             const isToken = cookies().get("user_token") != undefined;
+            console.log(isToken);
             if (isToken) {
                 const token = cookies().get("user_token").value;
                 //console.log("token from cookies:");

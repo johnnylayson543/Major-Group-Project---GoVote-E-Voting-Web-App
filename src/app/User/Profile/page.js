@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react';
-import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -19,8 +17,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
-export default function Page() {
+export default function MediaMainPage_UserPage() {
 
     const router = useRouter();
     const { user, voter, admin, teller } = useContext(UserContext);
@@ -90,12 +89,7 @@ export default function Page() {
 
     // Front-End Page
     return (
-        <Box component="main" sx={{ p: 3 }}>
-            <Header>
-            </Header>
-            <Toolbar>
-            </Toolbar>
-            <br></br>
+        <Layout>
             <Grid container spacing={10}>
                 <Grid item xs={4}>
                     <Item>
@@ -115,7 +109,7 @@ export default function Page() {
                 </Item>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={5}>
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
@@ -154,7 +148,7 @@ export default function Page() {
                     </Item>
                 </Grid>
             </Grid>
-        </Box>
+        </Layout>
     );
 
 }

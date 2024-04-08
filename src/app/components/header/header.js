@@ -1,6 +1,6 @@
+'use client'
 import NavBar from "./navBar";
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
 import { useRouter } from 'next/navigation';
 
 export default function Header({ window }) {

@@ -1,32 +1,16 @@
 'use client';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
-import { useState, useEffect, useContext } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
+import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
-// WARNING: Still Incomplete, needs candidate page on the MongoDB cloud and still figuring out about the name. 
-// This is the most important part of the prototype that needs to be completed asap. some variables here like the ballotID are temporary placeholders
-
-export default function Page() {
-
-  const { user, voter, admin } = useContext(UserContext);
-  const [ballot, setBallot] = useState(null);
-  const [election, setElection] = useState(null);
-  const [candidates_for_ballot, setBallotCandidates] = useState(null);
+export default function CastYourVoteVoterPage() {
+  const { voter } = useContext(UserContext);
+  const [data, setData] = useState({ ballot: null, election: null, candidates_on_the_ballot: null });
   const router = useRouter();
 
   //
@@ -57,49 +41,29 @@ export default function Page() {
 
 
   useEffect(() => {
-    const { searchParams } = new URL(window.location.href);
-    const ballot_id = searchParams.get('ballotID');
+    const ballot_id = router.query.ballotID; // Use the router to get the ballotID
 
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBallot(data.result);
-
-        console.log("Ballot data");
-        console.log(data.result);
+    if (ballot_id) {
+      Promise.all([
+        fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`),
+        fetch(`http://localhost:3000/api/database/controllers/Admin/Election/retrieve_the_election?ballotID=${ballot_id}`),
+        fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`),
+      ])
+      .then(async ([ballotRes, electionRes, candidatesRes]) => {
+        if (!ballotRes.ok || !electionRes.ok || !candidatesRes.ok) throw new Error('One or more requests failed');
+        const ballot = await ballotRes.json();
+        const election = await electionRes.json();
+        const candidates = await candidatesRes.json();
+        setData({ ballot: ballot.result, election: election.result, candidates: candidates.result });
       })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    }
+  }, [router.query.ballotID]);
 
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Election/retrieve_the_election?ballotID=${ballot_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setElection(data.result);
-
-
-        console.log("Election data");
-        console.log(data.result);
-      })
-
-    fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBallotCandidates(data.result);
-
-        console.log("Ballot Candidates data")
-        console.log(data.result);
-      })
-
-  }, []);
-
-
-  // If there is no data
-  if (!ballot || !election || !candidates_for_ballot || !voter) return <p>Loading</p>
-  else {
-    console.log("user on page:");
-    console.log(user);
-    console.log("voter on page:");
-    console.log(voter);
-    console.log("admin on page:");
-    console.log(admin);
+  if (!data.ballot || !data.election || !data.candidates) {
+    return <Typography>Loading...</Typography>;
   }
 
   let voterButton;
@@ -109,16 +73,16 @@ export default function Page() {
   }
 
 
-  let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
+  let dataElement1 = 
+    <tr key={data.ballot._id.toString()}><td>{data.ballot._id}</td><td>{data.ballot.closing_datetime}</td><td>{data.ballot.title}</td></tr>
 
     ;
-  let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
+  let dataElement2 = (data.candidates_on_the_ballot.map(ballot_candidate =>
     <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goCastTheVote(voter._id, ballot_candidate._id)}>Vote</button></td></tr>
   ));
 
   let dataElement3 =
-    <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+    <tr key={data.election._id}><td>{data.election._id}</td><td>{data.election.ballotID}</td></tr>
 
     ;
   let element = <Box>
@@ -178,9 +142,8 @@ export default function Page() {
     },
   });
   return (
-    <ThemeProvider theme={theme}>
-
+    <Layout>
       {element}
-    </ThemeProvider>
+    </Layout>
   );
 }

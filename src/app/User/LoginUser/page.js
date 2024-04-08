@@ -13,10 +13,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useState } from 'react'
+import Layout from '@/app/layout';
 
-export default function Page() {
+export default function Login_UserPage() {
 
   //const { user, voter } = useContext(UserContext);
   const [user, setUser] = useState(null);
@@ -86,76 +86,74 @@ export default function Page() {
 
   // This returns the front-end page
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+    <Layout>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
-        </Avatar>
-        <Header>
-        </Header>
+          </Avatar>
+          <Header>
+          </Header>
 
-        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-          Login to GoVote
-        </Typography>
+          <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+            Login to GoVote
+          </Typography>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="ppsn"
-            label="PPSN"
-            name="ppsn"
-            autoComplete="ppsn"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="pass"
-            label="Password"
-            type="password"
-            id="pass"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Login
-          </Button>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2" underline="none" color="inherit">
-                Forgot password?
-              </Link>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="ppsn"
+              label="PPSN"
+              name="ppsn"
+              autoComplete="ppsn"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="pass"
+              label="Password"
+              type="password"
+              id="pass"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Login
+            </Button>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2" underline="none" color="inherit">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="./register" variant="body2" underline="none" color="inherit">
+                  {"Don't have an account on GoVote? Sign Up to start voting!"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link href="./register" variant="body2" underline="none" color="inherit">
-                {"Don't have an account on GoVote? Sign Up to start voting!"}
-              </Link>
-            </Grid>
-          </Grid>
 
+          </Box>
         </Box>
-      </Box>
 
-    </Container>
-
+    </Layout>
   );
 }

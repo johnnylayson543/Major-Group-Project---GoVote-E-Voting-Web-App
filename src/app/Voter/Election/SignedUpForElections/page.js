@@ -1,36 +1,13 @@
 'use client';
 import * as React from 'react';
 
-import Header from '../../../components/header/header';
 import Box from '@mui/material/Box';
-import { Toolbar } from '@mui/material';
 import { useState, useEffect, useContext } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
+import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
-/*
-After the submit handler calls the runDBCallAsync, this does the thing
-This function does the actual work
-calling the fetch to get things from the database.
-*/
-async function runDBCallAsync(url) {
-
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (data.data == "valid") {
-        console.log("election is valid!")
-
-
-
-    } else {
-
-        console.log("election is not valid!")
-    }
-}
-
-
-export default function Page() {
+export default function SignedUpForElections_VoterPage() {
 
     const { user, voter, admin } = useContext(UserContext);
     const [voter_signed_elections, setVoterSignedElections] = useState(null);
@@ -104,14 +81,8 @@ export default function Page() {
 
 
     return (
-
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-            <Header></Header>
-            <Toolbar></Toolbar>
-            {element}
-        </Box>
-
-
+        <Layout title="Signed Up For Election">
+                {element}
+        </Layout>
     );
 }

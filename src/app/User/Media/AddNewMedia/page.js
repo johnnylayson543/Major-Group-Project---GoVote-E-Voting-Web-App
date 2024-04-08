@@ -6,9 +6,10 @@ import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
 
-export default function Page() {
+export default function AddNewMedia_Media_UserPage() {
 
     const router = useRouter();
     const { user, voter, admin, teller } = useContext(UserContext);
@@ -80,7 +81,7 @@ export default function Page() {
     }
 
     return (
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
+        <Layout>
 
             <Toolbar></Toolbar>
             <form onSubmit={handleSubmit}>
@@ -109,7 +110,6 @@ export default function Page() {
                 </Button>
             </form>
 
-        </Box>
-
+        </Layout>
     );
 }

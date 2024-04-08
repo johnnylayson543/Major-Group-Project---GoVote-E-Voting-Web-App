@@ -3,15 +3,14 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Header from '../../components/header/header';
-import Chart from 'chart.js/auto'; // Add this line
 
-import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 
-export default function Page() {
+export default function ElectionMainPage_Election_TellerPage() {
 
     const [finished_elections, setFinishedElections] = useState(null);
     const [tally_for_election, setTallyForElection] = useState(null);
@@ -79,13 +78,8 @@ export default function Page() {
     }
 
     return (
-
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-            <Header></Header>
-            <Toolbar></Toolbar>
+        <Layout>
             {element}
-        </Box>
-
-
+        </Layout>
     );
 }
