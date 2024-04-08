@@ -33,7 +33,7 @@ async function runDBCallAsync(url) {
 
 
 
-export default function VoteMainPage_Election_TellerPage() {
+export default function Page() {
 
     const [finished_elections, setFinishedElections] = useState(null);
     const [election_tallies, setElectionTallies] = useState(null);

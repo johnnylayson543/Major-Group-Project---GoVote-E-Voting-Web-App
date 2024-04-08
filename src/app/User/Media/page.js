@@ -37,7 +37,7 @@ async function runDBCallAsync(url) {
 
 
 
-export default function MediaMainPage_UserPage() {
+export default function Page() {
 
     const { user, voter } = useContext(UserContext);
     const [media_for_this_user, setMediaForThisUser] = useState(null);

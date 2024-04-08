@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import Layout from '@/app/layout';
 
 
-export default function SeeBallot_Election_VoterPage() {
+export default function Page() {
 
   const { voter } = useContext(UserContext);
   const [ballot, setBallot] = useState(null);

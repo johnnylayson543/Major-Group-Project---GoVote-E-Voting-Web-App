@@ -10,7 +10,7 @@ import Layout from '@/app/layout';
 
 
 
-export default function SignUpForTheElection_VoterPage() {
+export default function Page() {
     const router = useRouter();
 
     const { user, voter } = useContext(UserContext);

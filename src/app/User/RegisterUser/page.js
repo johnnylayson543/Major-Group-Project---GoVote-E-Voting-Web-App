@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Layout from '@/app/layout';
 
-export default function Register_UserPage() {
+export default function Page() {
 
   /*
   This function does the actual work

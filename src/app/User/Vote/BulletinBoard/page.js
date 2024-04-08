@@ -35,7 +35,7 @@ const rows = [
 ];
 
 // Front-End Page
-export default function BulletinBoard_Vote_UserPage() {
+export default function Page() {
   return (
     <Layout>
         <Grid container spacing={12}>

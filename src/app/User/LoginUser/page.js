@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import Layout from '@/app/layout';
 
-export default function Login_UserPage() {
+export default function Page() {
 
   //const { user, voter } = useContext(UserContext);
   const [user, setUser] = useState(null);

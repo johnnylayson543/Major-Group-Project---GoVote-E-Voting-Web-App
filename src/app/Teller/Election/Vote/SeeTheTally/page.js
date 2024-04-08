@@ -32,7 +32,7 @@ async function runDBCallAsync(url) {
 
 
 
-export default function SeeTheTally_Vote_Election_TellerPage() {
+export default function Page() {
 
   const { user, voter } = useContext(UserContext);
   const [ballot, setBallot] = useState(null);

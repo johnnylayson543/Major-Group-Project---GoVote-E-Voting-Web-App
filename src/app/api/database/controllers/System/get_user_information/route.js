@@ -4,17 +4,19 @@ import { cookies } from "next/headers";
 export async function GET(req, res) {
 
     const isToken = cookies().get("user_token") != undefined;
-
+    console.log(isToken);
     if (!isToken) {
         // Not signed in
-        return Response.json({data: "Not signed in", result: null});
+        res = Response.json({data: "Not signed in", result: null});
+        return res;
     } else {
         try {
-            console.log("user fetch: ");
+            console.log("user fetch: ");    //                     \api\database\controllers\User\is_signed_into_account\
             const userResponse = await fetch('http://localhost:3000/api/database/controllers/User/is_signed_into_account');
-            const user = await userResponse.json();
+            const userData = await userResponse.json();
             console.log("user: ");
             console.log(user);
+            user = userData.result;
             const roles = user.roles;
             const person_ppsn = user.ppsn;
 
@@ -55,7 +57,7 @@ export async function GET(req, res) {
             }
 
             console.log(data);
-            return res.json({ data: "okay", result: data });
+            return Response.json({ data: "okay", result: data });
         } catch (error) {
             console.error('There has been a problem with your fetch operation:', error);
         }

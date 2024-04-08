@@ -16,7 +16,7 @@ This function does the actual work
 calling the fetch to get things from the database.
 */
 
-export default function ElectionMainPage_VoterPage() {
+export default function Page() {
 
     const { voter } = useContext(UserContext);
     const [elections, setElections] = useState(null);

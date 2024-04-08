@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { UserContext } from '@/app/components/header/userAuthentication';
 import Layout from '@/app/layout';
 
-export default function MyVotesCastVoterPage() {
+export default function Page() {
   const { voter } = useContext(UserContext);
   const [votesCastByTheVoter, setVotesCastByTheVoter] = useState([]);
   const router = useRouter();

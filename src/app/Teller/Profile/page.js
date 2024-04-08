@@ -18,7 +18,7 @@ import Face6Icon from '@mui/icons-material/Face6';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Layout from '@/app/layout';
 
-export default function Profile_TellerPage() {
+export default function Page() {
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (

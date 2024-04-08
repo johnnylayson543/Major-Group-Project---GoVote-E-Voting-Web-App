@@ -19,7 +19,7 @@ import { useContext } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
 import Layout from '@/app/layout';
 
-export default function MediaMainPage_UserPage() {
+export default function Page() {
 
     const router = useRouter();
     const { user, voter, admin, teller } = useContext(UserContext);

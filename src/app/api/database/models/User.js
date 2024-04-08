@@ -147,66 +147,72 @@ class UserClass {
 
     static async is_signed_into_account(x) {
         try {
-            const isToken = cookies().get("user_token") != undefined;
+            const isToken = cookies().get("user_token") != undefined || cookies().get("user_token") != false;
+            console.log("isToken: ");
             console.log(isToken);
             if (isToken) {
-                const token = cookies().get("user_token").value;
-                //console.log("token from cookies:");
-                //console.log(token);
-                const filter_user_from_cookie = { token: token };
-                const user_found = await User.findOne(filter_user_from_cookie);
-                //console.log("user_found:");
-                //console.log(user_found);
+                const cookie = cookies().get("user_token");
+                if (cookie.value) {
+                    console.log("ENTERED");
+                    console.log(cookie);
+                    const token = cookie.value;
+                    console.log("token from cookies:");
+                    console.log(token);
+                    const filter_user_from_cookie = { token: token };
+                    const user_found = await User.findOne(filter_user_from_cookie);
+                    //console.log("user_found:");
+                    //console.log(user_found);
 
-                const userIsFound = user_found && user_found != {};
-                if (userIsFound) {
-                    const filter_admin = { person_ppsn: user_found.ppsn };
-                    const admin = await Admin.findOne(filter_admin);
-                    //console.log("admin: ");
-                    //console.log(admin);
+                    const userIsFound = user_found && user_found != {};
+                    if (userIsFound) {
+                        const filter_admin = { person_ppsn: user_found.ppsn };
+                        const admin = await Admin.findOne(filter_admin);
+                        //console.log("admin: ");
+                        //console.log(admin);
 
-                    const filter_voter = { person_ppsn: user_found.ppsn };
-                    const voter = await Voter.findOne(filter_voter);
-                    //console.log("voter: ");
-                    //console.log(voter);
+                        const filter_voter = { person_ppsn: user_found.ppsn };
+                        const voter = await Voter.findOne(filter_voter);
+                        //console.log("voter: ");
+                        //console.log(voter);
 
-                    const filter_teller = { person_ppsn: user_found.ppsn };
-                    const teller = await Teller.findOne(filter_teller);
-                    //console.log("teller: ");
-                    //console.log(teller);
+                        const filter_teller = { person_ppsn: user_found.ppsn };
+                        const teller = await Teller.findOne(filter_teller);
+                        //console.log("teller: ");
+                        //console.log(teller);
 
-                    const filter_candidate = { person_ppsn: user_found.ppsn };
-                    const candidate = await Candidate.findOne(filter_candidate);
-                    //console.log("candidate: ");
-                    //console.log(candidate);
-                    
-                    const roles = user_found.roles;
-                    //console.log("roles: ");
-                    //console.log(roles);
-                    if (admin && !(roles.includes('admin'))) roles.push('admin');
-                    if (voter && !(roles.includes('voter'))) roles.push('voter');
-                    if (teller && !(roles.includes('teller'))) roles.push('teller');
-                    if (candidate && !(roles.includes('candidate'))) roles.push('candidate');
+                        const filter_candidate = { person_ppsn: user_found.ppsn };
+                        const candidate = await Candidate.findOne(filter_candidate);
+                        //console.log("candidate: ");
+                        //console.log(candidate);
 
-                    const filter = { _id: user_found._id };
-                    const update = { $set: { roles: roles } }
+                        const roles = user_found.roles;
+                        //console.log("roles: ");
+                        //console.log(roles);
+                        if (admin && !(roles.includes('admin'))) roles.push('admin');
+                        if (voter && !(roles.includes('voter'))) roles.push('voter');
+                        if (teller && !(roles.includes('teller'))) roles.push('teller');
+                        if (candidate && !(roles.includes('candidate'))) roles.push('candidate');
 
-                    const user_updated = await User.updateOne(filter, update);
-                    const user_found1 = await User.findOne(filter);
-                    //console.log("user_found: ");
-                    //console.log(user_found1);
-                    //console.log("filter: ");
-                    //console.log(filter);
+                        const filter = { _id: user_found._id };
+                        const update = { $set: { roles: roles } }
+
+                        const user_updated = await User.updateOne(filter, update);
+                        const user_found1 = await User.findOne(filter);
+                        //console.log("user_found: ");
+                        //console.log(user_found1);
+                        //console.log("filter: ");
+                        //console.log(filter);
 
 
-                    cookies().set('user_token', user_found1.token);
-                    for (const role in user_found1.roles) {
-                        cookies().set('user_role_' + role, true);
-                    }
-                    cookies().set('user_authenticated', true);
-                    //console.log(cookies().toString());
+                        cookies().set('user_token', user_found1.token);
+                        for (const role in user_found1.roles) {
+                            cookies().set('user_role_' + role, true);
+                        }
+                        cookies().set('user_authenticated', true);
+                        //console.log(cookies().toString());
 
-                    return user_found1;
+                        return user_found1;
+                    };
                 };
             } else {
                 console.log("Mystery error. ")

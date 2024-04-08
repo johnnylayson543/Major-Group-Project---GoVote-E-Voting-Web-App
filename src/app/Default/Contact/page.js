@@ -17,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Contact_DefaultPage() {
+export default function Page() {
   // Form submission handler
   const handleSubmit = (event) => {
     event.preventDefault();

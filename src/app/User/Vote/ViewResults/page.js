@@ -34,7 +34,7 @@ const rows = [
 ];
 
 // Front-End Page
-export default function ViewResults_Vote_UserPage() {
+export default function Page() {
   return (
     <Layout>
         <Header></Header>

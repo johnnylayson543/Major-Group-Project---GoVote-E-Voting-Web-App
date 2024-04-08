@@ -9,7 +9,7 @@ import { UserContext } from '@/app/components/header/userAuthentication';
 import Layout from '@/app/layout';
 
 
-export default function AddNewMedia_Media_UserPage() {
+export default function Page() {
 
     const router = useRouter();
     const { user, voter, admin, teller } = useContext(UserContext);

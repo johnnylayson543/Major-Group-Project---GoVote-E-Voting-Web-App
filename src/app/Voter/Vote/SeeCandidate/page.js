@@ -8,7 +8,7 @@ import { UserContext } from '@/app/components/header/userAuthentication';
 import Layout from '@/app/layout';
 
 
-export default function SeeCandidateVoterPage() {
+export default function Page() {
 
   const { voter } = useContext(UserContext);
   const [candidateInformation, setCandidateInformation] = useState(null);

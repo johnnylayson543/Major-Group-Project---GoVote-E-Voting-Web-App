@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Layout from '@/app/layout';
 
 
-export default function RecastVoteVoterPage() {
+export default function Page() {
   const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {

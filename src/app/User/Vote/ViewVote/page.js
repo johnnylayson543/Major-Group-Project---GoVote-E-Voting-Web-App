@@ -19,7 +19,7 @@ const Item = ({ children }) => (
 
 // Front-End Page for the view vote that was elected by the client voter (like a reciept). 
 // Currently has placeholder values.
-export default function ViewVote_Vote_UserPage() {
+export default function Page() {
   return (
     <Layout>
         <Header></Header>

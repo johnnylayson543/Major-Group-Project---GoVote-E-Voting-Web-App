@@ -12,6 +12,7 @@ export function UserAuthentication({ children }) {
     const [person, setPerson] = useState(null);
     const [votes, setVotes] = useState(null);
     const [candidate, setCandidate] = useState(null);
+    const [user_information, setUserInformation] = useState(null);
 
     useEffect(() => {
         let isMounted = true;
@@ -19,12 +20,11 @@ export function UserAuthentication({ children }) {
         const getUserInfo = async () => {
             const res = await fetch(`http://localhost:3000/api/database/controllers/System/get_user_information`);
             const data = await res.json();
-            const user_information = data.result;
-            console.log("user_information: ");
-            console.log(user_information);
+            setUserInformation(data.result);
+            
 
-
-            if (isMounted) {
+            if (isMounted && user_information) {
+                console.log(user_information);
                 if (user_information.user) {
                     setUser(user_information.user);
                     if (user_information.voter) {

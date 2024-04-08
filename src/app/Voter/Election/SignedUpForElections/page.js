@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { UserContext } from '@/app/components/header/userAuthentication';
 import Layout from '@/app/layout';
 
-export default function SignedUpForElections_VoterPage() {
+export default function Page() {
 
     const { user, voter, admin } = useContext(UserContext);
     const [voter_signed_elections, setVoterSignedElections] = useState(null);

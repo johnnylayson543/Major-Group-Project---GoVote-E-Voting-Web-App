@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Layout from './layout'; // Make sure the import matches the actual file name and export
 
-export default function WelcomePage() {
+export default function Page() {
     const [registrationStatus, setRegistrationStatus] = useState('');
 
     // This function does the actual work

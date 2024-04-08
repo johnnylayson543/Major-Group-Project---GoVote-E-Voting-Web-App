@@ -18,7 +18,7 @@ import Layout from '@/app/layout';
 
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
-export default function UpdateMyDetails_UserPage() {
+export default function Page() {
 
   const router = useRouter();
   const { user, person } = useContext(UserContext);

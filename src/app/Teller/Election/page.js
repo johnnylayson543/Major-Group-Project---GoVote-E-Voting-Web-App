@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import Layout from '@/app/layout';
 
 
-export default function ElectionMainPage_Election_TellerPage() {
+export default function Page() {
 
     const [finished_elections, setFinishedElections] = useState(null);
     const [tally_for_election, setTallyForElection] = useState(null);

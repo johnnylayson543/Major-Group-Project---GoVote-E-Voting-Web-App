@@ -42,7 +42,7 @@ const rows = [
 
 // Front-End Page for the view check that allows the admin or teller to check and see the voters. 
 // Currently has placeholder values and is not final.
-export default function ViewResults_Vote_UserPage() {
+export default function Page() {
     return (
         <Layout>
             <Header></Header>
