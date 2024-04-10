@@ -1,16 +1,18 @@
 'use client';
 import * as React from 'react';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
 import { UserContext } from '@/app/components/header/userAuthentication';
-import Layout from '@/app/layout';
+import { useSearchParams } from 'next/navigation'
 
 export default function Page() {
   const { voter } = useContext(UserContext);
   const [data, setData] = useState({ ballot: null, election: null, candidates_on_the_ballot: null });
+  //const [ballot, setBallot] = useState(null);
+  //const [election, setElection] = useState(null);
+  //const [candidates, setCandidates] = useState(null);
   const router = useRouter();
 
   //
@@ -40,29 +42,49 @@ export default function Page() {
 
 
 
-  useEffect(() => {
-    const ballot_id = router.query.ballotID; // Use the router to get the ballotID
+useEffect(() => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const ballot_id = searchParams.get('ballotID');
 
-    if (ballot_id) {
-      Promise.all([
+  if (!ballot_id) {
+    console.error('No ballotID found in query string');
+    return;
+  }
+
+  console.log("ballot_id:", ballot_id);
+
+  const fetchBallotData = async () => {
+    try {
+      const responses = await Promise.all([
         fetch(`http://localhost:3000/api/database/controllers/Admin/Ballot/retrieve_the_ballot?ballotID=${ballot_id}`),
         fetch(`http://localhost:3000/api/database/controllers/Admin/Election/retrieve_the_election?ballotID=${ballot_id}`),
         fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`),
-      ])
-      .then(async ([ballotRes, electionRes, candidatesRes]) => {
-        if (!ballotRes.ok || !electionRes.ok || !candidatesRes.ok) throw new Error('One or more requests failed');
-        const ballot = await ballotRes.json();
-        const election = await electionRes.json();
-        const candidates = await candidatesRes.json();
-        setData({ ballot: ballot.result, election: election.result, candidates: candidates.result });
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-    }
-  }, [router.query.ballotID]);
+      ]);
 
-  if (!data.ballot || !data.election || !data.candidates) {
+      const jsonResponses = await Promise.all(responses.map(res => {
+        if (!res.ok) throw new Error(`HTTP status ${res.status}`);
+        return res.json();
+      }));
+
+      // Assuming the API returns a JSON object with a "result" field
+      const [ballot, election, candidates] = jsonResponses.map(json => json.result);
+
+      setData({ ballot, election, candidates });
+
+      console.log("ballot:", ballot);
+      console.log("election:", election);
+      console.log("candidates:", candidates);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchBallotData();
+}, []);
+
+// ...
+
+  if (!data) {
     return <Typography>Loading...</Typography>;
   }
 
@@ -76,7 +98,7 @@ export default function Page() {
   let dataElement1 = 
     <tr key={data.ballot._id.toString()}><td>{data.ballot._id}</td><td>{data.ballot.closing_datetime}</td><td>{data.ballot.title}</td></tr>
 
-    ;
+  ;
   let dataElement2 = (data.candidates_on_the_ballot.map(ballot_candidate =>
     <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goCastTheVote(voter._id, ballot_candidate._id)}>Vote</button></td></tr>
   ));
