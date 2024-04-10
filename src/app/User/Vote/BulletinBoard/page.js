@@ -37,7 +37,7 @@ const rows = [
 // Front-End Page
 export default function Page() {
   return (
-    <Layout>
+    <>
         <Grid container spacing={12}>
           <Grid item xs={12}>
             <Item>
@@ -59,6 +59,6 @@ export default function Page() {
             </Item>
           </Grid>
         </Grid>
-    </Layout>
+    </>
   );
 }

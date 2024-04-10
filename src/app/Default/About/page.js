@@ -7,7 +7,7 @@ import Layout from '@/app/layout'; // Assuming this is the correct path for your
 
 export default function Page() {
     return (
-        <Layout>
+        <>
             <Box textAlign="center" sx={{ my: 4 }}>
                 <Typography variant="h5" fontWeight={800} color="black" gutterBottom>
                     Welcome to GoVote
@@ -56,6 +56,6 @@ export default function Page() {
                     Register
                 </Button>
             </Box>
-        </Layout>
+        </>
     );
 }

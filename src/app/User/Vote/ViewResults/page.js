@@ -36,7 +36,7 @@ const rows = [
 // Front-End Page
 export default function Page() {
   return (
-    <Layout>
+    <>
         <Header></Header>
         <Toolbar></Toolbar>
         <br></br>
@@ -64,6 +64,6 @@ export default function Page() {
             </Item>
           </Grid>
         </Grid>
-    </Layout>
+    </>
   );
 }

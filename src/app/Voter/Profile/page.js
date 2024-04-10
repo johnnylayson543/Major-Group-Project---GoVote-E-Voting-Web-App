@@ -171,7 +171,7 @@ export default function Page() {
 
     // Front-End Page
     return (
-        <Layout>
+        <>
             <Grid container spacing={10}>
                 <Grid item xs={3.5}>
                     <Item>
@@ -226,7 +226,7 @@ export default function Page() {
                     </Item>
                 </Grid>
             </Grid>
-        </Layout>
+        </>
     );
 
 }

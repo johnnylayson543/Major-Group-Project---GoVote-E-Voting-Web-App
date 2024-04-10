@@ -142,8 +142,8 @@ export default function Page() {
     },
   });
   return (
-    <Layout>
+    <>
       {element}
-    </Layout>
+    </>
   );
 }

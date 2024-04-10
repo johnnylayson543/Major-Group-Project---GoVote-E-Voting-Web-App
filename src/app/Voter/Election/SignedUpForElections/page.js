@@ -81,8 +81,8 @@ export default function Page() {
 
 
     return (
-        <Layout title="Signed Up For Election">
+        <>
                 {element}
-        </Layout>
+        </>
     );
 }

@@ -112,13 +112,13 @@ export default function Page() {
     }
 
     return (
-        <Layout>
+        <>
             <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
                 <Header></Header>
                 <Toolbar></Toolbar>
                 {element}
             </Box>
-        </Layout>
+        </>
 
     );
 }

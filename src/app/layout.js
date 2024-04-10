@@ -11,10 +11,10 @@ export default function Layout({ children, title = "GoVote - E-Voting Website" }
     
     <html lang="en">
     
-      <Head>
+      <head>
         <title>{title}</title>
         <meta name="description" content="E-Voting Website for Ireland" />
-      </Head>
+      </head>
 
 
       <body>
@@ -23,9 +23,7 @@ export default function Layout({ children, title = "GoVote - E-Voting Website" }
         <Header />
         <Toolbar />
         <main>
-        <Container maxWidth="md">
           {children}
-        </Container>
         </main>
       </Providers>
 

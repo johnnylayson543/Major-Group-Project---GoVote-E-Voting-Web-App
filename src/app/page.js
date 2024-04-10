@@ -9,6 +9,7 @@ import MuiLink from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Layout from './layout'; 
+import { Container, CssBaseline, Toolbar } from '@mui/material';
 
 export default function Page() {
     const [registrationStatus, setRegistrationStatus] = useState('');
@@ -59,7 +60,7 @@ export default function Page() {
     );
 
     return (
-        <Layout>
+        <>
             <Box sx={{ p: 3 }}>
                 <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
                     Welcome to GoVote - Ireland's No. 1 E-Voting Website!
@@ -124,15 +125,14 @@ export default function Page() {
                                 Login
                             </Button>
 
-                            <Link href="./register" passHref>
-                                <MuiLink variant="body2" textAlign={"center"} underline="none" color="inherit">
+                                <MuiLink href="./register" variant="body2" textAlign={"center"} underline="none" color="inherit">
                                     {"New Here? Register An Account Now!"}
                                 </MuiLink>
-                            </Link>
+                            
                         </Box>
                     </Item>
                 </Grid>
             </Box>
-        </Layout>
+            </>
     );
 }

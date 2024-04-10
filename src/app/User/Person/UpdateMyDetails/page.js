@@ -101,7 +101,7 @@ export default function Page() {
   // The actual front-end page
   return (
 
-    <Layout>
+    <>
       <Box>
       <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
         Update Details
@@ -173,7 +173,7 @@ export default function Page() {
         </Box>
       </Box>
 
-    </Layout>
+    </>
 
   );
 }

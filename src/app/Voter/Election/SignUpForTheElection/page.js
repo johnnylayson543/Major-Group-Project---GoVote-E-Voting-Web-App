@@ -143,13 +143,13 @@ export default function Page() {
 
 
     return (
-        <Layout>
+        <>
                 <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
                     Register For Election
 
                 </Typography>
                 {element}
-        </Layout>
+        </>
 
     );
 }

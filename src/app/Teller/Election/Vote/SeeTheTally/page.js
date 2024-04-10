@@ -204,11 +204,11 @@ export default function Page() {
   };
 
   return (
-    <Layout>
+    <>
       <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         {element}
       </Box>
-    </Layout>
+    </>
 
   );
 }

@@ -25,7 +25,7 @@ export default function Page() {
   };
 
   return (
-    <Layout>
+    <>
       <Box component="main" sx={{ p: 3 }}>
         <Typography variant="h5" component="h2" fontWeight={800} gutterBottom>
           Contact Us
@@ -91,6 +91,6 @@ export default function Page() {
           </Grid>
         </Box>
       </Box>
-    </Layout>
+    </>
   );
 }

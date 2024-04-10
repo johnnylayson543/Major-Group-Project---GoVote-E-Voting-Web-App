@@ -61,7 +61,7 @@ export default function Page() {
   }));
 
   return (
-    <Layout>
+    <>
         <Typography variant="h5" component="h2" fontWeight={800} color="black" align='center'>
           My Votes Cast
         </Typography>
@@ -89,6 +89,6 @@ export default function Page() {
             </Button>
           )}
         </Box>
-    </Layout>
+    </>
   );
 }

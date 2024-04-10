@@ -86,7 +86,7 @@ export default function Page() {
 
   // This returns the front-end page
   return (
-    <Layout>
+    <>
         <Box
           sx={{
             marginTop: 8,
@@ -152,6 +152,6 @@ export default function Page() {
           </Box>
         </Box>
 
-    </Layout>
+    </>
   );
 }

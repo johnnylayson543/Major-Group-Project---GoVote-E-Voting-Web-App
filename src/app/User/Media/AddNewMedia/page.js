@@ -81,7 +81,7 @@ export default function Page() {
     }
 
     return (
-        <Layout>
+        <>
 
             <Toolbar></Toolbar>
             <form onSubmit={handleSubmit}>
@@ -110,6 +110,6 @@ export default function Page() {
                 </Button>
             </form>
 
-        </Layout>
+        </>
     );
 }

@@ -25,6 +25,7 @@ import { blue, green, purple, white, pink } from '@mui/material/colors';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useContext } from 'react'
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
 export default function Page() {
 
@@ -98,7 +99,7 @@ export default function Page() {
                     </Item>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>

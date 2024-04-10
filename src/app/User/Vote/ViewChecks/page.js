@@ -44,7 +44,7 @@ const rows = [
 // Currently has placeholder values and is not final.
 export default function Page() {
     return (
-        <Layout>
+        <>
             <Header></Header>
             <Toolbar></Toolbar>
             <br></br>
@@ -86,7 +86,7 @@ export default function Page() {
                     </Item>
                 </Grid>
             </Grid>
-        </Layout>
+        </>
 
     );
 }

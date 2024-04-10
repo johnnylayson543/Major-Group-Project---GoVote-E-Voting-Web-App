@@ -159,6 +159,7 @@ export default function Page() {
 
     // Front-End Page
     return (
+        <>
         <Box component="main" sx={{ p: 3 }}>
             <Header>
             </Header>
@@ -206,6 +207,7 @@ export default function Page() {
                 </Grid>
             </Grid>
         </Box>
+        </>
     );
 
 }

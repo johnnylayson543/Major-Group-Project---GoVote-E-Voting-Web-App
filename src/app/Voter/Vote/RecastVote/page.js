@@ -40,7 +40,7 @@ export default function Page() {
   if (candidates.length === 0) return <p>Loading...</p>;
 
   return (
-    <Layout>
+    <>
         <div style={{ fontSize: '40px' }}>Cast Your Vote</div>
         <div>
           {candidates.map((candidate, index) => (
@@ -61,6 +61,6 @@ export default function Page() {
             </div>
           ))}
         </div>
-    </Layout>
+    </>
   );
 }
