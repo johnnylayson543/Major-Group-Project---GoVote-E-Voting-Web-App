@@ -12,7 +12,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -23,8 +22,8 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useState, useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
 
 
@@ -39,7 +38,7 @@ export default function NavBar({ window }) {
 
     ];
 
-    const login_option = <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">
+    const login_option =  <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">
                         <LoginIcon/> Login &ensp;
                     </IconButton>;
 
@@ -51,7 +50,12 @@ export default function NavBar({ window }) {
                         <AppRegistrationIcon/> Profile &ensp;
                     </IconButton>;
 
+    const logout_option = <IconButton size="small" edge="start" color="inherit" aria-label="holder" href="/User/LoginUser">
+    <LoginIcon/> Logout &ensp;
+</IconButton>;
+
     const optional_element = !user? register_option  : user_profile
+    const optional_element2 = !user? login_option : logout_option;
                             
 
 
@@ -136,7 +140,7 @@ export default function NavBar({ window }) {
                         <ContactSupportIcon/> Contact &ensp;
                     </IconButton>
                     {optional_element }
-                    {login_option}
+                    {optional_element2}
 
 
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

@@ -31,37 +31,37 @@ export default function Page() {
     return (
         <>
             <Grid container spacing={10}>
-                <Grid item xs={4}>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
                     <Item>
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon></Face6Icon></Avatar>
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon /></Avatar>
                         <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
                             Welcome to GoVote Teller!
                         </Typography>
                     </Item>
                 </Grid>
 
-                <Grid item xs={7}>
+                <Grid item xs={12} sm={6} md={5} lg={5}>
                     <Item>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
                         fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
                         aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
                         cum quibusdam.
-                        <br></br>
+                        <br />
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Mauris et nulla ac eros aliquet suscipit ut quis libero.
                         Sed quam erat, dictum in consequat id, dapibus eu libero.
                     </Item>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={12} md={3} lg={3}>
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
-                                <Divider></Divider>
+                                <Divider />
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='/Teller/Election'>
                                         <ListItemIcon>
-                                            <PollIcon sx={{ color: 'white' }}></PollIcon>
+                                            <PollIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Finished Elections" />
                                     </ListItemButton>
@@ -69,7 +69,7 @@ export default function Page() {
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='/Teller/Election/Vote'>
                                         <ListItemIcon>
-                                            <PollIcon sx={{ color: 'white' }}></PollIcon>
+                                            <PollIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Tallied Elections" />
                                     </ListItemButton>
@@ -77,12 +77,11 @@ export default function Page() {
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile'>
                                         <ListItemIcon>
-                                            <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
+                                            <SettingsIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="User" />
                                     </ListItemButton>
                                 </ListItem>
-
                             </List>
                         </Box>
                     </Item>

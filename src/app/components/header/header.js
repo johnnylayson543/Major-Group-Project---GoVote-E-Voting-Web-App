@@ -25,7 +25,7 @@ export default function Header({ window }) {
 
 
     return (
-        <header>
+        <header style={{ minHeight: '10em' }}>
             <NavBar></NavBar>
         </header>
     );

@@ -89,69 +89,73 @@ export default function Page() {
 
     // Front-End Page
     return (
-        
-            <>
+
+        <>
             <Box component="main" sx={{ p: 3 }}>
-            <Grid container spacing={10}>
-                <Grid item xs={4}>
-                    <Item>
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon></Face6Icon></Avatar>
-                        <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
-                            Welcome to GoVote User!
-                        </Typography>
-                    </Item>
+                <Grid container spacing={10}>
+                    {/* Adjust the grid sizing for different breakpoints */}
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                        <Item>
+                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                                <Face6Icon />
+                            </Avatar>
+                            <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
+                                Welcome to GoVote User!
+                            </Typography>
+                        </Item>
+                    </Grid>
+
+                    {/* Adjust the grid sizing for different breakpoints */}
+                    <Grid item xs={12} sm={6} md={8} lg={9}>
+                        <Item>
+                            <b>Dashboard</b>
+                            <br />
+                            Choose between viewing the Admin profile, the User profile or the User account details.
+                        </Item>
+                    </Grid>
+
+                    {/* Adjust the grid sizing for different breakpoints */}
+                    <Grid item xs={12} md={4}>
+                        <Item>
+                            <Box sx={{ width: '100%', maxWidth: 360 }}>
+                                <List>
+                                    <Divider>Executive</Divider>
+                                    {adminButton}
+                                    {tellerButton}
+                                    {voterButton}
+                                    <Divider>User Controls</Divider>
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../Voter/Election/'>
+                                            <ListItemIcon>
+                                                <HowToVoteIcon sx={{ color: 'white' }} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Become a Voter" />
+                                        </ListItemButton>
+                                    </ListItem>
+
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../User/Media/'>
+                                            <ListItemIcon>
+                                                <HowToVoteIcon sx={{ color: 'white' }} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="My Media" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Person/UpdateMyDetails'>
+                                            <ListItemIcon>
+                                                <SettingsIcon sx={{ color: 'white' }} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Update Details" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </List>
+                            </Box>
+                        </Item>
+                    </Grid>
                 </Grid>
-
-                <Grid item xs={7}>
-
-                <Item>
-                <b>Dashboard</b>
-                <br></br>
-                Choose between viewing the Admin profile, the User profile or the User account details.
-                </Item>
-                </Grid>
-
-                <Grid item xs={4}>
-                    <Item>
-                        <Box sx={{ width: '100%', maxWidth: 360 }}>
-                            <List>
-                                <Divider>Executive</Divider>
-                                {adminButton}
-                                {tellerButton}
-                                {voterButton}
-                                <Divider>User Controls</Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../Voter/Election/'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Become a Voter" />
-                                    </ListItemButton>
-                                </ListItem>
-
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../User/Media/'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="My Media" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Person/UpdateMyDetails'>
-                                        <ListItemIcon>
-                                            <SettingsIcon sx={{ color: 'white' }}></SettingsIcon>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Update Details" />
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-                        </Box>
-                    </Item>
-                </Grid>
-            </Grid>
             </Box>
-            </>
+        </>
     );
 
 }

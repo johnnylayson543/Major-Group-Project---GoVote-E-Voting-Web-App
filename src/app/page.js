@@ -124,7 +124,7 @@ export default function Page() {
                                 Login
                             </Button>
 
-                                <MuiLink href="./register" variant="body2" textAlign={"center"} underline="none" color="inherit">
+                                <MuiLink href="./User/RegisterUser" variant="body2" textAlign={"center"} underline="none" color="inherit">
                                     {"New Here? Register An Account Now!"}
                                 </MuiLink>
                             
