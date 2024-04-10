@@ -59,7 +59,18 @@ export default function Page() {
   let element = <Box>
     <h1>My Details</h1>
     {dataElement}
-  </Box>
+    <p>
+      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+    </p>
+  </Box>;
+
+
+
+
+
+  const goBackToProfile = () => {
+    router.push('/User/Profile/');
+  };
 
 
 
@@ -98,15 +109,17 @@ export default function Page() {
   }; // end handler
 
 
+
+
   // The actual front-end page
   return (
 
     <>
       <Box>
-      <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-        Update Details
-      </Typography>
-      <Box>{element}</Box>
+        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+          Update Details
+        </Typography>
+        <Box>{element}</Box>
       </Box>
       <Box
         sx={{

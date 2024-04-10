@@ -9,22 +9,18 @@ import MuiLink from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Layout from './layout'; 
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Container, CssBaseline, Toolbar } from '@mui/material';
 
 export default function Page() {
+    const router = useRouter();
     const [registrationStatus, setRegistrationStatus] = useState('');
 
     // This function does the actual work
     // calling the fetch to get things from the database.
     async function runDBCallAsync(ppsn, pass) {
         try {
-            const res = await fetch(`http://localhost:3000/api/User/login_user?ppsn=${ppsn}&pass=${pass}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ ppsn, pass }),
-            });
+            const res = await fetch(`http://localhost:3000/api/database/controllers/User/login_user/?ppsn=${ppsn}&pass=${pass}`);
 
             if (!res.ok) {
                 throw new Error('Network response was not ok');
@@ -32,7 +28,7 @@ export default function Page() {
 
             const data = await res.json();
 
-            if (data.data === "true") {
+            if (data.data === "Okay") {
                 setRegistrationStatus("Successfully Registered!");
             } else {
                 setRegistrationStatus("Registration Failed!");
@@ -48,6 +44,7 @@ export default function Page() {
         const ppsn = data.get('ppsn');
         const pass = data.get('pass');
         runDBCallAsync(ppsn, pass);
+        if(registrationStatus) router.push('http://localhost:3000/')
     };
 
     // Using a function component for Grid item to avoid duplication
@@ -58,6 +55,8 @@ export default function Page() {
             </Box>
         </Grid>
     );
+
+
 
     return (
         <>

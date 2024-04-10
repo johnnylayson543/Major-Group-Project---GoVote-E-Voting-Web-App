@@ -90,6 +90,7 @@ export default function Page() {
     // Front-End Page
     return (
         
+            <>
             <Box component="main" sx={{ p: 3 }}>
             <Grid container spacing={10}>
                 <Grid item xs={4}>
@@ -150,6 +151,7 @@ export default function Page() {
                 </Grid>
             </Grid>
             </Box>
+            </>
     );
 
 }
