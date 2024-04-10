@@ -98,8 +98,6 @@ export default function Page() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
           </Avatar>
-          <Header>
-          </Header>
 
           <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
             Login to GoVote

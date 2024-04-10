@@ -1,5 +1,4 @@
 'use client'
-// Removed 'use client' as it's not a standard directive in React
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Avatar from '@mui/material/Avatar';
@@ -9,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import MuiLink from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Layout from './layout'; // Make sure the import matches the actual file name and export
+import Layout from './layout'; 
 
 export default function Page() {
     const [registrationStatus, setRegistrationStatus] = useState('');
@@ -18,7 +17,7 @@ export default function Page() {
     // calling the fetch to get things from the database.
     async function runDBCallAsync(ppsn, pass) {
         try {
-            const res = await fetch(`http://localhost:3000/api/general/register`, {
+            const res = await fetch(`http://localhost:3000/api/User/login_user?ppsn=${ppsn}&pass=${pass}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

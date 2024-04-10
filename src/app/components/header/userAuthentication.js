@@ -18,53 +18,45 @@ export function UserAuthentication({ children }) {
         let isMounted = true;
 
         const getUserInfo = async () => {
-            const res = await fetch(`http://localhost:3000/api/database/controllers/System/get_user_information`);
+            const res = await fetch(`http://localhost:3000/api/database/controllers/System/get_user_information`, {
+                method: 'GET', // or 'POST', etc.
+                credentials: 'include', // This is important for cookies
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+            });
             const data = await res.json();
-            setUserInformation(data.result);
-            
+            console.log(data.data);
+            if (data.result != null) {
+                const userInfo = data.result;
+                setUserInformation(data.result);
+                console.log(userInfo);
 
-            if (isMounted && user_information) {
-                console.log(user_information);
-                if (user_information.user) {
-                    setUser(user_information.user);
-                    if (user_information.voter) {
-                        setVoter(user_information.voter);
-                        console.log("voter:");
-                        console.log(user_information.voter);
-                        if (user_information.votes) {
-                            setVotes(user_information.votes);
-                            console.log("votes:");
-                            console.log(user_information.votes);
+                if (isMounted) {
+
+                    if (userInfo.user) {
+                        setUser(userInfo.user);
+                        if (userInfo.voter) {
+                            setVoter(userInfo.voter);
+                            if (userInfo.votes) {
+                                setVotes(userInfo.votes);
+                            }
                         }
+
+                        if (userInfo.admin) setAdmin(userInfo.admin);
+
+                        if (userInfo.teller) setTeller(userInfo.teller);
+                        
+                        if (userInfo.candidate) setCandidate(userInfo.candidate);
+                        
+                        setPerson(userInfo.person);
+                    } else {
+                        console.log("Not signed in")
                     }
-
-                    if (user_information.admin) {
-                        setAdmin(user_information.admin);
-                        console.log("admin:");
-                        console.log(user_information.admin);
-                    }
-
-                    if (user_information.teller) {
-                        setTeller(user_information.teller);
-                        console.log("teller:");
-                        console.log(user_information.teller);
-                    }
-
-                    if (user_information.candidate) {
-                        setCandidate(user_information.candidate);
-                        console.log("candidate:");
-                        console.log(user_information.candidate);
-                    }
-
-                    setPerson(user_information.person);
-                    console.log("person:");
-                    console.log(user_information.person);
-
-                    console.log("user:");
-                    console.log(user_information.user);
-                } else {
-                    console.log("Not signed in")
                 }
+            } else {
+                console.log("Not signed in");
             }
 
         }
@@ -85,6 +77,7 @@ export function UserAuthentication({ children }) {
         person,
         votes,
         candidate,
+        user_information
     };
 
     return (

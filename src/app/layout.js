@@ -18,16 +18,17 @@ export default function Layout({ children, title = "GoVote - E-Voting Website" }
 
 
       <body>
-      <>
       <Providers>
         <CssBaseline />
         <Header />
         <Toolbar />
-        <Container component="main" maxWidth="md">
+        <main>
+        <Container maxWidth="md">
           {children}
         </Container>
+        </main>
       </Providers>
-      </>
+
       </body>
     
     </html>
