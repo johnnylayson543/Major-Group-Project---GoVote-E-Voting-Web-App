@@ -12,104 +12,53 @@ export function UserAuthentication({ children }) {
     const [person, setPerson] = useState(null);
     const [votes, setVotes] = useState(null);
     const [candidate, setCandidate] = useState(null);
+    const [user_information, setUserInformation] = useState(null);
 
     useEffect(() => {
         let isMounted = true;
 
         const getUserInfo = async () => {
-            const res = await fetch(`http://localhost:3000/api/database/controllers/User/is_signed_into_account`);
+            const res = await fetch(`http://localhost:3000/api/database/controllers/System/get_user_information`, {
+                method: 'GET', // or 'POST', etc.
+                credentials: 'include', // This is important for cookies
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+            });
             const data = await res.json();
-            const user = data.result;
-            if(user){
-                const person_ppsn = user.ppsn;
-
-                const isVoter = (user.roles).includes('voter');
-                let voter;
-                let votes;
-                if (isVoter) {
-                    const res1 = await fetch(`http://localhost:3000/api/database/controllers/Voter/retrieve_the_voter?person_ppsn=${person_ppsn}`);
-                    const data1 = await res1.json();
-                    voter = data1.result;
-                    const voter_id = voter._id;
-
-                    const res1_1 = await fetch(`http://localhost:3000/api/database/controllers/Voter/Vote/retrieve_the_votes_for_the_voter?voterID=${voter_id}`);
-                    const data1_1 = await res1_1.json();
-                    votes = data1_1.result;
-                }
-
-                const isCandidate = (user.roles).includes('candidate');
-                let candidate;
-                if(isCandidate && person_ppsn){
-                    const res4 = await fetch(`http://localhost:3000/api/database/controllers/User/Candidate/retrieve_the_candidate_with_this_ppsn?ppsn=${person_ppsn}`);
-                    const data4 = await res4.json();
-                    candidate = data4.result;
-                }
-
-                const isUser = (user.roles).includes('user');
-                let person;
-                if (isUser && person_ppsn) {
-                    const res3 = await fetch(`http://localhost:3000/api/database/controllers/User/Person/retrieve_the_persons_details?ppsn=${person_ppsn}`);
-                    const data3 = await res3.json();
-                    person = data3.result;
-                }
-
-                const isAdmin = (user.roles).includes('admin');
-                let admin;
-                if (isAdmin) {
-                    const res2 = await fetch(`http://localhost:3000/api/database/controllers/Admin/retrieve_the_admin?person_ppsn=${person_ppsn}`);
-                    const data2 = await res2.json();
-                    admin = data2.result;
-                }
-
-                const isTeller = (user.roles).includes('teller');
-                let teller;
-                if (isTeller) {
-                    const res2 = await fetch(`http://localhost:3000/api/database/controllers/Teller/retrieve_the_teller?person_ppsn=${person_ppsn}`);
-                    const data2 = await res2.json();
-                    teller = data2.result;
-                }
+            console.log(data.data);
+            if (data.result != null) {
+                const userInfo = data.result;
+                setUserInformation(data.result);
+                console.log(userInfo);
 
                 if (isMounted) {
-                    if (isUser && user) {
-                        setUser(user);
-                        if (isVoter && voter) {
-                            setVoter(voter);
-                            setVotes(votes);
-                            console.log("voter:");
-                            console.log(voter);
-                            console.log("votes:");
-                            console.log(votes);
+
+                    if (userInfo.user) {
+                        setUser(userInfo.user);
+                        if (userInfo.voter) {
+                            setVoter(userInfo.voter);
+                            if (userInfo.votes) {
+                                setVotes(userInfo.votes);
+                            }
                         }
 
-                        if (isAdmin && admin) {
-                            setAdmin(admin);
-                            console.log("admin:");
-                            console.log(admin);
-                        }
+                        if (userInfo.admin) setAdmin(userInfo.admin);
 
-                        if (isTeller && teller) {
-                            setTeller(teller);
-                            console.log("teller:");
-                            console.log(teller);
-                        }
-
-                        if (isCandidate && candidate) {
-                            setCandidate(candidate);
-                            console.log("candidate:");
-                            console.log(candidate);
-                        }
-
-                        setPerson(person);
-                        console.log("person:");
-                        console.log(person);
-
-                        console.log("user:");
-                        console.log(user);
+                        if (userInfo.teller) setTeller(userInfo.teller);
+                        
+                        if (userInfo.candidate) setCandidate(userInfo.candidate);
+                        
+                        setPerson(userInfo.person);
+                    } else {
+                        console.log("Not signed in")
                     }
                 }
             } else {
-                console.log("Not signed in")
+                console.log("Not signed in");
             }
+
         }
 
         getUserInfo();
@@ -128,6 +77,7 @@ export function UserAuthentication({ children }) {
         person,
         votes,
         candidate,
+        user_information
     };
 
     return (

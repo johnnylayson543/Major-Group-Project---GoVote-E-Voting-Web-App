@@ -7,13 +7,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
-import { Paper, Toolbar, Stack, Divider } from '@mui/material';
+import { Toolbar, Stack, Divider } from '@mui/material';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
@@ -58,7 +59,18 @@ export default function Page() {
   let element = <Box>
     <h1>My Details</h1>
     {dataElement}
-  </Box>
+    <p>
+      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+    </p>
+  </Box>;
+
+
+
+
+
+  const goBackToProfile = () => {
+    router.push('/User/Profile/');
+  };
 
 
 
@@ -97,22 +109,18 @@ export default function Page() {
   }; // end handler
 
 
+
+
   // The actual front-end page
   return (
 
-    <Container component="main" maxWidth="md" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-      <Header>
-      </Header>
-
-
-      <Toolbar></Toolbar>
-
-      <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-        Update Details
-      </Typography>
-      <CssBaseline />
-      <Box>{element}</Box>
+    <>
+      <Box>
+        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+          Update Details
+        </Typography>
+        <Box>{element}</Box>
+      </Box>
       <Box
         sx={{
           marginTop: 8,
@@ -178,7 +186,7 @@ export default function Page() {
         </Box>
       </Box>
 
-    </Container>
+    </>
 
   );
 }

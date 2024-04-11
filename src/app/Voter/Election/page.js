@@ -2,15 +2,12 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
-import Header from '../../components/header/header';
-import Chart from 'chart.js/auto'; // Add this line
 
-import Script from 'next/script'
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
 
 /*
@@ -18,28 +15,10 @@ After the submit handler calls the runDBCallAsync, this does the thing
 This function does the actual work
 calling the fetch to get things from the database.
 */
-async function runDBCallAsync(url) {
-
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (data.data == "valid") {
-        console.log("election is valid!")
-
-
-
-    } else {
-
-        console.log("election is not valid!")
-    }
-}
-
-
-
 
 export default function Page() {
 
-    const { user, voter, admin, teller } = useContext(UserContext);
+    const { voter } = useContext(UserContext);
     const [elections, setElections] = useState(null);
     const router = useRouter();
 
@@ -98,34 +77,17 @@ export default function Page() {
         router.push('/Voter/Profile/');
     };
 
-    const goSeeBallot = (ballotID) => {
-        router.push('/Voter/Election/SeeBallot?ballotID={' + ballotID + '}');
+    const goSeeBallot = (ballot_id) => {
+        router.push('/Voter/Election/SeeBallot?ballotID={' + ballot_id + '}');
     };
 
     const goSignUpForTheElection = (ballot_id) => {
         router.push('/Voter/Election/SignUpForTheElection?ballotID={' + ballot_id + '}');
     };
 
-
-    const goCancelElection = (ballotID) => {
-        router.push('/Admin/Election/CancelElection/?ballotID={' + ballotID + '}');
-    };
-
-
-
-    const goAdminProfilePage = (userIDtoken) => {
-        router.push('/Admin/?userIDtoken={' + userIDtoken + '}');
-    };
-
-
     return (
-
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-            <Header></Header>
-            <Toolbar></Toolbar>
+        <>
             {element}
-        </Box>
-
-
+        </>
     );
 }

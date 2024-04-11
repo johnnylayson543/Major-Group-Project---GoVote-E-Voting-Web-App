@@ -25,6 +25,7 @@ import { blue, green, purple, white, pink } from '@mui/material/colors';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useContext } from 'react'
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import Layout from '@/app/layout';
 
 export default function Page() {
 
@@ -74,23 +75,26 @@ export default function Page() {
     // Front-End Page
     return (
         <Box component="main" sx={{ p: 3 }}>
-            <Toolbar>
-            </Toolbar>
-            <br></br>
+            <Toolbar />
+            <br />
             <Grid container spacing={10}>
-                <Grid item xs={3.5}>
+                {/* Adjust the grid sizing for different breakpoints */}
+                <Grid item xs={12} sm={6} md={4}>
                     <Item>
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon></Face6Icon></Avatar>
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <Face6Icon />
+                        </Avatar>
                         <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
                             Welcome to GoVote Management System Admin!
                         </Typography>
                     </Item>
                 </Grid>
 
-                <Grid item xs={5.5}>
+                {/* Adjust the grid sizing for different breakpoints */}
+                <Grid item xs={12} sm={6} md={5}>
                     <Item>
                         <b>Dashboard</b>
-                        <br></br>
+                        <br />
                         Here you can manage various settings and activities related to the voting process.
                         As an administrator, you have the authority to make changes to individual profiles,
                         create, update, and delete ballots, as well as modify election parameters.
@@ -98,7 +102,9 @@ export default function Page() {
                     </Item>
                 </Grid>
 
-                <Grid item xs={3}>
+                {/* Adjust the grid sizing for different breakpoints */}
+                <Grid item xs={12} md={3}>
+
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
@@ -106,7 +112,7 @@ export default function Page() {
                                 <ListItem disablePadding>
                                     <ListItemButton onClick={() => goToUserArea()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="User" />
                                     </ListItemButton>
@@ -114,28 +120,26 @@ export default function Page() {
                                 <Divider>Admin Controls</Divider>
                                 <ListItem disablePadding>
                                     <ListItemButton onClick={() => goToPersons()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
-
                                         <ListItemIcon>
-                                            <AddIcon sx={{ color: 'white' }}></AddIcon>
-
+                                            <AddIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Persons" />
                                     </ListItemButton>
                                 </ListItem>
-                                <Divider></Divider>
+                                <Divider />
                                 <ListItem disablePadding>
                                     <ListItemButton onClick={() => goToBallots()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
-                                            <BallotIcon sx={{ color: 'white' }}></BallotIcon>
+                                            <BallotIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Ballots" />
                                     </ListItemButton>
                                 </ListItem>
-                                <Divider></Divider>
+                                <Divider />
                                 <ListItem disablePadding>
                                     <ListItemButton onClick={() => goToElections()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Elections" />
                                     </ListItemButton>
@@ -144,16 +148,13 @@ export default function Page() {
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
-                                            <HowToRegIcon sx={{ color: 'white' }}></HowToRegIcon>
+                                            <HowToRegIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Checks" />
                                     </ListItemButton>
                                 </ListItem>
-                                <Divider></Divider>
+                                <Divider />
                                 {voterButton}
-                                <Divider></Divider>
-                                <Divider></Divider>
-
                             </List>
                         </Box>
                     </Item>

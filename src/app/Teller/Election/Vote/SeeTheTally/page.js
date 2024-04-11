@@ -3,24 +3,10 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
-
-import Script from 'next/script'
 import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
-import { Toolbar } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -53,7 +39,7 @@ export default function Page() {
   const [election, setElection] = useState(null);
   const [candidates_for_ballot, setBallotCandidates] = useState(null);
   const [tally_for_the_election, setTallyForElection] = useState(null);
-  
+
   const router = useRouter();
 
   useEffect(() => {
@@ -84,7 +70,7 @@ export default function Page() {
         console.log(data.result);
       })
 
-    
+
 
     fetch(`http://localhost:3000/api/database/controllers/Admin/Candidate/retrieve_candidates_for_the_ballot?ballotID=${ballot_id}`)
       .then((res) => res.json())
@@ -94,8 +80,8 @@ export default function Page() {
         console.log("Ballot Candidates data")
         console.log(data.result);
       })
-                        // src\app\api\database\controllers\Teller\Election\Vote\retrieve_the_tally_for_the_election
-      fetch(`http://localhost:3000/api/database/controllers/Teller/Election/Vote/retrieve_the_tally_for_the_election?electionID=${election_id}`)
+    // src\app\api\database\controllers\Teller\Election\Vote\retrieve_the_tally_for_the_election
+    fetch(`http://localhost:3000/api/database/controllers/Teller/Election/Vote/retrieve_the_tally_for_the_election?electionID=${election_id}`)
       .then((res) => res.json())
       .then((data) => {
         setTallyForElection(data.result);
@@ -128,10 +114,10 @@ export default function Page() {
 
 
   let voterButton;
-    if(voter) {
-      console.log(voter._id);
-      voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
-    }
+  if (voter) {
+    console.log(voter._id);
+    voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+  }
 
   let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
@@ -146,14 +132,14 @@ export default function Page() {
 
     ;
 
-    let dataElement4 =
+  let dataElement4 =
     <tr key={tally_for_the_election._id}><td>{tally_for_the_election._id}</td><td>{tally_for_the_election.electionID}</td>
-    <td>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</td></tr>
+      <td>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</td></tr>
 
     ;
   let element = <Box>
     <h1>Tally for this election</h1>
-      <table>
+    <table>
       <thead><tr>
         <th>Election ID</th>
         <th>Ballot ID</th>
@@ -161,51 +147,51 @@ export default function Page() {
       <tbody>
         {dataElement4}
       </tbody></table>
-      <p>
-    <button onClick={() => goBackToTalliedElections()}>Back to Tallied Elections</button>
-    <button onClick={() => goBackToFinishedElections()}>Back to the finished elections</button>
-    <button onClick={() => goBackToProfile()}>Back to the teller profile</button>
-    
+    <p>
+      <button onClick={() => goBackToTalliedElections()}>Back to Tallied Elections</button>
+      <button onClick={() => goBackToFinishedElections()}>Back to the finished elections</button>
+      <button onClick={() => goBackToProfile()}>Back to the teller profile</button>
+
     </p>
 
     <hr />
     <details>
       <summary>Click for the details of the Ballot, Election, and Candidates</summary>
-    <h1>The Ballot and other details</h1>
-    <h2>Ballot</h2>
-    <table>
-      <thead><tr>
-        <th>Ballot ID</th>
-        <th>Closing Date Time</th>
-        <th>Title</th>
-      </tr></thead>
-      <tbody>
-        {dataElement1}
-      </tbody></table>
-    <h2>Ballot Candidates</h2>
-    <table>
-      <thead><tr>
-        <th>Candidate ID</th>
-        <th>Ballot ID</th>
-        <th>PPSN</th>
-      </tr></thead>
-      <tbody>
-        {dataElement2}
-      </tbody></table>
-    <h2>Election Running with this ballot</h2>
-    <table>
-      <thead><tr>
-        <th>Tally ID</th>
-        <th>Election ID</th>
-        <th>The Tally</th>
-      </tr></thead>
-      <tbody>
-        {dataElement3}
-      </tbody></table>
-      </details>
+      <h1>The Ballot and other details</h1>
+      <h2>Ballot</h2>
+      <table>
+        <thead><tr>
+          <th>Ballot ID</th>
+          <th>Closing Date Time</th>
+          <th>Title</th>
+        </tr></thead>
+        <tbody>
+          {dataElement1}
+        </tbody></table>
+      <h2>Ballot Candidates</h2>
+      <table>
+        <thead><tr>
+          <th>Candidate ID</th>
+          <th>Ballot ID</th>
+          <th>PPSN</th>
+        </tr></thead>
+        <tbody>
+          {dataElement2}
+        </tbody></table>
+      <h2>Election Running with this ballot</h2>
+      <table>
+        <thead><tr>
+          <th>Tally ID</th>
+          <th>Election ID</th>
+          <th>The Tally</th>
+        </tr></thead>
+        <tbody>
+          {dataElement3}
+        </tbody></table>
+    </details>
   </Box>
 
-    
+
 
   const goBackToTalliedElections = () => {
     router.push('/Teller/Election/Vote');
@@ -218,13 +204,11 @@ export default function Page() {
   };
 
   return (
-
-    <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-      <Toolbar></Toolbar>
-      {element}
-    </Box>
-
+    <>
+      <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
+        {element}
+      </Box>
+    </>
 
   );
 }

@@ -3,12 +3,11 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Header from '../../../components/header/header';
-import Chart from 'chart.js/auto'; // Add this line
 
-import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -65,14 +64,14 @@ export default function Page() {
     if (!finished_elections || ((election_tallies === null || election_tallies === undefined) && !Array.isArray(election_tallies))) return <p>No elections available. </p>;
 
     let dataElement1 = (finished_elections.map(election => {
-        if(election_tallies instanceof Array){
+        if (election_tallies instanceof Array) {
             const election_tallies_length = election_tallies.length;
-            const tally_election_ids = (election_tallies_length >0) ? election_tallies.map(x => x.electionID) : [];
+            const tally_election_ids = (election_tallies_length > 0) ? election_tallies.map(x => x.electionID) : [];
             const isTallied = (tally_election_ids.length > 0) ? tally_election_ids.includes(election._id.toString()) : false;
-            
-            const seeTallyButton = (isTallied)?
-                 <td><button onClick={() => goSeeTheTally(election._id, election.ballotID)}>See the tally</button></td>:
-                 <td>No tally yet</td>;
+
+            const seeTallyButton = (isTallied) ?
+                <td><button onClick={() => goSeeTheTally(election._id, election.ballotID)}>See the tally</button></td> :
+                <td>No tally yet</td>;
             const maybe_tallied_election = <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td>{seeTallyButton}</tr>;
             return maybe_tallied_election;
         }
@@ -113,13 +112,13 @@ export default function Page() {
     }
 
     return (
-
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-            <Header></Header>
-            <Toolbar></Toolbar>
-            {element}
-        </Box>
-
+        <>
+            <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
+                <Header></Header>
+                <Toolbar></Toolbar>
+                {element}
+            </Box>
+        </>
 
     );
 }

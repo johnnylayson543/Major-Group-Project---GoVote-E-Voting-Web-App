@@ -1,24 +1,12 @@
 'use client'
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from 'next/navigation';
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
-
-
-
+import Layout from '@/app/layout';
 
 
 
@@ -35,7 +23,7 @@ export default function Page() {
         try {
             const response = await fetch(`http://localhost:3000/api/database/controllers/Voter/Election/signup_for_the_election?person_ppsn=${person_id}&electionID=${election_id}`);
             const data = await response.json();
-    
+
             if (response.ok) {
                 const voter_id = data.result._id;
                 router.push(`/Voter/Election/SignedUpForElections?voterID=${voter_id}`);
@@ -47,7 +35,7 @@ export default function Page() {
             // Handle network or other errors
             console.error('Error signing up for the election:', error);
         }
-    
+
     };
 
     useEffect(() => {
@@ -85,7 +73,7 @@ export default function Page() {
 
     }, []);
 
-    if (!election || !ballot || !candidates_for_the_ballot) return <p>No elections available. </p>;
+    if (!election || !ballot || !candidates_for_the_ballot || !user) return <p>No elections available. </p>;
     else {
         console.log("userInfo: ");
         console.log(user);
@@ -155,18 +143,13 @@ export default function Page() {
 
 
     return (
+        <>
+                <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+                    Register For Election
 
-
-
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-            <CssBaseline />
-            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-                Register For Election
-
-            </Typography>
-
-            {element}
-        </Box>
+                </Typography>
+                {element}
+        </>
 
     );
 }

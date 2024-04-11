@@ -1,4 +1,4 @@
-import { person_datails } from "./helpers/helpers";
+import { person_datails_builder } from "./helpers/helpers";
 import jwt from "jsonwebtoken";
 import { Security } from "./helpers/helpers";
 
@@ -16,7 +16,7 @@ export class register_user_type {
         const address = x.get('person_address');
         const phone = x.get('person_phone');
 
-        this.person_datails = person_datails.builder()
+        this.person_datails = new person_datails_builder()
             .setName(name)
             .setAddress(address)
             .setPhone(phone)

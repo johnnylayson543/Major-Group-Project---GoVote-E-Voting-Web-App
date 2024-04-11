@@ -19,12 +19,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import PollIcon from '@mui/icons-material/Poll';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { blue, green, purple, white, pink } from '@mui/material/colors';
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
 
 
@@ -162,6 +159,7 @@ export default function Page() {
 
     // Front-End Page
     return (
+        <>
         <Box component="main" sx={{ p: 3 }}>
             <Header>
             </Header>
@@ -209,6 +207,7 @@ export default function Page() {
                 </Grid>
             </Grid>
         </Box>
+        </>
     );
 
 }

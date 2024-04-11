@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react';
-import Header from '../../components/header/header';
 import Avatar from '@mui/material/Avatar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -19,13 +17,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import PollIcon from '@mui/icons-material/Poll';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { blue, green, purple, white, pink } from '@mui/material/colors';
-import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { useContext } from 'react'
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 
 export default function Page() {
@@ -163,9 +159,8 @@ export default function Page() {
     </Box>
 
     const goBackToSignedUpElections = (voter_id) => {
-        router.push('/Voter/Election/SignedUpForElections?voterID={' + voter_id + '}');
+        router.push(`/Voter/Election/SignedUpForElections?voterID=${voter_id}`);
     };
-
     const goBackToAdminProfile = (admin_id) => {
         router.push('/Admin/Profile?adminID={' + admin_id + '}');
     };
@@ -176,43 +171,39 @@ export default function Page() {
 
     // Front-End Page
     return (
-        <Box component="main" sx={{ p: 3 }}>
-            <Header>
-            </Header>
-            <Toolbar>
-            </Toolbar>
-            <br></br>
+        <>
             <Grid container spacing={10}>
-                <Grid item xs={3.5}>
-                    <Item>
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon></Face6Icon></Avatar>
-                        <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
+                <Grid item xs={12} sm={4} md={3} lg={3} xl={2.5}>
+                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon /></Avatar>
+                        <Typography variant="h5" component="h2" fontWeight={800} color={"black"} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             Welcome to GoVote User!
                         </Typography>
                     </Item>
                 </Grid>
 
-                <Grid item xs={5}>
-                    <Item>
+                <Grid item xs={12} sm={8} md={6} lg={6} xl={5}>
+                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
                         <b>Dashboard</b>
-                        <br></br>
-                        Take control! Browse ongoing elections, view past results,
-                        and make your voice heard in upcoming votes. Explore the diverse
-                        range of elections happening in your community, nation, or organization.
+                        <br />
+                        <Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            Take control! Browse ongoing elections, view past results,
+                            and make your voice heard in upcoming votes. Explore the diverse
+                            range of elections happening in your community, nation, or organization.
+                        </Typography>
                     </Item>
                 </Grid>
 
-                <Grid item xs={3}>
-                    <Item>
+                <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
                                 <Divider>Executive</Divider>
-
                                 {adminButton}
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile/'>
                                         <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="User" />
                                     </ListItemButton>
@@ -221,22 +212,19 @@ export default function Page() {
                                 <ListItem disablePadding>
                                     <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
                                         <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
+                                            <HowToVoteIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Elections" />
                                     </ListItemButton>
                                 </ListItem>
-
-
                                 <Divider>Voter</Divider>
                                 {voterButtons}
-
                             </List>
                         </Box>
                     </Item>
                 </Grid>
             </Grid>
-        </Box>
+        </>
     );
 
 }

@@ -5,13 +5,15 @@ import { Candidate } from "./Candidate";
 import { Election } from "./Election";
 import { Tally } from "./Tally";
 
+
+
 const voteSchema = new mongoose.Schema({
     //id: {type: String, required: true, unique: true},
     voterID: { type: String, required: true, unique: false, ref: 'Voter' },
     candidateID: { type: String, required: true, unique: false, ref: 'Candidate' }
 });
 
-voteSchema.index({ voteID: 1, candidateID: 1 }, { unique: true });
+//voteSchema.index({ voteID: 1, candidateID: 1 }, { unique: true });
 
 class VoteClass {
     static async add_vote(x) {

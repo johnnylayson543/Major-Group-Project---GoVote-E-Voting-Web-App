@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { getModel } from "./helpers/helpers";
 
+
 const electionSchema = new mongoose.Schema({
     ballotID: {type: String, required: true, unique: true, ref: 'Ballot'}
 });

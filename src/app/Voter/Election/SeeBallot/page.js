@@ -3,52 +3,15 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
-
-import Script from 'next/script'
 import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
-import { Toolbar } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
-
-/*
-After the submit handler calls the runDBCallAsync, this does the thing
-This function does the actual work
-calling the fetch to get things from the database.
-*/
-async function runDBCallAsync(url) {
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (data.data == "valid") {
-    console.log("see ballot is valid!")
-
-
-
-  } else {
-
-    console.log("see ballot is not valid!")
-  }
-}
-
-
+import { UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 
 export default function Page() {
 
-  const { user, voter } = useContext(UserContext);
+  const { voter } = useContext(UserContext);
   const [ballot, setBallot] = useState(null);
   const [election, setElection] = useState(null);
   const [candidates_for_ballot, setBallotCandidates] = useState(null);
@@ -57,7 +20,6 @@ export default function Page() {
   useEffect(() => {
     const { searchParams } = new URL(window.location.href);
     const ballot_id = searchParams.get('ballotID');
-    const election_id = searchParams.get('electionID');
 
 
 
@@ -92,18 +54,6 @@ export default function Page() {
 
   }, []);
 
-  const handleSubmit = (event) => {
-
-    console.log("handling submit");
-
-
-    event.preventDefault();
-
-    // Call this function to pass the data created by the FormData
-    // src\app\api\database\controllers\Admin\Ballot\create_ballot
-    goBack();
-
-  }; // end handler
 
 
   const goBack = () => {
@@ -114,10 +64,10 @@ export default function Page() {
 
 
   let voterButton;
-    if(voter) {
-      console.log(voter._id);
-      voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
-    }
+  if (voter) {
+    console.log(voter._id);
+    voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+  }
 
   let dataElement1 =
     <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
@@ -162,14 +112,14 @@ export default function Page() {
       <tbody>
         {dataElement3}
       </tbody></table>
-      <p>
-    <button onClick={() => goBackToElections()}>Back to Elections</button>
-    <button onClick={() => goBackToProfile()}>Back to Profile</button>
-    {voterButton}
+    <p>
+      <button onClick={() => goBackToElections()}>Back to Elections</button>
+      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      {voterButton}
     </p>
   </Box>
 
-    
+
 
   const goBackToElections = () => {
     router.push('/Voter/Election/');
@@ -182,13 +132,9 @@ export default function Page() {
   };
 
   return (
-
-    <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-      <Toolbar></Toolbar>
-      {element}
-    </Box>
-
+    <>
+        {element}
+    </>
 
   );
 }

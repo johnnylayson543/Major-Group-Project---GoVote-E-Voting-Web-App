@@ -11,6 +11,7 @@ import { useState, useEffect, useContext } from 'react'
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 import { Container, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import Layout from '@/app/layout';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -62,14 +63,14 @@ export default function Page() {
     };
 
 
-    const add_new_media_button = (user)? <button onClick={() => goAddNewMedia(user._id)}>Add new media</button> : null;
+    const add_new_media_button = (user) ? <button onClick={() => goAddNewMedia(user._id)}>Add new media</button> : null;
 
 
     if (!media_for_this_user || !user) return <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         <Header></Header>
         <Toolbar></Toolbar>
         <Box><p>No media available. </p></Box>
-       {add_new_media_button}
+        {add_new_media_button}
     </Box>;
 
     console.log(media_for_this_user);
@@ -78,7 +79,7 @@ export default function Page() {
         <tr key={media._id.toString()}><td>{media._id}</td><td>{media.storageID}</td><td>{media.fileID}</td><td>{media.access}</td><td>{media.placement}</td></tr>
     )) : null;
 
-    
+
     let element = <Box>
         <h1>My Media</h1>
         <table>
@@ -93,7 +94,7 @@ export default function Page() {
             </tbody></table>
 
         <p>
-            { add_new_media_button }
+            {add_new_media_button}
         </p>
 
         <p>
@@ -130,13 +131,8 @@ export default function Page() {
 
 
     return (
-
-        <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-            <Header></Header>
-            <Toolbar></Toolbar>
+        <>
             {element}
-        </Box>
-
-
+        </>
     );
 }

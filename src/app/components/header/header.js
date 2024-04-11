@@ -1,6 +1,6 @@
+'use client'
 import NavBar from "./navBar";
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
 import { useRouter } from 'next/navigation';
 
 export default function Header({ window }) {
@@ -25,9 +25,8 @@ export default function Header({ window }) {
 
 
     return (
-        <header>
+        <header style={{ minHeight: '10em' }}>
             <NavBar></NavBar>
-  
         </header>
     );
 }
