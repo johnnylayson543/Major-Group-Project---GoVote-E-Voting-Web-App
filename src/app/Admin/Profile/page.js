@@ -105,7 +105,7 @@ export default function Page() {
                 {/* Adjust the grid sizing for different breakpoints */}
                 <Grid item xs={12} md={3}>
 
-                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
+                    <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
                                 <Divider>Executive</Divider>

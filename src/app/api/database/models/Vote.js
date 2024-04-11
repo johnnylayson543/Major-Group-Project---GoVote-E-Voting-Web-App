@@ -5,6 +5,8 @@ import { Candidate } from "./Candidate";
 import { Election } from "./Election";
 import { Tally } from "./Tally";
 
+
+
 const voteSchema = new mongoose.Schema({
     //id: {type: String, required: true, unique: true},
     voterID: { type: String, required: true, unique: false, ref: 'Voter' },

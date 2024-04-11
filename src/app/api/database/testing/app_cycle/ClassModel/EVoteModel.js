@@ -2,16 +2,44 @@
 
 
 
+class Application {
+
+    elections = []
+    tellers = [];
+    
+
+    addElection(x) {
+        if (x instanceof Ballot && x.candidates.length > 1) {
+            const election = new Election();
+            election.ballot = x;
+            this.elections.push(election);
+        }
+    }
+
+    addTeller(x){
+        if(x instanceof User){
+            this.tellers.push(x);
+        }
+    }
+
+}
+
 class EVote {
 
     system = new System();
-    elections = new Election();
+    application = new Application();
 
-    addUser(x) {
-        if (x instanceof User) {
-            this.system.users.push(x);
+    register(x, y){
+        if(x instanceof Person && typeof y === 'string' ){
+            const check = this.system.users.find((y) => y instanceof User && y.details.ppsn == x.ppsn );
+            if( check != undefined && check instanceof User ){
+                check.pass = y;
+                check.setDetails(x);
+            }
+
         }
     }
+
 
 }
 
@@ -31,14 +59,23 @@ class Person {
 
 class System {
 
-    persons = []
-    admins = []
-    ballots = []
-    tellers = []
-    candidates = []
     users = []
-    voters = []
-    votes = []
+    admins = []
+       
+    addUser(x, y) {
+        if (x instanceof Person && typeof y === 'string') {
+            const user = new User();
+            user.pass = y;
+            user.details = x;
+            this.users.push(user);
+        }
+    }
+
+    addAdmin(x){
+        if(x instanceof User && this.users.includes(x)){
+            this.admins.push(x);
+        }
+    }
 
 }
 
@@ -56,7 +93,7 @@ class User {
 
     setRoles(xs) {
 
-        for (x in xs) {
+        for (x of xs) {
 
             this.roles.admin = x instanceof Admin;
             this.roles.candidate = x instanceof Candidate;
@@ -77,7 +114,9 @@ class Admin extends User {
         for (i = min; i < max; i++) {
             const person = new Person()
             person.ppsn = i;
-            evote.system.persons.push(person);
+            const user = new User();
+            user.setDetails(person);
+            evote.system.users.push(user);
         }
     }
 }
@@ -87,33 +126,76 @@ class Teller extends User {
 
 
 
+class Vote {
+
+    type = {}
+    value = 0.0;
+
+    setVote(x, y){
+        this.type = x;
+        this.value = y;    
+    }
+
+
+}
+
+
+class Candidate {
+
+    vote = [];
+
+    addVote(x){
+        if(x instanceof Vote){
+            this.vote.push(x);
+        }
+    }
+    
+}
+
+class Voter {
+
+    person = {}
+    votes = [];
+
+    castVote(x, y){
+
+        if(x instanceof Candidate){
+            x.addVote(y)
+        }
+
+    }
+
+}
+
 class Ballot {
 
     candidates = []
 
     addCandidate(x) {
         if (x instanceof Person) {
-            this.candidates.push(x);
+            const candidate = new Candidate();
+            this.candidates.push(candidate);
         }
     }
 }
 
-
 class Election {
 
-    running = [];
+    ballot = {};
+    voters = [];
 
-    addBallotToRunning(x){
+    addBallot(x){
         if(x instanceof Ballot){
             this.ballot = x;
         }
     }
 
+    addVoter(x){
+        if(x instanceof Person && this.voters.find((x) => x.person == x) == undefined){
+            const voter = new Voter();
+            voter.person = x;
+            this.voters.push(voter);
+        }
+    }
+
 }
-
-
-
-
-
-
-const 
