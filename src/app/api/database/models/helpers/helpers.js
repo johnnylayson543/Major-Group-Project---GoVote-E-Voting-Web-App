@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-import { mongoose_client } from "../../mongooseDocker";
+import { getDatabaseConnection } from "../../testing/signal_test";
 
 export function getModel(modelName, Schema){
 
+    const mongoose_client = getDatabaseConnection();
     let model;
     try {
         model = mongoose_client.model(modelName);

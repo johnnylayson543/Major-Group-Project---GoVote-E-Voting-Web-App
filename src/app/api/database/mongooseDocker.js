@@ -121,6 +121,13 @@ mongoose.connect(uri, options).catch(err => {
   });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+const uri_test = 'mongodb://root:example@localhost:27017/EVote_test?authSource=admin';
+const options_test = {};
+mongoose.connect(uri).catch(err => {
+    console.error('.MongoDB connection error:', err);
+  });
+const db_test = mongoose.connection;
 /*db.on('open', function() {
     // Connection successful
     console.log('Connected to MongoDB!');
@@ -162,6 +169,7 @@ export class Transaction {
 };
 
 export const mongoose_client = db;
+export const mongoose_client_test = db_test;
 
 //export default mongoose_client;
 
