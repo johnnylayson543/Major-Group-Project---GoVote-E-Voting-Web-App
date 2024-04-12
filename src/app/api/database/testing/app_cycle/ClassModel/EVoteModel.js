@@ -68,12 +68,16 @@ class System {
             user.pass = y;
             user.details = x;
             this.users.push(user);
+            return user;
         }
     }
 
     addAdmin(x){
         if(x instanceof User && this.users.includes(x)){
+            const admin = new Admin();
+            admin.super = x;
             this.admins.push(x);
+            return admin;
         }
     }
 
@@ -197,5 +201,17 @@ class Election {
             this.voters.push(voter);
         }
     }
+
+}
+
+
+function run_cycle(){
+
+    const evote1 = evote;
+    const person_admin = new Person();
+    person_admin.ppsn = 1;
+    evote1.system.addUser(person_admin, "xxx");
+    evote1.system.addAdmin()
+
 
 }
