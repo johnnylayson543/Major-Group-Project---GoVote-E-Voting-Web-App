@@ -96,7 +96,7 @@ export default function Page() {
   // This returns the front-end page
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, display: 'flex', alignItems: 'center' }}>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItems: 'center' }}>
         <Grid container spacing={2}>
           <Item xs={12}>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>

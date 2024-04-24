@@ -81,7 +81,7 @@ export default function Page() {
   return (
     <>
       <Header></Header>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, display: 'flex', alignItem: 'center' }}>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItem: 'center' }}>
           <Grid container spacing={2}>
             <Item xs={12}>
               <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
