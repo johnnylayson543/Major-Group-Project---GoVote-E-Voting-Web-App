@@ -50,7 +50,7 @@ export default function Page() {
     // Using a function component for Grid item to avoid duplication
     const Item = ({ children, xs }) => (
         <Grid item xs={xs}>
-            <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#6F9CDE', fontWeight: 500 }}>
+            <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
                 {children}
             </Box>
         </Grid>
@@ -61,10 +61,12 @@ export default function Page() {
     return (
         <>
             <Box sx={{ p: 3 }}>
-                <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
-                    Welcome to GoVote - Ireland's No. 1 E-Voting Website!
-                </Typography>
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
+                    <Item xs={8}>
+                        <Typography variant="h5" component="h2" fontWeight={800} color={"black"}>
+                            Welcome to GoVote - Ireland's No. 1 E-Voting Website!
+                        </Typography>
+                    </Item>
                     <Item xs={8}>
                         <b>How It Works</b>
                         <p>

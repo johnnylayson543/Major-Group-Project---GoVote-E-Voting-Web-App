@@ -10,7 +10,7 @@ import {blue, green, purple} from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     background: {
-        default: "#18749b", // Set the Background Color
+        default: "#6c757d", // Set the Background Color
     },
     primary: {
       main: '#00008B', // Set the primary color (e.g. Buttons)

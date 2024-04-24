@@ -27,19 +27,21 @@ export default function Page() {
   return (
     <>
       <Box component="main" sx={{ p: 3 }}>
-        <Typography variant="h5" component="h2" fontWeight={800} gutterBottom>
-          Contact Us
-        </Typography>
-        <Typography variant="h6" sx={{ fontWeight: '700', mt: 2, mb: 4 }}>
-          We Value Your Feedback!
-        </Typography>
-        <Typography>
-          At GoVote, we're committed to providing a seamless and inclusive voting experience.
-          Your feedback, questions, and suggestions are important to us.
-          Feel free to come in and talk to us or drop us a query form and we will get back to you as soon as convenient.
-        </Typography>
         <Box sx={{ flexGrow: 1, mt: 4 }}>
           <Grid container spacing={5}>
+              <Item>
+                  <Typography variant="h5" component="h2" fontWeight={800} gutterBottom>
+                    Contact Us
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: '700', mt: 2, mb: 4 }}>
+                    We Value Your Feedback!
+                  </Typography>
+                  <Typography>
+                    At GoVote, we're committed to providing a seamless and inclusive voting experience.
+                    Your feedback, questions, and suggestions are important to us.
+                    Feel free to come in and talk to us or drop us a query form and we will get back to you as soon as convenient.
+                  </Typography>
+                </Item>
             <Grid item xs={12} md={6}>
               <Item elevation={0}>
                 {/* Embedded Google Map */}
@@ -55,6 +57,7 @@ export default function Page() {
                 />
               </Item>
             </Grid>
+
             <Grid item xs={12} md={6}>
               <Item elevation={0}>
                 <Typography variant="h6" gutterBottom>
