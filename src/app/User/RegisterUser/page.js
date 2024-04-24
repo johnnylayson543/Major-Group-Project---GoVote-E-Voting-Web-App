@@ -67,87 +67,89 @@ export default function Page() {
 
   }; // end handler
 
+  // Using a function component for Grid item to avoid duplication
+  const Item = ({ children, xs }) => (
+    <Grid item xs={xs}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
+            {children}
+        </Box>
+    </Grid>
+  );
+
 
   // The actual front-end page
   return (
     <>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+      <Header></Header>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, display: 'flex', alignItem: 'center' }}>
+          <Grid container spacing={2}>
+            <Item xs={12}>
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
+              
+              <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+                  Register Your GoVote Account
+              </Typography>
 
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            </Item>
+            <Item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="dob"
+                  label="Date of Birth"
+                  name="dob"
+                  autoComplete="date-of-birth"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="ppsn"
+                  label="PPSN"
+                  name="ppsn"
+                  autoComplete="ppsn"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="pass"
+                  label="Pass"
+                  type="password"
+                  id="pass"
+                  autoComplete="current-password"
+                />
 
-        </Avatar>
-        <Header>
-        </Header>
-        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-          Register Your GoVote Account
-        </Typography>
-
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="dob"
-            label="Date of Birth"
-            name="dob"
-            autoComplete="date-of-birth"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="ppsn"
-            label="PPSN"
-            name="ppsn"
-            autoComplete="ppsn"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="pass"
-            label="Pass"
-            type="password"
-            id="pass"
-            autoComplete="current-password"
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Register
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="./login" variant="body2" underline="none" color="inherit">
-                Already Registered? Login to GoVote
-              </Link>
-            </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Register
+                </Button>
+            </Item>
+            <Item xs={12}>
+                <Link href="./login" variant="body2" underline="none" color="inherit">
+                  Already Registered? Login to GoVote
+                </Link>
+            </Item>
           </Grid>
-        </Box>
       </Box>
+      
 
     </>
 
