@@ -84,73 +84,75 @@ export default function Page() {
     }
   }
 
+  // Using a function component for Grid item to avoid duplication
+  const Item = ({ children, xs }) => (
+    <Grid item xs={xs}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
+            {children}
+        </Box>
+    </Grid>
+  );
+
   // This returns the front-end page
   return (
     <>
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, display: 'flex', alignItems: 'center' }}>
+        <Grid container spacing={2}>
+          <Item xs={12}>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
 
-          </Avatar>
-
-          <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-            Login to GoVote
-          </Typography>
-
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="ppsn"
-              label="PPSN"
-              name="ppsn"
-              autoComplete="ppsn"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="pass"
-              label="Password"
-              type="password"
-              id="pass"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Login
-            </Button>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2" underline="none" color="inherit">
+            <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+                Login to GoVote
+            </Typography>
+          </Item>
+          <Item xs={12}>
+            
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="ppsn"
+                label="PPSN"
+                name="ppsn"
+                autoComplete="ppsn"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="pass"
+                label="Password"
+                type="password"
+                id="pass"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+          </Item>
+          <Item xs={12}>
+              <Link href="#" variant="body2" underline="none" color="inherit">
                   Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="./register" variant="body2" underline="none" color="inherit">
+              </Link>
+              <br></br>
+              <Link href="./register" variant="body2" underline="none" color="inherit">
                   {"Don't have an account on GoVote? Sign Up to start voting!"}
-                </Link>
-              </Grid>
-            </Grid>
+              </Link>
+          </Item>
+        </Grid>
 
-          </Box>
-        </Box>
+      </Box>
+        
 
     </>
   );
