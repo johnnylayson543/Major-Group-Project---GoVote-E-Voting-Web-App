@@ -1,288 +1,234 @@
-const { randomInt } = require("crypto");
+import { randomInt } from "crypto";
 
 class Application {
+  constructor(owner) {
+    this.owner = owner instanceof EVote ? owner : null;
+    this.elections = [];
+    this.tellers = [];
+  }
 
-    owner = EVote;
-    elections = [Election]
-    tellers = [Teller];
-    
-    constructor(x){
-        this.owner = (x instanceof EVote) ? x : null;
+  addElection(ballot, session) {
+    const authorised = session.user instanceof Admin;
+    const validBallot = ballot instanceof Ballot && ballot.candidates.length > 1;
+
+    if (validBallot && authorised) {
+      const election = new Election();
+      election.ballot = ballot;
+      this.elections.push(election);
+      return election;
     }
+    return null;
+  }
 
-    addElection(x, session1) {
-
-        const authorised = (session1 instanceof session
-            && session1.user instanceof Admin
-        ) ;
-
-        const validBallot =  (x instanceof Ballot && x.candidates.length > 1);
-
-        if ( validBallot && authorised ) {
-            const election = new Election();
-            election.ballot = x;
-            this.elections.push(election);
-
-            return election;
-        }
-        
+  addTeller(teller) {
+    if (teller instanceof User) {
+      this.tellers.push(teller);
     }
-
-    addTeller(x){
-        if(x instanceof User){
-            this.tellers.push(x);
-        }
-    }
-
+  }
 }
 
 class EVote {
+  constructor() {
+    this.system = new System();
+    this.application = new Application(this);
+    this.sessions = [];
+  }
 
-    system = new System();
-    application = new Application(self);
-    sessions = [session]
-
-    register(x, y){
-        if(x instanceof Person && typeof y === 'string' ){
-            const check = this.system.users.find((y) => y instanceof User && y.details.ppsn == x.ppsn );
-            if( check != undefined && check instanceof User ){
-                check.pass = y;
-                check.setDetails(x);
-            }
-
-        }
+  register(person, password) {
+    if (person instanceof Person && typeof password === 'string') {
+      const user = this.system.addUser(person, password);
+      return user;
     }
+    return null;
+  }
 
-
-    login(x, y){
-        if(x instanceof User && x.pass == y){
-            const session1 = new session(x);
-            this.sessions.push(session1);
-            return session1;
-        }
+  login(user, password) {
+    if (user instanceof User && user.pass === password) {
+      const session = new Session(user);
+      this.sessions.push(session);
+      return session;
     }
-
+    return null;
+  }
 }
 
-
-class session {
-
-    constructor(x){
-        if(x instanceof User){
-            if(x instanceof Admin){
-                this.admin = x;
-            } else {
-                this.user = x;
-            }
-        }
-    }
+class Session {
+  constructor(user) {
+    this.user = user instanceof Admin ? user : (user instanceof User ? user : null);
+  }
 }
-
-const evote = new EVote();
 
 class Person {
-
-    ppsn = "";
-    name = "";
-    address = "";
-    email = "";
-    phone = "";
-    date_of_birth = "";
-
+  constructor(ppsn, name, address, email, phone, dob) {
+    this.ppsn = ppsn;
+    this.name = name;
+    this.address = address;
+    this.email = email;
+    this.phone = phone;
+    this.date_of_birth = dob;
+  }
 }
-
 
 class System {
+  constructor() {
+    this.users = [];
+  }
 
-    users = [User]
-    admins = [Admin]
-       
-    addUser(x, y) {
-        if (x instanceof Person && typeof y === 'string') {
-            const user = new User();
-            user.pass = y;
-            user.details = x;
-            this.users.push(user);
-            return user;
-        }
+  addUser(person, password) {
+    const exists = this.users.some(user => user.details.ppsn === person.ppsn);
+    if (!exists) {
+      const user = new User(person, password);
+      this.users.push(user);
+      return user;
     }
+    return null;
+  }
 
-    addAdmin(x){
-        if(x instanceof User && this.users.includes(x)){
-            const admin = new Admin();
-            admin.super = x;
-            this.admins.push(x);
-            return admin;
-        }
+  addAdmin(user) {
+    if (user instanceof User && !user.isAdmin()) {
+      user.setAdmin(true);
+      return user;
     }
-
+    return null;
+  }
 }
-
-
 
 class User {
+  constructor(details, password) {
+    this.details = details;
+    this.pass = password;
+    this.isAdmin = false;
+  }
 
-    pass = "";
-    roles = {};
-    details = {Person};
-
-    constructor(details){
-        const isPerson = details instanceof Person;
-        if(isPerson) this.details = details;
-    }
-
-    setDetails(x) {
-        const isPerson = x instanceof Person;
-        const possible = this.details != null && this.details.ppsn != undefined;
-        const samePerson = this.details.ppsn == x.ppsn;
-        if(isPerson && possible && samePerson) this.details = x;
-    }
-
-    setRoles(xs) {
-
-        for (const x of xs) {
-
-            this.roles.admin = x instanceof Admin;
-            this.roles.candidate = x instanceof Candidate;
-            this.roles.teller = x instanceof Teller;
-            this.roles.voter = x instanceof Voter;
-            ;
-        }
-
-    }
-
-}
-
-
-class Admin extends User {
-
-
-    setPPSN_range(min, max) {
-        for (i = min; i < max; i++) {
-            const person = new Person()
-            person.ppsn = i;
-            const user = new User();
-            user.setDetails(person);
-            evote.system.users.push(user);
-        }
-    }
-}
-
-class Teller extends User {
-}
-
-
-
-class Vote {
-
-    type = {}
-    value = 0.0;
-
-    constructor(x, y){
-        if(x instanceof {} && y instanceof Number){
-            this.type = x;
-            this.value = y;    
-        }
-    }
-
-
-}
-
-
-class Candidate {
-
-    vote = [Vote];
-
-    addVote(x){
-        if(x instanceof Vote){
-            this.vote.push(x);
-        }
-    }
-    
-}
-
-class Voter {
-
-    person = {Person}
-    votes = [Vote];
-
-    castVote(x, y){
-
-        if(x instanceof Candidate){
-            x.addVote(y)
-        }
-
-    }
-
+  setAdmin(value) {
+    this.isAdmin = value;
+  }
 }
 
 class Ballot {
+  constructor(title, closingDateTime) {
+    this.title = title;
+    this.closing_datetime = closingDateTime;
+    this.candidates = [];
+  }
 
-    candidates = [Candidate]
-
-    constructor(x, y){
-        title = x;
-        closing_datetime = y;
+  addCandidate(candidate) {
+    if (candidate instanceof User) {
+      this.candidates.push(candidate);
     }
-
-    addCandidate(x) {
-        if (x instanceof User) {
-            const candidate = new Candidate();
-            this.candidates.push(candidate);
-        }
-    }
+  }
 }
 
 class Election {
-
-    ballot = Ballot;
-    voters = [Voter];
-
-    addBallot(x){
-        if(x instanceof Ballot){
-            this.ballot = x;
-        }
+    constructor(ballot) {
+      this.ballot = ballot;  // Ballot with candidates
+      this.voters = [];
+      this.votes = {};
+      this.isElectionOpen = false;
     }
-
-    addVoter(x){
-        if(x instanceof Person && this.voters.find((x) => x.person == x) == undefined){
-            const voter = new Voter();
-            voter.person = x;
-            this.voters.push(voter);
-        }
+  
+    openVoting() {
+      this.isElectionOpen = true;
+      console.log("Voting has started. Ballot is now open.");
     }
+  
+    closeVoting() {
+      this.isElectionOpen = false;
+      console.log("Voting has ended. Ballot is now closed.");
+    }
+  
+    addVoter(person) {
+      if (!this.isElectionOpen) {
+        const isNotVoter = this.voters.every(voter => voter.details.ppsn !== person.ppsn);
+        if (isNotVoter) {
+          const voter = new Voter(person);
+          this.voters.push(voter);
+        }
+      } else {
+        console.log("Cannot add voters after voting has started.");
+      }
+    }
+  
+    castVote(voter, preferences) {
+      // `preferences` should be an array of candidates in order of preference
+      if (this.isElectionOpen && this.voters.some(v => v.details.ppsn === voter.details.ppsn)) {
+        this.votes[voter.details.ppsn] = preferences;
+        console.log(`${voter.details.name} has cast their vote.`);
+        return true;
+      } else {
+        console.log("Voting failed. Check if voting is open and voter is registered.");
+        return false;
+      }
+    }
+  
+    countVotes() {
+      // Simplified preferential vote counting (first-past-the-post in this example)
+      let results = {};
+      this.ballot.candidates.forEach(candidate => {
+        results[candidate.details.name] = 0;  // Initialize result for each candidate
+      });
+  
+      Object.values(this.votes).forEach(preferences => {
+        if (preferences.length > 0) {
+          const firstChoice = preferences[0];
+          results[firstChoice.details.name]++;
+        }
+      });
+  
+      return results;
+    }
+  
+    run_cycle() {
+      console.log("Election cycle has started.");
+      
+      this.openVoting();
+      setTimeout(() => {
+        this.closeVoting();
+  
+        const voteResults = this.countVotes();
+        console.log("Election Results:", voteResults);
+  
+        console.log("Election cycle has completed.");
+      }, 10000);  // Represents the voting period (e.g., 10 seconds here for simulation)
+    }
+  }
+  
+  class Voter {
+    constructor(details) {
+      this.details = details;
+    }
+  }
 
-}
-
-
-function run_cycle(){
-
-    const evote1 = evote;
+  function run_cycle() {
+    const evote1 = new EVote();
     const person_admin = new Person();
     person_admin.ppsn = 1;
     const userAdmin = evote1.system.addUser(person_admin, "xxx");
     const admin1 = evote1.system.addAdmin(userAdmin);
-    const session1 = evote1.login(admin1, 'xxx');
+    const session1 = evote1.login(admin1, "xxx");
     session1.admin.setPPSN_range(1, 20);
     const ballot1 = new Ballot("Today1", "1/1/1");
-    const potential_candidates = evote.system.users.filter(x => x instanceof User).filter(x => x.details.ppsn > 0);
-    for(i=1; i<6; i++){
-        ballot1.addCandidate(potential_candidates[i]);
+    const potential_candidates = evote1.system.users
+      .filter((x) => x instanceof User)
+      .filter((x) => x.details.ppsn > 0);
+    for (let i = 1; i < 6; i++) {
+      ballot1.addCandidate(potential_candidates[i]);
     }
-    const election1 = evote.application.addElection(ballot1, session1);
+    const election1 = evote1.application.addElection(ballot1, session1);
 
-    const potential_voters = evote.system.users.filter(x => x instanceof User);
+    const potential_voters = evote1.system.users.filter(
+      (x) => x instanceof User
+    );
     session1.admin.setPPSN_range(100, 200);
-    for(i=100;i<200;i++){
-        election1.addVoter(potential_voters[i]);
-    };
-    for(const x of election1.voters){
-        const count = election1.ballot.prototype.candidates.length;
-        const randomN = randomInt(count)
-        const vote1 = new Vote({'One' : 1}, 1);
-        x.prototype.castVote(randomInt, vote1);
+    for (let i = 100; i < 200; i++) {
+      election1.addVoter(potential_voters[i]);
+    }
+    for (const x of election1.voters) {
+      const count = election1.ballot.candidates.length;
+      const randomN = randomInt(count);
+      const vote1 = new Vote({ One: 1 }, 1);
+      x.castVote(election1.ballot.candidates[randomN], vote1);
     }
 
-    const result = election1.ballot.prototype.candidates;
-
-}
+    const results = election1.ballot.candidates;
+  }
