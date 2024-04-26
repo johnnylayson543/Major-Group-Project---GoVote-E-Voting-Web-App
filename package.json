@@ -20,6 +20,7 @@
     "crypto": "^1.0.1",
     "dayjs": "^1.11.10",
     "fs": "^0.0.1-security",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",

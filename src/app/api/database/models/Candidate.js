@@ -35,10 +35,10 @@ class CandidateClass {
     static async retrieve_the_candidate(x) {
         try {
             const obj = { _id: x._id };
-            const candidates = await Candidate.findOne(obj);
+            const candidate = await Candidate.findOne(obj);
             console.log("Candidate found: ");
-            console.log(candidates);
-            return candidates;
+            console.log(candidate);
+            return candidate;
         } catch (error) {
             console.error('An error occurred while retrieving the candidate:', error);
             console.error('Error occurred:', error.message);

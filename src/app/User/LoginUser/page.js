@@ -13,8 +13,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Layout from '@/app/layout';
+import Cookies from 'js-cookie';
 
 export default function Page() {
 
@@ -54,6 +55,19 @@ export default function Page() {
     router.push('/Voter/Profile/');
   };
 
+  function checkCookieAndReload() {
+    const hasReloaded = Cookies.set('hasReloaded');
+    const authToken = Cookies.get('user_authenticated');
+
+    if (!authToken && !hasReloaded) {
+        Cookies.set('hasReloaded', 'false');
+    }
+}
+
+  if(!user){
+    checkCookieAndReload();
+  }
+
 
   /*
    This is the submit handler for the e-voting register page after the button is fired
@@ -76,20 +90,22 @@ export default function Page() {
 
   }; // end handler
 
-
-  if (user) {
-    const user_roles = user.roles;
-    if (user_roles.filter(role => role == 'user')) {
-      goToUserProfilePage();
+  // Inside your component
+  useEffect(() => {
+    if (user) {
+      const user_roles = user.roles;
+      if (user_roles.includes('user')) { // Changed from filter to includes for correctness
+        goToUserProfilePage();
+      }
     }
-  }
+  }, [user]); // Dependency array to ensure this runs only when `user` changes
 
   // Using a function component for Grid item to avoid duplication
   const Item = ({ children, xs }) => (
     <Grid item xs={xs}>
-        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
-            {children}
-        </Box>
+      <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
+        {children}
+      </Box>
     </Grid>
   );
 
@@ -102,57 +118,57 @@ export default function Page() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
 
             <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
-                Login to GoVote
+              Login to GoVote
             </Typography>
           </Item>
           <Item xs={12}>
-            
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="ppsn"
-                label="PPSN"
-                name="ppsn"
-                autoComplete="ppsn"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="pass"
-                label="Password"
-                type="password"
-                id="pass"
-                autoComplete="current-password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Login
-              </Button>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="ppsn"
+              label="PPSN"
+              name="ppsn"
+              autoComplete="ppsn"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="pass"
+              label="Password"
+              type="password"
+              id="pass"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Login
+            </Button>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
           </Item>
           <Item xs={12}>
-              <Link href="#" variant="body2" underline="none" color="inherit">
-                  Forgot password?
-              </Link>
-              <br></br>
-              <Link href="./register" variant="body2" underline="none" color="inherit">
-                  {"Don't have an account on GoVote? Sign Up to start voting!"}
-              </Link>
+            <Link href="#" variant="body2" underline="none" color="inherit">
+              Forgot password?
+            </Link>
+            <br></br>
+            <Link href="./register" variant="body2" underline="none" color="inherit">
+              {"Don't have an account on GoVote? Sign Up to start voting!"}
+            </Link>
           </Item>
         </Grid>
 
       </Box>
-        
+
 
     </>
   );

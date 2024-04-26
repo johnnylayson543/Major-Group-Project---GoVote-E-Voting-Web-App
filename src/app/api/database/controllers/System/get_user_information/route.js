@@ -86,6 +86,7 @@ export async function GET(req, res) {
                 const personResponse = await fetch(`http://localhost:3000/api/database/controllers/User/Person/retrieve_the_persons_details?ppsn=${person_ppsn}`);
                 data.person = (await personResponse.json()).result;
             }
+            
 
             console.log(data);
             return Response.json({ data: "okay", result: data });
