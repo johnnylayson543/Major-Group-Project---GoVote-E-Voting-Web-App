@@ -16,7 +16,7 @@ import { createTheme } from '@mui/material/styles';
 import { green, purple } from '@mui/material/colors';
 import { useState, useEffect, useContext } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '../../../components/header/userAuthentication';
 
 // WARNING: Still Incomplete, needs candidate page on the MongoDB cloud and still figuring out about the name. 
 // This is the most important part of the prototype that needs to be completed asap. some variables here like the ballotID are temporary placeholders

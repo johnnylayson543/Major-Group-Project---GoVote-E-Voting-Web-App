@@ -4,8 +4,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation';
-import { UserContext } from '@/app/components/header/userAuthentication';
-import Layout from '@/app/layout';
+import { UserContext } from '../../../components/header/userAuthentication';
+
 
 export default function Page() {
 

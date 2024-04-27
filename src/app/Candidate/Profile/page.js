@@ -21,7 +21,7 @@ import Face6Icon from '@mui/icons-material/Face6';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { useContext } from 'react'
-import { UserContext } from '@/app/components/header/userAuthentication';
+import { UserContext } from '../../components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
 
 

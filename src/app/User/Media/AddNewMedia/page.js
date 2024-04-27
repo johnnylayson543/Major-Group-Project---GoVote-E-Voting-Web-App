@@ -5,8 +5,8 @@ import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
-import { UserContext } from '@/app/components/header/userAuthentication';
-import Layout from '@/app/layout';
+import { UserContext } from '../../../components/header/userAuthentication';
+
 
 
 export default function Page() {

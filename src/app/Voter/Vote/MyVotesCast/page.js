@@ -6,10 +6,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Header from '@/app/components/header/header';
+import Header from '../../../components/header/header';
 import { useState, useEffect, useContext } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '../../../components/header/userAuthentication';
 
 
 // Setting the Item and children for the Grid and its properties

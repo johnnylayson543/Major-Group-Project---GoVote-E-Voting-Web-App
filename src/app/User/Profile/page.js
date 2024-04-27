@@ -31,12 +31,12 @@ export default function Page() {
     );
 
     if (!user) return <Box><p>Loading</p></Box>;
-    let voterButton;
-    if (voter) {
-        console.log(voter._id);
-        voterButton =
+    let adminButton;
+    if (admin) {
+        console.log(admin._id);
+        adminButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(voter._id)} >
+                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(admin._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -45,9 +45,9 @@ export default function Page() {
             </ListItem >
     }
 
-    let adminButton;
-    if (admin) {
-        console.log(admin._id);
+    let voterButton;
+    if (voter) {
+        console.log(voter._id);
         adminButton =
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >

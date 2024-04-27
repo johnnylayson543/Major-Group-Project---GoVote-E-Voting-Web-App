@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
-import Layout from '@/app/layout'; // Assuming this is the correct path for your layout component
+ // Assuming this is the correct path for your layout component
 
 export default function Page() {
 

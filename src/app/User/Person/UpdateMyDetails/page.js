@@ -12,9 +12,9 @@ import { Toolbar, Stack, Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useContext } from 'react'
-import { UserContext } from '@/app/components/header/userAuthentication';
+import { UserContext } from '../../../components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
-import Layout from '@/app/layout';
+
 
 global.mongoURL = "mongodb+srv://evote.kyxphj1.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
 
