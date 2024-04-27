@@ -23,7 +23,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { useState, useContext } from 'react';
-import { UserContext } from '@/app/components/header/userAuthentication';
+import { UserContext } from './userAuthentication';
 import { useRouter } from 'next/navigation';
 
 
