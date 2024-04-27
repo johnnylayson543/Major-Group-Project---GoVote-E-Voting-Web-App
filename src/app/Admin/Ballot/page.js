@@ -8,7 +8,11 @@ import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
+<<<<<<< Updated upstream
 import { formatDateTime, objectIdToLCH } from '../../components/helpers';
+=======
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
+>>>>>>> Stashed changes
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -55,7 +59,7 @@ export default function Page() {
   console.log(ballots);
 
   let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()} style={{backgroundColor: objectIdToLCH(ballot._id)}}><td>{formatDateTime(ballot.closing_datetime)}</td><td>{ballot.title}</td><td><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></td></tr>
+    <tr key={ballot._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot._id)}}><td>{formatDateTime(ballot.closing_datetime)}</td><td>{ballot.title}</td><td><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></td></tr>
      ));
   let element = <Box id="BallotIndex" class="information-display">
         <h1>Ballots</h1>

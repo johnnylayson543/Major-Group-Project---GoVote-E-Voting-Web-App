@@ -31,40 +31,40 @@ export function formatDateTime(dateString) {
   }
 
   
-// Constants defining the LCH space traversal
-const maxChroma = 60;
-const minChroma = 30;  // Example minimum chroma value
-const maxLightness = 80; 
-const minLightness = 70;  // Example minimum lightness value
-const hueIncrement = 1;
+// Constants defining the OKLCH space traversal
+const maxChroma = 0.18;  // Example maximum chroma value in OKLCH
+const minChroma = 0.05;  // Example minimum chroma value
+const maxLightness = 0.90;  // Close to white in OKLCH
+const minLightness = 0.10;  // Close to black in OKLCH
+const hueIncrement = 30;
 
-const chromaRange = maxChroma - minChroma + 1;  // +1 to include maxChroma in the range
-const lightnessRange = maxLightness - minLightness;  // Assuming minLightness is 1% to maxLightness - 1%
+const chromaRange = maxChroma - minChroma;
+const lightnessRange = maxLightness - minLightness;
 
 const totalHueSteps = 360 / hueIncrement;
-const totalIndices = chromaRange * lightnessRange * totalHueSteps;
+const totalIndices = Math.floor(chromaRange * 100) * Math.floor(lightnessRange * 100) * totalHueSteps;
 
 // Function to normalize hash to index using MongoDB ObjectId counter
 function hashToIndex(objectId) {
-  const counterHex = objectId.slice(0, 24); // 18, 24
+  const counterHex = objectId.slice(18, 24);
   const counter = BigInt(`0x${counterHex}`);
-  const maxCounterValue = BigInt(0xFF); // Max value for 3-byte counter // 0xFFFFFF
+  const maxCounterValue = BigInt(0xFFFFFF); // Max value for 3-byte counter
   const index = Number((counter * BigInt(totalIndices) / maxCounterValue) % BigInt(totalIndices));
   return index;
 }
 
-// Function to convert index to LCH color
-function indexToLCH(index) {
-  const hueCycleCount = Math.floor(index / (chromaRange * lightnessRange));
-  const positionInCurrentCycle = index % (chromaRange * lightnessRange);
-  const currentLightness = minLightness + Math.floor(positionInCurrentCycle / chromaRange);
-  const currentChroma = minChroma + positionInCurrentCycle % chromaRange;
+// Function to convert index to OKLCH color
+function indexToOKLCH(index) {
+  const hueCycleCount = Math.floor(index / (Math.floor(chromaRange * 100) * Math.floor(lightnessRange * 100)));
+  const positionInCurrentCycle = index % (Math.floor(chromaRange * 100) * Math.floor(lightnessRange * 100));
+  const currentLightness = minLightness + (Math.floor(positionInCurrentCycle / Math.floor(chromaRange * 100)) / 100);
+  const currentChroma = minChroma + ((positionInCurrentCycle % Math.floor(chromaRange * 100)) / 100);
   const currentHue = (hueCycleCount * hueIncrement) % 360;
-  return `lch(${currentLightness}% ${currentChroma} ${currentHue}deg)`;
+  return `oklch(${currentLightness} ${currentChroma} ${currentHue}deg)`;
 }
 
-// Main function to convert ObjectId to LCH color
-export function objectIdToLCH(objectId) {
+// Main function to convert ObjectId to OKLCH color
+export function objectIdToOKLCH(objectId) {
   const index = hashToIndex(objectId);
-  return indexToLCH(index);
+  return indexToOKLCH(index);
 }
