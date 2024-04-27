@@ -32,11 +32,11 @@ export function formatDateTime(dateString) {
 
   
 // Constants defining the LCH space traversal
-const maxChroma = 70;
-const minChroma = 20;  // Example minimum chroma value
+const maxChroma = 60;
+const minChroma = 30;  // Example minimum chroma value
 const maxLightness = 80; 
-const minLightness = 50;  // Example minimum lightness value
-const hueIncrement = 30;
+const minLightness = 70;  // Example minimum lightness value
+const hueIncrement = 1;
 
 const chromaRange = maxChroma - minChroma + 1;  // +1 to include maxChroma in the range
 const lightnessRange = maxLightness - minLightness;  // Assuming minLightness is 1% to maxLightness - 1%
@@ -46,9 +46,9 @@ const totalIndices = chromaRange * lightnessRange * totalHueSteps;
 
 // Function to normalize hash to index using MongoDB ObjectId counter
 function hashToIndex(objectId) {
-  const counterHex = objectId.slice(18, 24);
+  const counterHex = objectId.slice(0, 24); // 18, 24
   const counter = BigInt(`0x${counterHex}`);
-  const maxCounterValue = BigInt(0xFFFFFF); // Max value for 3-byte counter
+  const maxCounterValue = BigInt(0xFF); // Max value for 3-byte counter // 0xFFFFFF
   const index = Number((counter * BigInt(totalIndices) / maxCounterValue) % BigInt(totalIndices));
   return index;
 }

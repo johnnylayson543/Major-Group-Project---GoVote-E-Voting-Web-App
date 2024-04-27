@@ -23,6 +23,11 @@ const theme = createTheme({
     // You can customize typography styles here
   },
   components: {
+    MuiTextField: {
+      styleOverrides: {
+        backgroundColor: 'white'
+      }
+    },
     MuiTable: {
       styleOverrides: {
         root: {
