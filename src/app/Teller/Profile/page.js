@@ -21,7 +21,7 @@ export default function Page() {
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
-        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#6F9CDE', fontWeight: 500 }}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
             {children}
         </Box>
     );
@@ -41,14 +41,12 @@ export default function Page() {
 
                 <Grid item xs={12} sm={6} md={5} lg={5}>
                     <Item>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                        fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                        aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                        cum quibusdam.
-                        <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris et nulla ac eros aliquet suscipit ut quis libero.
-                        Sed quam erat, dictum in consequat id, dapibus eu libero.
+                    <b>Teller Dashboard</b>
+                        <br></br>
+                        <strong>Welcome to the Teller Dashboard!</strong>
+                        <br></br>
+                        As the Teller, you can see all the history of finished elections and you can tally up all the elections.
+                        Please use the provided options to navigate election history and tally the election votes efficiently.
                     </Item>
                 </Grid>
 
@@ -56,9 +54,9 @@ export default function Page() {
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
-                                <Divider />
+                                <Divider>Teller Controls</Divider>
                                 <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='/Teller/Election'>
+                                    <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} href='/Teller/Election'>
                                         <ListItemIcon>
                                             <PollIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
@@ -66,15 +64,16 @@ export default function Page() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='/Teller/Election/Vote'>
+                                    <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} href='/Teller/Election/Vote'>
                                         <ListItemIcon>
                                             <PollIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
                                         <ListItemText primary="Tallied Elections" />
                                     </ListItemButton>
                                 </ListItem>
+                                <Divider>Executive Controls</Divider>
                                 <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile'>
+                                    <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} href='../User/Profile'>
                                         <ListItemIcon>
                                             <SettingsIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
