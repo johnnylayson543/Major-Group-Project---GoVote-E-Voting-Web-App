@@ -1,18 +1,21 @@
 import { randomInt } from "crypto";
 
 class Application {
-  constructor(owner) {
-    this.owner = owner instanceof EVote ? owner : null;
+  owner: EVote;
+  elections: Election[];
+  tellers: User[];
+
+  constructor(owner : EVote) {
+    this.owner = owner;
     this.elections = [];
-    this.tellers = [];
   }
 
-  addElection(ballot, session) {
-    const authorised = session.user instanceof Admin;
-    const validBallot = ballot instanceof Ballot && ballot.candidates.length > 1;
+  addElection(ballot : Ballot, session : Session) {
+    const authorised = session.user.isAdmin;
+    const validBallot = ballot.candidates.length > 1;
 
     if (validBallot && authorised) {
-      const election = new Election();
+      const election = new Election(ballot);
       election.ballot = ballot;
       this.elections.push(election);
       return election;
@@ -20,7 +23,7 @@ class Application {
     return null;
   }
 
-  addTeller(teller) {
+  addTeller(teller : User) {
     if (teller instanceof User) {
       this.tellers.push(teller);
     }
@@ -28,22 +31,22 @@ class Application {
 }
 
 class EVote {
+  system: System;
+  application: Application;
+  sessions: Session[];
   constructor() {
     this.system = new System();
     this.application = new Application(this);
     this.sessions = [];
   }
 
-  register(person, password) {
-    if (person instanceof Person && typeof password === 'string') {
+  register(person : Person, password : String) {
       const user = this.system.addUser(person, password);
       return user;
-    }
-    return null;
   }
 
-  login(user, password) {
-    if (user instanceof User && user.pass === password) {
+  login(user : User, password : String) {
+    if (user.pass === password) {
       const session = new Session(user);
       this.sessions.push(session);
       return session;
@@ -53,12 +56,20 @@ class EVote {
 }
 
 class Session {
-  constructor(user) {
-    this.user = user instanceof Admin ? user : (user instanceof User ? user : null);
+  user: User;
+  admin: any;
+  constructor(user : User) {
+    this.user = user;
   }
 }
 
 class Person {
+  ppsn: any;
+  name: any;
+  address: any;
+  email: any;
+  phone: any;
+  date_of_birth: any;
   constructor(ppsn, name, address, email, phone, dob) {
     this.ppsn = ppsn;
     this.name = name;
@@ -70,6 +81,7 @@ class Person {
 }
 
 class System {
+  users: any[];
   constructor() {
     this.users = [];
   }
@@ -85,7 +97,7 @@ class System {
   }
 
   addAdmin(user) {
-    if (user instanceof User && !user.isAdmin()) {
+    if (user instanceof User && !user.isAdmin) {
       user.setAdmin(true);
       return user;
     }
@@ -94,18 +106,40 @@ class System {
 }
 
 class User {
-  constructor(details, password) {
+  pass: String;
+  isAdmin : Boolean;
+  
+  details: any;
+  constructor(details : Person, password : String) {
     this.details = details;
     this.pass = password;
     this.isAdmin = false;
   }
 
-  setAdmin(value) {
+  setAdmin(value : Boolean) {
     this.isAdmin = value;
   }
 }
 
+class Admin extends User {
+
+  
+
+}
+
+class Teller extends User {
+  
+}
+
+class Candidate extends User {
+
+}
+
+
 class Ballot {
+  candidates: any;
+  title: any;
+  closing_datetime: any;
   constructor(title, closingDateTime) {
     this.title = title;
     this.closing_datetime = closingDateTime;
@@ -120,6 +154,10 @@ class Ballot {
 }
 
 class Election {
+    ballot: Ballot;
+    voters: any[];
+    votes: {};
+    isElectionOpen: boolean;
     constructor(ballot) {
       this.ballot = ballot;  // Ballot with candidates
       this.voters = [];
@@ -148,8 +186,10 @@ class Election {
         console.log("Cannot add voters after voting has started.");
       }
     }
+
+
   
-    castVote(voter, preferences) {
+    castVote(voter, preferences : Candidate) {
       // `preferences` should be an array of candidates in order of preference
       if (this.isElectionOpen && this.voters.some(v => v.details.ppsn === voter.details.ppsn)) {
         this.votes[voter.details.ppsn] = preferences;
@@ -194,6 +234,7 @@ class Election {
   }
   
   class Voter {
+    details: any;
     constructor(details) {
       this.details = details;
     }
