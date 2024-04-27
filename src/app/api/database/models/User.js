@@ -182,7 +182,7 @@ class UserClass {
                     //console.log(teller);
 
                     const filter_candidate = { person_ppsn: user_found.ppsn };
-                    const candidate = await Candidate.find(filter_candidate);
+                    const candidate = await Candidate.findOne(filter_candidate);
                     //console.log("candidate: ");
                     //console.log(candidate);
 

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -18,13 +18,11 @@ import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
 import Layout from '@/app/layout';
-import Cookies from 'js-cookie';
 
 export default function Page() {
 
     const router = useRouter();
-    const { user, voter, admin, teller, candidate } = useContext(UserContext);
-
+    const { user, voter, admin, teller } = useContext(UserContext);
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
@@ -33,28 +31,11 @@ export default function Page() {
         </Box>
     );
 
-
-    function checkCookieAndReload() {
-        const hasReloaded = Cookies.get('hasReloaded');
-        const authToken = Cookies.get('user_authenticated');
-    
-        if (authToken && !hasReloaded) {
-            Cookies.set('hasReloaded', 'true');
-            window.location.reload();
-        }
-    }
-
-
-    if (!user) {
-        checkCookieAndReload();
-        return <><Box><p>Loading</p></Box></>;
-    }
-
-
-    let adminButton;
-    if (admin) {
+    if (!user) return <Box><p>Loading</p></Box>;
+    let voterButton;
+    if (voter) {
         console.log(voter._id);
-        adminButton =
+        voterButton =
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(voter._id)} >
                     <ListItemIcon>
@@ -65,10 +46,10 @@ export default function Page() {
             </ListItem >
     }
 
-    let voterButton;
-    if (voter) {
-        console.log(voter._id);
-        voterButton =
+    let adminButton;
+    if (admin) {
+        console.log(admin._id);
+        adminButton =
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
                     <ListItemIcon>
@@ -93,26 +74,8 @@ export default function Page() {
             </ListItem >
     }
 
-    let candidateButton;
-    if (candidate) {
-        console.log(teller._id);
-        candidateButton =
-            <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToCandidateProfile(candidate._id)} >
-                    <ListItemIcon>
-                        <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
-                    </ListItemIcon>
-                    <ListItemText primary="Candidate" />
-                </ListItemButton>
-            </ListItem >
-    }
-
     const goToVoterProfile = (voter_id) => {
         router.push('/Voter/Profile?voterID={' + voter_id + '}');
-    };
-
-    const goToCandidateProfile = (candidate_id) => {
-        router.push('/Candidate/Profile?candidateID={' + candidate_id + '}');
     };
 
     const goToAdminProfile = (admin_id) => {
@@ -160,7 +123,6 @@ export default function Page() {
                                     {adminButton}
                                     {tellerButton}
                                     {voterButton}
-                                    {candidateButton}
                                     <Divider>User Controls</Divider>
                                     <ListItem disablePadding>
                                         <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../Voter/Election/'>
