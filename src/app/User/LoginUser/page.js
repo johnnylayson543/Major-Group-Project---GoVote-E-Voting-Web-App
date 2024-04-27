@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
-import Layout from '@/app/layout';
 
 export default function Page() {
 
