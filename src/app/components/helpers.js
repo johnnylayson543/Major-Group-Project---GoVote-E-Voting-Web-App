@@ -32,11 +32,11 @@ export function formatDateTime(dateString) {
 
   
 // Constants defining the OKLCH space traversal
-const maxChroma = 0.18;  // Example maximum chroma value in OKLCH
+const maxChroma = 0.1;  // Example maximum chroma value in OKLCH
 const minChroma = 0.05;  // Example minimum chroma value
 const maxLightness = 0.90;  // Close to white in OKLCH
 const minLightness = 0.10;  // Close to black in OKLCH
-const hueIncrement = 30;
+const hueIncrement = 1;
 
 const chromaRange = maxChroma - minChroma;
 const lightnessRange = maxLightness - minLightness;
@@ -46,7 +46,7 @@ const totalIndices = Math.floor(chromaRange * 100) * Math.floor(lightnessRange *
 
 // Function to normalize hash to index using MongoDB ObjectId counter
 function hashToIndex(objectId) {
-  const counterHex = objectId.slice(18, 24);
+  const counterHex = objectId.slice(0, 24);
   const counter = BigInt(`0x${counterHex}`);
   const maxCounterValue = BigInt(0xFFFFFF); // Max value for 3-byte counter
   const index = Number((counter * BigInt(totalIndices) / maxCounterValue) % BigInt(totalIndices));

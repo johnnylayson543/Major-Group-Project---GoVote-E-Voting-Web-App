@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 
 
 import { useState, useEffect } from 'react'
-import { Card, Stack, Toolbar } from '@mui/material';
+import { Card, Stack, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { formatDateTime, objectIdToLCH } from '../../../components/helpers';
+import { formatDateTime, objectIdToLCH, objectIdToOKLCH } from '../../../components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -74,12 +74,22 @@ export default function Page() {
   let element;
   if (person && ballot) {
     let dataElement1 =
-      <Card key={ballot._id.toString()} style={{backgroundColor: objectIdToLCH(ballot._id)}}>
+      <Card key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
         <p><strong>Date and time: </strong>{formatDateTime(ballot.closing_datetime)}</p><p><strong>Ballot title: </strong>{ballot.title}</p></Card>
 
       ;
     let dataElement2 =
-      <Card key={person._id.toString()} style={{backgroundColor: objectIdToLCH(person._id)}}><p><strong>PPSN: </strong>{person.ppsn}</p><p><strong>Name: </strong>{person.name}</p><p><strong>Address: </strong>{person.address}</p><p><strong>Email: </strong>{person.email}</p><p><strong>Phone number: </strong>{person.phone}</p><p><strong>Date of Birth: </strong>{person.date_of_birth}</p></Card>
+      <Card key={person._id.toString()} style={{ backgroundColor: objectIdToOKLCH(person._id) }}>
+        <Table><TableBody>
+          <TableRow><TableCell><p><strong>PPSN: </strong></TableCell><TableCell>{person.ppsn}</p></TableCell></TableRow>
+          <TableRow><TableCell><p><strong>Name: </strong>{person.name}</p></TableCell></TableRow>
+          <TableRow><TableCell><p><strong>Address: </strong>{person.address}</p></TableCell></TableRow>
+          <TableRow><TableCell><p><strong>Email: </strong>{person.email}</p></TableCell></TableRow>
+          <TableRow><TableCell><p><strong>Phone number: </strong>{person.phone}</p></TableCell></TableRow>
+          <TableRow><TableCell><p><strong>Date of Birth: </strong>{person.date_of_birth}</p></TableCell></TableRow>
+        </TableBody>
+      </Table>
+        </Card >
 
       ;
     element = <Card>
