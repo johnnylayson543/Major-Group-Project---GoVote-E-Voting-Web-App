@@ -7,10 +7,11 @@ import Header from '../../components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { objectIdToLCH, formatDateTime } from '../../components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -107,35 +108,36 @@ export default function Page() {
   const getPersons = () => { };
 
   let dataElement1 =
-    <tr key={ballot._id}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
+    <TableRow key={ballot._id} style={{backgroundColor: objectIdToLCH(ballot._id)}}><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell></TableRow>
 
     ;
   let dataElement2 = (ballot_candidates.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goRemoveCandidateFromTheBallot(ballot_candidate._id.toString())}>Remove</button></td></tr>
+    <TableRow key={ballot_candidate._id.toString()} style={{backgroundColor: objectIdToLCH(ballot_candidate._id), borderColor: objectIdToLCH(ballot_candidate.ballotID), borderWidth: '1px', borderStyle: 'solid'}} ><TableCell>{ballot_candidate.person_ppsn}</TableCell><TableCell><Button onClick={() => goRemoveCandidateFromTheBallot(ballot_candidate._id.toString())}>Remove</Button></TableCell></TableRow>
   ));
   let element = <Box>
     <h1>Candidates on the ballot</h1>
     <h2>Ballot</h2>
-    <table>
-      <thead><tr>
-        <th>ID</th>
-        <th>Closing Date and Time</th>
-        <th>Title</th>
-      </tr></thead>
-      <tbody>
+    <TableContainer>
+    <Table>
+      <TableHead><TableRow>
+        <TableCell>Closing Date and Time</TableCell>
+        <TableCell>Title</TableCell>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement1}
-      </tbody></table>
+      </TableBody></Table>
+      </TableContainer>
     <h2>Ballot Candidates</h2>
-    <table>
-      <thead><tr>
-        <th>Candidate ID</th>
-        <th>Ballot ID</th>
-        <th>Person PPSN</th>
-        <th>Actions</th>
-      </tr></thead>
-      <tbody>
+    <TableContainer>
+    <Table>
+      <TableHead><TableRow>
+        <TableCell>Person PPSN</TableCell>
+        <TableCell>Actions</TableCell>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement2}
-      </tbody></table>
+      </TableBody></Table>
+      </TableContainer>
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       <TextField
         margin="normal"
@@ -161,9 +163,9 @@ export default function Page() {
 
 
     <p>
-      <button onClick={() => goBackToElections()}>Back to Elections</button>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
-      <button onClick={() => goToBallots()}>Back to Ballots</button></p>
+      <Button onClick={() => goBackToElections()}>Back to Elections</Button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+      <Button onClick={() => goToBallots()}>Back to Ballots</Button></p>
   </Box>
   const goBackToElections = () => {
     router.push('/Admin/Election/');

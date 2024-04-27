@@ -23,30 +23,6 @@ class params {
 
 }
 
-class Person {
-
-
-
-}
-
-
-
-class User {
-
-    person = new Person();
-
-
-}
-
-
-class Admin {
-
-    User user;
-
-
-}
-const 
-
 const test_url = new URL("localhost:3000/");
 
 export async function GET(req, res) {
