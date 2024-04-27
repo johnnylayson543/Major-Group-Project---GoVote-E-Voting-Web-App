@@ -11,7 +11,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolb
 import { useRouter } from 'next/navigation';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { objectIdToLCH, formatDateTime } from '../../components/helpers';
+import { objectIdToLCH, formatDateTime, objectIdToOKLCH } from '../../components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -108,11 +108,11 @@ export default function Page() {
   const getPersons = () => { };
 
   let dataElement1 =
-    <TableRow key={ballot._id} style={{backgroundColor: objectIdToLCH(ballot._id)}}><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell></TableRow>
+    <TableRow key={ballot._id} style={{backgroundColor: objectIdToOKLCH(ballot._id)}}><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell></TableRow>
 
     ;
   let dataElement2 = (ballot_candidates.map(ballot_candidate =>
-    <TableRow key={ballot_candidate._id.toString()} style={{backgroundColor: objectIdToLCH(ballot_candidate._id), borderColor: objectIdToLCH(ballot_candidate.ballotID), borderWidth: '1px', borderStyle: 'solid'}} ><TableCell>{ballot_candidate.person_ppsn}</TableCell><TableCell><Button onClick={() => goRemoveCandidateFromTheBallot(ballot_candidate._id.toString())}>Remove</Button></TableCell></TableRow>
+    <TableRow key={ballot_candidate._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot_candidate._id), borderColor: objectIdToOKLCH(ballot_candidate.ballotID), borderWidth: '1px', borderStyle: 'solid'}} ><TableCell>{ballot_candidate.person_ppsn}</TableCell><TableCell><Button onClick={() => goRemoveCandidateFromTheBallot(ballot_candidate._id.toString())}>Remove</Button></TableCell></TableRow>
   ));
   let element = <Box>
     <h1>Candidates on the ballot</h1>
