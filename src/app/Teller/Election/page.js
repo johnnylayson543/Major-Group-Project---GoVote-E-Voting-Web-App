@@ -7,7 +7,7 @@ import Header from '../../components/header/header';
 import { useState, useEffect } from 'react'
 import { Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import Layout from '@/app/layout';
+
 
 
 export default function Page() {

@@ -8,10 +8,10 @@ import Chart from 'chart.js/auto'; // Add this line
 import Script from 'next/script'
 
 import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '../../components/header/userAuthentication';
 import { Container, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import Layout from '@/app/layout';
+
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing

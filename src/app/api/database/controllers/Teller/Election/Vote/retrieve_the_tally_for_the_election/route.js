@@ -1,6 +1,6 @@
 import { retrieve_the_tally_for_the_election_teller_type } from "../../../../../../Forms/Teller/Election/Vote/retrieve_the_tally_for_the_election_teller_type"
 import { run_model_method } from "../../../../helper/helper";
-import { Teller } from "@/app/api/database/models/Teller";
+import { Teller } from "../../../../../models/Teller";
 
 export async function GET(req, res) {
     // Make a note we are on

@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Layout from '@/app/layout';
+
 import styled from '@emotion/styled';
 
 const Item = styled(Paper)(({ theme }) => ({

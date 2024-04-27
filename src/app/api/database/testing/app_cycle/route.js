@@ -2,7 +2,7 @@ import { retrieve_the_candidate_and_associated_information_voter_type } from "..
 import { run_model_method } from "../../../helper/helper";
 import { Admin, Ballot, Candidate, Election, Log, Person, Tally, Teller, User, Voter, Vote  } from "../../../../models/Voter";
 import { setTestEnvironment } from "../signal_test";
-import { add_persons_range_admin_type } from "@/app/api/Forms/Admin/Person/add_persons_range_admin_type";
+import { add_persons_range_admin_type } from "../../../Forms/Admin/Person/add_persons_range_admin_type";
 
 const url_test_maker = (test_url, params) => {
     const uriStr = test_url + "?";
