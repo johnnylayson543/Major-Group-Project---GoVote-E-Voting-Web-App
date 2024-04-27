@@ -1,13 +1,14 @@
 'use client';
 import * as React from 'react';
 
-import Box from '@mui/material/Box';
+import {Box, Table} from '@mui/material';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Toolbar, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { formatDateTime, objectIdToLCH } from '@/app/components/helpers';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -54,14 +55,13 @@ export default function Page() {
   console.log(ballots);
 
   let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goEditBallot(ballot._id)}>Edit</button><button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</button><button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</button></td></tr>
+    <tr key={ballot._id.toString()} style={{backgroundColor: objectIdToLCH(ballot._id)}}><td>{formatDateTime(ballot.closing_datetime)}</td><td>{ballot.title}</td><td><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></td></tr>
      ));
-  let element = <Box>
+  let element = <Box id="BallotIndex" class="information-display">
         <h1>Ballots</h1>
-        <table>
+        <Table>
           <thead>
             <tr>
-              <th>Ballot ID</th>
               <th>Closing Date Time</th>
               <th>Title</th>
             </tr>
@@ -69,12 +69,12 @@ export default function Page() {
           
           <tbody>
         { dataElement }
-            </tbody></table>
-            <p><button onClick={() => goCreateBallot()}>Create New Ballot</button></p>
+            </tbody></Table>
+            <p><Button onClick={() => goCreateBallot()}>Create New Ballot</Button></p>
 
             <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-            <button onClick={() => goToElections()}>Back to Elections</button></p>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+            <Button onClick={() => goToElections()}>Back to Elections</Button></p>
   </Box>
 
   const goBackToProfile = () => {
