@@ -81,12 +81,12 @@ export default function Page() {
     let dataElement2 =
       <Card key={person._id.toString()} style={{ backgroundColor: objectIdToOKLCH(person._id) }}>
         <Table><TableBody>
-          <TableRow><TableCell><p><strong>PPSN: </strong></TableCell><TableCell>{person.ppsn}</p></TableCell></TableRow>
-          <TableRow><TableCell><p><strong>Name: </strong>{person.name}</p></TableCell></TableRow>
-          <TableRow><TableCell><p><strong>Address: </strong>{person.address}</p></TableCell></TableRow>
-          <TableRow><TableCell><p><strong>Email: </strong>{person.email}</p></TableCell></TableRow>
-          <TableRow><TableCell><p><strong>Phone number: </strong>{person.phone}</p></TableCell></TableRow>
-          <TableRow><TableCell><p><strong>Date of Birth: </strong>{person.date_of_birth}</p></TableCell></TableRow>
+          <TableRow><TableCell><strong>PPSN: </strong></TableCell><TableCell>{person.ppsn}</TableCell></TableRow>
+          <TableRow><TableCell><strong>Name: </strong></TableCell><TableCell>{person.name}</TableCell></TableRow>
+          <TableRow><TableCell><strong>Address: </strong>{person.address}</TableCell></TableRow>
+          <TableRow><TableCell><strong>Email: </strong>{person.email}</TableCell></TableRow>
+          <TableRow><TableCell><strong>Phone number: </strong>{person.phone}</TableCell></TableRow>
+          <TableRow><TableCell><strong>Date of Birth: </strong>{person.date_of_birth}</TableCell></TableRow>
         </TableBody>
       </Table>
         </Card >

@@ -35,7 +35,7 @@ const theme = createTheme({
           fontSize: '1rem',
           padding: '0.8rem 1.6rem',
         }
-      }
+      },
     },
     MuiButton: {
       styleOverrides: {
@@ -46,10 +46,10 @@ const theme = createTheme({
         },
         contained: {
           // Apply styles to contained buttons
-          backgroundColor: 'lch(48.68% 6.04 241.68)',
+          backgroundColor: 'oklch(28.78% 0.19944239451295373 264.052020638055)', // orginal blue 'oklch(28.78% 0.19944239451295373 264.052020638055)', modified  'oklch(48.68% 60.04% 241.68)',
           color: '#fff',
           '&:hover': {
-            backgroundColor: 'lch(48.68% 6.04 248.87)',
+            backgroundColor: 'oklch(5.78% 0.19944239451295373 264.052020638055)',
           },
         },
         '#myCustomButton': {
