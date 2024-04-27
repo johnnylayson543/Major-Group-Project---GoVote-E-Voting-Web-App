@@ -25,7 +25,7 @@ export default function Page() {
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
-        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#6F9CDE', fontWeight: 500 }}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
             {children}
         </Box>
     );
@@ -36,7 +36,7 @@ export default function Page() {
         console.log(admin._id);
         adminButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(admin._id)} >
+                <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToAdminProfile(admin._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -50,7 +50,7 @@ export default function Page() {
         console.log(voter._id);
         adminButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
+                <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -64,7 +64,7 @@ export default function Page() {
         console.log(teller._id);
         tellerButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goToTellerProfile(teller._id)} >
+                <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToTellerProfile(teller._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -107,9 +107,15 @@ export default function Page() {
                     {/* Adjust the grid sizing for different breakpoints */}
                     <Grid item xs={12} sm={6} md={8} lg={9}>
                         <Item>
-                            <b>Dashboard</b>
-                            <br />
-                            Choose between viewing the Admin profile, the User profile or the User account details.
+                            <b>User Dashboard</b>
+                            <br></br>
+                            <strong>Welcome to the User Dashboard!</strong>
+                            <br></br>
+                            This will allow you to become a voter and register for elections before you can start voting.
+                            If you are already registered, the Voter profile page will be available for you in order to start voting!
+                            You can also update your account details and upload your photo.
+                            If you are an admin (and/or teller), you can choose switch between viewing the Admin profile, 
+                            the User profile, and the Teller profile.
                         </Item>
                     </Grid>
 
@@ -118,13 +124,13 @@ export default function Page() {
                         <Item>
                             <Box sx={{ width: '100%', maxWidth: 360 }}>
                                 <List>
-                                    <Divider>Executive</Divider>
+                                    <Divider>Executive Controls</Divider>
                                     {adminButton}
                                     {tellerButton}
                                     {voterButton}
                                     <Divider>User Controls</Divider>
                                     <ListItem disablePadding>
-                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../Voter/Election/'>
+                                        <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} href='../Voter/Election/'>
                                             <ListItemIcon>
                                                 <HowToVoteIcon sx={{ color: 'white' }} />
                                             </ListItemIcon>
@@ -133,7 +139,7 @@ export default function Page() {
                                     </ListItem>
 
                                     <ListItem disablePadding>
-                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../User/Media/'>
+                                        <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} href='../../User/Media/'>
                                             <ListItemIcon>
                                                 <HowToVoteIcon sx={{ color: 'white' }} />
                                             </ListItemIcon>
@@ -141,7 +147,7 @@ export default function Page() {
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>
-                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Person/UpdateMyDetails'>
+                                        <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} href='Person/UpdateMyDetails'>
                                             <ListItemIcon>
                                                 <SettingsIcon sx={{ color: 'white' }} />
                                             </ListItemIcon>

@@ -32,7 +32,7 @@ export default function Page() {
     const { user, voter, admin } = useContext(UserContext);
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
-        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#6F9CDE', fontWeight: 500 }}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
             {children}
         </Box>
     );
@@ -42,7 +42,7 @@ export default function Page() {
         console.log(voter._id);
         voterButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} onClick={() => goBackToVoterProfile(voter._id)} >
+                <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goBackToVoterProfile(voter._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -92,11 +92,15 @@ export default function Page() {
                 {/* Adjust the grid sizing for different breakpoints */}
                 <Grid item xs={12} sm={6} md={5}>
                     <Item>
-                        <b>Dashboard</b>
-                        <br />
-                        Here you can manage various settings and activities related to the voting process.
-                        As an administrator, you have the authority to make changes to individual profiles,
-                        create, update, and delete ballots, as well as modify election parameters.
+                        <b>Admin Dashboard</b>
+                        <br></br>
+                        <strong>Welcome to the Admin Dashboard!</strong>
+                        <br></br>
+                        If you are the admin, you can manage various settings and activities related to the voting process.
+                        As an administrator, you have the authority to make changes to individual profiles.
+                        You can create, update, delete, and modify ballot and/or election parameters.
+                        You can also pre-register new persons so they allowed to be registered as new users on this site.
+                        <br></br>
                         Please use the provided options to navigate and administer the voting system effectively.
                     </Item>
                 </Grid>
@@ -107,9 +111,9 @@ export default function Page() {
                     <Item>
                         <Box sx={{ width: '100%', maxWidth: 360 }}>
                             <List>
-                                <Divider>Executive</Divider>
+                                <Divider>Executive Controls</Divider>
                                 <ListItem disablePadding>
-                                    <ListItemButton onClick={() => goToUserArea()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                    <ListItemButton onClick={() => goToUserArea()} sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
                                             <HowToVoteIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
@@ -118,7 +122,7 @@ export default function Page() {
                                 </ListItem>
                                 <Divider>Admin Controls</Divider>
                                 <ListItem disablePadding>
-                                    <ListItemButton onClick={() => goToPersons()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                    <ListItemButton onClick={() => goToPersons()} sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
                                             <AddIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
@@ -127,7 +131,7 @@ export default function Page() {
                                 </ListItem>
                                 <Divider />
                                 <ListItem disablePadding>
-                                    <ListItemButton onClick={() => goToBallots()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                    <ListItemButton onClick={() => goToBallots()} sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
                                             <BallotIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
@@ -136,7 +140,7 @@ export default function Page() {
                                 </ListItem>
                                 <Divider />
                                 <ListItem disablePadding>
-                                    <ListItemButton onClick={() => goToElections()} sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                    <ListItemButton onClick={() => goToElections()} sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
                                             <HowToVoteIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
@@ -145,7 +149,7 @@ export default function Page() {
                                 </ListItem>
                                 <Divider>Auditor Controls</Divider>
                                 <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }}>
+                                    <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }}>
                                         <ListItemIcon>
                                             <HowToRegIcon sx={{ color: 'white' }} />
                                         </ListItemIcon>
