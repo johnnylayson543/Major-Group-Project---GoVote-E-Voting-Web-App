@@ -7,8 +7,9 @@ import Button from '@mui/material/Button';
 
 
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Card, Stack, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { formatDateTime, objectIdToLCH } from '../../../components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -73,15 +74,15 @@ export default function Page() {
   let element;
   if (person && ballot) {
     let dataElement1 =
-      <div key={ballot._id.toString()}>
-        <p>{ballot._id}</p><p>{ballot.closing_datetime}</p><p>{ballot.title}</p></div>
+      <Card key={ballot._id.toString()} style={{backgroundColor: objectIdToLCH(ballot._id)}}>
+        <p><strong>Date and time: </strong>{formatDateTime(ballot.closing_datetime)}</p><p><strong>Ballot title: </strong>{ballot.title}</p></Card>
 
       ;
     let dataElement2 =
-      <div key={person._id.toString()}><p>{person._id}</p><p>{person.ppsn}</p><p>{person.name}</p><p>{person.address}</p><p>{person.email}</p><p>{person.phone}</p><p>{person.date_of_birth}</p></div>
+      <Card key={person._id.toString()} style={{backgroundColor: objectIdToLCH(person._id)}}><p><strong>PPSN: </strong>{person.ppsn}</p><p><strong>Name: </strong>{person.name}</p><p><strong>Address: </strong>{person.address}</p><p><strong>Email: </strong>{person.email}</p><p><strong>Phone number: </strong>{person.phone}</p><p><strong>Date of Birth: </strong>{person.date_of_birth}</p></Card>
 
       ;
-    element = <Box>
+    element = <Card>
       <h1>Add Person to the Ballot - Create a Candidate</h1>
       <h2>Ballot</h2>
       <section>
@@ -93,7 +94,7 @@ export default function Page() {
       </section>
 
 
-    </Box>
+    </Card>
   } else {
     element = <Box><p>No ballot or person found. </p>
       <button onClick={() => goBackToProfile()}>Back to Profile</button></Box>

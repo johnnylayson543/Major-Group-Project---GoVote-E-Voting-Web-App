@@ -10,7 +10,7 @@ import {blue, green, purple} from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     background: {
-        default:  'lch(48.68% 6.04 241.68)' ,// Set the Background Color  { initial lch(45.24% 32.9 241.68) "#18749b",  modified lch(48.68% 6.04 248.87) "#6c757d" } lch more precise.
+        default: 'oklch(55.75% 0.016 232.53)'   // Set the Background Color  { initial  'oklch(52.68% 0.101 232.53)' lch(45.24% 32.9 241.68) "#18749b",  modified 'oklch(55.75% 0.016 244.89)' lch(48.68% 6.04 248.87) "#6c757d" } lch more precise.
     },
     primary: {
       main: '#00008B', // Set the primary color (e.g. Buttons)
