@@ -23,6 +23,7 @@ import Header from './components/header/header';
 import { Providers } from './providers';
 
 export default function Layout({ children, title = "GoVote - E-Voting Website" }) {
+
   return (
 
     <html lang="en">

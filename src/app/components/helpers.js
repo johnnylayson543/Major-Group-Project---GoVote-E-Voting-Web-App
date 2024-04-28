@@ -94,6 +94,17 @@ const { Lmin, Lmax } = calculateValidLRange(inputLCH.L, targetContrastRatio);
 console.log(`Valid L range: ${Lmin} to ${Lmax}`);
 
 
+
+// utils/contrast-color.js
+export function setContrastingTextColors() {
+  document.querySelectorAll(':not(script):not(style):not(img)').forEach((element) => {
+    const backgroundColor = window.getComputedStyle(element).backgroundColor;
+    const contrastingTextColor = getContrastingOklchColor(backgroundColor);
+    element.style.color = contrastingTextColor;
+  });
+}
+
+
 import { parse, formatOkLch } from 'culori';
 
 export function getContrastingOklchColor(oklchStr) {

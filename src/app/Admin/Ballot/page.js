@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 
-import {Box, Table} from '@mui/material';
+import {Box, Table, TableBody, TableCell, TableHead, TableRow} from '@mui/material';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
@@ -55,21 +55,21 @@ export default function Page() {
   console.log(ballots);
 
   let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot._id)}}><td>{formatDateTime(ballot.closing_datetime)}</td><td>{ballot.title}</td><td><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></td></tr>
+    <TableRow key={ballot._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot._id)}}><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell><TableCell><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></TableCell></TableRow>
      ));
   let element = <Box id="BallotIndex" class="information-display">
         <h1>Ballots</h1>
         <Table>
-          <thead>
-            <tr>
+          <TableHead>
+            <TableRow>
               <th>Closing Date Time</th>
               <th>Title</th>
-            </tr>
-          </thead>
+            </TableRow>
+          </TableHead>
           
-          <tbody>
+          <TableBody>
         { dataElement }
-            </tbody></Table>
+            </TableBody></Table>
             <p><Button onClick={() => goCreateBallot()}>Create New Ballot</Button></p>
 
             <p>
