@@ -92,3 +92,26 @@ const targetContrastRatio = 4.5; // Desired contrast ratio
 
 const { Lmin, Lmax } = calculateValidLRange(inputLCH.L, targetContrastRatio);
 console.log(`Valid L range: ${Lmin} to ${Lmax}`);
+
+
+import { parse, formatOkLch } from 'culori';
+
+export function getContrastingOklchColor(oklchStr) {
+  try {
+    let color = parse(oklchStr);
+
+    // Adjust hue by 180 degrees, ensuring it remains within 0-360 range
+    color.h = ((color.h + 180) % 360 + 360) % 360;
+
+    // Adjust lightness to the opposite side of 50%, with a minimum difference of 0.2
+    color.l = Math.abs(color.l - 0.5) > 0.2 ? 1 - color.l : color.l + 0.2;
+
+    // Adjust chroma, reducing it by 20% of the original value
+    color.c = Math.max(0.1, color.c * 0.8);
+
+    return formatOkLch(color);
+  } catch (error) {
+    console.error(`Error parsing OKLCH string: ${error}`);
+    return null; // or a fallback color
+  }
+}
