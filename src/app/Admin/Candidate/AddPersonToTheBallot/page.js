@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 
-import { useState, useEffect } from 'react'
-import { Card, Stack, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
+import { objectIdToOKLCH } from '@/app/components/helpers';
+import { Card, FormLabel, Tab, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { formatDateTime, objectIdToLCH, objectIdToOKLCH } from '@/app/components/helpers';
+import { useEffect, useState } from 'react';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -73,10 +73,15 @@ export default function Page() {
 
   let element;
   if (person && ballot) {
-    let dataElement1 =
-      <Card key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
-        <p><strong>Date and time: </strong>{formatDateTime(ballot.closing_datetime)}</p><p><strong>Ballot title: </strong>{ballot.title}</p></Card>
-
+    let dataElement1 = <Card key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }} >
+      <Table>
+        <TableBody>
+          <TableRow><TableCell><FormLabel>BallotID:</FormLabel><Tab></Tab> {ballot._id} </TableCell></TableRow>
+          <TableRow><TableCell><FormLabel>Closing date:</FormLabel><Tab></Tab>{ballot.closing_datetime}</TableCell></TableRow>
+          <TableRow><TableCell><FormLabel>Title:</FormLabel><Tab></Tab> {ballot.title}</TableCell></TableRow>
+        </TableBody>
+      </Table>
+        </Card>
       ;
     let dataElement2 =
       <Card key={person._id.toString()} style={{ backgroundColor: objectIdToOKLCH(person._id) }}>
@@ -88,8 +93,8 @@ export default function Page() {
           <TableRow><TableCell><strong>Phone number: </strong>{person.phone}</TableCell></TableRow>
           <TableRow><TableCell><strong>Date of Birth: </strong>{person.date_of_birth}</TableCell></TableRow>
         </TableBody>
-      </Table>
-        </Card >
+        </Table>
+      </Card >
 
       ;
     element = <Card>
@@ -107,7 +112,7 @@ export default function Page() {
     </Card>
   } else {
     element = <Box><p>No ballot or person found. </p>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button></Box>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button></Box>
   }
 
   const handleSubmit = (event) => {
@@ -166,7 +171,7 @@ export default function Page() {
         </Button>
 
       </Box>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
     </Box>
 
 

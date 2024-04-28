@@ -94,11 +94,10 @@ export default function Page() {
       </TableBody>
       </Table>;
   let element = <Box>
-    <h1>Ballots</h1>
-    {dataElement}
-
-
-
+    <Card>
+      <h1>Ballots</h1>
+      {dataElement}
+    </Card>
   </Box>
   const goToElections = () => {
     router.push('/Admin/Election/');
