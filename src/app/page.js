@@ -14,6 +14,8 @@ export default function Page() {
     const router = useRouter();
     const [registrationStatus, setRegistrationStatus] = useState('');
 
+    
+    
     // This function does the actual work
     // calling the fetch to get things from the database.
     async function runDBCallAsync(ppsn, pass) {

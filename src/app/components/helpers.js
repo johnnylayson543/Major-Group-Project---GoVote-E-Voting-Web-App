@@ -33,7 +33,7 @@ export function formatDateTime(dateString) {
   
 // Constants defining the OKLCH space traversal
 const maxChroma = 0.2;  // Example maximum chroma value in OKLCH
-const minChroma = 0.08;  // Example minimum chroma value
+const minChroma = 0.05;  // Example minimum chroma value
 const maxLightness = 0.70;  // Close to white in OKLCH
 const minLightness = 0.15;  // Close to black in OKLCH
 const hueIncrement = 1;
@@ -94,7 +94,18 @@ const { Lmin, Lmax } = calculateValidLRange(inputLCH.L, targetContrastRatio);
 console.log(`Valid L range: ${Lmin} to ${Lmax}`);
 
 
-import { formatOkLch, parse } from 'culori';
+
+// utils/contrast-color.js
+export function setContrastingTextColors() {
+  document.querySelectorAll(':not(script):not(style):not(img)').forEach((element) => {
+    const backgroundColor = window.getComputedStyle(element).backgroundColor;
+    const contrastingTextColor = getContrastingOklchColor(backgroundColor);
+    element.style.color = contrastingTextColor;
+  });
+}
+
+
+import { parse, formatOkLch } from 'culori';
 
 export function getContrastingOklchColor(oklchStr) {
   try {
