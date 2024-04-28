@@ -1,25 +1,12 @@
 'use client';
-import * as React from 'react';
 
 import Box from '@mui/material/Box';
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import { Button, Card, FormLabel, Tab, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
 
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
-
-import Script from 'next/script'
-import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -106,52 +93,61 @@ export default function Page() {
 
   if (!ballot || !candidates_for_ballot || !election) return <Box><p>No ballot or candidates_for_ballot or election found. </p></Box>;
 
-  let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
-
+  let dataElement1 = <Table key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
+      <TableBody>
+        <TableRow><TableCell><FormLabel>Closing date:</FormLabel><Tab></Tab>{formatDateTime(ballot.closing_datetime)}</TableCell></TableRow>
+        <TableRow><TableCell><FormLabel>Title:</FormLabel><Tab></Tab> {ballot.title}</TableCell></TableRow>
+      </TableBody>
+    </Table>
     ;
   let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
+    <TableRow key={ballot_candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot_candidate._id) }}><TableCell>{ballot_candidate._id}</TableCell><TableCell>{ballot_candidate.ballotID}</TableCell><TableCell>{ballot_candidate.person_ppsn}</TableCell></TableRow>
   ));
 
   let dataElement3 =
-    <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+    <TableRow key={election._id} style={{ backgroundColor: objectIdToOKLCH(election._id) }}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell></TableRow>
 
     ;
   let element = <Box>
+    <Card>
     <h1>The Ballot used in the Election</h1>
     <h2>Ballot</h2>
-    <table>
-      <thead><tr>
-        <th>Ballot ID</th>
-        <th>Closing Date Time</th>
-        <th>Title</th>
-      </tr></thead>
-      <tbody>
+    <Table>
+      <TableHead><TableRow>
+        <TableCell>Ballot ID</TableCell>
+        <TableCell>Closing Date Time</TableCell>
+        <TableCell>Title</TableCell>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement1}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
+      <Card>
     <h2>Ballot Candidates</h2>
-    <table>
-      <thead><tr>
-        <th>Candidate ID</th>
-        <th>Ballot ID</th>
-        <th>PPSN</th>
-      </tr></thead>
-      <tbody>
+    <Table>
+      <TableHead><TableRow>
+        <TableCell>Candidate ID</TableCell>
+        <TableCell>Ballot ID</TableCell>
+        <TableCell>PPSN</TableCell>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement2}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
+      <Card>
     <h2>Election Running with this ballot</h2>
-    <table>
-      <thead><tr>
-        <th>Election ID</th>
-        <th>Ballot ID</th>
-      </tr></thead>
-      <tbody>
+    <Table>
+      <TableHead><TableRow>
+        <TableCell>Election ID</TableCell>
+        <TableCell>Ballot ID</TableCell>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement3}
-      </tbody></table>
-    <button onClick={() => goBackToElections()}>Back to Elections</button>
-    <button onClick={() => goBackToProfile()}>Back to Profile</button>
-    <button onClick={() => goBackToBallots()}>Back to Ballots</button>
+      </TableBody></Table>
+      </Card>
+    <Button onClick={() => goBackToElections()}>Back to Elections</Button>
+    <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+    <Button onClick={() => goBackToBallots()}>Back to Ballots</Button>
   </Box>
 
   const goBackToElections = () => {
