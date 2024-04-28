@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from 'next/navigation';
-import { UserAuthentication, UserContext } from '../../../components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 
 
 

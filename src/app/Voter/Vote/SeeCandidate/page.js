@@ -21,7 +21,7 @@ import { Toolbar } from '@mui/material';
 
 import { useState, useEffect, useContext } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '../../../components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing

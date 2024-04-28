@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import Chart from 'chart.js/auto'; // Add this line
-import Header from '../../components/header/header';
+import Header from '@/app/components/header/header';
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
@@ -11,7 +11,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolb
 import { useRouter } from 'next/navigation';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { objectIdToLCH, formatDateTime, objectIdToOKLCH } from '../../components/helpers';
+import { objectIdToLCH, formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing

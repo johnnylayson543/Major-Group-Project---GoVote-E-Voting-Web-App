@@ -16,7 +16,7 @@ import Face6Icon from '@mui/icons-material/Face6';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
-import { UserContext } from '../../components/header/userAuthentication';
+import { UserContext } from '@/app/components/header/userAuthentication';
 
 export default function Page() {
 

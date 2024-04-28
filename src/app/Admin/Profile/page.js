@@ -24,7 +24,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import { blue, green, purple, white, pink } from '@mui/material/colors';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '../../components/header/userAuthentication'
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication'
 
 export default function Page() {
 

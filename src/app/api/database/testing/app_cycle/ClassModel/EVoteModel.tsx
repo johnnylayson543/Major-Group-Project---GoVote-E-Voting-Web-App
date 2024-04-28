@@ -70,7 +70,7 @@ class Person {
   email: any;
   phone: any;
   date_of_birth: any;
-  constructor(ppsn, name, address, email, phone, dob) {
+  constructor(ppsn :String, name="", address="", email="", phone="", dob="") {
     this.ppsn = ppsn;
     this.name = name;
     this.address = address;
@@ -146,22 +146,30 @@ class Ballot {
     this.candidates = [];
   }
 
-  addCandidate(candidate) {
-    if (candidate instanceof User) {
+  addCandidate(candidate :User) {
       this.candidates.push(candidate);
-    }
   }
+}
+
+class Vote {
+
+  preference : Array<Candidate>;
+
+  constructor(preference : Array<Candidate>){
+    this.preference = preference;
+  }
+
 }
 
 class Election {
     ballot: Ballot;
-    voters: any[];
-    votes: {};
+    voters: Array<Voter>;
+    votes : Array<Vote>;
     isElectionOpen: boolean;
     constructor(ballot) {
       this.ballot = ballot;  // Ballot with candidates
       this.voters = [];
-      this.votes = {};
+      this.votes = [];
       this.isElectionOpen = false;
     }
   
@@ -175,7 +183,7 @@ class Election {
       console.log("Voting has ended. Ballot is now closed.");
     }
   
-    addVoter(person) {
+    addVoter(person : Person) {
       if (!this.isElectionOpen) {
         const isNotVoter = this.voters.every(voter => voter.details.ppsn !== person.ppsn);
         if (isNotVoter) {
@@ -189,10 +197,10 @@ class Election {
 
 
   
-    castVote(voter, preferences : Candidate) {
+    castVote(voter : Voter, preferences : Array<Candidate>) {
       // `preferences` should be an array of candidates in order of preference
       if (this.isElectionOpen && this.voters.some(v => v.details.ppsn === voter.details.ppsn)) {
-        this.votes[voter.details.ppsn] = preferences;
+        //this.votes[voter.details.ppsn] = preferences;
         console.log(`${voter.details.name} has cast their vote.`);
         return true;
       } else {
@@ -208,9 +216,9 @@ class Election {
         results[candidate.details.name] = 0;  // Initialize result for each candidate
       });
   
-      Object.values(this.votes).forEach(preferences => {
-        if (preferences.length > 0) {
-          const firstChoice = preferences[0];
+      Object.values(this.votes).forEach(vote => {
+        if (vote.preference.length > 0) {
+          const firstChoice = vote.preference[0];
           results[firstChoice.details.name]++;
         }
       });
@@ -234,6 +242,9 @@ class Election {
   }
   
   class Voter {
+    castVote(arg0: any, vote1: Vote) {
+      throw new Error("Method not implemented.");
+    }
     details: any;
     constructor(details) {
       this.details = details;
@@ -242,7 +253,7 @@ class Election {
 
   function run_cycle() {
     const evote1 = new EVote();
-    const person_admin = new Person();
+    const person_admin = new Person('1');
     person_admin.ppsn = 1;
     const userAdmin = evote1.system.addUser(person_admin, "xxx");
     const admin1 = evote1.system.addAdmin(userAdmin);
@@ -267,7 +278,7 @@ class Election {
     for (const x of election1.voters) {
       const count = election1.ballot.candidates.length;
       const randomN = randomInt(count);
-      const vote1 = new Vote({ One: 1 }, 1);
+      const vote1 = new Vote(election1.ballot.candidates);
       x.castVote(election1.ballot.candidates[randomN], vote1);
     }
 

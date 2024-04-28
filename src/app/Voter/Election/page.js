@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
-import { UserContext } from '../../components/header/userAuthentication';
+import { UserContext } from '@/app/components/header/userAuthentication';
 
 
 

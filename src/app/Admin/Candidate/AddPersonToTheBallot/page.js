@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react'
 import { Card, Stack, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { formatDateTime, objectIdToLCH, objectIdToOKLCH } from '../../../components/helpers';
+import { formatDateTime, objectIdToLCH, objectIdToOKLCH } from '@/app/components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing

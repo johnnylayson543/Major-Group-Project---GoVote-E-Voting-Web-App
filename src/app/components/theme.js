@@ -54,10 +54,8 @@ const theme = createTheme({
           maxWidth: '45em',
           margin: 'auto',
           borderRadius: '1em'
+          
         },
-        h1: {
-          color: 'red'
-        }
       }
     },
     MuiButton: {
