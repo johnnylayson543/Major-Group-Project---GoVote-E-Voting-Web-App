@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Header from '../../../components/header/header';
 
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { objectIdToOKLCH } from '@/app/components/helpers';
 
 
 /*
@@ -70,9 +71,9 @@ export default function Page() {
             const isTallied = (tally_election_ids.length > 0) ? tally_election_ids.includes(election._id.toString()) : false;
 
             const seeTallyButton = (isTallied) ?
-                <td><button onClick={() => goSeeTheTally(election._id, election.ballotID)}>See the tally</button></td> :
-                <td>No tally yet</td>;
-            const maybe_tallied_election = <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td>{seeTallyButton}</tr>;
+                <TableCell><Button onClick={() => goSeeTheTally(election._id, election.ballotID)}>See the tally</Button></TableCell> :
+                <TableCell>No tally yet</TableCell>;
+            const maybe_tallied_election = <TableRow key={election._id.toString()} style={{ backgroundColor: objectIdToOKLCH(election._id)}} ><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell>{seeTallyButton}</TableRow>;
             return maybe_tallied_election;
         }
         return null
@@ -81,22 +82,23 @@ export default function Page() {
 
 
     let element = <Box>
+        <Card>
         <h1>Tallied Elections</h1>
-        <table>
-            <thead><tr>
+        <Table>
+            <TableHead><TableRow>
                 <th>Election ID</th>
                 <th>Ballot ID</th>
                 <th>Actions</th>
-            </tr></thead>
-            <tbody>
+            </TableRow></TableHead>
+            <TableBody>
                 {dataElement1}
-            </tbody></table>
-
+            </TableBody></Table>
+            </Card>
         <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
         </p>
         <p>
-            <button onClick={() => goBackToFinishedElections()}>Back to Finished Elections</button>
+            <Button onClick={() => goBackToFinishedElections()}>Back to Finished Elections</Button>
         </p>
     </Box>
 

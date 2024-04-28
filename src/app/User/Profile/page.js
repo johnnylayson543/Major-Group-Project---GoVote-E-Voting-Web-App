@@ -16,7 +16,7 @@ import Face6Icon from '@mui/icons-material/Face6';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
-import { UserContext } from '../../components/header/userAuthentication';
+import { UserContext } from '@/app/components/header/userAuthentication';
 
 export default function Page() {
 
@@ -48,7 +48,7 @@ export default function Page() {
     let voterButton;
     if (voter) {
         console.log(voter._id);
-        adminButton =
+        voterButton =
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
                     <ListItemIcon>

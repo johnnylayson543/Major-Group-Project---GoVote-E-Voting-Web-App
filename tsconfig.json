@@ -20,7 +20,11 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": "./", // This should be set to the base directory relative to this config file
+    "paths": {
+      "@/*": ["./src/*"] // Adjust the path as necessary to match your directory structure
+    }
   },
   "include": [
     "next-env.d.ts",

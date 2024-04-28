@@ -12,7 +12,7 @@ import { Toolbar, Stack, Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useContext } from 'react'
-import { UserContext } from '../../../components/header/userAuthentication';
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
 
 

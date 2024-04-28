@@ -4,8 +4,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 
 import { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../../../../components/header/userAuthentication';
+import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
+import { Button, Card, FormLabel, Tab, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 
 
 /*
@@ -119,75 +121,86 @@ export default function Page() {
     voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
   }
 
-  let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
-
+  let dataElement1 = <Table key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
+      <TableBody>
+        <TableRow><TableCell><FormLabel>Closing date:</FormLabel><Tab></Tab>{formatDateTime(ballot.closing_datetime)}</TableCell></TableRow>
+        <TableRow><TableCell><FormLabel>Title:</FormLabel><Tab></Tab> {ballot.title}</TableCell></TableRow>
+      </TableBody>
+    </Table>
     ;
   let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
+    <TableRow key={ballot_candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot_candidate._id) }}><TableCell>{ballot_candidate._id}</TableCell><TableCell>{ballot_candidate.ballotID}</TableCell><TableCell>{ballot_candidate.person_ppsn}</TableCell></TableRow>
   ));
 
   let dataElement3 =
-    <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+    <TableRow key={election._id} style={{ backgroundColor: objectIdToOKLCH(election._id) }}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell></TableRow>
 
     ;
 
   let dataElement4 =
-    <tr key={tally_for_the_election._id}><td>{tally_for_the_election._id}</td><td>{tally_for_the_election.electionID}</td>
-      <td>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</td></tr>
+    <TableRow key={tally_for_the_election._id} style={{ backgroundColor: objectIdToOKLCH(tally_for_the_election._id) }}><TableCell>{tally_for_the_election._id}</TableCell><TableCell>{tally_for_the_election.electionID}</TableCell>
+      <TableCell>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</TableCell></TableRow>
 
     ;
   let element = <Box>
+    <Card>
     <h1>Tally for this election</h1>
-    <table>
-      <thead><tr>
+    <Table>
+      <TableHead><TableRow>
         <th>Election ID</th>
         <th>Ballot ID</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement4}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
     <p>
-      <button onClick={() => goBackToTalliedElections()}>Back to Tallied Elections</button>
-      <button onClick={() => goBackToFinishedElections()}>Back to the finished elections</button>
-      <button onClick={() => goBackToProfile()}>Back to the teller profile</button>
+      <Button onClick={() => goBackToTalliedElections()}>Back to Tallied Elections</Button>
+      <Button onClick={() => goBackToFinishedElections()}>Back to the finished elections</Button>
+      <Button onClick={() => goBackToProfile()}>Back to the teller profile</Button>
 
     </p>
 
     <hr />
     <details>
       <summary>Click for the details of the Ballot, Election, and Candidates</summary>
+      <Card>
       <h1>The Ballot and other details</h1>
       <h2>Ballot</h2>
-      <table>
-        <thead><tr>
+      <Table>
+        <TableHead><TableRow>
           <th>Ballot ID</th>
           <th>Closing Date Time</th>
           <th>Title</th>
-        </tr></thead>
-        <tbody>
+        </TableRow></TableHead>
+        <TableBody>
           {dataElement1}
-        </tbody></table>
+        </TableBody></Table>
+        </Card>
+        <Card>
       <h2>Ballot Candidates</h2>
-      <table>
-        <thead><tr>
+      <Table>
+        <TableHead><TableRow>
           <th>Candidate ID</th>
           <th>Ballot ID</th>
           <th>PPSN</th>
-        </tr></thead>
-        <tbody>
+        </TableRow></TableHead>
+        <TableBody>
           {dataElement2}
-        </tbody></table>
+        </TableBody></Table>
+        </Card>
+        <Card>
       <h2>Election Running with this ballot</h2>
-      <table>
-        <thead><tr>
+      <Table>
+        <TableHead><TableRow>
           <th>Tally ID</th>
           <th>Election ID</th>
           <th>The Tally</th>
-        </tr></thead>
-        <tbody>
+        </TableRow></TableHead>
+        <TableBody>
           {dataElement3}
-        </tbody></table>
+        </TableBody></Table>
+        </Card>
     </details>
   </Box>
 

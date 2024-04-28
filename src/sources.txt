@@ -22,3 +22,6 @@ Sources:
     React
         useContext
         createContext
+
+    helper.js - various functions and methods that help with tasks
+

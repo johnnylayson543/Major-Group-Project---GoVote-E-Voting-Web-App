@@ -79,31 +79,15 @@ export default function Page() {
     router.push('/Admin/Election/');
   };
 
-  let element = <p>
-    <button onClick={() => goBackToProfile()}>Back to Profile</button>
-    <button onClick={() => goToBallots()}>Back to Ballots</button>
-    <button onClick={() => goToElections()}>Back to Elections</button></p>
+  let element = <Box>
+    <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+    <Button onClick={() => goToBallots()}>Back to Ballots</Button>
+    <Button onClick={() => goToElections()}>Back to Elections</Button></Box>
 
   // This returns the front-end page
   return (
-    <Container component="main" maxWidth="xs">
-
-      <br></br>
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          border: '4px solid #00008B',
-          backgroundColor: '#6F9CDE',
-          fontWeight: 500,
-          padding: 3
-        }}
-      >
-        <br></br>
-        <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
+    <>
+      <Typography component="h1" variant="h5" fontWeight={800} color={"black"}>
           Set Person Range
         </Typography>
 
@@ -137,10 +121,8 @@ export default function Page() {
 
         </Box>
 
+        {element}
 
-      </Box>
-      {element}
-    </Container>
-
+    </>
   );
 }

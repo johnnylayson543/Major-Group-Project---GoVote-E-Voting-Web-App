@@ -1,14 +1,14 @@
 'use client';
 import * as React from 'react';
 
-import {Box, Table} from '@mui/material';
+import {Box, Table, TableBody, TableCell, TableHead, TableRow} from '@mui/material';
 import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
 import { Toolbar, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { formatDateTime, objectIdToLCH } from '../../components/helpers';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 
   /*
   After the submit handler calls the runDBCallAsync, this does the thing
@@ -55,26 +55,26 @@ export default function Page() {
   console.log(ballots);
 
   let dataElement = ( ballots.map( ballot => 
-    <tr key={ballot._id.toString()} style={{backgroundColor: objectIdToLCH(ballot._id)}}><td>{formatDateTime(ballot.closing_datetime)}</td><td>{ballot.title}</td><td><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></td></tr>
+    <TableRow key={ballot._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot._id)}}><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell><TableCell><Button onClick={() => goEditBallot(ballot._id)}>Edit</Button><Button onClick={() => goRemoveBallot(ballot._id.toString())}>Remove</Button><Button  onClick={() => goManageCandidates(ballot._id.toString())}>Manage Candidates</Button></TableCell></TableRow>
      ));
   let element = <Box id="BallotIndex" class="information-display">
         <h1>Ballots</h1>
         <Table>
-          <thead>
-            <tr>
-              <th>Closing Date Time</th>
-              <th>Title</th>
-            </tr>
-          </thead>
+          <TableHead>
+            <TableRow>
+              <TableCell>Closing Date Time</TableCell>
+              <TableCell>Title</TableCell>
+            </TableRow>
+          </TableHead>
           
-          <tbody>
+          <TableBody>
         { dataElement }
-            </tbody></Table>
-            <p><Button onClick={() => goCreateBallot()}>Create New Ballot</Button></p>
+            </TableBody></Table>
+            <Box><Button onClick={() => goCreateBallot()}>Create New Ballot</Button></Box>
 
-            <p>
+            <Box>
             <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
-            <Button onClick={() => goToElections()}>Back to Elections</Button></p>
+            <Button onClick={() => goToElections()}>Back to Elections</Button></Box>
   </Box>
 
   const goBackToProfile = () => {

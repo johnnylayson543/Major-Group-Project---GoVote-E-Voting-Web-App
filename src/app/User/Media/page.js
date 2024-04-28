@@ -8,7 +8,7 @@ import Chart from 'chart.js/auto'; // Add this line
 import Script from 'next/script'
 
 import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '../../components/header/userAuthentication';
+import { UserAuthentication, UserContext } from '@/app/components/header/userAuthenticationn';
 import { Container, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 

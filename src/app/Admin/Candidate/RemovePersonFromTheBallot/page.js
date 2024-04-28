@@ -1,25 +1,13 @@
 'use client';
-import * as React from 'react';
 
 import Box from '@mui/material/Box';
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
+import { Button, Card, FormLabel, Tab, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
 
-import Script from 'next/script'
-import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -102,74 +90,57 @@ export default function Page() {
 
   if (!ballot || !candidate || !candidatePerson) return <Box><p>Please wait while loading. </p></Box>;
 
-  let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
-
+  let dataElement1 = <Table key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
+      <TableBody>
+        <TableRow><TableCell><FormLabel>Closing date:</FormLabel><Tab></Tab>{formatDateTime(ballot.closing_datetime)}</TableCell></TableRow>
+        <TableRow><TableCell><FormLabel>Title:</FormLabel><Tab></Tab> {ballot.title}</TableCell></TableRow>
+      </TableBody>
+    </Table>
     ;
-  let dataElement2 =
-    <tr key={candidate._id.toString()}><td>{candidate._id}</td><td>{candidate.person_ppsn}</td><td>{candidate.ballotID}</td></tr>
-
+  let dataElement2 = <Table key={candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(candidate._id)}}>
+    <TableBody>
+      <TableRow><TableCell><FormLabel>Person PPSN:</FormLabel><Tab></Tab>{candidate.person_ppsn}</TableCell></TableRow>
+    </TableBody>
+  </Table>
     ;
 
-  let dataElement3 =
-    <tr key={candidatePerson._id.toString()}><td>{candidatePerson._id}</td><td>{candidatePerson.name}</td><td>{candidatePerson.address}</td><td>{candidatePerson.email}</td><td>{candidatePerson.phone}</td><td>{candidatePerson.date_of_birth}</td></tr>
-
+  let dataElement3 = <Table key={candidatePerson._id.toString()} style={{ backgroundColor: objectIdToOKLCH(candidatePerson._id)}}><TableBody>
+    <TableRow><TableCell><FormLabel>id:</FormLabel><Tab></Tab>{candidatePerson._id}</TableCell></TableRow>
+    <TableRow><TableCell><FormLabel>Name:</FormLabel><Tab></Tab>{candidatePerson.name}</TableCell></TableRow>
+    <TableRow><TableCell><FormLabel>Address:</FormLabel><Tab></Tab>{candidatePerson.address}</TableCell></TableRow>
+    <TableRow><TableCell><FormLabel>Email:</FormLabel><Tab></Tab>{candidatePerson.email}</TableCell></TableRow>
+    <TableRow><TableCell><FormLabel>Phone:</FormLabel><Tab></Tab>{candidatePerson.phone}</TableCell></TableRow>
+    <TableRow><TableCell><FormLabel>Date of Birth:</FormLabel><Tab></Tab>{candidatePerson.date_of_birth}</TableCell></TableRow>
+    </TableBody></Table>
     ;
-  let element = <Box>
+  let element = <Card>
     <h1>Remove Person from the Ballot - End a Candidacy</h1>
     <h2>Ballot of the Candidate</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Ballot ID</th>
-          <th>title</th>
-          <th>closing date time</th>
-        </tr>
-      </thead>
-      <tbody>
-        {dataElement1}
-      </tbody></table>
+
+    {dataElement1}
+
+    <Card>
     <h2>Candidate Information</h2>
     <h3>The Candidate</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Candidate ID</th>
-          <th>Person PPSN</th>
-          <th>BallotID</th>
-        </tr>
-      </thead>
-      <tbody>
         {dataElement2}
-      </tbody></table>
+    </Card>
 
+    <Card>
     <h3>The Person Information of the Candidate</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>PPSN</th>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Date of Birth</th>
-        </tr>
-      </thead>
-      <tbody>
         {dataElement3}
-      </tbody></table>
+      </Card>
 
-      <p>
-            <button onClick={() => goConfirmCandidateRemoval(candidate.person_ppsn, candidate.ballotID)}>Confirm Candidate Removal</button>
-            
-        </p>
+    <p>
+      <Button onClick={() => goConfirmCandidateRemoval(candidate.person_ppsn, candidate.ballotID)}>Confirm Candidate Removal</Button>
 
-  </Box>
+    </p>
+
+  </Card>
 
   const goConfirmCandidateRemoval = (person_id, ballot_id) => {
-      const url = `/api/database/controllers/Admin/Candidate/remove_person_from_ballot_endCandidate?person_ppsn=${person_id}&ballotID=${ballot_id}`;
-      runDBCallAsync(url);
-      router.push(`../Candidate?ballotID=${ballot_id}`);
+    const url = `/api/database/controllers/Admin/Candidate/remove_person_from_ballot_endCandidate?person_ppsn=${person_id}&ballotID=${ballot_id}`;
+    runDBCallAsync(url);
+    router.push(`../Candidate?ballotID=${ballot_id}`);
   };
   const handleSubmit = (event) => {
 
@@ -197,6 +168,16 @@ export default function Page() {
   const goBack = (ballotID) => {
     router.push('/Admin/Candidate/?ballotID={' + ballotID + '}');
   };
+  const goToElections = () => {
+    router.push('/Admin/Election/');
+  };
+
+  const goBackToProfile = () => {
+    router.push('/Admin/Profile');
+  };
+  const goBackToBallots = () => {
+    router.push('/Admin/Ballot/');
+  };
 
   return (
 
@@ -205,6 +186,11 @@ export default function Page() {
       <Toolbar></Toolbar>
       {element}
 
+
+      <Box>
+        <Button onClick={() => goToElections()}>Back to Elections</Button>
+        <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+        <Button onClick={() => goBackToBallots()}>Back to Ballots</Button></Box>
     </Box>
 
   );

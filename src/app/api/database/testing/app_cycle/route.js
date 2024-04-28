@@ -28,9 +28,6 @@ const test_url = new URL("localhost:3000/");
 export async function GET(req, res) {
     setTestEnvironment(true);
     
-    
-    const 
-    
     // Set PPSN Range
     add_persons_range_admin_type
 

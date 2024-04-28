@@ -2,11 +2,8 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
-import Chart from 'chart.js/auto'; // Add this line
 
-import Script from 'next/script'
-import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 /*
@@ -44,12 +41,12 @@ export default function Page() {
   let element = <Box>
     <h1>Person Settings</h1>
 
-    <p><button onClick={() => goSetPersonsPPSNRange()}>Set PPSN range</button></p>
+    <p><Button onClick={() => goSetPersonsPPSNRange()}>Set PPSN range</Button></p>
 
     <p>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
-      <button onClick={() => goToElections()}>Back to Elections</button>
-      <button onClick={() => goToBallots()}>Back to Ballots</button></p>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+      <Button onClick={() => goToElections()}>Back to Elections</Button>
+      <Button onClick={() => goToBallots()}>Back to Ballots</Button></p>
   </Box>
 
   const goBackToProfile = () => {
@@ -72,11 +69,9 @@ export default function Page() {
 
   return (
 
-    <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-      <Toolbar></Toolbar>
+    <>
       {element}
-    </Box>
+    </>
 
 
   );

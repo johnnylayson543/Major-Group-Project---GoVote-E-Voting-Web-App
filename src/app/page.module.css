@@ -231,3 +231,8 @@
 Link {
   color: inherit;
 }
+
+a {
+  color: red;
+  filter: invert(1);
+}

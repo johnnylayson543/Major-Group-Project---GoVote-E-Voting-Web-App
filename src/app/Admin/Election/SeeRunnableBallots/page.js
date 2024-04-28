@@ -18,8 +18,9 @@ import Chart from 'chart.js/auto'; // Add this line
 
 import Script from 'next/script'
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Card, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -87,21 +88,22 @@ export default function Page() {
     ;
 
   let dataElement1 = (runnable_ballots.map(ballot =>
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td><td><button onClick={() => goRunTheBallotForTheElection(ballot._id)}>Run the Election with this Ballot</button></td></tr>
+    <TableRow key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id)}}><TableCell>{ballot._id}</TableCell><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell><TableCell><Button onClick={() => goRunTheBallotForTheElection(ballot._id)}>Run the Election with this Ballot</Button></TableCell></TableRow>
   ));
-  let element = <Box>
+  let element = <Box><Card>
     <h1>Runnable Ballots</h1>
-    <table>
-      <thead><tr>
-        <th>Ballot ID</th>
-        <th>Closing Date Time</th>
-        <th>Title</th>
+    <Table>
+      <TableHead><TableRow>
+        <TableCell>Ballot ID</TableCell>
+        <TableCell>Closing Date Time</TableCell>
+        <TableCell>Title</TableCell>
 
 
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement1}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
   </Box>;
 
 
@@ -128,9 +130,9 @@ export default function Page() {
 
       <Toolbar></Toolbar>
       {element}
-      <button onClick={() => goBackToElections()}>Back to Elections</button>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
-      <button onClick={() => goBackToBallots()}>Back to Ballots</button>
+      <Button onClick={() => goBackToElections()}>Back to Elections</Button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+      <Button onClick={() => goBackToBallots()}>Back to Ballots</Button>
     </Box>
 
 

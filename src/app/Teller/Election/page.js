@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Header from '../../components/header/header';
 
 import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
+import { Button, Card, FormLabel, Tab, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { objectIdToOKLCH } from '@/app/components/helpers';
 
 
 
@@ -33,24 +34,26 @@ export default function Page() {
     console.log(finished_elections);
 
     let dataElement1 = (finished_elections.map(election =>
-        <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td><td><button onClick={() => goTallyTheVotes(election._id)}>Tally the Votes</button></td></tr>
+        <TableRow key={election._id.toString()} style={{ backgroundColor: objectIdToOKLCH(election._id)}}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell><TableCell><Button onClick={() => goTallyTheVotes(election._id)}>Tally the Votes</Button></TableCell></TableRow>
     ));
 
 
     let element = <Box>
+        <Card>
         <h1>Finished Elections</h1>
-        <table>
-            <thead><tr>
+        <Table>
+            <TableHead><TableRow>
                 <th>Election ID</th>
                 <th>Ballot ID</th>
                 <th>Actions</th>
-            </tr></thead>
-            <tbody>
+            </TableRow></TableHead>
+            <TableBody>
                 {dataElement1}
-            </tbody></table>
+            </TableBody></Table>
+            </Card>
 
         <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
         </p>
     </Box>
 
