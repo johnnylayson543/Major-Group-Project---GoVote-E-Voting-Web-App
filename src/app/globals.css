@@ -97,6 +97,7 @@ body {
 
 a {
   color: inherit;
+  filter: invert(1);
   text-decoration: none;
 }
 

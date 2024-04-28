@@ -32,10 +32,10 @@ export function formatDateTime(dateString) {
 
   
 // Constants defining the OKLCH space traversal
-const maxChroma = 0.1;  // Example maximum chroma value in OKLCH
+const maxChroma = 0.2;  // Example maximum chroma value in OKLCH
 const minChroma = 0.05;  // Example minimum chroma value
-const maxLightness = 0.90;  // Close to white in OKLCH
-const minLightness = 0.10;  // Close to black in OKLCH
+const maxLightness = 0.70;  // Close to white in OKLCH
+const minLightness = 0.15;  // Close to black in OKLCH
 const hueIncrement = 1;
 
 const chromaRange = maxChroma - minChroma;
@@ -48,7 +48,7 @@ const totalIndices = Math.floor(chromaRange * 100) * Math.floor(lightnessRange *
 function hashToIndex(objectId) {
   const counterHex = objectId.slice(0, 24);
   const counter = BigInt(`0x${counterHex}`);
-  const maxCounterValue = BigInt(0xFFFFFF); // Max value for 3-byte counter
+  const maxCounterValue = BigInt(0xFFFFFFn); // Max value for 3-byte counter
   const index = Number((counter * BigInt(totalIndices) / maxCounterValue) % BigInt(totalIndices));
   return index;
 }
@@ -68,3 +68,27 @@ export function objectIdToOKLCH(objectId) {
   const index = hashToIndex(objectId);
   return indexToOKLCH(index);
 }
+
+
+// Given LCH color (L, C, H) and target contrast ratio
+function calculateValidLRange(L, targetRatio) {
+  // Convert L to relative luminance (Y)
+  const Y = L > 8 ? ((L + 16) / 116) : (L / 903.3);
+
+  // Calculate minimum and maximum relative luminance
+  const Ymin = Y / targetRatio;
+  const Ymax = Y * targetRatio;
+
+  // Convert back to L values
+  const Lmin = Math.max(0, Math.min(100, 116 * ((Ymin * 903.3) - 16)));
+  const Lmax = Math.max(0, Math.min(100, 116 * ((Ymax * 903.3) - 16)));
+
+  return { Lmin, Lmax };
+}
+
+// Example usage:
+const inputLCH = { L: 70, C: 40, H: 120 }; // Your LCH color
+const targetContrastRatio = 4.5; // Desired contrast ratio
+
+const { Lmin, Lmax } = calculateValidLRange(inputLCH.L, targetContrastRatio);
+console.log(`Valid L range: ${Lmin} to ${Lmax}`);

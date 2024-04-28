@@ -34,8 +34,31 @@ const theme = createTheme({
           // Apply styles to all buttons
           fontSize: '1rem',
           padding: '0.8rem 1.6rem',
-        }
+        },
       },
+
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          mixBlendMode: 'color-burn'
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'inherit',
+          boxShadow: '1em',
+          padding: '1em',
+          maxWidth: '45em',
+          margin: 'auto',
+          borderRadius: '1em'
+        },
+        h1: {
+          color: 'red'
+        }
+      }
     },
     MuiButton: {
       styleOverrides: {
@@ -52,6 +75,10 @@ const theme = createTheme({
             backgroundColor: 'oklch(5.78% 0.19944239451295373 264.052020638055)',
           },
         },
+        textPrimary: {
+          mixBlendMode: 'subtract'
+        },
+        
         '#myCustomButton': {
           // Apply styles to a button with the ID "myCustomButton"
           fontWeight: 'bold',
