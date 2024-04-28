@@ -74,9 +74,9 @@ export default function Page() {
     <h1>Running Elections</h1>
     <Table>
       <TableHead><TableRow>
-        <TableCell>Election ID</TableCell>
-        <TableCell>Ballot ID</TableCell>
-        <TableCell>Actions</TableCell>
+        <th>Election ID</th>
+        <th>Ballot ID</th>
+        <th>Actions</th>
       </TableRow></TableHead>
       <TableBody>
         {dataElement1}

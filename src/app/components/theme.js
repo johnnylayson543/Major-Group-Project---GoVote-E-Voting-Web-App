@@ -63,6 +63,7 @@ const theme = createTheme({
         root: {
           fontSize: '1rem',
           padding: '0.8rem 1.6rem',
+          mixBlendMode: 'divide',
         },
         contained: {
           backgroundColor: buttonBackgroundColor,

@@ -112,23 +112,15 @@ export default function Page() {
     <Card>
     <h1>The Ballot used in the Election</h1>
     <h2>Ballot</h2>
-    <Table>
-      <TableHead><TableRow>
-        <TableCell>Ballot ID</TableCell>
-        <TableCell>Closing Date Time</TableCell>
-        <TableCell>Title</TableCell>
-      </TableRow></TableHead>
-      <TableBody>
         {dataElement1}
-      </TableBody></Table>
       </Card>
       <Card>
     <h2>Ballot Candidates</h2>
     <Table>
       <TableHead><TableRow>
-        <TableCell>Candidate ID</TableCell>
-        <TableCell>Ballot ID</TableCell>
-        <TableCell>PPSN</TableCell>
+        <th>Candidate ID</th>
+        <th>Ballot ID</th>
+        <th>PPSN</th>
       </TableRow></TableHead>
       <TableBody>
         {dataElement2}
@@ -138,8 +130,8 @@ export default function Page() {
     <h2>Election Running with this ballot</h2>
     <Table>
       <TableHead><TableRow>
-        <TableCell>Election ID</TableCell>
-        <TableCell>Ballot ID</TableCell>
+        <th>Election ID</th>
+        <th>Ballot ID</th>
       </TableRow></TableHead>
       <TableBody>
         {dataElement3}

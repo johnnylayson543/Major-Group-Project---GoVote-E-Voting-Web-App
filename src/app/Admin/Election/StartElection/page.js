@@ -3,23 +3,10 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
-
-import Script from 'next/script'
-import { useState, useEffect } from 'react'
-import { Toolbar } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Button, Card, FormLabel, Tab, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -96,6 +83,13 @@ export default function Page() {
   const goBack = () => {
     router.push('/Admin/Ballot/');
   };
+  const goToElections = () => {
+    router.push('/Admin/Election/');
+  };
+
+  const goBackToBallots = () => {
+    router.push('/Admin/Ballot/');
+  };
 
   const confirmElection = (ballot_id) => {
 
@@ -106,46 +100,41 @@ export default function Page() {
 
   if (!ballot || !candidates_for_the_ballot) return <p>No ballot or candidates_for_ballot or election found. </p>;
 
-  let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
-
+  let dataElement1 = <Card key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }} >
+    <Table>
+      <TableBody>
+        <TableRow><TableCell><FormLabel>Closing date:</FormLabel><Tab></Tab>{formatDateTime(ballot.closing_datetime)}</TableCell></TableRow>
+        <TableRow><TableCell><FormLabel>Title:</FormLabel><Tab></Tab> {ballot.title}</TableCell></TableRow>
+      </TableBody>
+    </Table>
+  </Card>
     ;
   let dataElement2 = (candidates_for_the_ballot.map(ballot_candidate =>
-    <tr key={ballot._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
+    <TableRow key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot_candidate._id) }}><TableCell>{ballot_candidate.person_ppsn}</TableCell></TableRow>
   ));
 
   let element = <Box>
-    <h1>Ballot</h1>
-    <table>
-      <thead><tr>
-        <th>Ballot ID</th>
-        <th>Closing Date Time</th>
-        <th>Title</th>
-      </tr>
-
-      </thead>
-      <tbody>
-        {dataElement1}
-      </tbody></table>
-    <table>
-
-      <thead><tr>
-        <th>Candidate ID</th>
-        <th>Ballot ID</th>
-        <th>PPSN</th>
-      </tr>
-
-
-      </thead>
-      <tbody>
-        {dataElement2}
-      </tbody></table>
+    <Card>
+      <h1>Ballot</h1>
+      {dataElement1}
+    </Card>
+    <Card>
+      <h2>Candidates</h2>
+      <Table>
+        <TableHead><TableRow>
+          <th>PPSN</th>
+        </TableRow>
+        </TableHead>
+        <TableBody>
+          {dataElement2}
+        </TableBody></Table>
+    </Card>
     <p>
-      <button onClick={() => confirmElection(ballot._id)}>Confirm the Start of this election</button>
+      <Button onClick={() => confirmElection(ballot._id)}>Confirm the Start of this election</Button>
     </p><p>
-      <button onClick={() => goBackToElections()}>Back to Elections</button>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
-      <button onClick={() => goBackToBallots()}>Back to Ballots</button>
+      <Button onClick={() => goBackToElections()}>Back to Elections</Button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+      <Button onClick={() => goBackToBallots()}>Back to Ballots</Button>
     </p>
   </Box>;
 
