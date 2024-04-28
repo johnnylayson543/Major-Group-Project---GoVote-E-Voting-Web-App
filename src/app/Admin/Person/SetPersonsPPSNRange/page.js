@@ -79,10 +79,10 @@ export default function Page() {
     router.push('/Admin/Election/');
   };
 
-  let element = <p>
+  let element = <Box>
     <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
     <Button onClick={() => goToBallots()}>Back to Ballots</Button>
-    <Button onClick={() => goToElections()}>Back to Elections</Button></p>
+    <Button onClick={() => goToElections()}>Back to Elections</Button></Box>
 
   // This returns the front-end page
   return (
