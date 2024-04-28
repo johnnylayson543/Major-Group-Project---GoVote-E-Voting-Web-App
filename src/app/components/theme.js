@@ -20,6 +20,9 @@ const theme = createTheme({
     },
   },
   typography: {
+    all: {
+      mixBlendMode: 'color-burn'
+    }
     // You can customize typography styles here
   },
   components: {

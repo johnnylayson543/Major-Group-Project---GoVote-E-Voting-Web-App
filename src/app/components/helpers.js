@@ -33,7 +33,7 @@ export function formatDateTime(dateString) {
   
 // Constants defining the OKLCH space traversal
 const maxChroma = 0.2;  // Example maximum chroma value in OKLCH
-const minChroma = 0.05;  // Example minimum chroma value
+const minChroma = 0.08;  // Example minimum chroma value
 const maxLightness = 0.70;  // Close to white in OKLCH
 const minLightness = 0.15;  // Close to black in OKLCH
 const hueIncrement = 1;
@@ -94,7 +94,7 @@ const { Lmin, Lmax } = calculateValidLRange(inputLCH.L, targetContrastRatio);
 console.log(`Valid L range: ${Lmin} to ${Lmax}`);
 
 
-import { parse, formatOkLch } from 'culori';
+import { formatOkLch, parse } from 'culori';
 
 export function getContrastingOklchColor(oklchStr) {
   try {
