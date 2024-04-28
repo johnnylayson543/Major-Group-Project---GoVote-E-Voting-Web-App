@@ -48,7 +48,7 @@ export default function Page() {
     let voterButton;
     if (voter) {
         console.log(voter._id);
-        adminButton =
+        voterButton =
             <ListItem disablePadding>
                 <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
                     <ListItemIcon>

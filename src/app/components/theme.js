@@ -25,7 +25,9 @@ const theme = createTheme({
   components: {
     MuiTextField: {
       styleOverrides: {
-        backgroundColor: 'white'
+        root: {
+          backgroundColor: 'white'
+        }
       }
     },
     MuiTable: {
