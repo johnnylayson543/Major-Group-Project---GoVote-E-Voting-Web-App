@@ -50,12 +50,12 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: 'inherit',
           boxShadow: '1em',
           padding: '1em',
           maxWidth: '45em',
           margin: 'auto',
           borderRadius: '1em',
+          mixBlendMode: 'divide'
         },
       },
     },

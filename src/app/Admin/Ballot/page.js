@@ -62,19 +62,19 @@ export default function Page() {
         <Table>
           <TableHead>
             <TableRow>
-              <th>Closing Date Time</th>
-              <th>Title</th>
+              <TableCell>Closing Date Time</TableCell>
+              <TableCell>Title</TableCell>
             </TableRow>
           </TableHead>
           
           <TableBody>
         { dataElement }
             </TableBody></Table>
-            <p><Button onClick={() => goCreateBallot()}>Create New Ballot</Button></p>
+            <Box><Button onClick={() => goCreateBallot()}>Create New Ballot</Button></Box>
 
-            <p>
+            <Box>
             <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
-            <Button onClick={() => goToElections()}>Back to Elections</Button></p>
+            <Button onClick={() => goToElections()}>Back to Elections</Button></Box>
   </Box>
 
   const goBackToProfile = () => {
