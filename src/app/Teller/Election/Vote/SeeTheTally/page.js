@@ -121,24 +121,25 @@ export default function Page() {
     voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
   }
 
-  let dataElement1 = <Table key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
+  let dataElement1 = <Table className='dataElement' key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}>
       <TableBody>
+      <TableRow><TableCell><details><summary>id</summary><FormLabel>id:</FormLabel><Tab></Tab>{ballot._id}</details></TableCell></TableRow>
         <TableRow><TableCell><FormLabel>Closing date:</FormLabel><Tab></Tab>{formatDateTime(ballot.closing_datetime)}</TableCell></TableRow>
         <TableRow><TableCell><FormLabel>Title:</FormLabel><Tab></Tab> {ballot.title}</TableCell></TableRow>
       </TableBody>
     </Table>
     ;
   let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <TableRow key={ballot_candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot_candidate._id) }}><TableCell>{ballot_candidate._id}</TableCell><TableCell>{ballot_candidate.ballotID}</TableCell><TableCell>{ballot_candidate.person_ppsn}</TableCell></TableRow>
+    <TableRow key={ballot_candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot_candidate._id) }}><TableCell><details><summary>id</summary><strong>candidate_id: </strong>{ballot_candidate._id}<br /><strong>ballot_id: </strong>{ballot_candidate.ballotID}</details></TableCell><TableCell>{ballot_candidate.person_ppsn}</TableCell></TableRow>
   ));
 
   let dataElement3 =
-    <TableRow key={election._id} style={{ backgroundColor: objectIdToOKLCH(election._id) }}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell></TableRow>
+    <TableRow key={election._id} style={{ backgroundColor: objectIdToOKLCH(election._id) }}><TableCell><details><summary>id</summary><strong>election_id: </strong>{election._id}<br /><strong>ballot_id: </strong>{election.ballotID}</details></TableCell></TableRow>
 
     ;
 
   let dataElement4 =
-    <TableRow key={tally_for_the_election._id} style={{ backgroundColor: objectIdToOKLCH(tally_for_the_election._id) }}><TableCell>{tally_for_the_election._id}</TableCell><TableCell>{tally_for_the_election.electionID}</TableCell>
+    <TableRow key={tally_for_the_election._id} style={{ backgroundColor: objectIdToOKLCH(tally_for_the_election._id) }}><TableCell><details><summary>id</summary><strong>election_id: </strong>{tally_for_the_election._id}<br /><strong>tally_id: </strong>{tally_for_the_election.electionID}</details></TableCell>
       <TableCell>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</TableCell></TableRow>
 
     ;
@@ -147,8 +148,7 @@ export default function Page() {
     <h1>Tally for this election</h1>
     <Table>
       <TableHead><TableRow>
-        <th>Election ID</th>
-        <th>Ballot ID</th>
+        <th>ID</th>
       </TableRow></TableHead>
       <TableBody>
         {dataElement4}
@@ -164,25 +164,17 @@ export default function Page() {
     <hr />
     <details>
       <summary>Click for the details of the Ballot, Election, and Candidates</summary>
-      <Card>
+      
       <h1>The Ballot and other details</h1>
+      <Card>
       <h2>Ballot</h2>
-      <Table>
-        <TableHead><TableRow>
-          <th>Ballot ID</th>
-          <th>Closing Date Time</th>
-          <th>Title</th>
-        </TableRow></TableHead>
-        <TableBody>
           {dataElement1}
-        </TableBody></Table>
         </Card>
         <Card>
       <h2>Ballot Candidates</h2>
       <Table>
         <TableHead><TableRow>
-          <th>Candidate ID</th>
-          <th>Ballot ID</th>
+        <th>#</th>
           <th>PPSN</th>
         </TableRow></TableHead>
         <TableBody>
@@ -193,9 +185,7 @@ export default function Page() {
       <h2>Election Running with this ballot</h2>
       <Table>
         <TableHead><TableRow>
-          <th>Tally ID</th>
-          <th>Election ID</th>
-          <th>The Tally</th>
+          <th>#</th>
         </TableRow></TableHead>
         <TableBody>
           {dataElement3}
