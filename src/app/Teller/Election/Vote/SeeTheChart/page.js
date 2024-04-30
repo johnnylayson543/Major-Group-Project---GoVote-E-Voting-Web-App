@@ -179,13 +179,19 @@ export default function Page() {
 
     </Box>
 
-    let chart_data = {
-        labels: tally_for_the_election.tally.map(x => x.candidateID),
-        datasets: [{
-            label: 'tally',
-            data: tally_for_the_election.tally.map(x => x.count)
-        }]
-    };
+let chart_data = {
+    labels: tally_for_the_election.tally
+      .filter(item => typeof item.candidateID !== 'undefined' && typeof item.count !== 'undefined')
+      .map(x => x.candidateID),
+    datasets: [
+      {
+        label: 'Election Tally',
+        data: tally_for_the_election.tally
+          .filter(item => typeof item.count !== 'undefined')
+          .map(x => x.count)
+      }
+    ]
+  };
 
 
     const goBackToTalliedElections = () => {
