@@ -93,6 +93,19 @@ export default function Page() {
                 console.log(data.result);
             })
 
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chart_data,
+            options: {
+                scales: {
+                    y: {
+                        beginsAtZero: true
+                    }
+                }
+            }
+        });
+
     }, []);
 
     const handleSubmit = (event) => {
@@ -161,20 +174,6 @@ export default function Page() {
         }]
     };
 
-    useEffect(() => {
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: chart_data,
-        options: {
-            scales: {
-                y: {
-                    beginsAtZero: true
-                }
-            }
-        }
-    });
-    }, [] );
 
     const goBackToTalliedElections = () => {
         router.push('/Teller/Election/Vote');
