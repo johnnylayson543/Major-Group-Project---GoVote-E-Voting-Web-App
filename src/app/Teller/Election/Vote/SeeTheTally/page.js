@@ -140,7 +140,7 @@ export default function Page() {
 
   let dataElement4 =
     <TableRow key={tally_for_the_election._id} style={{ backgroundColor: objectIdToOKLCH(tally_for_the_election._id) }}><TableCell><details><summary>id</summary><strong>election_id: </strong>{tally_for_the_election._id}<br /><strong>tally_id: </strong>{tally_for_the_election.electionID}</details></TableCell>
-      <TableCell>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</TableCell></TableRow>
+      <TableCell>{tally_for_the_election.tally.map(x => <div key={x._id} ><p>CandidateID: {x.candidateID}</p><p>Count: {x.count}</p></div>)}</TableCell><TableCell><Button onClick={()=>goSeeTheChart(election._id, ballot._id)}>See the Chart</Button></TableCell> </TableRow>
 
     ;
   let element = <Box>
@@ -195,6 +195,9 @@ export default function Page() {
   </Box>
 
 
+  const goSeeTheChart = (election_id, ballot_id) => {
+    router.push('/Teller/Election/Vote/SeeTheChart?electionID=' + election_id + '&ballotID=' + ballot_id)
+  };
 
   const goBackToTalliedElections = () => {
     router.push('/Teller/Election/Vote');

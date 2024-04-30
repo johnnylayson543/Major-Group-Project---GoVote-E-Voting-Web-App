@@ -17,6 +17,9 @@ import { green, purple } from '@mui/material/colors';
 import { useState, useEffect, useContext } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { formatDateTime, objectIdToOKLCH } from '@/app/components/helpers';
+import { Details } from '@mui/icons-material';
 
 // WARNING: Still Incomplete, needs candidate page on the MongoDB cloud and still figuring out about the name. 
 // This is the most important part of the prototype that needs to be completed asap. some variables here like the ballotID are temporary placeholders
@@ -105,56 +108,62 @@ export default function Page() {
   let voterButton;
   if (voter) {
     console.log(voter._id);
-    voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+    voterButton = <Button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</Button>;
   }
 
 
   let dataElement1 =
-    <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
+    <TableRow key={ballot._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot._id)}}><TableCell>{ballot._id}</TableCell><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell></TableRow>
 
     ;
   let dataElement2 = (candidates_for_ballot.map(ballot_candidate =>
-    <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td><td><button onClick={() => goCastTheVote(voter._id, ballot_candidate._id)}>Vote</button></td></tr>
+    <TableRow key={ballot_candidate._id.toString()} style={{backgroundColor: objectIdToOKLCH(ballot_candidate._id)}}><TableCell><details><summary>id</summary><strong>candidate_id: </strong>{ballot_candidate._id}<br /><strong>ballot_id: </strong>{ballot_candidate.ballotID}</details></TableCell><TableCell>{ballot_candidate.person_ppsn}</TableCell><TableCell><Button onClick={() => goCastTheVote(voter._id, ballot_candidate._id)}>Vote</Button></TableCell></TableRow>
   ));
 
   let dataElement3 =
-    <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+    <TableRow key={election._id} style={{backgroundColor: objectIdToOKLCH(election._id)}}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell></TableRow>
 
     ;
   let element = <Box>
     <h1>The Ballot used in the Election</h1>
+
+    <Card>
     <h2>Ballot</h2>
-    <table>
-      <thead><tr>
+    <Table>
+      <TableHead><TableRow>
         <th>Ballot ID</th>
         <th>Closing Date Time</th>
         <th>Title</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement1}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
+      <Card>
     <h2>Ballot Candidates</h2>
-    <table>
-      <thead><tr>
-        <th>Candidate ID</th>
-        <th>Ballot ID</th>
+    <Table>
+      <TableHead><TableRow>
+        <th>#</th>
         <th>PPSN</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement2}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
+      <Card>
     <h2>Election Running with this ballot</h2>
-    <table>
-      <thead><tr>
+    <Table>
+      <TableHead><TableRow>
         <th>Election ID</th>
         <th>Ballot ID</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement3}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
     <p>
-      <button onClick={() => goBackToElections()}>Back to Elections</button>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      <Button onClick={() => goBackToElections()}>Back to Elections</Button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
       {voterButton}
     </p>
   </Box>
@@ -178,9 +187,8 @@ export default function Page() {
     },
   });
   return (
-    <ThemeProvider theme={theme}>
-
+    <>
       {element}
-    </ThemeProvider>
+    </>
   );
 }
