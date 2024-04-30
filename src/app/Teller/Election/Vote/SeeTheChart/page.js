@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
 import { useRouter } from 'next/navigation';
 import { Button, Card, FormLabel, Tab, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
@@ -92,21 +92,34 @@ export default function Page() {
                 console.log("Ballot Candidates data")
                 console.log(data.result);
             })
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: chart_data,
-            options: {
-                scales: {
-                    y: {
-                        beginsAtZero: true
-                    }
-                }
-            }
-        });
+      
 
     }, []);
+
+   
+    const chartRef = useRef(null);
+    useEffect(() => {
+
+
+        
+
+        if (document.getElementById('myChart') && candidates_for_ballot && tally_for_the_election) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            chartRef.current = new Chart(ctx, {
+                type: 'bar',
+                data: chart_data,
+                options: {
+                    scales: {
+                        y: {
+                            beginsAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+    }, [candidates_for_ballot, tally_for_the_election]);
+
 
     const handleSubmit = (event) => {
 
@@ -167,7 +180,7 @@ export default function Page() {
     </Box>
 
     let chart_data = {
-        labels: candidates_for_ballot.map(x => x.person_ppsn),
+        labels: tally_for_the_election.tally.map(x => x.candidateID),
         datasets: [{
             label: 'tally',
             data: tally_for_the_election.tally.map(x => x.count)
@@ -185,6 +198,7 @@ export default function Page() {
         router.push('/Teller/Election/');
     };
 
+    
     return (
         <>
             <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
@@ -193,4 +207,6 @@ export default function Page() {
         </>
 
     );
+
+    
 }
