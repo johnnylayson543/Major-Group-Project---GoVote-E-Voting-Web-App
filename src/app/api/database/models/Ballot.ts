@@ -1,7 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 
-const ballotSchema = new mongoose.Schema({
+export interface IBallot extends Document {
+    title: string;
+    closing_datetime: Date;
+}
+
+const ballotSchema = new mongoose.Schema<IBallot>({
     //id: {type: String, required: true, unique: true},
     title: {type: String, required: false},
     closing_datetime: {type: Date, required: true}
@@ -73,6 +78,6 @@ class BallotClass {
     }
 }
 ballotSchema.loadClass(BallotClass)
-export const Ballot = getModel('Ballot', ballotSchema);
+export const Ballot = getModel<IBallot>({modelName: 'Ballot', modelSchema: ballotSchema});
 
 //export default Ballot;

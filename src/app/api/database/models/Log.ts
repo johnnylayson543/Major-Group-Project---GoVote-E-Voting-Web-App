@@ -1,7 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 
-const logSchema = new mongoose.Schema({
+export interface ILog extends Document {
+    voteID: string;
+    timestamp_created: Date;
+    timestamp_updated: Date;
+}
+
+const logSchema = new mongoose.Schema<ILog>({
     voteID: {type: String, required: true, unique: true, ref: 'Vote'},
     timestamp_created: {type: Date, default: Date.now, required: true, unique: true},
     timestamp_updated: {type: Date, default: Date.now}
@@ -33,6 +39,6 @@ class LogClass {
     }
 }
 logSchema.loadClass(LogClass)
-export const Log = getModel('Log', logSchema); 
+export const Log = getModel<ILog>({modelName: 'Log', modelSchema: logSchema}); 
 
 //export default Log;

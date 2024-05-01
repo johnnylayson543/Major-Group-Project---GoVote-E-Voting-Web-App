@@ -1,7 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 
-const personSchema = new mongoose.Schema({
+
+export interface IPerson extends Document {
+    ppsn: String;
+    name: String;
+    address: String;
+    phone: String;
+    email: String;
+    date_of_birth: Date;
+} 
+
+const personSchema = new mongoose.Schema<IPerson>({
     ppsn: {type: String, required: true, unique: true},
     name: {type: String, required: false},
     address: {type: String, required: false},
@@ -73,6 +83,6 @@ class PersonClass {
     }
 }
 personSchema.loadClass(PersonClass)
-export const Person = getModel('Person', personSchema);
+export const Person = getModel<IPerson>({modelName: 'Person', modelSchema: personSchema});
 
 //export default Person;

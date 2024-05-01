@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 //import { User } from "./User";
 import { Ballot } from "./Ballot";
@@ -6,7 +6,12 @@ import { Candidate } from "./Candidate";
 import { Person } from "./Person";
 import { Election } from "./Election";
 
-const adminSchema = new mongoose.Schema ({
+interface IAdmin extends Document {
+    person_ppsn: String;
+}
+
+
+const adminSchema = new mongoose.Schema<IAdmin> ({
     person_ppsn: {type: String, required: true, unique: true, ref: 'Person'}
     //id: {type: String, required: true, unique: true}
 });
@@ -311,6 +316,6 @@ class AdminClass {
 
 adminSchema.loadClass(AdminClass);
 
-export const Admin = getModel('Admin', adminSchema);
+export const Admin = getModel<IAdmin>({modelName: 'Admin', modelSchema: adminSchema);
 
 // export default Admin;

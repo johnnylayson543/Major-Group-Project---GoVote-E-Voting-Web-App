@@ -1,11 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 import { Election } from "./Election";
 import { Candidate } from "./Candidate";
 import { Vote } from "./Vote";
 
+export interface ITally extends Document {
+    candidateID: String;
+    count: Number 
+}
 
-const countSchema = new mongoose.Schema({
+const countSchema = new mongoose.Schema<ITally>({
     candidateID: {type: String, required: true, unique: true, ref: 'Candidate'},
     count:  {type: Number, default: 0}
 });
@@ -90,4 +94,4 @@ class tallyClass {
 }
 
 tallySchema.loadClass(tallyClass);
-export const Tally = getModel('Tally', tallySchema);
+export const Tally = getModel<ITally>({modelName: 'Tally', modelSchema: tallySchema});

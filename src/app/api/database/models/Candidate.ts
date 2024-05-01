@@ -1,8 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 //import { User } from "./User";
 
-const candidateSchema = new mongoose.Schema({
+
+export interface ICandidate extends Document {
+    person_ppsn: String;
+    ballotID: string;
+}
+
+const candidateSchema = new mongoose.Schema<ICandidate>({
     person_ppsn: { type: String, required: true, unique: false, ref: 'Person' },
     //id:{type: String, required: true, unique: true},
     ballotID: { type: String, required: true, unique: false }
@@ -74,6 +80,6 @@ class CandidateClass {
     }
 }
 candidateSchema.loadClass(CandidateClass);
-export const Candidate = getModel('Candidate', candidateSchema);
+export const Candidate = getModel<ICandidate>({modelName: 'Candidate', modelSchema: candidateSchema});
 
 //export default Candidate;

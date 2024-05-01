@@ -1,8 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 
 
-const electionSchema = new mongoose.Schema({
+export interface IElection extends Document {
+    ballotID: String
+} 
+
+const electionSchema = new mongoose.Schema<IElection>({
     ballotID: {type: String, required: true, unique: true, ref: 'Ballot'}
 });
 
@@ -57,6 +61,6 @@ class ElectionClass {
     }
 }
 electionSchema.loadClass(ElectionClass);
-export const Election = getModel('Election', electionSchema);
+export const Election = getModel<IElection>({modelName: 'Election', modelSchema: electionSchema});
 
 //export default Election;
