@@ -24,9 +24,9 @@ export default function Header({ window }) {
     const restrictedStyle = {position: 'fixed', top: '50%', right: '50%', aspectRatio: '1', height: '10em' };
     const restricted = <button style={restrictedStyle} onClick={() => run_clean_up()}>Clean up the database</button>
 
-    useEffect(() => {
-        setContrastingTextColors();
-      }, []);
+    // useEffect(() => {
+      //  setContrastingTextColors();
+     // }, []);
 
 
     return (

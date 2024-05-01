@@ -3,10 +3,10 @@
 import Box from '@mui/material/Box';
 
 import { UserContext } from '@/app/components/header/userAuthentication';
-import { Card } from '@mui/material';
+import { Button, Card } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
-import {MyTallyChart } from '@/app/components/tallyChart'
+import { MyTallyChart } from '@/app/components/tallyChart'
 
 
 export default function Page() {
@@ -105,6 +105,11 @@ export default function Page() {
                 <Card>
                     <MyTallyChart tally={tally_for_the_election} />
                 </Card>
+                <Box><Button onClick={() => goBackToFinishedElections()}>Tallied Elections</Button></Box>
+
+                <Box>
+                    <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+                    <Button onClick={() => goBackToFinishedElections()}>Back to Finished Elections</Button></Box>
             </Box>
         </>
     );

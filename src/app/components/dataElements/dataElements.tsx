@@ -1,3 +1,21 @@
+import { FormLabel, Tab, Table, TableBody, TableCell, TableRow } from "@mui/material";
+import { formatDateTime, objectIdToOKLCH } from "../helpers";
+import { ObjectId } from "mongodb";
+import { Date } from "mongoose";
+
+
+class BallotData {
+
+  _id : ObjectId
+  title : String
+  closing_datetime : Date
+
+  constructor(x : object){
+
+    
+  }
+
+}
 
 
 export function getBallotDataElement(ballot : object){
