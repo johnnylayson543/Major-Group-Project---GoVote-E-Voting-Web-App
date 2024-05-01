@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { getModel } from "./helpers/helpers";
 //import { UserClass } from "./User";
 import { Vote } from "./Vote";
@@ -6,7 +6,12 @@ import { Tally } from "./Tally";
 import { Ballot } from "./Ballot";
 import { Election } from "./Election";
 
-const tellerSchema = new mongoose.Schema({
+
+export interface ITeller extends Document {
+    person_ppsn: String;
+}
+
+const tellerSchema = new mongoose.Schema<ITeller>({
     person_ppsn: {type: String, required: true, unique: true, ref: 'Person'}
 });
 
@@ -98,6 +103,6 @@ class TellerClass {
     }
 }
 tellerSchema.loadClass(TellerClass)
-export const Teller = getModel('Teller', tellerSchema); 
+export const Teller = getModel<ITeller>({modelName: 'Teller', modelSchema: tellerSchema}); 
 
 //export default Teller;

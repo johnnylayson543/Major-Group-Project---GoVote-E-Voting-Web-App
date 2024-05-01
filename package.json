@@ -24,6 +24,7 @@
     "dayjs": "^1.11.10",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "mongodb": "^6.3.0",
     "mongoose": "^8.3.2",
     "mui": "^0.0.1",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@types/culori": "^2.1.0",
+    "@types/lodash": "^4.17.0",
     "@types/node": "20.12.7"
   }
 }

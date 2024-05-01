@@ -1,5 +1,9 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Model, UpdateWriteOpResult } from "mongoose";
 import { getModel } from "./helpers/helpers";
+import { person_type } from "../../Forms/Basic/person_type";
+import { DeleteResult, UpdateResult } from "mongodb";
+import { update_person_details_type } from "../../Forms/User/Person/update_person_details_type";
+import { user_type } from "../../Forms/Basic/user_type";
 
 
 export interface IPerson extends Document {
@@ -22,7 +26,7 @@ const personSchema = new mongoose.Schema<IPerson>({
 
 class PersonClass {
 
-    static async add_person(x){
+    static async add_person(x : person_type):Promise<IPerson & Document>{
         try {
             const obj = {ppsn: x.ppsn};
             const person_result = await Person.create(obj);
@@ -33,9 +37,9 @@ class PersonClass {
         }
     }
 
-    static async add_person_details(x){
+    static async add_person_details(x : person_type):Promise<IPerson & Document>{
         try {
-            const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
+            const obj = x;
             const person_result = await Person.create(obj);
             return person_result;
         } catch (error) {
@@ -44,11 +48,11 @@ class PersonClass {
         }
     }
 
-    static async update_person_details(x){
+    static async update_person_details(x : person_type):Promise<UpdateResult> {
         try {
-            const filter1 = {ppsn: x.person.ppsn};
+            const filter1 = {ppsn: x.ppsn};
             //const obj = {ppsn: x.ppsn, name: x.name, address: x.address, email: x.email, phone: x.phone, date_of_birth: x.date_of_birth};
-            const update1 = { $set: { name: x.person.name, address: x.person.address, email: x.person.email, phone: x.person.phone }}
+            const update1 = { $set: { name: x.name, address: x.address, email: x.email, phone: x.phone }}
             
             const person_details_update_result = await Person.updateOne(filter1,update1);
             return person_details_update_result;
@@ -58,7 +62,7 @@ class PersonClass {
         }
     }
 
-    static async remove_person_details(x){
+    static async remove_person_details(x :person_type):Promise<DeleteResult> {
         try {
             const filter_person = {ppsn: x.ppsn};
             const person_remove_result = await Person.deleteOne(filter_person);
@@ -69,7 +73,7 @@ class PersonClass {
         }
     }
 
-    static async retrieve_person(x){
+    static async retrieve_person(x :user_type|person_type):Promise<IPerson & Document> {
         try {
             const filter_person = {ppsn: x.ppsn};
             const person_result = await Person.findOne(filter_person);
@@ -82,7 +86,16 @@ class PersonClass {
         }
     }
 }
+
+interface IPersonModel extends Model<IPerson>{
+    add_person(x : person_type):Promise<IPerson & Document>;
+    add_person_details(x : person_type):Promise<IPerson & Document>;
+    update_person_details(x : person_type):Promise<UpdateResult>;
+    remove_person_details(x :person_type):Promise<DeleteResult>;
+    retrieve_person(x :user_type|person_type):Promise<IPerson & Document>;
+}
+
 personSchema.loadClass(PersonClass)
-export const Person = getModel<IPerson>({modelName: 'Person', modelSchema: personSchema});
+export const Person = getModel<IPerson,IPersonModel >({modelName: 'Person', modelSchema: personSchema});
 
 //export default Person;

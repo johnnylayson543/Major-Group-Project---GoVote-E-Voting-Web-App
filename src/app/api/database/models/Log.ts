@@ -1,5 +1,6 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Model } from "mongoose";
 import { getModel } from "./helpers/helpers";
+import { log_type } from "../../Forms/Basic/log_type";
 
 export interface ILog extends Document {
     voteID: string;
@@ -13,12 +14,12 @@ const logSchema = new mongoose.Schema<ILog>({
     timestamp_updated: {type: Date, default: Date.now}
 });
 logSchema.pre('save', function(next) {
-    this.timestamp_updated = Date.now();
+    this.timestamp_updated = new Date(Date.now());
     next();
 });
 
-logSchema.pre('update', function() {
-    this.update({}, { $set: { timestamp_updated: Date.now() } });
+logSchema.pre('updateOne', function() {
+    this.updateOne({}, { $set: { timestamp_updated: Date.now() } });
 });
 
 logSchema.pre('findOneAndUpdate', function() {
@@ -26,7 +27,7 @@ logSchema.pre('findOneAndUpdate', function() {
 });
 
 class LogClass {
-    static async add_log(x){
+    static async add_log(x:log_type):Promise<ILog & Document>{
         try {
             const obj = {voteID: x.voteID}
             const log = await Log.create(obj);    
@@ -38,7 +39,11 @@ class LogClass {
         
     }
 }
+
+interface ILogModel extends Model<ILog>{
+    add_log(x:log_type):Promise<ILog & Document>;
+}
 logSchema.loadClass(LogClass)
-export const Log = getModel<ILog>({modelName: 'Log', modelSchema: logSchema}); 
+export const Log = getModel<ILog, ILogModel>({modelName: 'Log', modelSchema: logSchema}); 
 
 //export default Log;

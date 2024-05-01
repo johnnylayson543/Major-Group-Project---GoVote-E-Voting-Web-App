@@ -1,5 +1,8 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Model } from "mongoose";
 import { getModel } from "./helpers/helpers";
+import { DeleteResult } from "mongodb";
+import { retrieve_the_candidate_with_this_ppsn_user_type } from "../../Forms/User/Candidate/retrieve_the_candidate_with_this_ppsn_user_type";
+import { candidate_type } from "../../Forms/Basic/candidate_type";
 //import { User } from "./User";
 
 
@@ -16,7 +19,7 @@ const candidateSchema = new mongoose.Schema<ICandidate>({
 candidateSchema.index({ person_ppsn: 1, ballotID: 1 }, { unique: true });
 
 class CandidateClass {
-    static async add_candidate(x) {
+    static async add_candidate(x : candidate_type) {
         try {
             const obj = { person_ppsn: x.person_ppsn, ballotID: x.ballotID };
             const candidate = await Candidate.create(obj);
@@ -26,7 +29,7 @@ class CandidateClass {
             console.error('Error occurred:', error.message);
         }
     }
-    static async remove_candidate(x) {
+    static async remove_candidate(x : candidate_type):Promise<DeleteResult> {
         try {
             const obj = { person_ppsn: x.person_ppsn, ballotID: x.ballotID };
             const candidate = await Candidate.deleteOne(obj);
@@ -38,20 +41,20 @@ class CandidateClass {
     }
 
 
-    static async retrieve_the_candidate(x) {
+    static async retrieve_the_candidate(x :candidate_type):Promise<ICandidate> {
         try {
             const obj = { _id: x._id };
-            const candidates = await Candidate.findOne(obj);
+            const candidate = await Candidate.findOne(obj);
             console.log("Candidate found: ");
-            console.log(candidates);
-            return candidates;
+            console.log(candidate);
+            return candidate;
         } catch (error) {
             console.error('An error occurred while retrieving the candidate:', error);
             console.error('Error occurred:', error.message);
         }
     }
 
-    static async retrieve_candidates(x) {
+    static async retrieve_candidates(x: candidate_type): Promise<Array<ICandidate & Document>> {
         try {
             const obj = { ballotID: x.ballotID };
             const candidates = await Candidate.find(obj);
@@ -64,7 +67,7 @@ class CandidateClass {
         }
     }
 
-    static async retrieve_the_candidate_by_ppsn(x) {
+    static async retrieve_the_candidate_by_ppsn(x: candidate_type): Promise<Array<ICandidate & Document>> {
         try {
             //console.log("Candidate x: ");
             //console.log(x);
@@ -79,7 +82,16 @@ class CandidateClass {
         }
     }
 }
+
+interface ICandidateModel extends Model<ICandidate>{
+    add_candidate(x : Object ):Promise<ICandidate & Document | null>;
+    remove_candidate(x : Object):Promise<DeleteResult>;
+    retrieve_the_candidate(x : Object):Promise<ICandidate & Document | null>;
+    retrieve_candidates(x : Object):Promise<Array<ICandidate & Document>>;
+    retrieve_the_candidate_by_ppsn(x : retrieve_the_candidate_with_this_ppsn_user_type):Promise<ICandidate & Document>;
+}
+
 candidateSchema.loadClass(CandidateClass);
-export const Candidate = getModel<ICandidate>({modelName: 'Candidate', modelSchema: candidateSchema});
+export const Candidate = getModel<ICandidate, ICandidateModel>({modelName: 'Candidate', modelSchema: candidateSchema});
 
 //export default Candidate;

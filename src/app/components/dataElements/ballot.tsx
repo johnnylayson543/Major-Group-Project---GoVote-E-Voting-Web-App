@@ -1,10 +1,14 @@
 
 import { useState, useEffect } from 'react'
+import { Document } from 'mongoose';
+import { Ballot } from '@/app/api/database/models/Ballot';
 
-class jBallot {
+class ballotData {
+
+    ballots :[Document<typeof Ballot>]
 
     constructor(){
-
+        this.ballots = this.getBallots()
     }
 
     getBallots(){

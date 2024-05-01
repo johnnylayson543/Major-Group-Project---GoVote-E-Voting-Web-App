@@ -1,5 +1,7 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Model } from "mongoose";
 import { getModel } from "./helpers/helpers";
+import { ballot_type } from "../../Forms/Basic/ballot_type";
+import { DeleteResult, UpdateResult } from "mongodb";
 
 export interface IBallot extends Document {
     title: string;
@@ -15,7 +17,7 @@ const ballotSchema = new mongoose.Schema<IBallot>({
 
 class BallotClass {
 
-    static async add_ballot(x){
+    static async add_ballot(x:ballot_type):Promise<IBallot & Document>{
         try {
             const obj = x;
             const ballot = await Ballot.create(obj);
@@ -26,9 +28,9 @@ class BallotClass {
         }
     }
 
-    static async remove_ballot(x){
+    static async remove_ballot(x : ballot_type): Promise<DeleteResult>{
         try {
-            const obj_filter = {_id: x.ballotID};
+            const obj_filter = {_id: x._id};
             console.log("obj_filter: ");
             console.log(obj_filter);
             const ballot = await Ballot.deleteOne(obj_filter);
@@ -39,7 +41,7 @@ class BallotClass {
         }
     }
 
-    static async retrieve_ballots(x){
+    static async retrieve_ballots(x : object):Promise<Array<IBallot & Document>>{
         try {
             console.log("Entered retrieve ballots try");
             const obj_filter = {};
@@ -52,10 +54,10 @@ class BallotClass {
         }
     }
 
-    static async retrieve_ballot(x){
+    static async retrieve_ballot(x:ballot_type):Promise<IBallot & Document>{
         try {
             console.log("Entered retrieve ballots try");
-            const obj_filter = {_id: x.ballotID};
+            const obj_filter = {_id: x._id};
             const ballot = await Ballot.findOne(obj_filter);
             console.log(ballot);
             return ballot;
@@ -65,10 +67,10 @@ class BallotClass {
         }
     }
 
-    static async update_ballot(x){
+    static async update_ballot(x:ballot_type):Promise<UpdateResult>{
         try {
-            const obj_filter = {ballotID: x.ballot.ballotID};
-            const obj = x.ballot;
+            const obj_filter = {ballotID: x._id};
+            const obj = x;
             const ballot = await Ballot.updateOne(obj_filter, obj);
             return ballot;
         } catch (error) {
@@ -77,7 +79,16 @@ class BallotClass {
         }
     }
 }
+
+interface IBallotModel extends Model<IBallot>{
+    add_ballot(x:ballot_type):Promise<IBallot & Document>;
+    remove_ballot(x : ballot_type): Promise<DeleteResult>;
+    retrieve_ballots(x : object):Promise<Array<IBallot & Document>>;
+    retrieve_ballot(x:ballot_type):Promise<IBallot & Document>;
+    update_ballot(x:ballot_type):Promise<UpdateResult>;
+}
+
 ballotSchema.loadClass(BallotClass)
-export const Ballot = getModel<IBallot>({modelName: 'Ballot', modelSchema: ballotSchema});
+export const Ballot = getModel<IBallot,IBallotModel>({modelName: 'Ballot', modelSchema: ballotSchema});
 
 //export default Ballot;

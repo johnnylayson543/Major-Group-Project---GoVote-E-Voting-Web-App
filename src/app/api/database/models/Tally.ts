@@ -4,17 +4,22 @@ import { Election } from "./Election";
 import { Candidate } from "./Candidate";
 import { Vote } from "./Vote";
 
-export interface ITally extends Document {
+export interface ICount extends Document {
     candidateID: String;
-    count: Number 
+    count: Number;
 }
 
-const countSchema = new mongoose.Schema<ITally>({
+export interface ITally extends Document {
+    electionID: String;
+    tally: [ICount];
+}
+
+const countSchema = new mongoose.Schema<ICount>({
     candidateID: {type: String, required: true, unique: true, ref: 'Candidate'},
     count:  {type: Number, default: 0}
 });
 
-const tallySchema = new mongoose.Schema({
+const tallySchema = new mongoose.Schema<ITally>({
     //id: {type: String, required: true, unique: true},
     electionID: { type: String, required: true, unique: true, ref: 'Election' },
     tally: { type: [countSchema], required: true, unique: false }
