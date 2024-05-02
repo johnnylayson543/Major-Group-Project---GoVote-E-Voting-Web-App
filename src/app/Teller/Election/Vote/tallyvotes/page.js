@@ -98,9 +98,6 @@ export default function Page() {
 
   return (
     <>
-      <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        <Header></Header>
-        <Toolbar></Toolbar>
         {data.map(i => i.candidateID)}
         {data.map(i => i.tally)}
 
@@ -115,9 +112,6 @@ export default function Page() {
         <div>
           <canvas id="myChart"></canvas>
         </div>
-
-      </Box>
-
     </>
   );
 }

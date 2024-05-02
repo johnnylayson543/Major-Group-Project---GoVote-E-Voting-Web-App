@@ -73,7 +73,7 @@ export default function Page() {
             const seeTallyButton = (isTallied) ?
                 <TableCell><Button onClick={() => goSeeTheTally(election._id, election.ballotID)}>See the tally</Button></TableCell> :
                 <TableCell>No tally yet</TableCell>;
-            const maybe_tallied_election = <TableRow key={election._id.toString()} style={{ backgroundColor: objectIdToOKLCH(election._id)}} ><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell>{seeTallyButton}</TableRow>;
+            const maybe_tallied_election = <TableRow key={election._id.toString()} style={{ backgroundColor: objectIdToOKLCH(election._id) }} ><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell>{seeTallyButton}</TableRow>;
             return maybe_tallied_election;
         }
         return null
@@ -83,17 +83,17 @@ export default function Page() {
 
     let element = <Box>
         <Card>
-        <h1>Tallied Elections</h1>
-        <Table>
-            <TableHead><TableRow>
-                <th>Election ID</th>
-                <th>Ballot ID</th>
-                <th>Actions</th>
-            </TableRow></TableHead>
-            <TableBody>
-                {dataElement1}
-            </TableBody></Table>
-            </Card>
+            <h1>Tallied Elections</h1>
+            <Table>
+                <TableHead><TableRow>
+                    <th>Election ID</th>
+                    <th>Ballot ID</th>
+                    <th>Actions</th>
+                </TableRow></TableHead>
+                <TableBody>
+                    {dataElement1}
+                </TableBody></Table>
+        </Card>
         <p>
             <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
         </p>
@@ -115,11 +115,7 @@ export default function Page() {
 
     return (
         <>
-            <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-                <Header></Header>
-                <Toolbar></Toolbar>
-                {element}
-            </Box>
+            {element}
         </>
 
     );

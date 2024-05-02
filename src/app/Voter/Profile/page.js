@@ -140,7 +140,7 @@ export default function Page() {
         </ListItem>
         <Divider></Divider>
         <ListItem disablePadding>
-            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/ViewVote'>
+            <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='Vote/MyVotesCast'>
                 <ListItemIcon>
                     <BallotIcon sx={{ color: 'white' }}></BallotIcon>
                 </ListItemIcon>
