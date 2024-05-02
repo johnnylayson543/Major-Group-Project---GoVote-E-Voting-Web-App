@@ -8,8 +8,8 @@ import Chart from 'chart.js/auto'; // Add this line
 import Script from 'next/script'
 
 import { useState, useEffect, useContext } from 'react'
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthenticationn';
-import { Container, Toolbar } from '@mui/material';
+import { UserAuthentication, UserContext } from '../../components/header/userAuthentication';
+import { Button, Container, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 
@@ -63,14 +63,20 @@ export default function Page() {
     };
 
 
-    const add_new_media_button = (user) ? <button onClick={() => goAddNewMedia(user._id)}>Add new media</button> : null;
+    const add_new_media_button = (user) ? <Button onClick={() => goAddNewMedia(user._id)}>Add new media</Button> : null;
 
 
+    const goBackToProfile = () => {
+        router.push('/User/Profile/');
+    };
     if (!media_for_this_user || !user) return <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
         <Header></Header>
         <Toolbar></Toolbar>
         <Box><p>No media available. </p></Box>
         {add_new_media_button}
+        <p>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+        </p>
     </Box>;
 
     console.log(media_for_this_user);
@@ -98,7 +104,7 @@ export default function Page() {
         </p>
 
         <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
         </p>
     </Box>;
 
@@ -106,9 +112,7 @@ export default function Page() {
 
 
 
-    const goBackToProfile = () => {
-        router.push('/User/Profile/');
-    };
+    c
 
     const goSeeBallot = (ballotID) => {
         router.push('/Voter/Election/SeeBallot?ballotID={' + ballotID + '}');
