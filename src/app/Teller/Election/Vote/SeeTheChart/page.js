@@ -79,14 +79,14 @@ export default function Page() {
 
     if (document.getElementById('myChart')) var ctx = document.getElementById('myChart').getContext('2d');
 
-    let chart1 = MyTallyChart(tally_for_the_election)
+    /*let chart1 = MyTallyChart(tally_for_the_election)
     let element = <Box>
 
         <Card>
             {chart1}
         </Card>
 
-    </Box>
+    </Box>*/
 
     const goBackToTalliedElections = () => {
         router.push('/Teller/Election/Vote');
