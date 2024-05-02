@@ -1,5 +1,7 @@
 // pages/api/user_info.js
 import { cookies } from "next/headers";
+import {user_type } from "../../../../Forms/Basic/user_type"
+import { IUser } from "../../../models/User";
 
 function getCookiesHeader(cookiesObject) {
     return cookiesObject.map( cooke_entry => `${encodeURIComponent(cooke_entry.name)}=${encodeURIComponent(cooke_entry.value)}`)
@@ -41,11 +43,10 @@ export async function GET(req, res) {
                 },
                 credentials: 'include'
             });
-            const userData = await userResponse.json();
-            const user = userData.result;
+            const user = (await userResponse.json()).result as IUser|{};
             console.log("user: ");
             console.log(user);
-            const roles = user.roles;
+            const roles = user.  //.roles;
             console.log("user.roles: ");
             console.log(user.roles);
             const person_ppsn = user.ppsn;

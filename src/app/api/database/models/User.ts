@@ -140,7 +140,7 @@ class UserClass {
 
     }
 
-    static async log_into_account(x : user_type) {
+    static async log_into_account(x : user_type):Promise<IUser & Document> {
         try {
             const filter_user = { ppsn: x.ppsn };
             const user_found = await User.findOne(filter_user);
@@ -168,7 +168,7 @@ class UserClass {
         }
     }
 
-    static async is_signed_into_account(x :user_type) {
+    static async is_signed_into_account(x :user_type):Promise<IUser & Document> {
         try {
             const cookies1 = cookies().getAll();
             console.log("all cookies:");
@@ -381,9 +381,10 @@ interface IUserModel extends Model<IUser>{
     remove_user_account(x: Object): Promise<DeleteResult>;
     retrieve_the_persons_details(x: retrieve_the_persons_details_user_type): Promise<IPerson & Document>
     retrieve_the_candidate_with_this_ppsn(x :retrieve_the_candidate_with_this_ppsn_user_type): Promise<ICandidate & Document | null>;
-    add_new_media(x : Object): Object|null
-    add_media_to_my_storage(x: Object): Object|null
-    log_into_account(x :login_user_type): Object|null
+    //add_new_media(x : Object): Object|null
+    //add_media_to_my_storage(x: Object): Object|null
+    log_into_account(x : user_type):Promise<IUser & Document | null>;
+    is_signed_into_account(x :user_type):Promise<IUser & Document | null>
 }
 
 userSchema.loadClass(UserClass)

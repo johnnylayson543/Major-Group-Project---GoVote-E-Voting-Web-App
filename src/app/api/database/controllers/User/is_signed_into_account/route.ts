@@ -1,7 +1,8 @@
-import { run_model_method } from "../../helper/helper";
+import { function_and_parameters, run_model_method } from "../../helper/helper";
 import { is_signed_into_account_user_type } from "../../../../Forms/User/is_signed_into_account";
 import { User } from "../../../models/User";
 import { cookies } from "next/headers";
+import { user_type } from "@/app/api/Forms/Basic/user_type";
 
 export async function GET(req, res) {
 
@@ -20,9 +21,10 @@ export async function GET(req, res) {
   const { searchParams } = new URL(req.url);
   const obj = new is_signed_into_account_user_type(searchParams);
 
-  const x = { user: obj.user};
-  const xy = {fn: User.is_signed_into_account, par: x};
-  const result = await run_model_method(xy);
+  const x = { obj: obj.user};
+  const xy :function_and_parameters<user_type> = {fn: User.is_signed_into_account, par: x};
+  const result = await run_model_method<user_type>(xy);
 
   return Response.json({data: "okay", "result": result});
 }
+
