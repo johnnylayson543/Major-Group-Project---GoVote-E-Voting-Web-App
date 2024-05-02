@@ -16,6 +16,7 @@ export default function Page() {
     const [election, setElection] = useState(null);
     const [candidates_for_ballot, setBallotCandidates] = useState(null);
     const [tally_for_the_election, setTallyForElection] = useState(null);
+    const [labels1, setLabels1] = useState(null);
 
     const router = useRouter();
 
@@ -65,10 +66,24 @@ export default function Page() {
                 console.log(data.result);
             })
 
+        // src\app\api\database\controllers\Teller\Candidate\get_labels_for_the_chart
+        fetch(`http://localhost:3000/api/database/controllers/Teller/Candidate/get_labels_for_the_chart?electionID=${election_id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setLabels1(data.result);
+
+                console.log("Labels data");
+                console.log(data.result);
+            })
+
+
+
+
     }, []);
 
 
-    if (!ballot || !candidates_for_ballot || !election || !voter || !tally_for_the_election) return <p>No ballot or candidates_for_ballot or election found. </p>;
+
+    if (!ballot || !candidates_for_ballot || !election || !voter || !tally_for_the_election || !labels1) return <Box><p>No ballot or candidates_for_ballot or election found. </p></Box>;
 
 
     let voterButton;
@@ -79,14 +94,6 @@ export default function Page() {
 
     if (document.getElementById('myChart')) var ctx = document.getElementById('myChart').getContext('2d');
 
-    let chart1 = MyTallyChart(tally_for_the_election)
-    let element = <Box>
-
-        <Card>
-            {chart1}
-        </Card>
-
-    </Box>
 
     const goBackToTalliedElections = () => {
         router.push('/Teller/Election/Vote');
@@ -102,9 +109,11 @@ export default function Page() {
     return (
         <>
             <Box>
-                <Card>
-                    <MyTallyChart tally={tally_for_the_election} />
-                </Card>
+                <Box>
+                    <Card>
+                        <MyTallyChart tally={tally_for_the_election} candidateLabels={labels1} />
+                    </Card>
+                </Box>
                 <Box><Button onClick={() => goBackToFinishedElections()}>Tallied Elections</Button></Box>
 
                 <Box>

@@ -1,56 +1,59 @@
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { objectIdToOKLCH } from './helpers';
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
 );
 
-export function MyTallyChart({ tally }) {
+export function MyTallyChart({ tally, candidateLabels }) {
     if (!tally || !Array.isArray(tally.tally)) {
         return <p>No data available for the election tally.</p>;
     }
 
-    const labels = tally.tally.map(item => item.candidateID);
+    const labels = candidateLabels;
     const data = tally.tally.map(item => item.count);
 
     const chartData = {
         labels,
-        datasets: [{
-            label: 'Election Tally',
-            data,
-            backgroundColor: '#3e95cd'
-        }]
+        datasets: [
+            {
+                label: 'Election Tally',
+                data,
+                backgroundColor:  tally.tally.map(candidate => objectIdToOKLCH(candidate.candidateID)),
+            },
+        ],
     };
 
     const chartOptions = {
         scales: {
             y: {
                 type: 'linear',
-                beginAtZero: true
-            }
+                beginAtZero: true,
+            },
         },
         plugins: {
             title: {
                 display: true,
-                text: 'Election Tally'
-            }
+                text: 'Election Tally',
+            },
         },
         layout: {
             padding: {
                 left: 10,
                 right: 10,
                 top: 10,
-                bottom: 10
-            }
+                bottom: 10,
+            },
         },
         legend: {
-            display: false
-        }
+            display: false,
+        },
     };
 
     return (
