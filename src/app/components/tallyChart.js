@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { objectIdToOKLCH } from './helpers';
 
 ChartJS.register(
   CategoryScale,
@@ -20,11 +21,13 @@ export function MyTallyChart({ tally }) {
 
     const chartData = {
         labels,
-        datasets: [{
-            label: 'Election Tally',
-            data,
-            backgroundColor: '#3e95cd'
-        }]
+        datasets: [
+            {
+                label: 'Election Tally',
+                data,
+                backgroundColor:  tally.tally.map(candidate => objectIdToOKLCH(candidate.candidateID)),
+            },
+        ],
     };
 
     const chartOptions = {
