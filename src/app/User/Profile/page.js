@@ -93,7 +93,7 @@ export default function Page() {
             <Box component="main" sx={{ p: 3 }}>
                 <Grid container spacing={10}>
                     {/* Adjust the grid sizing for different breakpoints */}
-                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <Grid item xs={12} sm={6} md={4} lg={4}>
                         <Item>
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                                 <Face6Icon />
@@ -105,7 +105,7 @@ export default function Page() {
                     </Grid>
 
                     {/* Adjust the grid sizing for different breakpoints */}
-                    <Grid item xs={12} sm={6} md={8} lg={9}>
+                    <Grid item xs={12} sm={6} md={8} lg={8}>
                         <Item>
                             <b>User Dashboard</b>
                             <br></br>
