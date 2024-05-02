@@ -31,7 +31,7 @@ export default function Page() {
 
     // Setting the Item and children for the Grid and its properties
     const Item = ({ children }) => (
-        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#6F9CDE', fontWeight: 500 }}>
+        <Box sx={{ border: '4px solid #00008B', padding: 3, backgroundColor: '#e9ecef', fontWeight: 500 }}>
             {children}
         </Box>
     );
@@ -172,58 +172,60 @@ export default function Page() {
     // Front-End Page
     return (
         <>
-            <Grid container spacing={10}>
-                <Grid item xs={12} sm={4} md={3} lg={3} xl={2.5}>
-                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon /></Avatar>
-                        <Typography variant="h5" component="h2" fontWeight={800} color={"black"} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Welcome to GoVote User!
-                        </Typography>
-                    </Item>
-                </Grid>
+            <Box component="main" sx={{ p: 3 }}>
+                <Grid container spacing={10}>
+                    <Grid item xs={12} sm={4} md={3} lg={3} xl={2.5}>
+                        <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
+                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}><Face6Icon /></Avatar>
+                            <Typography variant="h5" component="h2" fontWeight={800} color={"black"} sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                Welcome to GoVote Voter!
+                            </Typography>
+                        </Item>
+                    </Grid>
 
-                <Grid item xs={12} sm={8} md={6} lg={6} xl={5}>
-                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
-                        <b>Dashboard</b>
-                        <br />
-                        <Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Take control! Browse ongoing elections, view past results,
-                            and make your voice heard in upcoming votes. Explore the diverse
-                            range of elections happening in your community, nation, or organization.
-                        </Typography>
-                    </Item>
-                </Grid>
+                    <Grid item xs={12} sm={8} md={6} lg={6} xl={5}>
+                        <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
+                            <b>Dashboard</b>
+                            <br />
+                            <Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                Take control! Browse ongoing elections, view past results,
+                                and make your voice heard in upcoming votes. Explore the diverse
+                                range of elections happening in your community, nation, or organization.
+                            </Typography>
+                        </Item>
+                    </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                    <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
-                        <Box sx={{ width: '100%', maxWidth: 360 }}>
-                            <List>
-                                <Divider>Executive</Divider>
-                                {adminButton}
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile/'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary="User" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider>User</Divider>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
-                                        <ListItemIcon>
-                                            <HowToVoteIcon sx={{ color: 'white' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Elections" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider>Voter</Divider>
-                                {voterButtons}
-                            </List>
-                        </Box>
-                    </Item>
+                    <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                        <Item sx={{ overflow: 'hidden', wordWrap: 'break-word' }}>
+                            <Box sx={{ width: '100%', maxWidth: 360 }}>
+                                <List>
+                                    <Divider>Executive</Divider>
+                                    {adminButton}
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../User/Profile/'>
+                                            <ListItemIcon>
+                                                <HowToVoteIcon sx={{ color: 'white' }} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="User" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                    <Divider>User</Divider>
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{ backgroundColor: 'blue', color: 'white', mb: 0.2 }} href='../../Voter/Election/'>
+                                            <ListItemIcon>
+                                                <HowToVoteIcon sx={{ color: 'white' }} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Elections" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                    <Divider>Voter</Divider>
+                                    {voterButtons}
+                                </List>
+                            </Box>
+                        </Item>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Box>
         </>
     );
 
