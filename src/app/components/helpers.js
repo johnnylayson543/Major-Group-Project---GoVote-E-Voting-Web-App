@@ -33,9 +33,9 @@ export function formatDateTime(dateString) {
   
 // Constants defining the OKLCH space traversal
 const maxChroma = 0.2;  // Example maximum chroma value in OKLCH
-const minChroma = 0.05;  // Example minimum chroma value
-const maxLightness = 0.70;  // Close to white in OKLCH
-const minLightness = 0.15;  // Close to black in OKLCH
+const minChroma = 0.15;  // Example minimum chroma value
+const maxLightness = 0.5;  // Close to white in OKLCH
+const minLightness = 0.4;  // Close to black in OKLCH
 const hueIncrement = 1;
 
 const chromaRange = maxChroma - minChroma;
@@ -120,7 +120,7 @@ export function getContrastingOklchColor(oklchStr) {
     // Adjust chroma, reducing it by 20% of the original value
     color.c = Math.max(0.1, color.c * 0.8);
 
-    return formatOkLch(color);
+    return null;//formatOkLch(color);
   } catch (error) {
     console.error(`Error parsing OKLCH string: ${error}`);
     return null; // or a fallback color

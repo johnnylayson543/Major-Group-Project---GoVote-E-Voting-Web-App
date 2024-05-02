@@ -10,6 +10,8 @@ import Header from '@/app/components/header/header';
 import { useState, useEffect, useContext } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { objectIdToOKLCH } from '@/app/components/helpers';
 
 
 // Setting the Item and children for the Grid and its properties
@@ -72,30 +74,30 @@ export default function Page() {
    let voterButton;
    if (voter) {
      console.log(voter._id);
-     voterButton = <button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</button>;
+     voterButton = <Button onClick={() => goBackToSignedUpElections(voter._id)}>Back to My Signed Up Elections</Button>;
    }
 
   let dataElement1 = (votes_cast_by_the_voter.map( (vote) =>
-    <tr key={vote._id.toString()}><td>{vote._id}</td><td>{vote.voterID}</td><td>{vote.candidateID}</td><td><button onClick={() => goSeeCandidate(vote.candidateID)}>Candidate details</button></td></tr>
+    <TableRow key={vote._id.toString()} style={{backgroundColor: objectIdToOKLCH(vote._id)}}><TableCell><details><summary>id</summary><strong>vote_id: </strong>{vote._id}<br /><strong>voter_id: </strong>{vote.voterID}<br /><strong>candidate_id: </strong>{vote.candidateID}</details></TableCell><TableCell><Button onClick={() => goSeeCandidate(vote.candidateID)}>Candidate details</Button></TableCell></TableRow>
   ));
 
   let element = <Box>
     <h1>The Votes cast on elections</h1>
+    <Card>
     <h2>Votes Cast</h2>
-    <table>
-      <thead><tr>
-        <th>Vote ID</th>
-        <th>Voter ID</th>
-        <th>Candidate ID</th>
+    <Table>
+      <TableHead><TableRow>
+        <th>#</th>
         <th>Actions</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement1}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
    
     <p>
-      <button onClick={() => goBackToElections()}>Back to Elections</button>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      <Button onClick={() => goBackToElections()}>Back to Elections</Button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
       {voterButton}
     </p>
   </Box>
@@ -139,12 +141,9 @@ export default function Page() {
 
   return (
 
-    <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-        <Header></Header>
-        <Toolbar></Toolbar>
-        <br></br>
+    <>
         {element}
-    </Box>
+    </>
 
   );
 }

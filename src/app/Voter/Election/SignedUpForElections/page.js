@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation';
 import { UserContext } from '@/app/components/header/userAuthentication';
+import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { objectIdToOKLCH } from '@/app/components/helpers';
 
 
 export default function Page() {
@@ -41,27 +43,28 @@ export default function Page() {
     console.log(voter_signed_elections);
 
     let dataElement1 = (voter_signed_elections.map(election =>
-        <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td>
-            <td><button onClick={() => goSeeBallot(election.ballotID)}>See ballot</button></td>
-            <td><button onClick={() => goCastTheVote(election.ballotID, voter._id)}>Cast the Vote</button></td>
-        </tr>
+        <TableRow key={election._id.toString()} style={{backgroundColor: objectIdToOKLCH(election._id)}}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell>
+            <TableCell><Button onClick={() => goSeeBallot(election.ballotID)}>See ballot</Button></TableCell>
+            <TableCell><Button onClick={() => goCastTheVote(election.ballotID, voter._id)}>Cast the Vote</Button></TableCell>
+        </TableRow>
     ));
 
 
     let element = <Box>
-        <h1>Voter Signed Up Elections</h1>
-        <table>
-            <thead><tr>
-                <th>Election ID</th>
-                <th>Ballot ID</th>
-                <th>Actions</th>
-            </tr></thead>
-            <tbody>
-                {dataElement1}
-            </tbody></table>
-
+        <Card>
+            <h1>Voter Signed Up Elections</h1>
+            <Table>
+                <TableHead><TableRow>
+                    <th>Election ID</th>
+                    <th>Ballot ID</th>
+                    <th>Actions</th>
+                </TableRow></TableHead>
+                <TableBody>
+                    {dataElement1}
+                </TableBody></Table>
+        </Card>
         <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
         </p>
     </Box>
 
@@ -82,7 +85,7 @@ export default function Page() {
 
     return (
         <>
-                {element}
+            {element}
         </>
     );
 }

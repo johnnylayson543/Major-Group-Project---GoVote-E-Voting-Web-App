@@ -24,6 +24,7 @@ const theme = createTheme({
     },
   },
   components: {
+    
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -36,6 +37,7 @@ const theme = createTheme({
         root: {
           fontSize: '1rem',
           padding: '0.8rem 1.6rem',
+          tableLayout: 'auto',
         },
       },
     },
@@ -43,7 +45,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           mixBlendMode: 'divide',
-          filter: 'invert(1)'
+          filter: 'invert(1)',
+          
         },
       },
     },
@@ -53,8 +56,10 @@ const theme = createTheme({
           boxShadow: '1em',
           padding: '1em',
           margin: 'auto',
+          marginTop: '1.5em',
           borderRadius: '1em',
-          
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Replace with your desired box shadow
+
         },
       },
     },

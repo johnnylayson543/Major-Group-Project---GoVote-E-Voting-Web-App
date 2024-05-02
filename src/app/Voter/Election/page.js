@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react'
 import { UserContext } from '@/app/components/header/userAuthentication';
+import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { objectIdToOKLCH } from '@/app/components/helpers';
 
 
 
@@ -39,33 +41,34 @@ export default function Page() {
     console.log(elections);
 
     let dataElement1 = (elections.map(election =>
-        <tr key={election._id.toString()}><td>{election._id}</td><td>{election.ballotID}</td><td><button onClick={() => goSeeBallot(election.ballotID)}>See ballot</button></td><td><button onClick={() => goSignUpForTheElection(election.ballotID)}>Sign Up</button></td></tr>
+        <TableRow key={election._id.toString()} style={{backgroundColor: objectIdToOKLCH(election._id)}}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell><TableCell><Button onClick={() => goSeeBallot(election.ballotID)}>See ballot</Button></TableCell><TableCell><Button onClick={() => goSignUpForTheElection(election.ballotID)}>Sign Up</Button></TableCell></TableRow>
     ));
 
     let voter_profile_button;
     if (voter) {
         voter_profile_button = <Box><p>
-            <button onClick={() => goBackToVoterProfile()}>Back to Voter Profile</button>
+            <Button onClick={() => goBackToVoterProfile()}>Back to Voter Profile</Button>
         </p></Box>;
     }
 
 
     let element = <Box>
+        <Card>
         <h1>Running Elections</h1>
-        <table>
-            <thead><tr>
+        <Table>
+            <TableHead><TableRow>
                 <th>Election ID</th>
                 <th>Ballot ID</th>
                 <th>Actions</th>
-            </tr></thead>
-            <tbody>
+            </TableRow></TableHead>
+            <TableBody>
                 {dataElement1}
-            </tbody></table>
-
+            </TableBody></Table>
+            </Card>
 
         {voter_profile_button}
         <p>
-            <button onClick={() => goBackToUserProfile()}>Back to User Profile</button>
+            <Button onClick={() => goBackToUserProfile()}>Back to User Profile</Button>
         </p>
     </Box>
 
