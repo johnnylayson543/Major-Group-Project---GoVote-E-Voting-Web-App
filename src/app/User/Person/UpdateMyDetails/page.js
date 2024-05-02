@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
-import { Toolbar, Stack, Divider } from '@mui/material';
+import { Toolbar, Stack, Divider, Card } from '@mui/material';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -57,10 +57,12 @@ export default function Page() {
       <p><strong>Date of Birth:</strong> {person.date_of_birth}</p></Stack>
   );
   let element = <Box>
+    <Card>
     <h1>My Details</h1>
     {dataElement}
+    </Card>
     <p>
-      <button onClick={() => goBackToProfile()}>Back to Profile</button>
+      <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
     </p>
   </Box>;
 
@@ -131,6 +133,7 @@ export default function Page() {
         }}
       >
 
+        <Card>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <h1>Fill in the form to update your details. </h1>
           <Divider />
@@ -184,6 +187,7 @@ export default function Page() {
             Update Details
           </Button>
         </Box>
+        </Card>
       </Box>
 
     </>

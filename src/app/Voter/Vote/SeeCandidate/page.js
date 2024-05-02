@@ -2,26 +2,15 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
-
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Chart from 'chart.js/auto'; // Add this line
 
-import Script from 'next/script'
-import { Toolbar } from '@mui/material';
+import { Card, Table, TableBody, TableCell, TableHead, TableRow, Toolbar } from '@mui/material';
 
-import { useState, useEffect, useContext } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
-import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { UserContext } from '@/app/components/header/userAuthentication';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
+import { formatDateTime, objectIdToOKLCH } from '../../../components/helpers';
 
 /*
 After the submit handler calls the runDBCallAsync, this does the thing
@@ -76,20 +65,21 @@ export default function Page() {
   if (!candidate_information) return <p>No ballot or candidates_for_ballot or election found. </p>;
 
   let dataElement1 =
-    <tr key={candidate_information.ballot._id.toString()}><td>{candidate_information.ballot._id}</td><td>{candidate_information.ballot.closing_datetime}</td><td>{candidate_information.ballot.title}</td></tr>
+    <TableRow key={candidate_information.ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(candidate_information.ballot._id) }}><TableCell>{candidate_information.ballot._id}</TableCell><TableCell>{formatDateTime(candidate_information.ballot.closing_datetime)}</TableCell><TableCell>{candidate_information.ballot.title}</TableCell></TableRow>
 
     ;
   let dataElement2 =
-    <tr key={candidate_information.candidate._id.toString()}><td>{candidate_information.candidate._id}</td><td>{candidate_information.candidate.ballotID}</td><td>{candidate_information.candidate.person_ppsn}</td></tr>
+    <TableRow key={candidate_information.candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(candidate_information.candidate._id) }}><TableCell>{candidate_information.candidate._id}</TableCell><TableCell>{candidate_information.candidate.ballotID}</TableCell><TableCell>{candidate_information.candidate.person_ppsn}</TableCell></TableRow>
     ;
 
   let dataElement3 =
-    <tr key={candidate_information.election._id}><td>{candidate_information.election._id}</td><td>{candidate_information.election.ballotID}</td></tr>
+    <TableRow key={candidate_information.election._id} style={{ backgroundColor: objectIdToOKLCH(candidate_information.election._id) }}><TableCell>{candidate_information.election._id}</TableCell><TableCell>{candidate_information.election.ballotID}</TableCell></TableRow>
 
     ;
   let element = <Box>
     <h1>Candidate associated information</h1>
 
+    <Card>
     <h2>Candidate</h2>
     <svg width="250px" height="50px" xmlns="http://www.w3.org/2000/svg">
 
@@ -99,15 +89,17 @@ export default function Page() {
         👤 John Doe
       </text>
     </svg>
-    <table>
-      <thead><tr>
+    <Table>
+      <TableHead><TableRow>
         <th>Candidate ID</th>
         <th>Ballot ID</th>
         <th>PPSN</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement2}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
+      <Card>
     <h3>Associated Ballot</h3>
     <svg width="200px" height="220px" xmlns="http://www.w3.org/2000/svg" version="1.1">
 
@@ -140,25 +132,28 @@ export default function Page() {
 
       <text x="10" y="210" font-family="Verdana" font-size="10">Please review your choices.</text>
     </svg>
-    <table>
-      <thead><tr>
+    <Table>
+      <TableHead><TableRow>
         <th>Ballot ID</th>
         <th>Closing Date Time</th>
         <th>Title</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement1}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
+      <Card>
     <h3>Election Running with this ballot and candidate</h3>
 
-    <table>
-      <thead><tr>
+    <Table>
+      <TableHead><TableRow>
         <th>Election ID</th>
         <th>Ballot ID</th>
-      </tr></thead>
-      <tbody>
+      </TableRow></TableHead>
+      <TableBody>
         {dataElement3}
-      </tbody></table>
+      </TableBody></Table>
+      </Card>
     <p>
       <Button variant="contained" color="primary" onClick={() => goBackToElections()}>
         Back to Elections
@@ -191,11 +186,7 @@ export default function Page() {
   return (
 
     <>
-      <Box component="main" sx={{ p: 3 }} style={{ height: 400, width: '100%' }}>
-
-        <Toolbar></Toolbar>
         {element}
-      </Box>
     </>
 
   );

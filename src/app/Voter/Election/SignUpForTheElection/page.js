@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from 'next/navigation';
 import { UserAuthentication, UserContext } from '@/app/components/header/userAuthentication';
+import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { formatDateTime, objectIdToOKLCH } from '../../../components/helpers';
 
 
 
@@ -82,54 +84,61 @@ export default function Page() {
 
 
     let dataElement1 =
-        <tr key={ballot._id.toString()}><td>{ballot._id}</td><td>{ballot.closing_datetime}</td><td>{ballot.title}</td></tr>
+        <TableRow key={ballot._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot._id) }}><TableCell>{ballot._id}</TableCell><TableCell>{formatDateTime(ballot.closing_datetime)}</TableCell><TableCell>{ballot.title}</TableCell></TableRow>
 
         ;
 
     let dataElement2 = (candidates_for_the_ballot.map(ballot_candidate =>
-        <tr key={ballot_candidate._id.toString()}><td>{ballot_candidate._id}</td><td>{ballot_candidate.ballotID}</td><td>{ballot_candidate.person_ppsn}</td></tr>
+        <TableRow key={ballot_candidate._id.toString()} style={{ backgroundColor: objectIdToOKLCH(ballot_candidate._id) }}><TableCell>{ballot_candidate._id}</TableCell><TableCell>{ballot_candidate.ballotID}</TableCell><TableCell>{ballot_candidate.person_ppsn}</TableCell></TableRow>
     ));
 
     let dataElement3 =
-        <tr key={election._id}><td>{election._id}</td><td>{election.ballotID}</td></tr>
+        <TableRow key={election._id} style={{ backgroundColor: objectIdToOKLCH(election._id) }}><TableCell>{election._id}</TableCell><TableCell>{election.ballotID}</TableCell></TableRow>
 
         ;
 
     let element = <Box>
         <h1>The Election Details</h1>
+
+        <Card>
         <h2>Ballot</h2>
-        <table>
-            <thead><tr>
+        <Table>
+            <TableHead><TableRow>
                 <th>Ballot ID</th>
                 <th>Closing Date Time</th>
                 <th>Title</th>
-            </tr></thead>
-            <tbody>
+            </TableRow></TableHead>
+            <TableBody>
                 {dataElement1}
-            </tbody></table>
+            </TableBody></Table>
+            </Card>
+            <Card>
         <h2>Ballot Candidates</h2>
-        <table>
-            <thead><tr>
+        <Table>
+            <TableHead><TableRow>
                 <th>Candidate ID</th>
                 <th>Ballot ID</th>
                 <th>PPSN</th>
-            </tr></thead>
-            <tbody>
+            </TableRow></TableHead>
+            <TableBody>
                 {dataElement2}
-            </tbody></table>
+            </TableBody></Table>
+            </Card>
+            <Card>
         <h2>Election Running with this ballot</h2>
-        <table>
-            <thead><tr>
+        <Table>
+            <TableHead><TableRow>
                 <th>Election ID</th>
                 <th>Ballot ID</th>
-            </tr></thead>
-            <tbody>
+            </TableRow></TableHead>
+            <TableBody>
                 {dataElement3}
-            </tbody></table>
-        <button onClick={() => goConfirmSignupAsVoterForTheElection(user.ppsn, election._id)}>Confirm the voter sign up for the election</button>
+            </TableBody></Table>
+            </Card>
+        <Button onClick={() => goConfirmSignupAsVoterForTheElection(user.ppsn, election._id)}>Confirm the voter sign up for the election</Button>
         <p>
-            <button onClick={() => goBackToProfile()}>Back to Profile</button>
-            <button onClick={() => goBackToElections()}>Back to Elections</button>
+            <Button onClick={() => goBackToProfile()}>Back to Profile</Button>
+            <Button onClick={() => goBackToElections()}>Back to Elections</Button>
         </p>
     </Box>
 

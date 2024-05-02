@@ -50,7 +50,7 @@ export default function Page() {
         console.log(voter._id);
         voterButton =
             <ListItem disablePadding>
-                <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(admin._id)} >
+                <ListItemButton sx={{ backgroundColor: 'lch(48.68% 6.04 241.68)', color: 'white', mb: 0.2 }} onClick={() => goToVoterProfile(voter._id)} >
                     <ListItemIcon>
                         <HowToVoteIcon sx={{ color: 'white' }}></HowToVoteIcon>
                     </ListItemIcon>
@@ -93,7 +93,7 @@ export default function Page() {
             <Box component="main" sx={{ p: 3 }}>
                 <Grid container spacing={10}>
                     {/* Adjust the grid sizing for different breakpoints */}
-                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <Grid item xs={12} sm={6} md={4} lg={4}>
                         <Item>
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                                 <Face6Icon />
@@ -105,7 +105,7 @@ export default function Page() {
                     </Grid>
 
                     {/* Adjust the grid sizing for different breakpoints */}
-                    <Grid item xs={12} sm={6} md={8} lg={9}>
+                    <Grid item xs={12} sm={6} md={8} lg={8}>
                         <Item>
                             <b>User Dashboard</b>
                             <br></br>
