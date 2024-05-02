@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 
 
 import { useState, useEffect } from 'react'
-import { FormLabel, Tab, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
+import { Card, FormLabel, Tab, Table, TableBody, TableCell, TableRow, Toolbar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { objectIdToOKLCH } from '@/app/components/helpers';
 
