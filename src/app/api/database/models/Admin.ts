@@ -29,7 +29,7 @@ import { retrieve_the_admin_admin_type } from "../../Forms/Admin/retrieve_the_ad
 
 
 
-interface IAdmin extends Document {
+export interface IAdmin extends Document {
     person_ppsn: String;
 }
 

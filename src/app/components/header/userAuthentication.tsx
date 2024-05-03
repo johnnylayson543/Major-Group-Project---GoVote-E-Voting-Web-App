@@ -1,16 +1,35 @@
 'use strict';
+import { ITeller } from '@/app/api/database/models/Teller';
+import { IUser } from '@/app/api/database/models/User';
+import { IVoter } from '@/app/api/database/models/Voter';
+import { IAdmin } from '@/app/api/database/models/Admin';
 import React from 'react';
 import { createContext, useState, useEffect } from "react";
-export const UserContext = createContext(null);
+import { IPerson } from '@/app/api/database/models/Person';
+import { IVote } from '@/app/api/database/models/Vote';
+import { ICandidate } from '@/app/api/database/models/Candidate';
+export const UserContext = createContext<currentUserContextType | null>(null);
 
-export function UserAuthentication({ children }) {
+interface currentUserContextType {
+    user : IUser & Document | null
+    voter : IVoter & Document | null
+    teller: ITeller & Document | null
+    admin: IAdmin & Document | null
+    person: IPerson & Document | null
+    votes: Array<IVote & Document>
+    candidate: ICandidate & Document | null
+    user_information: Object | null
+}
+
+
+export function UserAuthentication({ children }):React.ReactElement {
 
     const [user, setUser] = useState(null);
     const [voter, setVoter] = useState(null);
     const [teller, setTeller] = useState(null);
     const [admin, setAdmin] = useState(null);
     const [person, setPerson] = useState(null);
-    const [votes, setVotes] = useState(null);
+    const [votes, setVotes] = useState([]);
     const [candidate, setCandidate] = useState(null);
     const [user_information, setUserInformation] = useState(null);
 
